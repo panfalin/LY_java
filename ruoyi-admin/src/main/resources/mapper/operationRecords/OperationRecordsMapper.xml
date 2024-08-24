@@ -1,0 +1,468 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.operationRecords.mapper.OperationRecordsMapper">
+    
+    <resultMap type="OperationRecords" id="OperationRecordsResult">
+        <result property="id"    column="id"    />
+        <result property="storeName"    column="store_name"    />
+        <result property="msku"    column="msku"    />
+        <result property="categoryLevel1"    column="category_level_1"    />
+        <result property="categoryLevel2"    column="category_level_2"    />
+        <result property="fnsku"    column="fnsku"    />
+        <result property="localSku"    column="local_sku"    />
+        <result property="mainSku"    column="main_sku"    />
+        <result property="productName"    column="product_name"    />
+        <result property="asin"    column="asin"    />
+        <result property="stockStatus"    column="stock_status"    />
+        <result property="sales7Days"    column="sales_7_days"    />
+        <result property="sales14Days"    column="sales_14_days"    />
+        <result property="sales30Days"    column="sales_30_days"    />
+        <result property="sales90Days"    column="sales_90_days"    />
+        <result property="avgDailySales"    column="avg_daily_sales"    />
+        <result property="procurementInTransit"    column="procurement_in_transit"    />
+        <result property="localInventory"    column="local_inventory"    />
+        <result property="available"    column="available"    />
+        <result property="awaitingStock"    column="awaiting_stock"    />
+        <result property="inTransit"    column="in_transit"    />
+        <result property="availableDays"    column="available_days"    />
+        <result property="procurementDays"    column="procurement_days"    />
+        <result property="remarks"    column="remarks"    />
+        <result property="reserved"    column="reserved"    />
+        <result property="plannedStockIn"    column="planned_stock_in"    />
+        <result property="salesPerson"    column="sales_person"    />
+        <result property="stockWarningDays"    column="stock_warning_days"    />
+        <result property="supplier"    column="supplier"    />
+        <result property="cost"    column="cost"    />
+        <result property="lifecycleStatus"    column="lifecycle_status"    />
+        <result property="minPurchaseQuantity"    column="min_purchase_quantity"    />
+        <result property="seasonalProductOffseason"    column="seasonal_product_offseason"    />
+        <result property="seasonalProductOffseasonDecline"    column="seasonal_product_offseason_decline"    />
+        <result property="seasonalProductPeak"    column="seasonal_product_peak"    />
+        <result property="seasonalProductPeakIncrease"    column="seasonal_product_peak_increase"    />
+        <result property="competitorSales"    column="competitor_sales"    />
+        <result property="marketCapacity"    column="market_capacity"    />
+        <result property="shelfTime"    column="shelf_time"    />
+        <result property="reshaper"    column="reshaper"    />
+        <result property="reshaping"    column="reshaping"    />
+        <result property="categoryRankLarge"    column="category_rank_large"    />
+        <result property="categoryRankSmall"    column="category_rank_small"    />
+        <result property="pageViewsPercentage"    column="page_views_percentage"    />
+        <result property="pageViewsTotal"    column="page_views_total"    />
+        <result property="conversionRate"    column="conversion_rate"    />
+        <result property="acos"    column="acos"    />
+        <result property="salesLast30Days"    column="sales_last_30_days"    />
+        <result property="profitMarginLast30Days"    column="profit_margin_last_30_days"    />
+        <result property="refundRateLast30Days"    column="refund_rate_last_30_days"    />
+        <result property="forecastAvailableDays"    column="forecast_available_days"    />
+        <result property="fbaAvailableDays"    column="fba_available_days"    />
+        <result property="fbaStockStatus"    column="fba_stock_status"    />
+        <result property="fbaLocalAvailableDays"    column="fba_local_available_days"    />
+        <result property="procurementPlanNeeded"    column="procurement_plan_needed"    />
+        <result property="minPurchaseQuantityComparison"    column="min_purchase_quantity_comparison"    />
+        <result property="preliminaryPurchaseQuantity"    column="preliminary_purchase_quantity"    />
+        <result property="minPurchaseQuantityComparisonTwo"    column="min_purchase_quantity_comparison_two"    />
+        <result property="adjustedPurchaseQuantity"    column="adjusted_purchase_quantity"    />
+        <result property="procurementOrderDate"    column="procurement_order_date"    />
+        <result property="estimatedLocalWarehouseArrival"    column="estimated_local_warehouse_arrival"    />
+        <result property="estimatedFbaShipment"    column="estimated_fba_shipment"    />
+        <result property="estimatedFbaWarehouse"    column="estimated_fba_warehouse"    />
+        <result property="estimatedFbaShelving"    column="estimated_fba_shelving"    />
+        <result property="preShelvingAvailableDays"    column="pre_shelving_available_days"    />
+        <result property="postShelvingAvailableDays"    column="post_shelving_available_days"    />
+        <result property="businessSuggestedPurchaseQuantity"    column="business_suggested_purchase_quantity"    />
+        <result property="businessSuggestedPaymentDate"    column="business_suggested_payment_date"    />
+        <result property="postShelvingAvailableDaysTwo"    column="post_shelving_available_days_two"    />
+        <result property="procurementAmount"    column="procurement_amount"    />
+        <result property="suggestedAttributionType"    column="suggested_attribution_type"    />
+        <result property="attributionDescription"    column="attribution_description"    />
+        <result property="operationsDate"    column="operations_date"    />
+        <result property="operationsRecord"    column="operations_record"    />
+        <result property="localInventoryTwo"    column="local_inventory_two"    />
+        <result property="fbaInventory"    column="fba_inventory"    />
+        <result property="localInventoryValue"    column="local_inventory_value"    />
+        <result property="fbaInventoryValue"    column="fba_inventory_value"    />
+        <result property="totalInventoryValue"    column="total_inventory_value"    />
+        <result property="isDelete"    column="is_delete"    />
+        <result property="createdAt"    column="created_at"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="version"    column="version"    />
+    </resultMap>
+
+    <sql id="selectOperationRecordsVo">
+        select id, store_name, msku, category_level_1, category_level_2, fnsku, local_sku, main_sku, product_name, asin, stock_status, sales_7_days, sales_14_days, sales_30_days, sales_90_days, avg_daily_sales, procurement_in_transit, local_inventory, available, awaiting_stock, in_transit, available_days, procurement_days, remarks, reserved, planned_stock_in, sales_person, stock_warning_days, supplier, cost, lifecycle_status, min_purchase_quantity, seasonal_product_offseason, seasonal_product_offseason_decline, seasonal_product_peak, seasonal_product_peak_increase, competitor_sales, market_capacity, shelf_time, reshaper, reshaping, category_rank_large, category_rank_small, page_views_percentage, page_views_total, conversion_rate, acos, sales_last_30_days, profit_margin_last_30_days, refund_rate_last_30_days, forecast_available_days, fba_available_days, fba_stock_status, fba_local_available_days, procurement_plan_needed, min_purchase_quantity_comparison, preliminary_purchase_quantity, min_purchase_quantity_comparison_two, adjusted_purchase_quantity, procurement_order_date, estimated_local_warehouse_arrival, estimated_fba_shipment, estimated_fba_warehouse, estimated_fba_shelving, pre_shelving_available_days, post_shelving_available_days, business_suggested_purchase_quantity, business_suggested_payment_date, post_shelving_available_days_two, procurement_amount, suggested_attribution_type, attribution_description, operations_date, operations_record, local_inventory_two, fba_inventory, local_inventory_value, fba_inventory_value, total_inventory_value, is_delete, created_at, update_time, create_by, update_by, version from operation_records
+    </sql>
+
+    <select id="selectOperationRecordsList" parameterType="OperationRecords" resultMap="OperationRecordsResult">
+        <include refid="selectOperationRecordsVo"/>
+        <where>  
+            <if test="storeName != null  and storeName != ''"> and store_name like concat('%', #{storeName}, '%')</if>
+            <if test="msku != null  and msku != ''"> and msku = #{msku}</if>
+            <if test="categoryLevel1 != null  and categoryLevel1 != ''"> and category_level_1 = #{categoryLevel1}</if>
+            <if test="categoryLevel2 != null  and categoryLevel2 != ''"> and category_level_2 = #{categoryLevel2}</if>
+            <if test="fnsku != null  and fnsku != ''"> and fnsku = #{fnsku}</if>
+            <if test="localSku != null  and localSku != ''"> and local_sku = #{localSku}</if>
+            <if test="mainSku != null  and mainSku != ''"> and main_sku = #{mainSku}</if>
+            <if test="productName != null  and productName != ''"> and product_name like concat('%', #{productName}, '%')</if>
+            <if test="asin != null  and asin != ''"> and asin = #{asin}</if>
+            <if test="stockStatus != null  and stockStatus != ''"> and stock_status = #{stockStatus}</if>
+            <if test="sales7Days != null  and sales7Days != ''"> and sales_7_days = #{sales7Days}</if>
+            <if test="sales14Days != null  and sales14Days != ''"> and sales_14_days = #{sales14Days}</if>
+            <if test="sales30Days != null  and sales30Days != ''"> and sales_30_days = #{sales30Days}</if>
+            <if test="sales90Days != null  and sales90Days != ''"> and sales_90_days = #{sales90Days}</if>
+            <if test="avgDailySales != null  and avgDailySales != ''"> and avg_daily_sales = #{avgDailySales}</if>
+            <if test="procurementInTransit != null  and procurementInTransit != ''"> and procurement_in_transit = #{procurementInTransit}</if>
+            <if test="localInventory != null  and localInventory != ''"> and local_inventory = #{localInventory}</if>
+            <if test="available != null  and available != ''"> and available = #{available}</if>
+            <if test="awaitingStock != null  and awaitingStock != ''"> and awaiting_stock = #{awaitingStock}</if>
+            <if test="inTransit != null  and inTransit != ''"> and in_transit = #{inTransit}</if>
+            <if test="availableDays != null  and availableDays != ''"> and available_days = #{availableDays}</if>
+            <if test="procurementDays != null  and procurementDays != ''"> and procurement_days = #{procurementDays}</if>
+            <if test="remarks != null  and remarks != ''"> and remarks = #{remarks}</if>
+            <if test="reserved != null  and reserved != ''"> and reserved = #{reserved}</if>
+            <if test="plannedStockIn != null  and plannedStockIn != ''"> and planned_stock_in = #{plannedStockIn}</if>
+            <if test="salesPerson != null  and salesPerson != ''"> and sales_person = #{salesPerson}</if>
+            <if test="stockWarningDays != null  and stockWarningDays != ''"> and stock_warning_days = #{stockWarningDays}</if>
+            <if test="supplier != null  and supplier != ''"> and supplier = #{supplier}</if>
+            <if test="cost != null  and cost != ''"> and cost = #{cost}</if>
+            <if test="lifecycleStatus != null  and lifecycleStatus != ''"> and lifecycle_status = #{lifecycleStatus}</if>
+            <if test="minPurchaseQuantity != null  and minPurchaseQuantity != ''"> and min_purchase_quantity = #{minPurchaseQuantity}</if>
+            <if test="seasonalProductOffseason != null  and seasonalProductOffseason != ''"> and seasonal_product_offseason = #{seasonalProductOffseason}</if>
+            <if test="seasonalProductOffseasonDecline != null  and seasonalProductOffseasonDecline != ''"> and seasonal_product_offseason_decline = #{seasonalProductOffseasonDecline}</if>
+            <if test="seasonalProductPeak != null  and seasonalProductPeak != ''"> and seasonal_product_peak = #{seasonalProductPeak}</if>
+            <if test="seasonalProductPeakIncrease != null  and seasonalProductPeakIncrease != ''"> and seasonal_product_peak_increase = #{seasonalProductPeakIncrease}</if>
+            <if test="competitorSales != null  and competitorSales != ''"> and competitor_sales = #{competitorSales}</if>
+            <if test="marketCapacity != null  and marketCapacity != ''"> and market_capacity = #{marketCapacity}</if>
+            <if test="shelfTime != null  and shelfTime != ''"> and shelf_time = #{shelfTime}</if>
+            <if test="reshaper != null  and reshaper != ''"> and reshaper = #{reshaper}</if>
+            <if test="reshaping != null  and reshaping != ''"> and reshaping = #{reshaping}</if>
+            <if test="categoryRankLarge != null  and categoryRankLarge != ''"> and category_rank_large = #{categoryRankLarge}</if>
+            <if test="categoryRankSmall != null  and categoryRankSmall != ''"> and category_rank_small = #{categoryRankSmall}</if>
+            <if test="pageViewsPercentage != null  and pageViewsPercentage != ''"> and page_views_percentage = #{pageViewsPercentage}</if>
+            <if test="pageViewsTotal != null  and pageViewsTotal != ''"> and page_views_total = #{pageViewsTotal}</if>
+            <if test="conversionRate != null  and conversionRate != ''"> and conversion_rate = #{conversionRate}</if>
+            <if test="acos != null  and acos != ''"> and acos = #{acos}</if>
+            <if test="salesLast30Days != null  and salesLast30Days != ''"> and sales_last_30_days = #{salesLast30Days}</if>
+            <if test="profitMarginLast30Days != null  and profitMarginLast30Days != ''"> and profit_margin_last_30_days = #{profitMarginLast30Days}</if>
+            <if test="refundRateLast30Days != null  and refundRateLast30Days != ''"> and refund_rate_last_30_days = #{refundRateLast30Days}</if>
+            <if test="forecastAvailableDays != null  and forecastAvailableDays != ''"> and forecast_available_days = #{forecastAvailableDays}</if>
+            <if test="fbaAvailableDays != null  and fbaAvailableDays != ''"> and fba_available_days = #{fbaAvailableDays}</if>
+            <if test="fbaStockStatus != null  and fbaStockStatus != ''"> and fba_stock_status = #{fbaStockStatus}</if>
+            <if test="fbaLocalAvailableDays != null  and fbaLocalAvailableDays != ''"> and fba_local_available_days = #{fbaLocalAvailableDays}</if>
+            <if test="procurementPlanNeeded != null  and procurementPlanNeeded != ''"> and procurement_plan_needed = #{procurementPlanNeeded}</if>
+            <if test="minPurchaseQuantityComparison != null  and minPurchaseQuantityComparison != ''"> and min_purchase_quantity_comparison = #{minPurchaseQuantityComparison}</if>
+            <if test="preliminaryPurchaseQuantity != null  and preliminaryPurchaseQuantity != ''"> and preliminary_purchase_quantity = #{preliminaryPurchaseQuantity}</if>
+            <if test="minPurchaseQuantityComparisonTwo != null  and minPurchaseQuantityComparisonTwo != ''"> and min_purchase_quantity_comparison_two = #{minPurchaseQuantityComparisonTwo}</if>
+            <if test="adjustedPurchaseQuantity != null  and adjustedPurchaseQuantity != ''"> and adjusted_purchase_quantity = #{adjustedPurchaseQuantity}</if>
+            <if test="procurementOrderDate != null  and procurementOrderDate != ''"> and procurement_order_date = #{procurementOrderDate}</if>
+            <if test="estimatedLocalWarehouseArrival != null  and estimatedLocalWarehouseArrival != ''"> and estimated_local_warehouse_arrival = #{estimatedLocalWarehouseArrival}</if>
+            <if test="estimatedFbaShipment != null  and estimatedFbaShipment != ''"> and estimated_fba_shipment = #{estimatedFbaShipment}</if>
+            <if test="estimatedFbaWarehouse != null  and estimatedFbaWarehouse != ''"> and estimated_fba_warehouse = #{estimatedFbaWarehouse}</if>
+            <if test="estimatedFbaShelving != null  and estimatedFbaShelving != ''"> and estimated_fba_shelving = #{estimatedFbaShelving}</if>
+            <if test="preShelvingAvailableDays != null  and preShelvingAvailableDays != ''"> and pre_shelving_available_days = #{preShelvingAvailableDays}</if>
+            <if test="postShelvingAvailableDays != null  and postShelvingAvailableDays != ''"> and post_shelving_available_days = #{postShelvingAvailableDays}</if>
+            <if test="businessSuggestedPurchaseQuantity != null  and businessSuggestedPurchaseQuantity != ''"> and business_suggested_purchase_quantity = #{businessSuggestedPurchaseQuantity}</if>
+            <if test="businessSuggestedPaymentDate != null  and businessSuggestedPaymentDate != ''"> and business_suggested_payment_date = #{businessSuggestedPaymentDate}</if>
+            <if test="postShelvingAvailableDaysTwo != null  and postShelvingAvailableDaysTwo != ''"> and post_shelving_available_days_two = #{postShelvingAvailableDaysTwo}</if>
+            <if test="procurementAmount != null  and procurementAmount != ''"> and procurement_amount = #{procurementAmount}</if>
+            <if test="suggestedAttributionType != null  and suggestedAttributionType != ''"> and suggested_attribution_type = #{suggestedAttributionType}</if>
+            <if test="attributionDescription != null  and attributionDescription != ''"> and attribution_description = #{attributionDescription}</if>
+            <if test="operationsDate != null  and operationsDate != ''"> and operations_date = #{operationsDate}</if>
+            <if test="operationsRecord != null  and operationsRecord != ''"> and operations_record = #{operationsRecord}</if>
+            <if test="localInventoryTwo != null  and localInventoryTwo != ''"> and local_inventory_two = #{localInventoryTwo}</if>
+            <if test="fbaInventory != null  and fbaInventory != ''"> and fba_inventory = #{fbaInventory}</if>
+            <if test="localInventoryValue != null  and localInventoryValue != ''"> and local_inventory_value = #{localInventoryValue}</if>
+            <if test="fbaInventoryValue != null  and fbaInventoryValue != ''"> and fba_inventory_value = #{fbaInventoryValue}</if>
+            <if test="totalInventoryValue != null  and totalInventoryValue != ''"> and total_inventory_value = #{totalInventoryValue}</if>
+            <if test="isDelete != null  and isDelete != ''"> and is_delete = #{isDelete}</if>
+            <if test="createdAt != null "> and created_at = #{createdAt}</if>
+            <if test="version != null "> and version = #{version}</if>
+        </where>
+    </select>
+    
+    <select id="selectOperationRecordsById" parameterType="Long" resultMap="OperationRecordsResult">
+        <include refid="selectOperationRecordsVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertOperationRecords" parameterType="OperationRecords" useGeneratedKeys="true" keyProperty="id">
+        insert into operation_records
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="storeName != null">store_name,</if>
+            <if test="msku != null">msku,</if>
+            <if test="categoryLevel1 != null">category_level_1,</if>
+            <if test="categoryLevel2 != null">category_level_2,</if>
+            <if test="fnsku != null">fnsku,</if>
+            <if test="localSku != null">local_sku,</if>
+            <if test="mainSku != null">main_sku,</if>
+            <if test="productName != null">product_name,</if>
+            <if test="asin != null">asin,</if>
+            <if test="stockStatus != null">stock_status,</if>
+            <if test="sales7Days != null">sales_7_days,</if>
+            <if test="sales14Days != null">sales_14_days,</if>
+            <if test="sales30Days != null">sales_30_days,</if>
+            <if test="sales90Days != null">sales_90_days,</if>
+            <if test="avgDailySales != null">avg_daily_sales,</if>
+            <if test="procurementInTransit != null">procurement_in_transit,</if>
+            <if test="localInventory != null">local_inventory,</if>
+            <if test="available != null">available,</if>
+            <if test="awaitingStock != null">awaiting_stock,</if>
+            <if test="inTransit != null">in_transit,</if>
+            <if test="availableDays != null">available_days,</if>
+            <if test="procurementDays != null">procurement_days,</if>
+            <if test="remarks != null">remarks,</if>
+            <if test="reserved != null">reserved,</if>
+            <if test="plannedStockIn != null">planned_stock_in,</if>
+            <if test="salesPerson != null">sales_person,</if>
+            <if test="stockWarningDays != null">stock_warning_days,</if>
+            <if test="supplier != null">supplier,</if>
+            <if test="cost != null">cost,</if>
+            <if test="lifecycleStatus != null">lifecycle_status,</if>
+            <if test="minPurchaseQuantity != null">min_purchase_quantity,</if>
+            <if test="seasonalProductOffseason != null">seasonal_product_offseason,</if>
+            <if test="seasonalProductOffseasonDecline != null">seasonal_product_offseason_decline,</if>
+            <if test="seasonalProductPeak != null">seasonal_product_peak,</if>
+            <if test="seasonalProductPeakIncrease != null">seasonal_product_peak_increase,</if>
+            <if test="competitorSales != null">competitor_sales,</if>
+            <if test="marketCapacity != null">market_capacity,</if>
+            <if test="shelfTime != null">shelf_time,</if>
+            <if test="reshaper != null">reshaper,</if>
+            <if test="reshaping != null">reshaping,</if>
+            <if test="categoryRankLarge != null">category_rank_large,</if>
+            <if test="categoryRankSmall != null">category_rank_small,</if>
+            <if test="pageViewsPercentage != null">page_views_percentage,</if>
+            <if test="pageViewsTotal != null">page_views_total,</if>
+            <if test="conversionRate != null">conversion_rate,</if>
+            <if test="acos != null">acos,</if>
+            <if test="salesLast30Days != null">sales_last_30_days,</if>
+            <if test="profitMarginLast30Days != null">profit_margin_last_30_days,</if>
+            <if test="refundRateLast30Days != null">refund_rate_last_30_days,</if>
+            <if test="forecastAvailableDays != null">forecast_available_days,</if>
+            <if test="fbaAvailableDays != null">fba_available_days,</if>
+            <if test="fbaStockStatus != null">fba_stock_status,</if>
+            <if test="fbaLocalAvailableDays != null">fba_local_available_days,</if>
+            <if test="procurementPlanNeeded != null">procurement_plan_needed,</if>
+            <if test="minPurchaseQuantityComparison != null">min_purchase_quantity_comparison,</if>
+            <if test="preliminaryPurchaseQuantity != null">preliminary_purchase_quantity,</if>
+            <if test="minPurchaseQuantityComparisonTwo != null">min_purchase_quantity_comparison_two,</if>
+            <if test="adjustedPurchaseQuantity != null">adjusted_purchase_quantity,</if>
+            <if test="procurementOrderDate != null">procurement_order_date,</if>
+            <if test="estimatedLocalWarehouseArrival != null">estimated_local_warehouse_arrival,</if>
+            <if test="estimatedFbaShipment != null">estimated_fba_shipment,</if>
+            <if test="estimatedFbaWarehouse != null">estimated_fba_warehouse,</if>
+            <if test="estimatedFbaShelving != null">estimated_fba_shelving,</if>
+            <if test="preShelvingAvailableDays != null">pre_shelving_available_days,</if>
+            <if test="postShelvingAvailableDays != null">post_shelving_available_days,</if>
+            <if test="businessSuggestedPurchaseQuantity != null">business_suggested_purchase_quantity,</if>
+            <if test="businessSuggestedPaymentDate != null">business_suggested_payment_date,</if>
+            <if test="postShelvingAvailableDaysTwo != null">post_shelving_available_days_two,</if>
+            <if test="procurementAmount != null">procurement_amount,</if>
+            <if test="suggestedAttributionType != null">suggested_attribution_type,</if>
+            <if test="attributionDescription != null">attribution_description,</if>
+            <if test="operationsDate != null">operations_date,</if>
+            <if test="operationsRecord != null">operations_record,</if>
+            <if test="localInventoryTwo != null">local_inventory_two,</if>
+            <if test="fbaInventory != null">fba_inventory,</if>
+            <if test="localInventoryValue != null">local_inventory_value,</if>
+            <if test="fbaInventoryValue != null">fba_inventory_value,</if>
+            <if test="totalInventoryValue != null">total_inventory_value,</if>
+            <if test="isDelete != null and isDelete != ''">is_delete,</if>
+            <if test="createdAt != null">created_at,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="version != null">version,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="storeName != null">#{storeName},</if>
+            <if test="msku != null">#{msku},</if>
+            <if test="categoryLevel1 != null">#{categoryLevel1},</if>
+            <if test="categoryLevel2 != null">#{categoryLevel2},</if>
+            <if test="fnsku != null">#{fnsku},</if>
+            <if test="localSku != null">#{localSku},</if>
+            <if test="mainSku != null">#{mainSku},</if>
+            <if test="productName != null">#{productName},</if>
+            <if test="asin != null">#{asin},</if>
+            <if test="stockStatus != null">#{stockStatus},</if>
+            <if test="sales7Days != null">#{sales7Days},</if>
+            <if test="sales14Days != null">#{sales14Days},</if>
+            <if test="sales30Days != null">#{sales30Days},</if>
+            <if test="sales90Days != null">#{sales90Days},</if>
+            <if test="avgDailySales != null">#{avgDailySales},</if>
+            <if test="procurementInTransit != null">#{procurementInTransit},</if>
+            <if test="localInventory != null">#{localInventory},</if>
+            <if test="available != null">#{available},</if>
+            <if test="awaitingStock != null">#{awaitingStock},</if>
+            <if test="inTransit != null">#{inTransit},</if>
+            <if test="availableDays != null">#{availableDays},</if>
+            <if test="procurementDays != null">#{procurementDays},</if>
+            <if test="remarks != null">#{remarks},</if>
+            <if test="reserved != null">#{reserved},</if>
+            <if test="plannedStockIn != null">#{plannedStockIn},</if>
+            <if test="salesPerson != null">#{salesPerson},</if>
+            <if test="stockWarningDays != null">#{stockWarningDays},</if>
+            <if test="supplier != null">#{supplier},</if>
+            <if test="cost != null">#{cost},</if>
+            <if test="lifecycleStatus != null">#{lifecycleStatus},</if>
+            <if test="minPurchaseQuantity != null">#{minPurchaseQuantity},</if>
+            <if test="seasonalProductOffseason != null">#{seasonalProductOffseason},</if>
+            <if test="seasonalProductOffseasonDecline != null">#{seasonalProductOffseasonDecline},</if>
+            <if test="seasonalProductPeak != null">#{seasonalProductPeak},</if>
+            <if test="seasonalProductPeakIncrease != null">#{seasonalProductPeakIncrease},</if>
+            <if test="competitorSales != null">#{competitorSales},</if>
+            <if test="marketCapacity != null">#{marketCapacity},</if>
+            <if test="shelfTime != null">#{shelfTime},</if>
+            <if test="reshaper != null">#{reshaper},</if>
+            <if test="reshaping != null">#{reshaping},</if>
+            <if test="categoryRankLarge != null">#{categoryRankLarge},</if>
+            <if test="categoryRankSmall != null">#{categoryRankSmall},</if>
+            <if test="pageViewsPercentage != null">#{pageViewsPercentage},</if>
+            <if test="pageViewsTotal != null">#{pageViewsTotal},</if>
+            <if test="conversionRate != null">#{conversionRate},</if>
+            <if test="acos != null">#{acos},</if>
+            <if test="salesLast30Days != null">#{salesLast30Days},</if>
+            <if test="profitMarginLast30Days != null">#{profitMarginLast30Days},</if>
+            <if test="refundRateLast30Days != null">#{refundRateLast30Days},</if>
+            <if test="forecastAvailableDays != null">#{forecastAvailableDays},</if>
+            <if test="fbaAvailableDays != null">#{fbaAvailableDays},</if>
+            <if test="fbaStockStatus != null">#{fbaStockStatus},</if>
+            <if test="fbaLocalAvailableDays != null">#{fbaLocalAvailableDays},</if>
+            <if test="procurementPlanNeeded != null">#{procurementPlanNeeded},</if>
+            <if test="minPurchaseQuantityComparison != null">#{minPurchaseQuantityComparison},</if>
+            <if test="preliminaryPurchaseQuantity != null">#{preliminaryPurchaseQuantity},</if>
+            <if test="minPurchaseQuantityComparisonTwo != null">#{minPurchaseQuantityComparisonTwo},</if>
+            <if test="adjustedPurchaseQuantity != null">#{adjustedPurchaseQuantity},</if>
+            <if test="procurementOrderDate != null">#{procurementOrderDate},</if>
+            <if test="estimatedLocalWarehouseArrival != null">#{estimatedLocalWarehouseArrival},</if>
+            <if test="estimatedFbaShipment != null">#{estimatedFbaShipment},</if>
+            <if test="estimatedFbaWarehouse != null">#{estimatedFbaWarehouse},</if>
+            <if test="estimatedFbaShelving != null">#{estimatedFbaShelving},</if>
+            <if test="preShelvingAvailableDays != null">#{preShelvingAvailableDays},</if>
+            <if test="postShelvingAvailableDays != null">#{postShelvingAvailableDays},</if>
+            <if test="businessSuggestedPurchaseQuantity != null">#{businessSuggestedPurchaseQuantity},</if>
+            <if test="businessSuggestedPaymentDate != null">#{businessSuggestedPaymentDate},</if>
+            <if test="postShelvingAvailableDaysTwo != null">#{postShelvingAvailableDaysTwo},</if>
+            <if test="procurementAmount != null">#{procurementAmount},</if>
+            <if test="suggestedAttributionType != null">#{suggestedAttributionType},</if>
+            <if test="attributionDescription != null">#{attributionDescription},</if>
+            <if test="operationsDate != null">#{operationsDate},</if>
+            <if test="operationsRecord != null">#{operationsRecord},</if>
+            <if test="localInventoryTwo != null">#{localInventoryTwo},</if>
+            <if test="fbaInventory != null">#{fbaInventory},</if>
+            <if test="localInventoryValue != null">#{localInventoryValue},</if>
+            <if test="fbaInventoryValue != null">#{fbaInventoryValue},</if>
+            <if test="totalInventoryValue != null">#{totalInventoryValue},</if>
+            <if test="isDelete != null and isDelete != ''">#{isDelete},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="version != null">#{version},</if>
+         </trim>
+    </insert>
+
+    <update id="updateOperationRecords" parameterType="OperationRecords">
+        update operation_records
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="storeName != null">store_name = #{storeName},</if>
+            <if test="msku != null">msku = #{msku},</if>
+            <if test="categoryLevel1 != null">category_level_1 = #{categoryLevel1},</if>
+            <if test="categoryLevel2 != null">category_level_2 = #{categoryLevel2},</if>
+            <if test="fnsku != null">fnsku = #{fnsku},</if>
+            <if test="localSku != null">local_sku = #{localSku},</if>
+            <if test="mainSku != null">main_sku = #{mainSku},</if>
+            <if test="productName != null">product_name = #{productName},</if>
+            <if test="asin != null">asin = #{asin},</if>
+            <if test="stockStatus != null">stock_status = #{stockStatus},</if>
+            <if test="sales7Days != null">sales_7_days = #{sales7Days},</if>
+            <if test="sales14Days != null">sales_14_days = #{sales14Days},</if>
+            <if test="sales30Days != null">sales_30_days = #{sales30Days},</if>
+            <if test="sales90Days != null">sales_90_days = #{sales90Days},</if>
+            <if test="avgDailySales != null">avg_daily_sales = #{avgDailySales},</if>
+            <if test="procurementInTransit != null">procurement_in_transit = #{procurementInTransit},</if>
+            <if test="localInventory != null">local_inventory = #{localInventory},</if>
+            <if test="available != null">available = #{available},</if>
+            <if test="awaitingStock != null">awaiting_stock = #{awaitingStock},</if>
+            <if test="inTransit != null">in_transit = #{inTransit},</if>
+            <if test="availableDays != null">available_days = #{availableDays},</if>
+            <if test="procurementDays != null">procurement_days = #{procurementDays},</if>
+            <if test="remarks != null">remarks = #{remarks},</if>
+            <if test="reserved != null">reserved = #{reserved},</if>
+            <if test="plannedStockIn != null">planned_stock_in = #{plannedStockIn},</if>
+            <if test="salesPerson != null">sales_person = #{salesPerson},</if>
+            <if test="stockWarningDays != null">stock_warning_days = #{stockWarningDays},</if>
+            <if test="supplier != null">supplier = #{supplier},</if>
+            <if test="cost != null">cost = #{cost},</if>
+            <if test="lifecycleStatus != null">lifecycle_status = #{lifecycleStatus},</if>
+            <if test="minPurchaseQuantity != null">min_purchase_quantity = #{minPurchaseQuantity},</if>
+            <if test="seasonalProductOffseason != null">seasonal_product_offseason = #{seasonalProductOffseason},</if>
+            <if test="seasonalProductOffseasonDecline != null">seasonal_product_offseason_decline = #{seasonalProductOffseasonDecline},</if>
+            <if test="seasonalProductPeak != null">seasonal_product_peak = #{seasonalProductPeak},</if>
+            <if test="seasonalProductPeakIncrease != null">seasonal_product_peak_increase = #{seasonalProductPeakIncrease},</if>
+            <if test="competitorSales != null">competitor_sales = #{competitorSales},</if>
+            <if test="marketCapacity != null">market_capacity = #{marketCapacity},</if>
+            <if test="shelfTime != null">shelf_time = #{shelfTime},</if>
+            <if test="reshaper != null">reshaper = #{reshaper},</if>
+            <if test="reshaping != null">reshaping = #{reshaping},</if>
+            <if test="categoryRankLarge != null">category_rank_large = #{categoryRankLarge},</if>
+            <if test="categoryRankSmall != null">category_rank_small = #{categoryRankSmall},</if>
+            <if test="pageViewsPercentage != null">page_views_percentage = #{pageViewsPercentage},</if>
+            <if test="pageViewsTotal != null">page_views_total = #{pageViewsTotal},</if>
+            <if test="conversionRate != null">conversion_rate = #{conversionRate},</if>
+            <if test="acos != null">acos = #{acos},</if>
+            <if test="salesLast30Days != null">sales_last_30_days = #{salesLast30Days},</if>
+            <if test="profitMarginLast30Days != null">profit_margin_last_30_days = #{profitMarginLast30Days},</if>
+            <if test="refundRateLast30Days != null">refund_rate_last_30_days = #{refundRateLast30Days},</if>
+            <if test="forecastAvailableDays != null">forecast_available_days = #{forecastAvailableDays},</if>
+            <if test="fbaAvailableDays != null">fba_available_days = #{fbaAvailableDays},</if>
+            <if test="fbaStockStatus != null">fba_stock_status = #{fbaStockStatus},</if>
+            <if test="fbaLocalAvailableDays != null">fba_local_available_days = #{fbaLocalAvailableDays},</if>
+            <if test="procurementPlanNeeded != null">procurement_plan_needed = #{procurementPlanNeeded},</if>
+            <if test="minPurchaseQuantityComparison != null">min_purchase_quantity_comparison = #{minPurchaseQuantityComparison},</if>
+            <if test="preliminaryPurchaseQuantity != null">preliminary_purchase_quantity = #{preliminaryPurchaseQuantity},</if>
+            <if test="minPurchaseQuantityComparisonTwo != null">min_purchase_quantity_comparison_two = #{minPurchaseQuantityComparisonTwo},</if>
+            <if test="adjustedPurchaseQuantity != null">adjusted_purchase_quantity = #{adjustedPurchaseQuantity},</if>
+            <if test="procurementOrderDate != null">procurement_order_date = #{procurementOrderDate},</if>
+            <if test="estimatedLocalWarehouseArrival != null">estimated_local_warehouse_arrival = #{estimatedLocalWarehouseArrival},</if>
+            <if test="estimatedFbaShipment != null">estimated_fba_shipment = #{estimatedFbaShipment},</if>
+            <if test="estimatedFbaWarehouse != null">estimated_fba_warehouse = #{estimatedFbaWarehouse},</if>
+            <if test="estimatedFbaShelving != null">estimated_fba_shelving = #{estimatedFbaShelving},</if>
+            <if test="preShelvingAvailableDays != null">pre_shelving_available_days = #{preShelvingAvailableDays},</if>
+            <if test="postShelvingAvailableDays != null">post_shelving_available_days = #{postShelvingAvailableDays},</if>
+            <if test="businessSuggestedPurchaseQuantity != null">business_suggested_purchase_quantity = #{businessSuggestedPurchaseQuantity},</if>
+            <if test="businessSuggestedPaymentDate != null">business_suggested_payment_date = #{businessSuggestedPaymentDate},</if>
+            <if test="postShelvingAvailableDaysTwo != null">post_shelving_available_days_two = #{postShelvingAvailableDaysTwo},</if>
+            <if test="procurementAmount != null">procurement_amount = #{procurementAmount},</if>
+            <if test="suggestedAttributionType != null">suggested_attribution_type = #{suggestedAttributionType},</if>
+            <if test="attributionDescription != null">attribution_description = #{attributionDescription},</if>
+            <if test="operationsDate != null">operations_date = #{operationsDate},</if>
+            <if test="operationsRecord != null">operations_record = #{operationsRecord},</if>
+            <if test="localInventoryTwo != null">local_inventory_two = #{localInventoryTwo},</if>
+            <if test="fbaInventory != null">fba_inventory = #{fbaInventory},</if>
+            <if test="localInventoryValue != null">local_inventory_value = #{localInventoryValue},</if>
+            <if test="fbaInventoryValue != null">fba_inventory_value = #{fbaInventoryValue},</if>
+            <if test="totalInventoryValue != null">total_inventory_value = #{totalInventoryValue},</if>
+            <if test="isDelete != null and isDelete != ''">is_delete = #{isDelete},</if>
+            <if test="createdAt != null">created_at = #{createdAt},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="version != null">version = #{version},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteOperationRecordsById" parameterType="Long">
+        delete from operation_records where id = #{id}
+    </delete>
+
+    <delete id="deleteOperationRecordsByIds" parameterType="String">
+        delete from operation_records where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
