@@ -1,0 +1,843 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.amzlog.mapper.AsinSkuAnalysisMapper">
+    
+    <resultMap type="AsinSkuAnalysis" id="AsinSkuAnalysisResult">
+        <result property="id"    column="id"    />
+        <result property="ASIN"    column="ASIN"    />
+        <result property="MSKU"    column="MSKU"    />
+        <result property="Sales"    column="Sales"    />
+        <result property="Development"    column="Development"    />
+        <result property="Designer"    column="Designer"    />
+        <result property="ListingDate"    column="ListingDate"    />
+        <result property="CustomTags"    column="CustomTags"    />
+        <result property="SKULog"    column="SKULog"    />
+        <result property="Status"    column="Status"    />
+        <result property="AnalysisCategory"    column="AnalysisCategory"    />
+        <result property="AnalysisContent"    column="AnalysisContent"    />
+        <result property="ActionContent"    column="ActionContent"    />
+        <result property="CompetitorASIN"    column="CompetitorASIN"    />
+        <result property="CompetitorBrand"    column="CompetitorBrand"    />
+        <result property="CompetitorSubRank"    column="CompetitorSubRank"    />
+        <result property="CompetitorMainRank"    column="CompetitorMainRank"    />
+        <result property="CompetitorMonthlySales"    column="CompetitorMonthlySales"    />
+        <result property="CompetitorDailySales"    column="CompetitorDailySales"    />
+        <result property="CompetitorPrice"    column="CompetitorPrice"    />
+        <result property="CompetitorGrossMargin"    column="CompetitorGrossMargin"    />
+        <result property="CompetitorDailyProfit"    column="CompetitorDailyProfit"    />
+        <result property="CompetitorVariants"    column="CompetitorVariants"    />
+        <result property="CompetitorListingDate"    column="CompetitorListingDate"    />
+        <result property="CompetitorReviews"    column="CompetitorReviews"    />
+        <result property="CompetitorRating"    column="CompetitorRating"    />
+        <result property="CompetitorCopyQuality"    column="CompetitorCopyQuality"    />
+        <result property="CompetitorRelisting"    column="CompetitorRelisting"    />
+        <result property="CompetitorASIN2"    column="CompetitorASIN2"    />
+        <result property="MarketMonthlyCapacity"    column="MarketMonthlyCapacity"    />
+        <result property="TargetDailySales"    column="TargetDailySales"    />
+        <result property="TargetPrice"    column="TargetPrice"    />
+        <result property="TargetDailyRevenue"    column="TargetDailyRevenue"    />
+        <result property="TargetGrossMargin"    column="TargetGrossMargin"    />
+        <result property="TargetDailyProfit"    column="TargetDailyProfit"    />
+        <result property="TargetSubRank"    column="TargetSubRank"    />
+        <result property="TargetMainRank"    column="TargetMainRank"    />
+        <result property="TargetCapitalUtilization"    column="TargetCapitalUtilization"    />
+        <result property="LastMonthProfit"    column="LastMonthProfit"    />
+        <result property="LastMonthDailyProfit"    column="LastMonthDailyProfit"    />
+        <result property="TargetLast30DaysTotalProfit"    column="TargetLast30DaysTotalProfit"    />
+        <result property="ActualLast30DaysTotalProfit"    column="ActualLast30DaysTotalProfit"    />
+        <result property="ActualLast14DaysTotalProfit"    column="ActualLast14DaysTotalProfit"    />
+        <result property="ActualLast7DaysTotalProfit"    column="ActualLast7DaysTotalProfit"    />
+        <result property="TotalInventoryAmountLast30Days"    column="TotalInventoryAmountLast30Days"    />
+        <result property="CapitalUtilizationLast30Days"    column="CapitalUtilizationLast30Days"    />
+        <result property="ActualLast7DaysSales"    column="ActualLast7DaysSales"    />
+        <result property="LastMonthTotalSales"    column="LastMonthTotalSales"    />
+        <result property="LastMonthDailySales"    column="LastMonthDailySales"    />
+        <result property="TargetLast30DaysTotalSales"    column="TargetLast30DaysTotalSales"    />
+        <result property="ActualLast30DaysTotalSales"    column="ActualLast30DaysTotalSales"    />
+        <result property="ActualLast14DaysTotalSales"    column="ActualLast14DaysTotalSales"    />
+        <result property="ActualLast7DaysTotalSales"    column="ActualLast7DaysTotalSales"    />
+        <result property="AnalysisExecutionReview"    column="AnalysisExecutionReview"    />
+        <result property="LastMonthProfitRate"    column="LastMonthProfitRate"    />
+        <result property="TargetLast30DaysProfitRate"    column="TargetLast30DaysProfitRate"    />
+        <result property="ActualLast30DaysProfitRate"    column="ActualLast30DaysProfitRate"    />
+        <result property="ActualLast14DaysProfitRate"    column="ActualLast14DaysProfitRate"    />
+        <result property="ActualLast7DaysProfitRate"    column="ActualLast7DaysProfitRate"    />
+        <result property="AnalysisExecutionReview2"    column="AnalysisExecutionReview2"    />
+        <result property="LastMonthInventoryTurnoverDays"    column="LastMonthInventoryTurnoverDays"    />
+        <result property="CurrentTargetInventoryTurnoverDays"    column="CurrentTargetInventoryTurnoverDays"    />
+        <result property="ActualLast7DaysInventoryTurnoverDays"    column="ActualLast7DaysInventoryTurnoverDays"    />
+        <result property="AnalysisExecutionReview3"    column="AnalysisExecutionReview3"    />
+        <result property="TargetLast14DaysAdBudget"    column="TargetLast14DaysAdBudget"    />
+        <result property="ActualLast14DaysAdSpending"    column="ActualLast14DaysAdSpending"    />
+        <result property="TotalAdSpendingLast30Days"    column="TotalAdSpendingLast30Days"    />
+        <result property="LastMonthAdSpendingRatio"    column="LastMonthAdSpendingRatio"    />
+        <result property="TargetLast30DaysAdSpendingRatio"    column="TargetLast30DaysAdSpendingRatio"    />
+        <result property="ActualLast30DaysAdSpendingRatio"    column="ActualLast30DaysAdSpendingRatio"    />
+        <result property="ActualLast14DaysAdSpendingRatio"    column="ActualLast14DaysAdSpendingRatio"    />
+        <result property="ActualLast7DaysAdSpendingRatio"    column="ActualLast7DaysAdSpendingRatio"    />
+        <result property="TotalAdExposureLast30Days"    column="TotalAdExposureLast30Days"    />
+        <result property="TotalAdExposureLast14Days"    column="TotalAdExposureLast14Days"    />
+        <result property="TotalAdExposureLast7Days"    column="TotalAdExposureLast7Days"    />
+        <result property="TotalAdClicksLast30Days"    column="TotalAdClicksLast30Days"    />
+        <result property="TotalAdClicksLast14Days"    column="TotalAdClicksLast14Days"    />
+        <result property="TotalAdClicksLast7Days"    column="TotalAdClicksLast7Days"    />
+        <result property="AdConversionRateLast30Days"    column="AdConversionRateLast30Days"    />
+        <result property="AdConversionRateLast14Days"    column="AdConversionRateLast14Days"    />
+        <result property="AdConversionRateLast7Days"    column="AdConversionRateLast7Days"    />
+        <result property="ACOSLast30Days"    column="ACOSLast30Days"    />
+        <result property="ACOSLast14Days"    column="ACOSLast14Days"    />
+        <result property="ACOSLast7Days"    column="ACOSLast7Days"    />
+        <result property="TargetACOSLast30Days"    column="TargetACOSLast30Days"    />
+        <result property="AnalysisExecutionReview4"    column="AnalysisExecutionReview4"    />
+        <result property="TotalPageViewsLastMonth"    column="TotalPageViewsLastMonth"    />
+        <result property="TargetTotalPageViewsLast30Days"    column="TargetTotalPageViewsLast30Days"    />
+        <result property="ActualTotalPageViewsLast30Days"    column="ActualTotalPageViewsLast30Days"    />
+        <result property="ActualTotalPageViewsLast14Days"    column="ActualTotalPageViewsLast14Days"    />
+        <result property="ActualTotalPageViewsLast7Days"    column="ActualTotalPageViewsLast7Days"    />
+        <result property="AnalysisExecutionReview5"    column="AnalysisExecutionReview5"    />
+        <result property="ConversionRateLastMonth"    column="ConversionRateLastMonth"    />
+        <result property="TargetTotalConversionRateLast30Days"    column="TargetTotalConversionRateLast30Days"    />
+        <result property="ActualTotalConversionRateLast30Days"    column="ActualTotalConversionRateLast30Days"    />
+        <result property="ActualTotalConversionRateLast14Days"    column="ActualTotalConversionRateLast14Days"    />
+        <result property="ActualTotalConversionRateLast7Days"    column="ActualTotalConversionRateLast7Days"    />
+        <result property="AnalysisExecutionReview6"    column="AnalysisExecutionReview6"    />
+        <result property="SPAd"    column="SPAd"    />
+        <result property="ROILast30DaysSPAd"    column="ROILast30DaysSPAd"    />
+        <result property="ROILast14DaysSPAd"    column="ROILast14DaysSPAd"    />
+        <result property="TotalAdExposureLast30DaysSPAd"    column="TotalAdExposureLast30DaysSPAd"    />
+        <result property="TotalAdExposureLast14DaysSPAd"    column="TotalAdExposureLast14DaysSPAd"    />
+        <result property="TotalAdClicksLast30DaysSPAd"    column="TotalAdClicksLast30DaysSPAd"    />
+        <result property="TotalAdClicksLast14DaysSPAd"    column="TotalAdClicksLast14DaysSPAd"    />
+        <result property="AdConversionRateLast30DaysSPAd"    column="AdConversionRateLast30DaysSPAd"    />
+        <result property="AdConversionRateLast14DaysSPAd"    column="AdConversionRateLast14DaysSPAd"    />
+        <result property="ACOSLast30DaysSPAd"    column="ACOSLast30DaysSPAd"    />
+        <result property="ACOSLast14DaysSPAd"    column="ACOSLast14DaysSPAd"    />
+        <result property="AnalysisExecutionReviewSPAd"    column="AnalysisExecutionReviewSPAd"    />
+        <result property="SDAd"    column="SDAd"    />
+        <result property="ROILast30DaysSDAd"    column="ROILast30DaysSDAd"    />
+        <result property="ROILast14DaysSDAd"    column="ROILast14DaysSDAd"    />
+        <result property="TotalAdExposureLast30DaysSDAd"    column="TotalAdExposureLast30DaysSDAd"    />
+        <result property="TotalAdExposureLast14DaysSDAd"    column="TotalAdExposureLast14DaysSDAd"    />
+        <result property="TotalAdClicksLast30DaysSDAd"    column="TotalAdClicksLast30DaysSDAd"    />
+        <result property="TotalAdClicksLast14DaysSDAd"    column="TotalAdClicksLast14DaysSDAd"    />
+        <result property="AdConversionRateLast30DaysSDAd"    column="AdConversionRateLast30DaysSDAd"    />
+        <result property="AdConversionRateLast14DaysSDAd"    column="AdConversionRateLast14DaysSDAd"    />
+        <result property="ACOSLast30DaysSDAd"    column="ACOSLast30DaysSDAd"    />
+        <result property="ACOSLast14DaysSDAd"    column="ACOSLast14DaysSDAd"    />
+        <result property="AnalysisExecutionReviewSDAd"    column="AnalysisExecutionReviewSDAd"    />
+        <result property="SBad"    column="SBad"    />
+        <result property="ROILast30DaysSBad"    column="ROILast30DaysSBad"    />
+        <result property="ROILast14DaysSBad"    column="ROILast14DaysSBad"    />
+        <result property="TotalAdExposureLast30DaysSBad"    column="TotalAdExposureLast30DaysSBad"    />
+        <result property="TotalAdExposureLast14DaysSBad"    column="TotalAdExposureLast14DaysSBad"    />
+        <result property="TotalAdClicksLast30DaysSBad"    column="TotalAdClicksLast30DaysSBad"    />
+        <result property="TotalAdClicksLast14DaysSBad"    column="TotalAdClicksLast14DaysSBad"    />
+        <result property="AdConversionRateLast30DaysSBad"    column="AdConversionRateLast30DaysSBad"    />
+        <result property="AdConversionRateLast14DaysSBad"    column="AdConversionRateLast14DaysSBad"    />
+        <result property="ACOSLast30DaysSBad"    column="ACOSLast30DaysSBad"    />
+        <result property="ACOSLast14DaysSBad"    column="ACOSLast14DaysSBad"    />
+        <result property="AnalysisExecutionReviewSBad"    column="AnalysisExecutionReviewSBad"    />
+        <result property="RefundRateLastMonth"    column="RefundRateLastMonth"    />
+        <result property="TargetRefundRateLast30Days"    column="TargetRefundRateLast30Days"    />
+        <result property="ActualRefundRateLast30Days"    column="ActualRefundRateLast30Days"    />
+        <result property="ActualRefundRateLast14Days"    column="ActualRefundRateLast14Days"    />
+        <result property="ActualRefundRateLast7Days"    column="ActualRefundRateLast7Days"    />
+        <result property="AnalysisExecutionReview7"    column="AnalysisExecutionReview7"    />
+        <result property="ListingAgeMoreThan3Months"    column="ListingAgeMoreThan3Months"    />
+        <result property="SalesVelocity"    column="SalesVelocity"    />
+        <result property="AdSpendingLastMonth"    column="AdSpendingLastMonth"    />
+        <result property="AdSalesLastMonth"    column="AdSalesLastMonth"    />
+        <result property="ROILastMonth"    column="ROILastMonth"    />
+        <result property="LocalInventory"    column="LocalInventory"    />
+        <result property="LocalProcurementInTransit"    column="LocalProcurementInTransit"    />
+        <result property="FBASellableInventory"    column="FBASellableInventory"    />
+        <result property="FBAInTransitInventory"    column="FBAInTransitInventory"    />
+        <result property="LocalInventoryValue"    column="LocalInventoryValue"    />
+        <result property="LocalProcurementInTransitValue"    column="LocalProcurementInTransitValue"    />
+        <result property="FBASellableInventoryValue"    column="FBASellableInventoryValue"    />
+        <result property="FBAInTransitInventoryValue"    column="FBAInTransitInventoryValue"    />
+        <result property="TotalInventoryValue"    column="TotalInventoryValue"    />
+        <result property="CapitalUtilizationLastMonth"    column="CapitalUtilizationLastMonth"    />
+        <result property="isDelete"    column="is_delete"    />
+        <result property="createdAt"    column="created_at"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="updateBy"    column="update_by"    />
+    </resultMap>
+
+    <sql id="selectAsinSkuAnalysisVo">
+        select id, ASIN, MSKU, Sales, Development, Designer, ListingDate, CustomTags, SKULog, Status, AnalysisCategory, AnalysisContent, ActionContent, CompetitorASIN, CompetitorBrand, CompetitorSubRank, CompetitorMainRank, CompetitorMonthlySales, CompetitorDailySales, CompetitorPrice, CompetitorGrossMargin, CompetitorDailyProfit, CompetitorVariants, CompetitorListingDate, CompetitorReviews, CompetitorRating, CompetitorCopyQuality, CompetitorRelisting, CompetitorASIN2, MarketMonthlyCapacity, TargetDailySales, TargetPrice, TargetDailyRevenue, TargetGrossMargin, TargetDailyProfit, TargetSubRank, TargetMainRank, TargetCapitalUtilization, LastMonthProfit, LastMonthDailyProfit, TargetLast30DaysTotalProfit, ActualLast30DaysTotalProfit, ActualLast14DaysTotalProfit, ActualLast7DaysTotalProfit, TotalInventoryAmountLast30Days, CapitalUtilizationLast30Days, ActualLast7DaysSales, LastMonthTotalSales, LastMonthDailySales, TargetLast30DaysTotalSales, ActualLast30DaysTotalSales, ActualLast14DaysTotalSales, ActualLast7DaysTotalSales, AnalysisExecutionReview, LastMonthProfitRate, TargetLast30DaysProfitRate, ActualLast30DaysProfitRate, ActualLast14DaysProfitRate, ActualLast7DaysProfitRate, AnalysisExecutionReview2, LastMonthInventoryTurnoverDays, CurrentTargetInventoryTurnoverDays, ActualLast7DaysInventoryTurnoverDays, AnalysisExecutionReview3, TargetLast14DaysAdBudget, ActualLast14DaysAdSpending, TotalAdSpendingLast30Days, LastMonthAdSpendingRatio, TargetLast30DaysAdSpendingRatio, ActualLast30DaysAdSpendingRatio, ActualLast14DaysAdSpendingRatio, ActualLast7DaysAdSpendingRatio, TotalAdExposureLast30Days, TotalAdExposureLast14Days, TotalAdExposureLast7Days, TotalAdClicksLast30Days, TotalAdClicksLast14Days, TotalAdClicksLast7Days, AdConversionRateLast30Days, AdConversionRateLast14Days, AdConversionRateLast7Days, ACOSLast30Days, ACOSLast14Days, ACOSLast7Days, TargetACOSLast30Days, AnalysisExecutionReview4, TotalPageViewsLastMonth, TargetTotalPageViewsLast30Days, ActualTotalPageViewsLast30Days, ActualTotalPageViewsLast14Days, ActualTotalPageViewsLast7Days, AnalysisExecutionReview5, ConversionRateLastMonth, TargetTotalConversionRateLast30Days, ActualTotalConversionRateLast30Days, ActualTotalConversionRateLast14Days, ActualTotalConversionRateLast7Days, AnalysisExecutionReview6, SPAd, ROILast30DaysSPAd, ROILast14DaysSPAd, TotalAdExposureLast30DaysSPAd, TotalAdExposureLast14DaysSPAd, TotalAdClicksLast30DaysSPAd, TotalAdClicksLast14DaysSPAd, AdConversionRateLast30DaysSPAd, AdConversionRateLast14DaysSPAd, ACOSLast30DaysSPAd, ACOSLast14DaysSPAd, AnalysisExecutionReviewSPAd, SDAd, ROILast30DaysSDAd, ROILast14DaysSDAd, TotalAdExposureLast30DaysSDAd, TotalAdExposureLast14DaysSDAd, TotalAdClicksLast30DaysSDAd, TotalAdClicksLast14DaysSDAd, AdConversionRateLast30DaysSDAd, AdConversionRateLast14DaysSDAd, ACOSLast30DaysSDAd, ACOSLast14DaysSDAd, AnalysisExecutionReviewSDAd, SBad, ROILast30DaysSBad, ROILast14DaysSBad, TotalAdExposureLast30DaysSBad, TotalAdExposureLast14DaysSBad, TotalAdClicksLast30DaysSBad, TotalAdClicksLast14DaysSBad, AdConversionRateLast30DaysSBad, AdConversionRateLast14DaysSBad, ACOSLast30DaysSBad, ACOSLast14DaysSBad, AnalysisExecutionReviewSBad, RefundRateLastMonth, TargetRefundRateLast30Days, ActualRefundRateLast30Days, ActualRefundRateLast14Days, ActualRefundRateLast7Days, AnalysisExecutionReview7, ListingAgeMoreThan3Months, SalesVelocity, AdSpendingLastMonth, AdSalesLastMonth, ROILastMonth, LocalInventory, LocalProcurementInTransit, FBASellableInventory, FBAInTransitInventory, LocalInventoryValue, LocalProcurementInTransitValue, FBASellableInventoryValue, FBAInTransitInventoryValue, TotalInventoryValue, CapitalUtilizationLastMonth, is_delete, created_at, update_time, create_by, update_by from asin_sku_analysis
+    </sql>
+
+    <select id="selectAsinSkuAnalysisList" parameterType="AsinSkuAnalysis" resultMap="AsinSkuAnalysisResult">
+        <include refid="selectAsinSkuAnalysisVo"/>
+        <where>  
+            <if test="ASIN != null  and ASIN != ''"> and ASIN = #{ASIN}</if>
+            <if test="MSKU != null  and MSKU != ''"> and MSKU = #{MSKU}</if>
+            <if test="Sales != null  and Sales != ''"> and Sales = #{Sales}</if>
+            <if test="Development != null  and Development != ''"> and Development = #{Development}</if>
+            <if test="Designer != null  and Designer != ''"> and Designer = #{Designer}</if>
+            <if test="ListingDate != null  and ListingDate != ''"> and ListingDate = #{ListingDate}</if>
+            <if test="CustomTags != null  and CustomTags != ''"> and CustomTags = #{CustomTags}</if>
+            <if test="SKULog != null  and SKULog != ''"> and SKULog = #{SKULog}</if>
+            <if test="Status != null  and Status != ''"> and Status = #{Status}</if>
+            <if test="AnalysisCategory != null  and AnalysisCategory != ''"> and AnalysisCategory = #{AnalysisCategory}</if>
+            <if test="AnalysisContent != null  and AnalysisContent != ''"> and AnalysisContent = #{AnalysisContent}</if>
+            <if test="ActionContent != null  and ActionContent != ''"> and ActionContent = #{ActionContent}</if>
+            <if test="CompetitorASIN != null  and CompetitorASIN != ''"> and CompetitorASIN = #{CompetitorASIN}</if>
+            <if test="CompetitorBrand != null  and CompetitorBrand != ''"> and CompetitorBrand = #{CompetitorBrand}</if>
+            <if test="CompetitorSubRank != null  and CompetitorSubRank != ''"> and CompetitorSubRank = #{CompetitorSubRank}</if>
+            <if test="CompetitorMainRank != null  and CompetitorMainRank != ''"> and CompetitorMainRank = #{CompetitorMainRank}</if>
+            <if test="CompetitorMonthlySales != null  and CompetitorMonthlySales != ''"> and CompetitorMonthlySales = #{CompetitorMonthlySales}</if>
+            <if test="CompetitorDailySales != null  and CompetitorDailySales != ''"> and CompetitorDailySales = #{CompetitorDailySales}</if>
+            <if test="CompetitorPrice != null  and CompetitorPrice != ''"> and CompetitorPrice = #{CompetitorPrice}</if>
+            <if test="CompetitorGrossMargin != null  and CompetitorGrossMargin != ''"> and CompetitorGrossMargin = #{CompetitorGrossMargin}</if>
+            <if test="CompetitorDailyProfit != null  and CompetitorDailyProfit != ''"> and CompetitorDailyProfit = #{CompetitorDailyProfit}</if>
+            <if test="CompetitorVariants != null  and CompetitorVariants != ''"> and CompetitorVariants = #{CompetitorVariants}</if>
+            <if test="CompetitorListingDate != null  and CompetitorListingDate != ''"> and CompetitorListingDate = #{CompetitorListingDate}</if>
+            <if test="CompetitorReviews != null  and CompetitorReviews != ''"> and CompetitorReviews = #{CompetitorReviews}</if>
+            <if test="CompetitorRating != null  and CompetitorRating != ''"> and CompetitorRating = #{CompetitorRating}</if>
+            <if test="CompetitorCopyQuality != null  and CompetitorCopyQuality != ''"> and CompetitorCopyQuality = #{CompetitorCopyQuality}</if>
+            <if test="CompetitorRelisting != null  and CompetitorRelisting != ''"> and CompetitorRelisting = #{CompetitorRelisting}</if>
+            <if test="CompetitorASIN2 != null  and CompetitorASIN2 != ''"> and CompetitorASIN2 = #{CompetitorASIN2}</if>
+            <if test="MarketMonthlyCapacity != null  and MarketMonthlyCapacity != ''"> and MarketMonthlyCapacity = #{MarketMonthlyCapacity}</if>
+            <if test="TargetDailySales != null  and TargetDailySales != ''"> and TargetDailySales = #{TargetDailySales}</if>
+            <if test="TargetPrice != null  and TargetPrice != ''"> and TargetPrice = #{TargetPrice}</if>
+            <if test="TargetDailyRevenue != null  and TargetDailyRevenue != ''"> and TargetDailyRevenue = #{TargetDailyRevenue}</if>
+            <if test="TargetGrossMargin != null  and TargetGrossMargin != ''"> and TargetGrossMargin = #{TargetGrossMargin}</if>
+            <if test="TargetDailyProfit != null  and TargetDailyProfit != ''"> and TargetDailyProfit = #{TargetDailyProfit}</if>
+            <if test="TargetSubRank != null  and TargetSubRank != ''"> and TargetSubRank = #{TargetSubRank}</if>
+            <if test="TargetMainRank != null  and TargetMainRank != ''"> and TargetMainRank = #{TargetMainRank}</if>
+            <if test="TargetCapitalUtilization != null  and TargetCapitalUtilization != ''"> and TargetCapitalUtilization = #{TargetCapitalUtilization}</if>
+            <if test="LastMonthProfit != null  and LastMonthProfit != ''"> and LastMonthProfit = #{LastMonthProfit}</if>
+            <if test="LastMonthDailyProfit != null  and LastMonthDailyProfit != ''"> and LastMonthDailyProfit = #{LastMonthDailyProfit}</if>
+            <if test="TargetLast30DaysTotalProfit != null  and TargetLast30DaysTotalProfit != ''"> and TargetLast30DaysTotalProfit = #{TargetLast30DaysTotalProfit}</if>
+            <if test="ActualLast30DaysTotalProfit != null  and ActualLast30DaysTotalProfit != ''"> and ActualLast30DaysTotalProfit = #{ActualLast30DaysTotalProfit}</if>
+            <if test="ActualLast14DaysTotalProfit != null  and ActualLast14DaysTotalProfit != ''"> and ActualLast14DaysTotalProfit = #{ActualLast14DaysTotalProfit}</if>
+            <if test="ActualLast7DaysTotalProfit != null  and ActualLast7DaysTotalProfit != ''"> and ActualLast7DaysTotalProfit = #{ActualLast7DaysTotalProfit}</if>
+            <if test="TotalInventoryAmountLast30Days != null  and TotalInventoryAmountLast30Days != ''"> and TotalInventoryAmountLast30Days = #{TotalInventoryAmountLast30Days}</if>
+            <if test="CapitalUtilizationLast30Days != null  and CapitalUtilizationLast30Days != ''"> and CapitalUtilizationLast30Days = #{CapitalUtilizationLast30Days}</if>
+            <if test="ActualLast7DaysSales != null  and ActualLast7DaysSales != ''"> and ActualLast7DaysSales = #{ActualLast7DaysSales}</if>
+            <if test="LastMonthTotalSales != null  and LastMonthTotalSales != ''"> and LastMonthTotalSales = #{LastMonthTotalSales}</if>
+            <if test="LastMonthDailySales != null  and LastMonthDailySales != ''"> and LastMonthDailySales = #{LastMonthDailySales}</if>
+            <if test="TargetLast30DaysTotalSales != null  and TargetLast30DaysTotalSales != ''"> and TargetLast30DaysTotalSales = #{TargetLast30DaysTotalSales}</if>
+            <if test="ActualLast30DaysTotalSales != null  and ActualLast30DaysTotalSales != ''"> and ActualLast30DaysTotalSales = #{ActualLast30DaysTotalSales}</if>
+            <if test="ActualLast14DaysTotalSales != null  and ActualLast14DaysTotalSales != ''"> and ActualLast14DaysTotalSales = #{ActualLast14DaysTotalSales}</if>
+            <if test="ActualLast7DaysTotalSales != null  and ActualLast7DaysTotalSales != ''"> and ActualLast7DaysTotalSales = #{ActualLast7DaysTotalSales}</if>
+            <if test="AnalysisExecutionReview != null  and AnalysisExecutionReview != ''"> and AnalysisExecutionReview = #{AnalysisExecutionReview}</if>
+            <if test="LastMonthProfitRate != null  and LastMonthProfitRate != ''"> and LastMonthProfitRate = #{LastMonthProfitRate}</if>
+            <if test="TargetLast30DaysProfitRate != null  and TargetLast30DaysProfitRate != ''"> and TargetLast30DaysProfitRate = #{TargetLast30DaysProfitRate}</if>
+            <if test="ActualLast30DaysProfitRate != null  and ActualLast30DaysProfitRate != ''"> and ActualLast30DaysProfitRate = #{ActualLast30DaysProfitRate}</if>
+            <if test="ActualLast14DaysProfitRate != null  and ActualLast14DaysProfitRate != ''"> and ActualLast14DaysProfitRate = #{ActualLast14DaysProfitRate}</if>
+            <if test="ActualLast7DaysProfitRate != null  and ActualLast7DaysProfitRate != ''"> and ActualLast7DaysProfitRate = #{ActualLast7DaysProfitRate}</if>
+            <if test="AnalysisExecutionReview2 != null  and AnalysisExecutionReview2 != ''"> and AnalysisExecutionReview2 = #{AnalysisExecutionReview2}</if>
+            <if test="LastMonthInventoryTurnoverDays != null  and LastMonthInventoryTurnoverDays != ''"> and LastMonthInventoryTurnoverDays = #{LastMonthInventoryTurnoverDays}</if>
+            <if test="CurrentTargetInventoryTurnoverDays != null  and CurrentTargetInventoryTurnoverDays != ''"> and CurrentTargetInventoryTurnoverDays = #{CurrentTargetInventoryTurnoverDays}</if>
+            <if test="ActualLast7DaysInventoryTurnoverDays != null  and ActualLast7DaysInventoryTurnoverDays != ''"> and ActualLast7DaysInventoryTurnoverDays = #{ActualLast7DaysInventoryTurnoverDays}</if>
+            <if test="AnalysisExecutionReview3 != null  and AnalysisExecutionReview3 != ''"> and AnalysisExecutionReview3 = #{AnalysisExecutionReview3}</if>
+            <if test="TargetLast14DaysAdBudget != null  and TargetLast14DaysAdBudget != ''"> and TargetLast14DaysAdBudget = #{TargetLast14DaysAdBudget}</if>
+            <if test="ActualLast14DaysAdSpending != null  and ActualLast14DaysAdSpending != ''"> and ActualLast14DaysAdSpending = #{ActualLast14DaysAdSpending}</if>
+            <if test="TotalAdSpendingLast30Days != null  and TotalAdSpendingLast30Days != ''"> and TotalAdSpendingLast30Days = #{TotalAdSpendingLast30Days}</if>
+            <if test="LastMonthAdSpendingRatio != null  and LastMonthAdSpendingRatio != ''"> and LastMonthAdSpendingRatio = #{LastMonthAdSpendingRatio}</if>
+            <if test="TargetLast30DaysAdSpendingRatio != null  and TargetLast30DaysAdSpendingRatio != ''"> and TargetLast30DaysAdSpendingRatio = #{TargetLast30DaysAdSpendingRatio}</if>
+            <if test="ActualLast30DaysAdSpendingRatio != null  and ActualLast30DaysAdSpendingRatio != ''"> and ActualLast30DaysAdSpendingRatio = #{ActualLast30DaysAdSpendingRatio}</if>
+            <if test="ActualLast14DaysAdSpendingRatio != null  and ActualLast14DaysAdSpendingRatio != ''"> and ActualLast14DaysAdSpendingRatio = #{ActualLast14DaysAdSpendingRatio}</if>
+            <if test="ActualLast7DaysAdSpendingRatio != null  and ActualLast7DaysAdSpendingRatio != ''"> and ActualLast7DaysAdSpendingRatio = #{ActualLast7DaysAdSpendingRatio}</if>
+            <if test="TotalAdExposureLast30Days != null  and TotalAdExposureLast30Days != ''"> and TotalAdExposureLast30Days = #{TotalAdExposureLast30Days}</if>
+            <if test="TotalAdExposureLast14Days != null  and TotalAdExposureLast14Days != ''"> and TotalAdExposureLast14Days = #{TotalAdExposureLast14Days}</if>
+            <if test="TotalAdExposureLast7Days != null  and TotalAdExposureLast7Days != ''"> and TotalAdExposureLast7Days = #{TotalAdExposureLast7Days}</if>
+            <if test="TotalAdClicksLast30Days != null  and TotalAdClicksLast30Days != ''"> and TotalAdClicksLast30Days = #{TotalAdClicksLast30Days}</if>
+            <if test="TotalAdClicksLast14Days != null  and TotalAdClicksLast14Days != ''"> and TotalAdClicksLast14Days = #{TotalAdClicksLast14Days}</if>
+            <if test="TotalAdClicksLast7Days != null  and TotalAdClicksLast7Days != ''"> and TotalAdClicksLast7Days = #{TotalAdClicksLast7Days}</if>
+            <if test="AdConversionRateLast30Days != null  and AdConversionRateLast30Days != ''"> and AdConversionRateLast30Days = #{AdConversionRateLast30Days}</if>
+            <if test="AdConversionRateLast14Days != null  and AdConversionRateLast14Days != ''"> and AdConversionRateLast14Days = #{AdConversionRateLast14Days}</if>
+            <if test="AdConversionRateLast7Days != null  and AdConversionRateLast7Days != ''"> and AdConversionRateLast7Days = #{AdConversionRateLast7Days}</if>
+            <if test="ACOSLast30Days != null  and ACOSLast30Days != ''"> and ACOSLast30Days = #{ACOSLast30Days}</if>
+            <if test="ACOSLast14Days != null  and ACOSLast14Days != ''"> and ACOSLast14Days = #{ACOSLast14Days}</if>
+            <if test="ACOSLast7Days != null  and ACOSLast7Days != ''"> and ACOSLast7Days = #{ACOSLast7Days}</if>
+            <if test="TargetACOSLast30Days != null  and TargetACOSLast30Days != ''"> and TargetACOSLast30Days = #{TargetACOSLast30Days}</if>
+            <if test="AnalysisExecutionReview4 != null  and AnalysisExecutionReview4 != ''"> and AnalysisExecutionReview4 = #{AnalysisExecutionReview4}</if>
+            <if test="TotalPageViewsLastMonth != null  and TotalPageViewsLastMonth != ''"> and TotalPageViewsLastMonth = #{TotalPageViewsLastMonth}</if>
+            <if test="TargetTotalPageViewsLast30Days != null  and TargetTotalPageViewsLast30Days != ''"> and TargetTotalPageViewsLast30Days = #{TargetTotalPageViewsLast30Days}</if>
+            <if test="ActualTotalPageViewsLast30Days != null  and ActualTotalPageViewsLast30Days != ''"> and ActualTotalPageViewsLast30Days = #{ActualTotalPageViewsLast30Days}</if>
+            <if test="ActualTotalPageViewsLast14Days != null  and ActualTotalPageViewsLast14Days != ''"> and ActualTotalPageViewsLast14Days = #{ActualTotalPageViewsLast14Days}</if>
+            <if test="ActualTotalPageViewsLast7Days != null  and ActualTotalPageViewsLast7Days != ''"> and ActualTotalPageViewsLast7Days = #{ActualTotalPageViewsLast7Days}</if>
+            <if test="AnalysisExecutionReview5 != null  and AnalysisExecutionReview5 != ''"> and AnalysisExecutionReview5 = #{AnalysisExecutionReview5}</if>
+            <if test="ConversionRateLastMonth != null  and ConversionRateLastMonth != ''"> and ConversionRateLastMonth = #{ConversionRateLastMonth}</if>
+            <if test="TargetTotalConversionRateLast30Days != null  and TargetTotalConversionRateLast30Days != ''"> and TargetTotalConversionRateLast30Days = #{TargetTotalConversionRateLast30Days}</if>
+            <if test="ActualTotalConversionRateLast30Days != null  and ActualTotalConversionRateLast30Days != ''"> and ActualTotalConversionRateLast30Days = #{ActualTotalConversionRateLast30Days}</if>
+            <if test="ActualTotalConversionRateLast14Days != null  and ActualTotalConversionRateLast14Days != ''"> and ActualTotalConversionRateLast14Days = #{ActualTotalConversionRateLast14Days}</if>
+            <if test="ActualTotalConversionRateLast7Days != null  and ActualTotalConversionRateLast7Days != ''"> and ActualTotalConversionRateLast7Days = #{ActualTotalConversionRateLast7Days}</if>
+            <if test="AnalysisExecutionReview6 != null  and AnalysisExecutionReview6 != ''"> and AnalysisExecutionReview6 = #{AnalysisExecutionReview6}</if>
+            <if test="SPAd != null  and SPAd != ''"> and SPAd = #{SPAd}</if>
+            <if test="ROILast30DaysSPAd != null  and ROILast30DaysSPAd != ''"> and ROILast30DaysSPAd = #{ROILast30DaysSPAd}</if>
+            <if test="ROILast14DaysSPAd != null  and ROILast14DaysSPAd != ''"> and ROILast14DaysSPAd = #{ROILast14DaysSPAd}</if>
+            <if test="TotalAdExposureLast30DaysSPAd != null  and TotalAdExposureLast30DaysSPAd != ''"> and TotalAdExposureLast30DaysSPAd = #{TotalAdExposureLast30DaysSPAd}</if>
+            <if test="TotalAdExposureLast14DaysSPAd != null  and TotalAdExposureLast14DaysSPAd != ''"> and TotalAdExposureLast14DaysSPAd = #{TotalAdExposureLast14DaysSPAd}</if>
+            <if test="TotalAdClicksLast30DaysSPAd != null  and TotalAdClicksLast30DaysSPAd != ''"> and TotalAdClicksLast30DaysSPAd = #{TotalAdClicksLast30DaysSPAd}</if>
+            <if test="TotalAdClicksLast14DaysSPAd != null  and TotalAdClicksLast14DaysSPAd != ''"> and TotalAdClicksLast14DaysSPAd = #{TotalAdClicksLast14DaysSPAd}</if>
+            <if test="AdConversionRateLast30DaysSPAd != null  and AdConversionRateLast30DaysSPAd != ''"> and AdConversionRateLast30DaysSPAd = #{AdConversionRateLast30DaysSPAd}</if>
+            <if test="AdConversionRateLast14DaysSPAd != null  and AdConversionRateLast14DaysSPAd != ''"> and AdConversionRateLast14DaysSPAd = #{AdConversionRateLast14DaysSPAd}</if>
+            <if test="ACOSLast30DaysSPAd != null  and ACOSLast30DaysSPAd != ''"> and ACOSLast30DaysSPAd = #{ACOSLast30DaysSPAd}</if>
+            <if test="ACOSLast14DaysSPAd != null  and ACOSLast14DaysSPAd != ''"> and ACOSLast14DaysSPAd = #{ACOSLast14DaysSPAd}</if>
+            <if test="AnalysisExecutionReviewSPAd != null  and AnalysisExecutionReviewSPAd != ''"> and AnalysisExecutionReviewSPAd = #{AnalysisExecutionReviewSPAd}</if>
+            <if test="SDAd != null  and SDAd != ''"> and SDAd = #{SDAd}</if>
+            <if test="ROILast30DaysSDAd != null  and ROILast30DaysSDAd != ''"> and ROILast30DaysSDAd = #{ROILast30DaysSDAd}</if>
+            <if test="ROILast14DaysSDAd != null  and ROILast14DaysSDAd != ''"> and ROILast14DaysSDAd = #{ROILast14DaysSDAd}</if>
+            <if test="TotalAdExposureLast30DaysSDAd != null  and TotalAdExposureLast30DaysSDAd != ''"> and TotalAdExposureLast30DaysSDAd = #{TotalAdExposureLast30DaysSDAd}</if>
+            <if test="TotalAdExposureLast14DaysSDAd != null  and TotalAdExposureLast14DaysSDAd != ''"> and TotalAdExposureLast14DaysSDAd = #{TotalAdExposureLast14DaysSDAd}</if>
+            <if test="TotalAdClicksLast30DaysSDAd != null  and TotalAdClicksLast30DaysSDAd != ''"> and TotalAdClicksLast30DaysSDAd = #{TotalAdClicksLast30DaysSDAd}</if>
+            <if test="TotalAdClicksLast14DaysSDAd != null  and TotalAdClicksLast14DaysSDAd != ''"> and TotalAdClicksLast14DaysSDAd = #{TotalAdClicksLast14DaysSDAd}</if>
+            <if test="AdConversionRateLast30DaysSDAd != null  and AdConversionRateLast30DaysSDAd != ''"> and AdConversionRateLast30DaysSDAd = #{AdConversionRateLast30DaysSDAd}</if>
+            <if test="AdConversionRateLast14DaysSDAd != null  and AdConversionRateLast14DaysSDAd != ''"> and AdConversionRateLast14DaysSDAd = #{AdConversionRateLast14DaysSDAd}</if>
+            <if test="ACOSLast30DaysSDAd != null  and ACOSLast30DaysSDAd != ''"> and ACOSLast30DaysSDAd = #{ACOSLast30DaysSDAd}</if>
+            <if test="ACOSLast14DaysSDAd != null  and ACOSLast14DaysSDAd != ''"> and ACOSLast14DaysSDAd = #{ACOSLast14DaysSDAd}</if>
+            <if test="AnalysisExecutionReviewSDAd != null  and AnalysisExecutionReviewSDAd != ''"> and AnalysisExecutionReviewSDAd = #{AnalysisExecutionReviewSDAd}</if>
+            <if test="SBad != null  and SBad != ''"> and SBad = #{SBad}</if>
+            <if test="ROILast30DaysSBad != null  and ROILast30DaysSBad != ''"> and ROILast30DaysSBad = #{ROILast30DaysSBad}</if>
+            <if test="ROILast14DaysSBad != null  and ROILast14DaysSBad != ''"> and ROILast14DaysSBad = #{ROILast14DaysSBad}</if>
+            <if test="TotalAdExposureLast30DaysSBad != null  and TotalAdExposureLast30DaysSBad != ''"> and TotalAdExposureLast30DaysSBad = #{TotalAdExposureLast30DaysSBad}</if>
+            <if test="TotalAdExposureLast14DaysSBad != null  and TotalAdExposureLast14DaysSBad != ''"> and TotalAdExposureLast14DaysSBad = #{TotalAdExposureLast14DaysSBad}</if>
+            <if test="TotalAdClicksLast30DaysSBad != null  and TotalAdClicksLast30DaysSBad != ''"> and TotalAdClicksLast30DaysSBad = #{TotalAdClicksLast30DaysSBad}</if>
+            <if test="TotalAdClicksLast14DaysSBad != null  and TotalAdClicksLast14DaysSBad != ''"> and TotalAdClicksLast14DaysSBad = #{TotalAdClicksLast14DaysSBad}</if>
+            <if test="AdConversionRateLast30DaysSBad != null  and AdConversionRateLast30DaysSBad != ''"> and AdConversionRateLast30DaysSBad = #{AdConversionRateLast30DaysSBad}</if>
+            <if test="AdConversionRateLast14DaysSBad != null  and AdConversionRateLast14DaysSBad != ''"> and AdConversionRateLast14DaysSBad = #{AdConversionRateLast14DaysSBad}</if>
+            <if test="ACOSLast30DaysSBad != null  and ACOSLast30DaysSBad != ''"> and ACOSLast30DaysSBad = #{ACOSLast30DaysSBad}</if>
+            <if test="ACOSLast14DaysSBad != null  and ACOSLast14DaysSBad != ''"> and ACOSLast14DaysSBad = #{ACOSLast14DaysSBad}</if>
+            <if test="AnalysisExecutionReviewSBad != null  and AnalysisExecutionReviewSBad != ''"> and AnalysisExecutionReviewSBad = #{AnalysisExecutionReviewSBad}</if>
+            <if test="RefundRateLastMonth != null  and RefundRateLastMonth != ''"> and RefundRateLastMonth = #{RefundRateLastMonth}</if>
+            <if test="TargetRefundRateLast30Days != null  and TargetRefundRateLast30Days != ''"> and TargetRefundRateLast30Days = #{TargetRefundRateLast30Days}</if>
+            <if test="ActualRefundRateLast30Days != null  and ActualRefundRateLast30Days != ''"> and ActualRefundRateLast30Days = #{ActualRefundRateLast30Days}</if>
+            <if test="ActualRefundRateLast14Days != null  and ActualRefundRateLast14Days != ''"> and ActualRefundRateLast14Days = #{ActualRefundRateLast14Days}</if>
+            <if test="ActualRefundRateLast7Days != null  and ActualRefundRateLast7Days != ''"> and ActualRefundRateLast7Days = #{ActualRefundRateLast7Days}</if>
+            <if test="AnalysisExecutionReview7 != null  and AnalysisExecutionReview7 != ''"> and AnalysisExecutionReview7 = #{AnalysisExecutionReview7}</if>
+            <if test="ListingAgeMoreThan3Months != null  and ListingAgeMoreThan3Months != ''"> and ListingAgeMoreThan3Months = #{ListingAgeMoreThan3Months}</if>
+            <if test="SalesVelocity != null  and SalesVelocity != ''"> and SalesVelocity = #{SalesVelocity}</if>
+            <if test="AdSpendingLastMonth != null  and AdSpendingLastMonth != ''"> and AdSpendingLastMonth = #{AdSpendingLastMonth}</if>
+            <if test="AdSalesLastMonth != null  and AdSalesLastMonth != ''"> and AdSalesLastMonth = #{AdSalesLastMonth}</if>
+            <if test="ROILastMonth != null  and ROILastMonth != ''"> and ROILastMonth = #{ROILastMonth}</if>
+            <if test="LocalInventory != null  and LocalInventory != ''"> and LocalInventory = #{LocalInventory}</if>
+            <if test="LocalProcurementInTransit != null  and LocalProcurementInTransit != ''"> and LocalProcurementInTransit = #{LocalProcurementInTransit}</if>
+            <if test="FBASellableInventory != null  and FBASellableInventory != ''"> and FBASellableInventory = #{FBASellableInventory}</if>
+            <if test="FBAInTransitInventory != null  and FBAInTransitInventory != ''"> and FBAInTransitInventory = #{FBAInTransitInventory}</if>
+            <if test="LocalInventoryValue != null  and LocalInventoryValue != ''"> and LocalInventoryValue = #{LocalInventoryValue}</if>
+            <if test="LocalProcurementInTransitValue != null  and LocalProcurementInTransitValue != ''"> and LocalProcurementInTransitValue = #{LocalProcurementInTransitValue}</if>
+            <if test="FBASellableInventoryValue != null  and FBASellableInventoryValue != ''"> and FBASellableInventoryValue = #{FBASellableInventoryValue}</if>
+            <if test="FBAInTransitInventoryValue != null  and FBAInTransitInventoryValue != ''"> and FBAInTransitInventoryValue = #{FBAInTransitInventoryValue}</if>
+            <if test="TotalInventoryValue != null  and TotalInventoryValue != ''"> and TotalInventoryValue = #{TotalInventoryValue}</if>
+            <if test="CapitalUtilizationLastMonth != null  and CapitalUtilizationLastMonth != ''"> and CapitalUtilizationLastMonth = #{CapitalUtilizationLastMonth}</if>
+            <if test="isDelete != null "> and is_delete = #{isDelete}</if>
+            <if test="createdAt != null "> and created_at = #{createdAt}</if>
+        </where>
+    </select>
+    
+    <select id="selectAsinSkuAnalysisById" parameterType="Long" resultMap="AsinSkuAnalysisResult">
+        <include refid="selectAsinSkuAnalysisVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertAsinSkuAnalysis" parameterType="AsinSkuAnalysis" useGeneratedKeys="true" keyProperty="id">
+        insert into asin_sku_analysis
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="ASIN != null">ASIN,</if>
+            <if test="MSKU != null">MSKU,</if>
+            <if test="Sales != null">Sales,</if>
+            <if test="Development != null">Development,</if>
+            <if test="Designer != null">Designer,</if>
+            <if test="ListingDate != null">ListingDate,</if>
+            <if test="CustomTags != null">CustomTags,</if>
+            <if test="SKULog != null">SKULog,</if>
+            <if test="Status != null">Status,</if>
+            <if test="AnalysisCategory != null">AnalysisCategory,</if>
+            <if test="AnalysisContent != null">AnalysisContent,</if>
+            <if test="ActionContent != null">ActionContent,</if>
+            <if test="CompetitorASIN != null">CompetitorASIN,</if>
+            <if test="CompetitorBrand != null">CompetitorBrand,</if>
+            <if test="CompetitorSubRank != null">CompetitorSubRank,</if>
+            <if test="CompetitorMainRank != null">CompetitorMainRank,</if>
+            <if test="CompetitorMonthlySales != null">CompetitorMonthlySales,</if>
+            <if test="CompetitorDailySales != null">CompetitorDailySales,</if>
+            <if test="CompetitorPrice != null">CompetitorPrice,</if>
+            <if test="CompetitorGrossMargin != null">CompetitorGrossMargin,</if>
+            <if test="CompetitorDailyProfit != null">CompetitorDailyProfit,</if>
+            <if test="CompetitorVariants != null">CompetitorVariants,</if>
+            <if test="CompetitorListingDate != null">CompetitorListingDate,</if>
+            <if test="CompetitorReviews != null">CompetitorReviews,</if>
+            <if test="CompetitorRating != null">CompetitorRating,</if>
+            <if test="CompetitorCopyQuality != null">CompetitorCopyQuality,</if>
+            <if test="CompetitorRelisting != null">CompetitorRelisting,</if>
+            <if test="CompetitorASIN2 != null">CompetitorASIN2,</if>
+            <if test="MarketMonthlyCapacity != null">MarketMonthlyCapacity,</if>
+            <if test="TargetDailySales != null">TargetDailySales,</if>
+            <if test="TargetPrice != null">TargetPrice,</if>
+            <if test="TargetDailyRevenue != null">TargetDailyRevenue,</if>
+            <if test="TargetGrossMargin != null">TargetGrossMargin,</if>
+            <if test="TargetDailyProfit != null">TargetDailyProfit,</if>
+            <if test="TargetSubRank != null">TargetSubRank,</if>
+            <if test="TargetMainRank != null">TargetMainRank,</if>
+            <if test="TargetCapitalUtilization != null">TargetCapitalUtilization,</if>
+            <if test="LastMonthProfit != null">LastMonthProfit,</if>
+            <if test="LastMonthDailyProfit != null">LastMonthDailyProfit,</if>
+            <if test="TargetLast30DaysTotalProfit != null">TargetLast30DaysTotalProfit,</if>
+            <if test="ActualLast30DaysTotalProfit != null">ActualLast30DaysTotalProfit,</if>
+            <if test="ActualLast14DaysTotalProfit != null">ActualLast14DaysTotalProfit,</if>
+            <if test="ActualLast7DaysTotalProfit != null">ActualLast7DaysTotalProfit,</if>
+            <if test="TotalInventoryAmountLast30Days != null">TotalInventoryAmountLast30Days,</if>
+            <if test="CapitalUtilizationLast30Days != null">CapitalUtilizationLast30Days,</if>
+            <if test="ActualLast7DaysSales != null">ActualLast7DaysSales,</if>
+            <if test="LastMonthTotalSales != null">LastMonthTotalSales,</if>
+            <if test="LastMonthDailySales != null">LastMonthDailySales,</if>
+            <if test="TargetLast30DaysTotalSales != null">TargetLast30DaysTotalSales,</if>
+            <if test="ActualLast30DaysTotalSales != null">ActualLast30DaysTotalSales,</if>
+            <if test="ActualLast14DaysTotalSales != null">ActualLast14DaysTotalSales,</if>
+            <if test="ActualLast7DaysTotalSales != null">ActualLast7DaysTotalSales,</if>
+            <if test="AnalysisExecutionReview != null">AnalysisExecutionReview,</if>
+            <if test="LastMonthProfitRate != null">LastMonthProfitRate,</if>
+            <if test="TargetLast30DaysProfitRate != null">TargetLast30DaysProfitRate,</if>
+            <if test="ActualLast30DaysProfitRate != null">ActualLast30DaysProfitRate,</if>
+            <if test="ActualLast14DaysProfitRate != null">ActualLast14DaysProfitRate,</if>
+            <if test="ActualLast7DaysProfitRate != null">ActualLast7DaysProfitRate,</if>
+            <if test="AnalysisExecutionReview2 != null">AnalysisExecutionReview2,</if>
+            <if test="LastMonthInventoryTurnoverDays != null">LastMonthInventoryTurnoverDays,</if>
+            <if test="CurrentTargetInventoryTurnoverDays != null">CurrentTargetInventoryTurnoverDays,</if>
+            <if test="ActualLast7DaysInventoryTurnoverDays != null">ActualLast7DaysInventoryTurnoverDays,</if>
+            <if test="AnalysisExecutionReview3 != null">AnalysisExecutionReview3,</if>
+            <if test="TargetLast14DaysAdBudget != null">TargetLast14DaysAdBudget,</if>
+            <if test="ActualLast14DaysAdSpending != null">ActualLast14DaysAdSpending,</if>
+            <if test="TotalAdSpendingLast30Days != null">TotalAdSpendingLast30Days,</if>
+            <if test="LastMonthAdSpendingRatio != null">LastMonthAdSpendingRatio,</if>
+            <if test="TargetLast30DaysAdSpendingRatio != null">TargetLast30DaysAdSpendingRatio,</if>
+            <if test="ActualLast30DaysAdSpendingRatio != null">ActualLast30DaysAdSpendingRatio,</if>
+            <if test="ActualLast14DaysAdSpendingRatio != null">ActualLast14DaysAdSpendingRatio,</if>
+            <if test="ActualLast7DaysAdSpendingRatio != null">ActualLast7DaysAdSpendingRatio,</if>
+            <if test="TotalAdExposureLast30Days != null">TotalAdExposureLast30Days,</if>
+            <if test="TotalAdExposureLast14Days != null">TotalAdExposureLast14Days,</if>
+            <if test="TotalAdExposureLast7Days != null">TotalAdExposureLast7Days,</if>
+            <if test="TotalAdClicksLast30Days != null">TotalAdClicksLast30Days,</if>
+            <if test="TotalAdClicksLast14Days != null">TotalAdClicksLast14Days,</if>
+            <if test="TotalAdClicksLast7Days != null">TotalAdClicksLast7Days,</if>
+            <if test="AdConversionRateLast30Days != null">AdConversionRateLast30Days,</if>
+            <if test="AdConversionRateLast14Days != null">AdConversionRateLast14Days,</if>
+            <if test="AdConversionRateLast7Days != null">AdConversionRateLast7Days,</if>
+            <if test="ACOSLast30Days != null">ACOSLast30Days,</if>
+            <if test="ACOSLast14Days != null">ACOSLast14Days,</if>
+            <if test="ACOSLast7Days != null">ACOSLast7Days,</if>
+            <if test="TargetACOSLast30Days != null">TargetACOSLast30Days,</if>
+            <if test="AnalysisExecutionReview4 != null">AnalysisExecutionReview4,</if>
+            <if test="TotalPageViewsLastMonth != null">TotalPageViewsLastMonth,</if>
+            <if test="TargetTotalPageViewsLast30Days != null">TargetTotalPageViewsLast30Days,</if>
+            <if test="ActualTotalPageViewsLast30Days != null">ActualTotalPageViewsLast30Days,</if>
+            <if test="ActualTotalPageViewsLast14Days != null">ActualTotalPageViewsLast14Days,</if>
+            <if test="ActualTotalPageViewsLast7Days != null">ActualTotalPageViewsLast7Days,</if>
+            <if test="AnalysisExecutionReview5 != null">AnalysisExecutionReview5,</if>
+            <if test="ConversionRateLastMonth != null">ConversionRateLastMonth,</if>
+            <if test="TargetTotalConversionRateLast30Days != null">TargetTotalConversionRateLast30Days,</if>
+            <if test="ActualTotalConversionRateLast30Days != null">ActualTotalConversionRateLast30Days,</if>
+            <if test="ActualTotalConversionRateLast14Days != null">ActualTotalConversionRateLast14Days,</if>
+            <if test="ActualTotalConversionRateLast7Days != null">ActualTotalConversionRateLast7Days,</if>
+            <if test="AnalysisExecutionReview6 != null">AnalysisExecutionReview6,</if>
+            <if test="SPAd != null">SPAd,</if>
+            <if test="ROILast30DaysSPAd != null">ROILast30DaysSPAd,</if>
+            <if test="ROILast14DaysSPAd != null">ROILast14DaysSPAd,</if>
+            <if test="TotalAdExposureLast30DaysSPAd != null">TotalAdExposureLast30DaysSPAd,</if>
+            <if test="TotalAdExposureLast14DaysSPAd != null">TotalAdExposureLast14DaysSPAd,</if>
+            <if test="TotalAdClicksLast30DaysSPAd != null">TotalAdClicksLast30DaysSPAd,</if>
+            <if test="TotalAdClicksLast14DaysSPAd != null">TotalAdClicksLast14DaysSPAd,</if>
+            <if test="AdConversionRateLast30DaysSPAd != null">AdConversionRateLast30DaysSPAd,</if>
+            <if test="AdConversionRateLast14DaysSPAd != null">AdConversionRateLast14DaysSPAd,</if>
+            <if test="ACOSLast30DaysSPAd != null">ACOSLast30DaysSPAd,</if>
+            <if test="ACOSLast14DaysSPAd != null">ACOSLast14DaysSPAd,</if>
+            <if test="AnalysisExecutionReviewSPAd != null">AnalysisExecutionReviewSPAd,</if>
+            <if test="SDAd != null">SDAd,</if>
+            <if test="ROILast30DaysSDAd != null">ROILast30DaysSDAd,</if>
+            <if test="ROILast14DaysSDAd != null">ROILast14DaysSDAd,</if>
+            <if test="TotalAdExposureLast30DaysSDAd != null">TotalAdExposureLast30DaysSDAd,</if>
+            <if test="TotalAdExposureLast14DaysSDAd != null">TotalAdExposureLast14DaysSDAd,</if>
+            <if test="TotalAdClicksLast30DaysSDAd != null">TotalAdClicksLast30DaysSDAd,</if>
+            <if test="TotalAdClicksLast14DaysSDAd != null">TotalAdClicksLast14DaysSDAd,</if>
+            <if test="AdConversionRateLast30DaysSDAd != null">AdConversionRateLast30DaysSDAd,</if>
+            <if test="AdConversionRateLast14DaysSDAd != null">AdConversionRateLast14DaysSDAd,</if>
+            <if test="ACOSLast30DaysSDAd != null">ACOSLast30DaysSDAd,</if>
+            <if test="ACOSLast14DaysSDAd != null">ACOSLast14DaysSDAd,</if>
+            <if test="AnalysisExecutionReviewSDAd != null">AnalysisExecutionReviewSDAd,</if>
+            <if test="SBad != null">SBad,</if>
+            <if test="ROILast30DaysSBad != null">ROILast30DaysSBad,</if>
+            <if test="ROILast14DaysSBad != null">ROILast14DaysSBad,</if>
+            <if test="TotalAdExposureLast30DaysSBad != null">TotalAdExposureLast30DaysSBad,</if>
+            <if test="TotalAdExposureLast14DaysSBad != null">TotalAdExposureLast14DaysSBad,</if>
+            <if test="TotalAdClicksLast30DaysSBad != null">TotalAdClicksLast30DaysSBad,</if>
+            <if test="TotalAdClicksLast14DaysSBad != null">TotalAdClicksLast14DaysSBad,</if>
+            <if test="AdConversionRateLast30DaysSBad != null">AdConversionRateLast30DaysSBad,</if>
+            <if test="AdConversionRateLast14DaysSBad != null">AdConversionRateLast14DaysSBad,</if>
+            <if test="ACOSLast30DaysSBad != null">ACOSLast30DaysSBad,</if>
+            <if test="ACOSLast14DaysSBad != null">ACOSLast14DaysSBad,</if>
+            <if test="AnalysisExecutionReviewSBad != null">AnalysisExecutionReviewSBad,</if>
+            <if test="RefundRateLastMonth != null">RefundRateLastMonth,</if>
+            <if test="TargetRefundRateLast30Days != null">TargetRefundRateLast30Days,</if>
+            <if test="ActualRefundRateLast30Days != null">ActualRefundRateLast30Days,</if>
+            <if test="ActualRefundRateLast14Days != null">ActualRefundRateLast14Days,</if>
+            <if test="ActualRefundRateLast7Days != null">ActualRefundRateLast7Days,</if>
+            <if test="AnalysisExecutionReview7 != null">AnalysisExecutionReview7,</if>
+            <if test="ListingAgeMoreThan3Months != null">ListingAgeMoreThan3Months,</if>
+            <if test="SalesVelocity != null">SalesVelocity,</if>
+            <if test="AdSpendingLastMonth != null">AdSpendingLastMonth,</if>
+            <if test="AdSalesLastMonth != null">AdSalesLastMonth,</if>
+            <if test="ROILastMonth != null">ROILastMonth,</if>
+            <if test="LocalInventory != null">LocalInventory,</if>
+            <if test="LocalProcurementInTransit != null">LocalProcurementInTransit,</if>
+            <if test="FBASellableInventory != null">FBASellableInventory,</if>
+            <if test="FBAInTransitInventory != null">FBAInTransitInventory,</if>
+            <if test="LocalInventoryValue != null">LocalInventoryValue,</if>
+            <if test="LocalProcurementInTransitValue != null">LocalProcurementInTransitValue,</if>
+            <if test="FBASellableInventoryValue != null">FBASellableInventoryValue,</if>
+            <if test="FBAInTransitInventoryValue != null">FBAInTransitInventoryValue,</if>
+            <if test="TotalInventoryValue != null">TotalInventoryValue,</if>
+            <if test="CapitalUtilizationLastMonth != null">CapitalUtilizationLastMonth,</if>
+            <if test="isDelete != null">is_delete,</if>
+            <if test="createdAt != null">created_at,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="updateBy != null">update_by,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="ASIN != null">#{ASIN},</if>
+            <if test="MSKU != null">#{MSKU},</if>
+            <if test="Sales != null">#{Sales},</if>
+            <if test="Development != null">#{Development},</if>
+            <if test="Designer != null">#{Designer},</if>
+            <if test="ListingDate != null">#{ListingDate},</if>
+            <if test="CustomTags != null">#{CustomTags},</if>
+            <if test="SKULog != null">#{SKULog},</if>
+            <if test="Status != null">#{Status},</if>
+            <if test="AnalysisCategory != null">#{AnalysisCategory},</if>
+            <if test="AnalysisContent != null">#{AnalysisContent},</if>
+            <if test="ActionContent != null">#{ActionContent},</if>
+            <if test="CompetitorASIN != null">#{CompetitorASIN},</if>
+            <if test="CompetitorBrand != null">#{CompetitorBrand},</if>
+            <if test="CompetitorSubRank != null">#{CompetitorSubRank},</if>
+            <if test="CompetitorMainRank != null">#{CompetitorMainRank},</if>
+            <if test="CompetitorMonthlySales != null">#{CompetitorMonthlySales},</if>
+            <if test="CompetitorDailySales != null">#{CompetitorDailySales},</if>
+            <if test="CompetitorPrice != null">#{CompetitorPrice},</if>
+            <if test="CompetitorGrossMargin != null">#{CompetitorGrossMargin},</if>
+            <if test="CompetitorDailyProfit != null">#{CompetitorDailyProfit},</if>
+            <if test="CompetitorVariants != null">#{CompetitorVariants},</if>
+            <if test="CompetitorListingDate != null">#{CompetitorListingDate},</if>
+            <if test="CompetitorReviews != null">#{CompetitorReviews},</if>
+            <if test="CompetitorRating != null">#{CompetitorRating},</if>
+            <if test="CompetitorCopyQuality != null">#{CompetitorCopyQuality},</if>
+            <if test="CompetitorRelisting != null">#{CompetitorRelisting},</if>
+            <if test="CompetitorASIN2 != null">#{CompetitorASIN2},</if>
+            <if test="MarketMonthlyCapacity != null">#{MarketMonthlyCapacity},</if>
+            <if test="TargetDailySales != null">#{TargetDailySales},</if>
+            <if test="TargetPrice != null">#{TargetPrice},</if>
+            <if test="TargetDailyRevenue != null">#{TargetDailyRevenue},</if>
+            <if test="TargetGrossMargin != null">#{TargetGrossMargin},</if>
+            <if test="TargetDailyProfit != null">#{TargetDailyProfit},</if>
+            <if test="TargetSubRank != null">#{TargetSubRank},</if>
+            <if test="TargetMainRank != null">#{TargetMainRank},</if>
+            <if test="TargetCapitalUtilization != null">#{TargetCapitalUtilization},</if>
+            <if test="LastMonthProfit != null">#{LastMonthProfit},</if>
+            <if test="LastMonthDailyProfit != null">#{LastMonthDailyProfit},</if>
+            <if test="TargetLast30DaysTotalProfit != null">#{TargetLast30DaysTotalProfit},</if>
+            <if test="ActualLast30DaysTotalProfit != null">#{ActualLast30DaysTotalProfit},</if>
+            <if test="ActualLast14DaysTotalProfit != null">#{ActualLast14DaysTotalProfit},</if>
+            <if test="ActualLast7DaysTotalProfit != null">#{ActualLast7DaysTotalProfit},</if>
+            <if test="TotalInventoryAmountLast30Days != null">#{TotalInventoryAmountLast30Days},</if>
+            <if test="CapitalUtilizationLast30Days != null">#{CapitalUtilizationLast30Days},</if>
+            <if test="ActualLast7DaysSales != null">#{ActualLast7DaysSales},</if>
+            <if test="LastMonthTotalSales != null">#{LastMonthTotalSales},</if>
+            <if test="LastMonthDailySales != null">#{LastMonthDailySales},</if>
+            <if test="TargetLast30DaysTotalSales != null">#{TargetLast30DaysTotalSales},</if>
+            <if test="ActualLast30DaysTotalSales != null">#{ActualLast30DaysTotalSales},</if>
+            <if test="ActualLast14DaysTotalSales != null">#{ActualLast14DaysTotalSales},</if>
+            <if test="ActualLast7DaysTotalSales != null">#{ActualLast7DaysTotalSales},</if>
+            <if test="AnalysisExecutionReview != null">#{AnalysisExecutionReview},</if>
+            <if test="LastMonthProfitRate != null">#{LastMonthProfitRate},</if>
+            <if test="TargetLast30DaysProfitRate != null">#{TargetLast30DaysProfitRate},</if>
+            <if test="ActualLast30DaysProfitRate != null">#{ActualLast30DaysProfitRate},</if>
+            <if test="ActualLast14DaysProfitRate != null">#{ActualLast14DaysProfitRate},</if>
+            <if test="ActualLast7DaysProfitRate != null">#{ActualLast7DaysProfitRate},</if>
+            <if test="AnalysisExecutionReview2 != null">#{AnalysisExecutionReview2},</if>
+            <if test="LastMonthInventoryTurnoverDays != null">#{LastMonthInventoryTurnoverDays},</if>
+            <if test="CurrentTargetInventoryTurnoverDays != null">#{CurrentTargetInventoryTurnoverDays},</if>
+            <if test="ActualLast7DaysInventoryTurnoverDays != null">#{ActualLast7DaysInventoryTurnoverDays},</if>
+            <if test="AnalysisExecutionReview3 != null">#{AnalysisExecutionReview3},</if>
+            <if test="TargetLast14DaysAdBudget != null">#{TargetLast14DaysAdBudget},</if>
+            <if test="ActualLast14DaysAdSpending != null">#{ActualLast14DaysAdSpending},</if>
+            <if test="TotalAdSpendingLast30Days != null">#{TotalAdSpendingLast30Days},</if>
+            <if test="LastMonthAdSpendingRatio != null">#{LastMonthAdSpendingRatio},</if>
+            <if test="TargetLast30DaysAdSpendingRatio != null">#{TargetLast30DaysAdSpendingRatio},</if>
+            <if test="ActualLast30DaysAdSpendingRatio != null">#{ActualLast30DaysAdSpendingRatio},</if>
+            <if test="ActualLast14DaysAdSpendingRatio != null">#{ActualLast14DaysAdSpendingRatio},</if>
+            <if test="ActualLast7DaysAdSpendingRatio != null">#{ActualLast7DaysAdSpendingRatio},</if>
+            <if test="TotalAdExposureLast30Days != null">#{TotalAdExposureLast30Days},</if>
+            <if test="TotalAdExposureLast14Days != null">#{TotalAdExposureLast14Days},</if>
+            <if test="TotalAdExposureLast7Days != null">#{TotalAdExposureLast7Days},</if>
+            <if test="TotalAdClicksLast30Days != null">#{TotalAdClicksLast30Days},</if>
+            <if test="TotalAdClicksLast14Days != null">#{TotalAdClicksLast14Days},</if>
+            <if test="TotalAdClicksLast7Days != null">#{TotalAdClicksLast7Days},</if>
+            <if test="AdConversionRateLast30Days != null">#{AdConversionRateLast30Days},</if>
+            <if test="AdConversionRateLast14Days != null">#{AdConversionRateLast14Days},</if>
+            <if test="AdConversionRateLast7Days != null">#{AdConversionRateLast7Days},</if>
+            <if test="ACOSLast30Days != null">#{ACOSLast30Days},</if>
+            <if test="ACOSLast14Days != null">#{ACOSLast14Days},</if>
+            <if test="ACOSLast7Days != null">#{ACOSLast7Days},</if>
+            <if test="TargetACOSLast30Days != null">#{TargetACOSLast30Days},</if>
+            <if test="AnalysisExecutionReview4 != null">#{AnalysisExecutionReview4},</if>
+            <if test="TotalPageViewsLastMonth != null">#{TotalPageViewsLastMonth},</if>
+            <if test="TargetTotalPageViewsLast30Days != null">#{TargetTotalPageViewsLast30Days},</if>
+            <if test="ActualTotalPageViewsLast30Days != null">#{ActualTotalPageViewsLast30Days},</if>
+            <if test="ActualTotalPageViewsLast14Days != null">#{ActualTotalPageViewsLast14Days},</if>
+            <if test="ActualTotalPageViewsLast7Days != null">#{ActualTotalPageViewsLast7Days},</if>
+            <if test="AnalysisExecutionReview5 != null">#{AnalysisExecutionReview5},</if>
+            <if test="ConversionRateLastMonth != null">#{ConversionRateLastMonth},</if>
+            <if test="TargetTotalConversionRateLast30Days != null">#{TargetTotalConversionRateLast30Days},</if>
+            <if test="ActualTotalConversionRateLast30Days != null">#{ActualTotalConversionRateLast30Days},</if>
+            <if test="ActualTotalConversionRateLast14Days != null">#{ActualTotalConversionRateLast14Days},</if>
+            <if test="ActualTotalConversionRateLast7Days != null">#{ActualTotalConversionRateLast7Days},</if>
+            <if test="AnalysisExecutionReview6 != null">#{AnalysisExecutionReview6},</if>
+            <if test="SPAd != null">#{SPAd},</if>
+            <if test="ROILast30DaysSPAd != null">#{ROILast30DaysSPAd},</if>
+            <if test="ROILast14DaysSPAd != null">#{ROILast14DaysSPAd},</if>
+            <if test="TotalAdExposureLast30DaysSPAd != null">#{TotalAdExposureLast30DaysSPAd},</if>
+            <if test="TotalAdExposureLast14DaysSPAd != null">#{TotalAdExposureLast14DaysSPAd},</if>
+            <if test="TotalAdClicksLast30DaysSPAd != null">#{TotalAdClicksLast30DaysSPAd},</if>
+            <if test="TotalAdClicksLast14DaysSPAd != null">#{TotalAdClicksLast14DaysSPAd},</if>
+            <if test="AdConversionRateLast30DaysSPAd != null">#{AdConversionRateLast30DaysSPAd},</if>
+            <if test="AdConversionRateLast14DaysSPAd != null">#{AdConversionRateLast14DaysSPAd},</if>
+            <if test="ACOSLast30DaysSPAd != null">#{ACOSLast30DaysSPAd},</if>
+            <if test="ACOSLast14DaysSPAd != null">#{ACOSLast14DaysSPAd},</if>
+            <if test="AnalysisExecutionReviewSPAd != null">#{AnalysisExecutionReviewSPAd},</if>
+            <if test="SDAd != null">#{SDAd},</if>
+            <if test="ROILast30DaysSDAd != null">#{ROILast30DaysSDAd},</if>
+            <if test="ROILast14DaysSDAd != null">#{ROILast14DaysSDAd},</if>
+            <if test="TotalAdExposureLast30DaysSDAd != null">#{TotalAdExposureLast30DaysSDAd},</if>
+            <if test="TotalAdExposureLast14DaysSDAd != null">#{TotalAdExposureLast14DaysSDAd},</if>
+            <if test="TotalAdClicksLast30DaysSDAd != null">#{TotalAdClicksLast30DaysSDAd},</if>
+            <if test="TotalAdClicksLast14DaysSDAd != null">#{TotalAdClicksLast14DaysSDAd},</if>
+            <if test="AdConversionRateLast30DaysSDAd != null">#{AdConversionRateLast30DaysSDAd},</if>
+            <if test="AdConversionRateLast14DaysSDAd != null">#{AdConversionRateLast14DaysSDAd},</if>
+            <if test="ACOSLast30DaysSDAd != null">#{ACOSLast30DaysSDAd},</if>
+            <if test="ACOSLast14DaysSDAd != null">#{ACOSLast14DaysSDAd},</if>
+            <if test="AnalysisExecutionReviewSDAd != null">#{AnalysisExecutionReviewSDAd},</if>
+            <if test="SBad != null">#{SBad},</if>
+            <if test="ROILast30DaysSBad != null">#{ROILast30DaysSBad},</if>
+            <if test="ROILast14DaysSBad != null">#{ROILast14DaysSBad},</if>
+            <if test="TotalAdExposureLast30DaysSBad != null">#{TotalAdExposureLast30DaysSBad},</if>
+            <if test="TotalAdExposureLast14DaysSBad != null">#{TotalAdExposureLast14DaysSBad},</if>
+            <if test="TotalAdClicksLast30DaysSBad != null">#{TotalAdClicksLast30DaysSBad},</if>
+            <if test="TotalAdClicksLast14DaysSBad != null">#{TotalAdClicksLast14DaysSBad},</if>
+            <if test="AdConversionRateLast30DaysSBad != null">#{AdConversionRateLast30DaysSBad},</if>
+            <if test="AdConversionRateLast14DaysSBad != null">#{AdConversionRateLast14DaysSBad},</if>
+            <if test="ACOSLast30DaysSBad != null">#{ACOSLast30DaysSBad},</if>
+            <if test="ACOSLast14DaysSBad != null">#{ACOSLast14DaysSBad},</if>
+            <if test="AnalysisExecutionReviewSBad != null">#{AnalysisExecutionReviewSBad},</if>
+            <if test="RefundRateLastMonth != null">#{RefundRateLastMonth},</if>
+            <if test="TargetRefundRateLast30Days != null">#{TargetRefundRateLast30Days},</if>
+            <if test="ActualRefundRateLast30Days != null">#{ActualRefundRateLast30Days},</if>
+            <if test="ActualRefundRateLast14Days != null">#{ActualRefundRateLast14Days},</if>
+            <if test="ActualRefundRateLast7Days != null">#{ActualRefundRateLast7Days},</if>
+            <if test="AnalysisExecutionReview7 != null">#{AnalysisExecutionReview7},</if>
+            <if test="ListingAgeMoreThan3Months != null">#{ListingAgeMoreThan3Months},</if>
+            <if test="SalesVelocity != null">#{SalesVelocity},</if>
+            <if test="AdSpendingLastMonth != null">#{AdSpendingLastMonth},</if>
+            <if test="AdSalesLastMonth != null">#{AdSalesLastMonth},</if>
+            <if test="ROILastMonth != null">#{ROILastMonth},</if>
+            <if test="LocalInventory != null">#{LocalInventory},</if>
+            <if test="LocalProcurementInTransit != null">#{LocalProcurementInTransit},</if>
+            <if test="FBASellableInventory != null">#{FBASellableInventory},</if>
+            <if test="FBAInTransitInventory != null">#{FBAInTransitInventory},</if>
+            <if test="LocalInventoryValue != null">#{LocalInventoryValue},</if>
+            <if test="LocalProcurementInTransitValue != null">#{LocalProcurementInTransitValue},</if>
+            <if test="FBASellableInventoryValue != null">#{FBASellableInventoryValue},</if>
+            <if test="FBAInTransitInventoryValue != null">#{FBAInTransitInventoryValue},</if>
+            <if test="TotalInventoryValue != null">#{TotalInventoryValue},</if>
+            <if test="CapitalUtilizationLastMonth != null">#{CapitalUtilizationLastMonth},</if>
+            <if test="isDelete != null">#{isDelete},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+         </trim>
+    </insert>
+
+    <update id="updateAsinSkuAnalysis" parameterType="AsinSkuAnalysis">
+        update asin_sku_analysis
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="ASIN != null">ASIN = #{ASIN},</if>
+            <if test="MSKU != null">MSKU = #{MSKU},</if>
+            <if test="Sales != null">Sales = #{Sales},</if>
+            <if test="Development != null">Development = #{Development},</if>
+            <if test="Designer != null">Designer = #{Designer},</if>
+            <if test="ListingDate != null">ListingDate = #{ListingDate},</if>
+            <if test="CustomTags != null">CustomTags = #{CustomTags},</if>
+            <if test="SKULog != null">SKULog = #{SKULog},</if>
+            <if test="Status != null">Status = #{Status},</if>
+            <if test="AnalysisCategory != null">AnalysisCategory = #{AnalysisCategory},</if>
+            <if test="AnalysisContent != null">AnalysisContent = #{AnalysisContent},</if>
+            <if test="ActionContent != null">ActionContent = #{ActionContent},</if>
+            <if test="CompetitorASIN != null">CompetitorASIN = #{CompetitorASIN},</if>
+            <if test="CompetitorBrand != null">CompetitorBrand = #{CompetitorBrand},</if>
+            <if test="CompetitorSubRank != null">CompetitorSubRank = #{CompetitorSubRank},</if>
+            <if test="CompetitorMainRank != null">CompetitorMainRank = #{CompetitorMainRank},</if>
+            <if test="CompetitorMonthlySales != null">CompetitorMonthlySales = #{CompetitorMonthlySales},</if>
+            <if test="CompetitorDailySales != null">CompetitorDailySales = #{CompetitorDailySales},</if>
+            <if test="CompetitorPrice != null">CompetitorPrice = #{CompetitorPrice},</if>
+            <if test="CompetitorGrossMargin != null">CompetitorGrossMargin = #{CompetitorGrossMargin},</if>
+            <if test="CompetitorDailyProfit != null">CompetitorDailyProfit = #{CompetitorDailyProfit},</if>
+            <if test="CompetitorVariants != null">CompetitorVariants = #{CompetitorVariants},</if>
+            <if test="CompetitorListingDate != null">CompetitorListingDate = #{CompetitorListingDate},</if>
+            <if test="CompetitorReviews != null">CompetitorReviews = #{CompetitorReviews},</if>
+            <if test="CompetitorRating != null">CompetitorRating = #{CompetitorRating},</if>
+            <if test="CompetitorCopyQuality != null">CompetitorCopyQuality = #{CompetitorCopyQuality},</if>
+            <if test="CompetitorRelisting != null">CompetitorRelisting = #{CompetitorRelisting},</if>
+            <if test="CompetitorASIN2 != null">CompetitorASIN2 = #{CompetitorASIN2},</if>
+            <if test="MarketMonthlyCapacity != null">MarketMonthlyCapacity = #{MarketMonthlyCapacity},</if>
+            <if test="TargetDailySales != null">TargetDailySales = #{TargetDailySales},</if>
+            <if test="TargetPrice != null">TargetPrice = #{TargetPrice},</if>
+            <if test="TargetDailyRevenue != null">TargetDailyRevenue = #{TargetDailyRevenue},</if>
+            <if test="TargetGrossMargin != null">TargetGrossMargin = #{TargetGrossMargin},</if>
+            <if test="TargetDailyProfit != null">TargetDailyProfit = #{TargetDailyProfit},</if>
+            <if test="TargetSubRank != null">TargetSubRank = #{TargetSubRank},</if>
+            <if test="TargetMainRank != null">TargetMainRank = #{TargetMainRank},</if>
+            <if test="TargetCapitalUtilization != null">TargetCapitalUtilization = #{TargetCapitalUtilization},</if>
+            <if test="LastMonthProfit != null">LastMonthProfit = #{LastMonthProfit},</if>
+            <if test="LastMonthDailyProfit != null">LastMonthDailyProfit = #{LastMonthDailyProfit},</if>
+            <if test="TargetLast30DaysTotalProfit != null">TargetLast30DaysTotalProfit = #{TargetLast30DaysTotalProfit},</if>
+            <if test="ActualLast30DaysTotalProfit != null">ActualLast30DaysTotalProfit = #{ActualLast30DaysTotalProfit},</if>
+            <if test="ActualLast14DaysTotalProfit != null">ActualLast14DaysTotalProfit = #{ActualLast14DaysTotalProfit},</if>
+            <if test="ActualLast7DaysTotalProfit != null">ActualLast7DaysTotalProfit = #{ActualLast7DaysTotalProfit},</if>
+            <if test="TotalInventoryAmountLast30Days != null">TotalInventoryAmountLast30Days = #{TotalInventoryAmountLast30Days},</if>
+            <if test="CapitalUtilizationLast30Days != null">CapitalUtilizationLast30Days = #{CapitalUtilizationLast30Days},</if>
+            <if test="ActualLast7DaysSales != null">ActualLast7DaysSales = #{ActualLast7DaysSales},</if>
+            <if test="LastMonthTotalSales != null">LastMonthTotalSales = #{LastMonthTotalSales},</if>
+            <if test="LastMonthDailySales != null">LastMonthDailySales = #{LastMonthDailySales},</if>
+            <if test="TargetLast30DaysTotalSales != null">TargetLast30DaysTotalSales = #{TargetLast30DaysTotalSales},</if>
+            <if test="ActualLast30DaysTotalSales != null">ActualLast30DaysTotalSales = #{ActualLast30DaysTotalSales},</if>
+            <if test="ActualLast14DaysTotalSales != null">ActualLast14DaysTotalSales = #{ActualLast14DaysTotalSales},</if>
+            <if test="ActualLast7DaysTotalSales != null">ActualLast7DaysTotalSales = #{ActualLast7DaysTotalSales},</if>
+            <if test="AnalysisExecutionReview != null">AnalysisExecutionReview = #{AnalysisExecutionReview},</if>
+            <if test="LastMonthProfitRate != null">LastMonthProfitRate = #{LastMonthProfitRate},</if>
+            <if test="TargetLast30DaysProfitRate != null">TargetLast30DaysProfitRate = #{TargetLast30DaysProfitRate},</if>
+            <if test="ActualLast30DaysProfitRate != null">ActualLast30DaysProfitRate = #{ActualLast30DaysProfitRate},</if>
+            <if test="ActualLast14DaysProfitRate != null">ActualLast14DaysProfitRate = #{ActualLast14DaysProfitRate},</if>
+            <if test="ActualLast7DaysProfitRate != null">ActualLast7DaysProfitRate = #{ActualLast7DaysProfitRate},</if>
+            <if test="AnalysisExecutionReview2 != null">AnalysisExecutionReview2 = #{AnalysisExecutionReview2},</if>
+            <if test="LastMonthInventoryTurnoverDays != null">LastMonthInventoryTurnoverDays = #{LastMonthInventoryTurnoverDays},</if>
+            <if test="CurrentTargetInventoryTurnoverDays != null">CurrentTargetInventoryTurnoverDays = #{CurrentTargetInventoryTurnoverDays},</if>
+            <if test="ActualLast7DaysInventoryTurnoverDays != null">ActualLast7DaysInventoryTurnoverDays = #{ActualLast7DaysInventoryTurnoverDays},</if>
+            <if test="AnalysisExecutionReview3 != null">AnalysisExecutionReview3 = #{AnalysisExecutionReview3},</if>
+            <if test="TargetLast14DaysAdBudget != null">TargetLast14DaysAdBudget = #{TargetLast14DaysAdBudget},</if>
+            <if test="ActualLast14DaysAdSpending != null">ActualLast14DaysAdSpending = #{ActualLast14DaysAdSpending},</if>
+            <if test="TotalAdSpendingLast30Days != null">TotalAdSpendingLast30Days = #{TotalAdSpendingLast30Days},</if>
+            <if test="LastMonthAdSpendingRatio != null">LastMonthAdSpendingRatio = #{LastMonthAdSpendingRatio},</if>
+            <if test="TargetLast30DaysAdSpendingRatio != null">TargetLast30DaysAdSpendingRatio = #{TargetLast30DaysAdSpendingRatio},</if>
+            <if test="ActualLast30DaysAdSpendingRatio != null">ActualLast30DaysAdSpendingRatio = #{ActualLast30DaysAdSpendingRatio},</if>
+            <if test="ActualLast14DaysAdSpendingRatio != null">ActualLast14DaysAdSpendingRatio = #{ActualLast14DaysAdSpendingRatio},</if>
+            <if test="ActualLast7DaysAdSpendingRatio != null">ActualLast7DaysAdSpendingRatio = #{ActualLast7DaysAdSpendingRatio},</if>
+            <if test="TotalAdExposureLast30Days != null">TotalAdExposureLast30Days = #{TotalAdExposureLast30Days},</if>
+            <if test="TotalAdExposureLast14Days != null">TotalAdExposureLast14Days = #{TotalAdExposureLast14Days},</if>
+            <if test="TotalAdExposureLast7Days != null">TotalAdExposureLast7Days = #{TotalAdExposureLast7Days},</if>
+            <if test="TotalAdClicksLast30Days != null">TotalAdClicksLast30Days = #{TotalAdClicksLast30Days},</if>
+            <if test="TotalAdClicksLast14Days != null">TotalAdClicksLast14Days = #{TotalAdClicksLast14Days},</if>
+            <if test="TotalAdClicksLast7Days != null">TotalAdClicksLast7Days = #{TotalAdClicksLast7Days},</if>
+            <if test="AdConversionRateLast30Days != null">AdConversionRateLast30Days = #{AdConversionRateLast30Days},</if>
+            <if test="AdConversionRateLast14Days != null">AdConversionRateLast14Days = #{AdConversionRateLast14Days},</if>
+            <if test="AdConversionRateLast7Days != null">AdConversionRateLast7Days = #{AdConversionRateLast7Days},</if>
+            <if test="ACOSLast30Days != null">ACOSLast30Days = #{ACOSLast30Days},</if>
+            <if test="ACOSLast14Days != null">ACOSLast14Days = #{ACOSLast14Days},</if>
+            <if test="ACOSLast7Days != null">ACOSLast7Days = #{ACOSLast7Days},</if>
+            <if test="TargetACOSLast30Days != null">TargetACOSLast30Days = #{TargetACOSLast30Days},</if>
+            <if test="AnalysisExecutionReview4 != null">AnalysisExecutionReview4 = #{AnalysisExecutionReview4},</if>
+            <if test="TotalPageViewsLastMonth != null">TotalPageViewsLastMonth = #{TotalPageViewsLastMonth},</if>
+            <if test="TargetTotalPageViewsLast30Days != null">TargetTotalPageViewsLast30Days = #{TargetTotalPageViewsLast30Days},</if>
+            <if test="ActualTotalPageViewsLast30Days != null">ActualTotalPageViewsLast30Days = #{ActualTotalPageViewsLast30Days},</if>
+            <if test="ActualTotalPageViewsLast14Days != null">ActualTotalPageViewsLast14Days = #{ActualTotalPageViewsLast14Days},</if>
+            <if test="ActualTotalPageViewsLast7Days != null">ActualTotalPageViewsLast7Days = #{ActualTotalPageViewsLast7Days},</if>
+            <if test="AnalysisExecutionReview5 != null">AnalysisExecutionReview5 = #{AnalysisExecutionReview5},</if>
+            <if test="ConversionRateLastMonth != null">ConversionRateLastMonth = #{ConversionRateLastMonth},</if>
+            <if test="TargetTotalConversionRateLast30Days != null">TargetTotalConversionRateLast30Days = #{TargetTotalConversionRateLast30Days},</if>
+            <if test="ActualTotalConversionRateLast30Days != null">ActualTotalConversionRateLast30Days = #{ActualTotalConversionRateLast30Days},</if>
+            <if test="ActualTotalConversionRateLast14Days != null">ActualTotalConversionRateLast14Days = #{ActualTotalConversionRateLast14Days},</if>
+            <if test="ActualTotalConversionRateLast7Days != null">ActualTotalConversionRateLast7Days = #{ActualTotalConversionRateLast7Days},</if>
+            <if test="AnalysisExecutionReview6 != null">AnalysisExecutionReview6 = #{AnalysisExecutionReview6},</if>
+            <if test="SPAd != null">SPAd = #{SPAd},</if>
+            <if test="ROILast30DaysSPAd != null">ROILast30DaysSPAd = #{ROILast30DaysSPAd},</if>
+            <if test="ROILast14DaysSPAd != null">ROILast14DaysSPAd = #{ROILast14DaysSPAd},</if>
+            <if test="TotalAdExposureLast30DaysSPAd != null">TotalAdExposureLast30DaysSPAd = #{TotalAdExposureLast30DaysSPAd},</if>
+            <if test="TotalAdExposureLast14DaysSPAd != null">TotalAdExposureLast14DaysSPAd = #{TotalAdExposureLast14DaysSPAd},</if>
+            <if test="TotalAdClicksLast30DaysSPAd != null">TotalAdClicksLast30DaysSPAd = #{TotalAdClicksLast30DaysSPAd},</if>
+            <if test="TotalAdClicksLast14DaysSPAd != null">TotalAdClicksLast14DaysSPAd = #{TotalAdClicksLast14DaysSPAd},</if>
+            <if test="AdConversionRateLast30DaysSPAd != null">AdConversionRateLast30DaysSPAd = #{AdConversionRateLast30DaysSPAd},</if>
+            <if test="AdConversionRateLast14DaysSPAd != null">AdConversionRateLast14DaysSPAd = #{AdConversionRateLast14DaysSPAd},</if>
+            <if test="ACOSLast30DaysSPAd != null">ACOSLast30DaysSPAd = #{ACOSLast30DaysSPAd},</if>
+            <if test="ACOSLast14DaysSPAd != null">ACOSLast14DaysSPAd = #{ACOSLast14DaysSPAd},</if>
+            <if test="AnalysisExecutionReviewSPAd != null">AnalysisExecutionReviewSPAd = #{AnalysisExecutionReviewSPAd},</if>
+            <if test="SDAd != null">SDAd = #{SDAd},</if>
+            <if test="ROILast30DaysSDAd != null">ROILast30DaysSDAd = #{ROILast30DaysSDAd},</if>
+            <if test="ROILast14DaysSDAd != null">ROILast14DaysSDAd = #{ROILast14DaysSDAd},</if>
+            <if test="TotalAdExposureLast30DaysSDAd != null">TotalAdExposureLast30DaysSDAd = #{TotalAdExposureLast30DaysSDAd},</if>
+            <if test="TotalAdExposureLast14DaysSDAd != null">TotalAdExposureLast14DaysSDAd = #{TotalAdExposureLast14DaysSDAd},</if>
+            <if test="TotalAdClicksLast30DaysSDAd != null">TotalAdClicksLast30DaysSDAd = #{TotalAdClicksLast30DaysSDAd},</if>
+            <if test="TotalAdClicksLast14DaysSDAd != null">TotalAdClicksLast14DaysSDAd = #{TotalAdClicksLast14DaysSDAd},</if>
+            <if test="AdConversionRateLast30DaysSDAd != null">AdConversionRateLast30DaysSDAd = #{AdConversionRateLast30DaysSDAd},</if>
+            <if test="AdConversionRateLast14DaysSDAd != null">AdConversionRateLast14DaysSDAd = #{AdConversionRateLast14DaysSDAd},</if>
+            <if test="ACOSLast30DaysSDAd != null">ACOSLast30DaysSDAd = #{ACOSLast30DaysSDAd},</if>
+            <if test="ACOSLast14DaysSDAd != null">ACOSLast14DaysSDAd = #{ACOSLast14DaysSDAd},</if>
+            <if test="AnalysisExecutionReviewSDAd != null">AnalysisExecutionReviewSDAd = #{AnalysisExecutionReviewSDAd},</if>
+            <if test="SBad != null">SBad = #{SBad},</if>
+            <if test="ROILast30DaysSBad != null">ROILast30DaysSBad = #{ROILast30DaysSBad},</if>
+            <if test="ROILast14DaysSBad != null">ROILast14DaysSBad = #{ROILast14DaysSBad},</if>
+            <if test="TotalAdExposureLast30DaysSBad != null">TotalAdExposureLast30DaysSBad = #{TotalAdExposureLast30DaysSBad},</if>
+            <if test="TotalAdExposureLast14DaysSBad != null">TotalAdExposureLast14DaysSBad = #{TotalAdExposureLast14DaysSBad},</if>
+            <if test="TotalAdClicksLast30DaysSBad != null">TotalAdClicksLast30DaysSBad = #{TotalAdClicksLast30DaysSBad},</if>
+            <if test="TotalAdClicksLast14DaysSBad != null">TotalAdClicksLast14DaysSBad = #{TotalAdClicksLast14DaysSBad},</if>
+            <if test="AdConversionRateLast30DaysSBad != null">AdConversionRateLast30DaysSBad = #{AdConversionRateLast30DaysSBad},</if>
+            <if test="AdConversionRateLast14DaysSBad != null">AdConversionRateLast14DaysSBad = #{AdConversionRateLast14DaysSBad},</if>
+            <if test="ACOSLast30DaysSBad != null">ACOSLast30DaysSBad = #{ACOSLast30DaysSBad},</if>
+            <if test="ACOSLast14DaysSBad != null">ACOSLast14DaysSBad = #{ACOSLast14DaysSBad},</if>
+            <if test="AnalysisExecutionReviewSBad != null">AnalysisExecutionReviewSBad = #{AnalysisExecutionReviewSBad},</if>
+            <if test="RefundRateLastMonth != null">RefundRateLastMonth = #{RefundRateLastMonth},</if>
+            <if test="TargetRefundRateLast30Days != null">TargetRefundRateLast30Days = #{TargetRefundRateLast30Days},</if>
+            <if test="ActualRefundRateLast30Days != null">ActualRefundRateLast30Days = #{ActualRefundRateLast30Days},</if>
+            <if test="ActualRefundRateLast14Days != null">ActualRefundRateLast14Days = #{ActualRefundRateLast14Days},</if>
+            <if test="ActualRefundRateLast7Days != null">ActualRefundRateLast7Days = #{ActualRefundRateLast7Days},</if>
+            <if test="AnalysisExecutionReview7 != null">AnalysisExecutionReview7 = #{AnalysisExecutionReview7},</if>
+            <if test="ListingAgeMoreThan3Months != null">ListingAgeMoreThan3Months = #{ListingAgeMoreThan3Months},</if>
+            <if test="SalesVelocity != null">SalesVelocity = #{SalesVelocity},</if>
+            <if test="AdSpendingLastMonth != null">AdSpendingLastMonth = #{AdSpendingLastMonth},</if>
+            <if test="AdSalesLastMonth != null">AdSalesLastMonth = #{AdSalesLastMonth},</if>
+            <if test="ROILastMonth != null">ROILastMonth = #{ROILastMonth},</if>
+            <if test="LocalInventory != null">LocalInventory = #{LocalInventory},</if>
+            <if test="LocalProcurementInTransit != null">LocalProcurementInTransit = #{LocalProcurementInTransit},</if>
+            <if test="FBASellableInventory != null">FBASellableInventory = #{FBASellableInventory},</if>
+            <if test="FBAInTransitInventory != null">FBAInTransitInventory = #{FBAInTransitInventory},</if>
+            <if test="LocalInventoryValue != null">LocalInventoryValue = #{LocalInventoryValue},</if>
+            <if test="LocalProcurementInTransitValue != null">LocalProcurementInTransitValue = #{LocalProcurementInTransitValue},</if>
+            <if test="FBASellableInventoryValue != null">FBASellableInventoryValue = #{FBASellableInventoryValue},</if>
+            <if test="FBAInTransitInventoryValue != null">FBAInTransitInventoryValue = #{FBAInTransitInventoryValue},</if>
+            <if test="TotalInventoryValue != null">TotalInventoryValue = #{TotalInventoryValue},</if>
+            <if test="CapitalUtilizationLastMonth != null">CapitalUtilizationLastMonth = #{CapitalUtilizationLastMonth},</if>
+            <if test="isDelete != null">is_delete = #{isDelete},</if>
+            <if test="createdAt != null">created_at = #{createdAt},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteAsinSkuAnalysisById" parameterType="Long">
+        delete from asin_sku_analysis where id = #{id}
+    </delete>
+
+    <delete id="deleteAsinSkuAnalysisByIds" parameterType="String">
+        delete from asin_sku_analysis where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

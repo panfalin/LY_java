@@ -2,12 +2,16 @@ package com.ruoyi.operationRecords.service.impl;
 
 import java.util.Date;
 import java.util.List;
+
+import com.ruoyi.common.core.domain.model.LoginUser;
 import com.ruoyi.common.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.operationRecords.mapper.OperationRecordsMapper;
 import com.ruoyi.operationRecords.domain.OperationRecords;
 import com.ruoyi.operationRecords.service.IOperationRecordsService;
+
+import static com.ruoyi.common.utils.SecurityUtils.getLoginUser;
 
 /**
  * 操作记录Service业务层处理
@@ -42,8 +46,15 @@ public class OperationRecordsServiceImpl implements IOperationRecordsService
     @Override
     public List<OperationRecords> selectOperationRecordsList(OperationRecords operationRecords)
     {
-        List<OperationRecords> operationRecords1 = operationRecordsMapper.selectOperationRecordsList(operationRecords);
-        return operationRecords1;
+
+        LoginUser user = getLoginUser();
+        String userRoleKey = user.getUser().getRoles().get(0).getRoleKey();
+        if ("admin".equals(userRoleKey)) {
+            return operationRecordsMapper.selectOperationRecordsList(operationRecords);
+        }
+        String userName = user.getUser().getUserName();
+        operationRecords.setSalesPerson(userName);
+        return operationRecordsMapper.selectOperationRecordsList(operationRecords);
     }
 
     /**
