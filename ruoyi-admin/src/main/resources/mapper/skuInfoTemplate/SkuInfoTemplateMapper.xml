@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.skuInfoTemplate.mapper.SkuInfoTemplateMapper">
+    
+    <resultMap type="SkuInfoTemplate" id="SkuInfoTemplateResult">
+        <result property="id"    column="id"    />
+        <result property="sku"    column="sku"    />
+        <result property="warehouseName"    column="warehouse_name"    />
+        <result property="stockWarningDays"    column="stock_warning_days"    />
+        <result property="amSeasonalProductOffseason"    column="am_seasonal_product_offseason"    />
+        <result property="amSeasonalProductPeakIncreaseRatio"    column="am_seasonal_product_peak_increase_ratio"    />
+        <result property="amSeasonalProductPeak"    column="am_seasonal_product_peak"    />
+        <result property="amCompetitorSales"    column="am_competitor_sales"    />
+        <result property="amMarketCapacity"    column="am_market_capacity"    />
+        <result property="amProductLifecycleStatus"    column="am_product_lifecycle_status"    />
+        <result property="amSeasonalProductOffseasonDecline"    column="am_seasonal_product_offseason_decline"    />
+        <result property="procurementDays"    column="procurement_days"    />
+        <result property="supplierName"    column="supplier_name"    />
+        <result property="latestPurchasePrice"    column="latest_purchase_price"    />
+        <result property="weight"    column="weight"    />
+        <result property="volumeCm3"    column="volume_cm3"    />
+        <result property="minPurchaseQuantity"    column="min_purchase_quantity"    />
+        <result property="amzInventoryShelfTime"    column="amz_inventory_shelf_time"    />
+        <result property="reshaper"    column="reshaper"    />
+        <result property="reshaping"    column="reshaping"    />
+        <result property="createdAt"    column="created_at"    />
+        <result property="isDelete"    column="is_delete"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="version"    column="version"    />
+    </resultMap>
+
+    <sql id="selectSkuInfoTemplateVo">
+        select id, sku, warehouse_name, stock_warning_days, am_seasonal_product_offseason, am_seasonal_product_peak_increase_ratio, am_seasonal_product_peak, am_competitor_sales, am_market_capacity, am_product_lifecycle_status, am_seasonal_product_offseason_decline, procurement_days, supplier_name, latest_purchase_price, weight, volume_cm3, min_purchase_quantity, amz_inventory_shelf_time, reshaper, reshaping, created_at, is_delete, update_time, create_by, update_by, version from sku_info_template
+    </sql>
+
+    <select id="selectSkuInfoTemplateList" parameterType="SkuInfoTemplate" resultMap="SkuInfoTemplateResult">
+        <include refid="selectSkuInfoTemplateVo"/>
+        <where>  
+            <if test="sku != null  and sku != ''"> and sku = #{sku}</if>
+            <if test="warehouseName != null  and warehouseName != ''"> and warehouse_name like concat('%', #{warehouseName}, '%')</if>
+            <if test="stockWarningDays != null  and stockWarningDays != ''"> and stock_warning_days = #{stockWarningDays}</if>
+            <if test="amSeasonalProductOffseason != null  and amSeasonalProductOffseason != ''"> and am_seasonal_product_offseason = #{amSeasonalProductOffseason}</if>
+            <if test="amSeasonalProductPeakIncreaseRatio != null  and amSeasonalProductPeakIncreaseRatio != ''"> and am_seasonal_product_peak_increase_ratio = #{amSeasonalProductPeakIncreaseRatio}</if>
+            <if test="amSeasonalProductPeak != null  and amSeasonalProductPeak != ''"> and am_seasonal_product_peak = #{amSeasonalProductPeak}</if>
+            <if test="amCompetitorSales != null  and amCompetitorSales != ''"> and am_competitor_sales = #{amCompetitorSales}</if>
+            <if test="amMarketCapacity != null  and amMarketCapacity != ''"> and am_market_capacity = #{amMarketCapacity}</if>
+            <if test="amProductLifecycleStatus != null  and amProductLifecycleStatus != ''"> and am_product_lifecycle_status = #{amProductLifecycleStatus}</if>
+            <if test="amSeasonalProductOffseasonDecline != null  and amSeasonalProductOffseasonDecline != ''"> and am_seasonal_product_offseason_decline = #{amSeasonalProductOffseasonDecline}</if>
+            <if test="procurementDays != null  and procurementDays != ''"> and procurement_days = #{procurementDays}</if>
+            <if test="supplierName != null  and supplierName != ''"> and supplier_name like concat('%', #{supplierName}, '%')</if>
+            <if test="latestPurchasePrice != null  and latestPurchasePrice != ''"> and latest_purchase_price = #{latestPurchasePrice}</if>
+            <if test="weight != null  and weight != ''"> and weight = #{weight}</if>
+            <if test="volumeCm3 != null  and volumeCm3 != ''"> and volume_cm3 = #{volumeCm3}</if>
+            <if test="minPurchaseQuantity != null  and minPurchaseQuantity != ''"> and min_purchase_quantity = #{minPurchaseQuantity}</if>
+            <if test="amzInventoryShelfTime != null  and amzInventoryShelfTime != ''"> and amz_inventory_shelf_time = #{amzInventoryShelfTime}</if>
+            <if test="reshaper != null  and reshaper != ''"> and reshaper = #{reshaper}</if>
+            <if test="reshaping != null  and reshaping != ''"> and reshaping = #{reshaping}</if>
+            <if test="createdAt != null "> and created_at = #{createdAt}</if>
+            <if test="isDelete != null "> and is_delete = #{isDelete}</if>
+            <if test="version != null "> and version = #{version}</if>
+        </where>
+    </select>
+    
+    <select id="selectSkuInfoTemplateById" parameterType="Long" resultMap="SkuInfoTemplateResult">
+        <include refid="selectSkuInfoTemplateVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertSkuInfoTemplate" parameterType="SkuInfoTemplate" useGeneratedKeys="true" keyProperty="id">
+        insert into sku_info_template
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="sku != null and sku != ''">sku,</if>
+            <if test="warehouseName != null">warehouse_name,</if>
+            <if test="stockWarningDays != null">stock_warning_days,</if>
+            <if test="amSeasonalProductOffseason != null">am_seasonal_product_offseason,</if>
+            <if test="amSeasonalProductPeakIncreaseRatio != null">am_seasonal_product_peak_increase_ratio,</if>
+            <if test="amSeasonalProductPeak != null">am_seasonal_product_peak,</if>
+            <if test="amCompetitorSales != null">am_competitor_sales,</if>
+            <if test="amMarketCapacity != null">am_market_capacity,</if>
+            <if test="amProductLifecycleStatus != null">am_product_lifecycle_status,</if>
+            <if test="amSeasonalProductOffseasonDecline != null">am_seasonal_product_offseason_decline,</if>
+            <if test="procurementDays != null">procurement_days,</if>
+            <if test="supplierName != null">supplier_name,</if>
+            <if test="latestPurchasePrice != null">latest_purchase_price,</if>
+            <if test="weight != null">weight,</if>
+            <if test="volumeCm3 != null">volume_cm3,</if>
+            <if test="minPurchaseQuantity != null">min_purchase_quantity,</if>
+            <if test="amzInventoryShelfTime != null">amz_inventory_shelf_time,</if>
+            <if test="reshaper != null">reshaper,</if>
+            <if test="reshaping != null">reshaping,</if>
+            <if test="createdAt != null">created_at,</if>
+            <if test="isDelete != null">is_delete,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="version != null">version,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="sku != null and sku != ''">#{sku},</if>
+            <if test="warehouseName != null">#{warehouseName},</if>
+            <if test="stockWarningDays != null">#{stockWarningDays},</if>
+            <if test="amSeasonalProductOffseason != null">#{amSeasonalProductOffseason},</if>
+            <if test="amSeasonalProductPeakIncreaseRatio != null">#{amSeasonalProductPeakIncreaseRatio},</if>
+            <if test="amSeasonalProductPeak != null">#{amSeasonalProductPeak},</if>
+            <if test="amCompetitorSales != null">#{amCompetitorSales},</if>
+            <if test="amMarketCapacity != null">#{amMarketCapacity},</if>
+            <if test="amProductLifecycleStatus != null">#{amProductLifecycleStatus},</if>
+            <if test="amSeasonalProductOffseasonDecline != null">#{amSeasonalProductOffseasonDecline},</if>
+            <if test="procurementDays != null">#{procurementDays},</if>
+            <if test="supplierName != null">#{supplierName},</if>
+            <if test="latestPurchasePrice != null">#{latestPurchasePrice},</if>
+            <if test="weight != null">#{weight},</if>
+            <if test="volumeCm3 != null">#{volumeCm3},</if>
+            <if test="minPurchaseQuantity != null">#{minPurchaseQuantity},</if>
+            <if test="amzInventoryShelfTime != null">#{amzInventoryShelfTime},</if>
+            <if test="reshaper != null">#{reshaper},</if>
+            <if test="reshaping != null">#{reshaping},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+            <if test="isDelete != null">#{isDelete},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="version != null">#{version},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSkuInfoTemplate" parameterType="SkuInfoTemplate">
+        update sku_info_template
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="sku != null and sku != ''">sku = #{sku},</if>
+            <if test="warehouseName != null">warehouse_name = #{warehouseName},</if>
+            <if test="stockWarningDays != null">stock_warning_days = #{stockWarningDays},</if>
+            <if test="amSeasonalProductOffseason != null">am_seasonal_product_offseason = #{amSeasonalProductOffseason},</if>
+            <if test="amSeasonalProductPeakIncreaseRatio != null">am_seasonal_product_peak_increase_ratio = #{amSeasonalProductPeakIncreaseRatio},</if>
+            <if test="amSeasonalProductPeak != null">am_seasonal_product_peak = #{amSeasonalProductPeak},</if>
+            <if test="amCompetitorSales != null">am_competitor_sales = #{amCompetitorSales},</if>
+            <if test="amMarketCapacity != null">am_market_capacity = #{amMarketCapacity},</if>
+            <if test="amProductLifecycleStatus != null">am_product_lifecycle_status = #{amProductLifecycleStatus},</if>
+            <if test="amSeasonalProductOffseasonDecline != null">am_seasonal_product_offseason_decline = #{amSeasonalProductOffseasonDecline},</if>
+            <if test="procurementDays != null">procurement_days = #{procurementDays},</if>
+            <if test="supplierName != null">supplier_name = #{supplierName},</if>
+            <if test="latestPurchasePrice != null">latest_purchase_price = #{latestPurchasePrice},</if>
+            <if test="weight != null">weight = #{weight},</if>
+            <if test="volumeCm3 != null">volume_cm3 = #{volumeCm3},</if>
+            <if test="minPurchaseQuantity != null">min_purchase_quantity = #{minPurchaseQuantity},</if>
+            <if test="amzInventoryShelfTime != null">amz_inventory_shelf_time = #{amzInventoryShelfTime},</if>
+            <if test="reshaper != null">reshaper = #{reshaper},</if>
+            <if test="reshaping != null">reshaping = #{reshaping},</if>
+            <if test="createdAt != null">created_at = #{createdAt},</if>
+            <if test="isDelete != null">is_delete = #{isDelete},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="version != null">version = #{version},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSkuInfoTemplateById" parameterType="Long">
+        delete from sku_info_template where id = #{id}
+    </delete>
+
+    <delete id="deleteSkuInfoTemplateByIds" parameterType="String">
+        delete from sku_info_template where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

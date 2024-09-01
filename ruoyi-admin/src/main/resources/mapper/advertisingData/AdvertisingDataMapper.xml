@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.advertisingData.mapper.AdvertisingDataMapper">
+    
+    <resultMap type="AdvertisingData" id="AdvertisingDataResult">
+        <result property="id"    column="id"    />
+        <result property="range"    column="range"    />
+        <result property="dataType"    column="data_type"    />
+        <result property="productName"    column="product_name"    />
+        <result property="sku"    column="sku"    />
+        <result property="asin"    column="asin"    />
+        <result property="status"    column="status"    />
+        <result property="type"    column="type"    />
+        <result property="adCampaign"    column="ad_campaign"    />
+        <result property="adGroup"    column="ad_group"    />
+        <result property="billingMethod"    column="billing_method"    />
+        <result property="impressions"    column="impressions"    />
+        <result property="clicks"    column="clicks"    />
+        <result property="ctr"    column="ctr"    />
+        <result property="adCost"    column="ad_cost"    />
+        <result property="cpc"    column="cpc"    />
+        <result property="adOrders"    column="ad_orders"    />
+        <result property="directOrders"    column="direct_orders"    />
+        <result property="organicOrders"    column="organic_orders"    />
+        <result property="indirectOrders"    column="indirect_orders"    />
+        <result property="totalOrders"    column="total_orders"    />
+        <result property="adSales"    column="ad_sales"    />
+        <result property="directSales"    column="direct_sales"    />
+        <result property="indirectSales"    column="indirect_sales"    />
+        <result property="conversionRate"    column="conversion_rate"    />
+        <result property="adRoi"    column="ad_roi"    />
+        <result property="acos"    column="acos"    />
+        <result property="roas"    column="roas"    />
+        <result property="isDelete"    column="is_delete"    />
+        <result property="createdAt"    column="created_at"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="updateBy"    column="update_by"    />
+    </resultMap>
+
+    <sql id="selectAdvertisingDataVo">
+        select id, range, data_type, product_name, sku, asin, status, type, ad_campaign, ad_group, billing_method, impressions, clicks, ctr, ad_cost, cpc, ad_orders, direct_orders, organic_orders, indirect_orders, total_orders, ad_sales, direct_sales, indirect_sales, conversion_rate, ad_roi, acos, roas, is_delete, created_at, update_time, create_by, update_by from advertising_data
+    </sql>
+
+    <select id="selectAdvertisingDataList" parameterType="AdvertisingData" resultMap="AdvertisingDataResult">
+        <include refid="selectAdvertisingDataVo"/>
+        <where>  
+            <if test="range != null  and range != ''"> and range = #{range}</if>
+            <if test="dataType != null  and dataType != ''"> and data_type = #{dataType}</if>
+            <if test="productName != null  and productName != ''"> and product_name like concat('%', #{productName}, '%')</if>
+            <if test="sku != null  and sku != ''"> and sku = #{sku}</if>
+            <if test="asin != null  and asin != ''"> and asin = #{asin}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+            <if test="type != null  and type != ''"> and type = #{type}</if>
+            <if test="adCampaign != null  and adCampaign != ''"> and ad_campaign = #{adCampaign}</if>
+            <if test="adGroup != null  and adGroup != ''"> and ad_group = #{adGroup}</if>
+            <if test="billingMethod != null  and billingMethod != ''"> and billing_method = #{billingMethod}</if>
+            <if test="impressions != null  and impressions != ''"> and impressions = #{impressions}</if>
+            <if test="clicks != null  and clicks != ''"> and clicks = #{clicks}</if>
+            <if test="ctr != null  and ctr != ''"> and ctr = #{ctr}</if>
+            <if test="adCost != null  and adCost != ''"> and ad_cost = #{adCost}</if>
+            <if test="cpc != null  and cpc != ''"> and cpc = #{cpc}</if>
+            <if test="adOrders != null  and adOrders != ''"> and ad_orders = #{adOrders}</if>
+            <if test="directOrders != null  and directOrders != ''"> and direct_orders = #{directOrders}</if>
+            <if test="organicOrders != null  and organicOrders != ''"> and organic_orders = #{organicOrders}</if>
+            <if test="indirectOrders != null  and indirectOrders != ''"> and indirect_orders = #{indirectOrders}</if>
+            <if test="totalOrders != null  and totalOrders != ''"> and total_orders = #{totalOrders}</if>
+            <if test="adSales != null  and adSales != ''"> and ad_sales = #{adSales}</if>
+            <if test="directSales != null  and directSales != ''"> and direct_sales = #{directSales}</if>
+            <if test="indirectSales != null  and indirectSales != ''"> and indirect_sales = #{indirectSales}</if>
+            <if test="conversionRate != null  and conversionRate != ''"> and conversion_rate = #{conversionRate}</if>
+            <if test="adRoi != null  and adRoi != ''"> and ad_roi = #{adRoi}</if>
+            <if test="acos != null  and acos != ''"> and acos = #{acos}</if>
+            <if test="roas != null  and roas != ''"> and roas = #{roas}</if>
+            <if test="isDelete != null "> and is_delete = #{isDelete}</if>
+            <if test="createdAt != null "> and created_at = #{createdAt}</if>
+        </where>
+    </select>
+    
+    <select id="selectAdvertisingDataById" parameterType="Long" resultMap="AdvertisingDataResult">
+        <include refid="selectAdvertisingDataVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertAdvertisingData" parameterType="AdvertisingData" useGeneratedKeys="true" keyProperty="id">
+        insert into advertising_data
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="range != null">range,</if>
+            <if test="dataType != null">data_type,</if>
+            <if test="productName != null">product_name,</if>
+            <if test="sku != null">sku,</if>
+            <if test="asin != null">asin,</if>
+            <if test="status != null">status,</if>
+            <if test="type != null">type,</if>
+            <if test="adCampaign != null">ad_campaign,</if>
+            <if test="adGroup != null">ad_group,</if>
+            <if test="billingMethod != null">billing_method,</if>
+            <if test="impressions != null">impressions,</if>
+            <if test="clicks != null">clicks,</if>
+            <if test="ctr != null">ctr,</if>
+            <if test="adCost != null">ad_cost,</if>
+            <if test="cpc != null">cpc,</if>
+            <if test="adOrders != null">ad_orders,</if>
+            <if test="directOrders != null">direct_orders,</if>
+            <if test="organicOrders != null">organic_orders,</if>
+            <if test="indirectOrders != null">indirect_orders,</if>
+            <if test="totalOrders != null">total_orders,</if>
+            <if test="adSales != null">ad_sales,</if>
+            <if test="directSales != null">direct_sales,</if>
+            <if test="indirectSales != null">indirect_sales,</if>
+            <if test="conversionRate != null">conversion_rate,</if>
+            <if test="adRoi != null">ad_roi,</if>
+            <if test="acos != null">acos,</if>
+            <if test="roas != null">roas,</if>
+            <if test="isDelete != null">is_delete,</if>
+            <if test="createdAt != null">created_at,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="updateBy != null">update_by,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="range != null">#{range},</if>
+            <if test="dataType != null">#{dataType},</if>
+            <if test="productName != null">#{productName},</if>
+            <if test="sku != null">#{sku},</if>
+            <if test="asin != null">#{asin},</if>
+            <if test="status != null">#{status},</if>
+            <if test="type != null">#{type},</if>
+            <if test="adCampaign != null">#{adCampaign},</if>
+            <if test="adGroup != null">#{adGroup},</if>
+            <if test="billingMethod != null">#{billingMethod},</if>
+            <if test="impressions != null">#{impressions},</if>
+            <if test="clicks != null">#{clicks},</if>
+            <if test="ctr != null">#{ctr},</if>
+            <if test="adCost != null">#{adCost},</if>
+            <if test="cpc != null">#{cpc},</if>
+            <if test="adOrders != null">#{adOrders},</if>
+            <if test="directOrders != null">#{directOrders},</if>
+            <if test="organicOrders != null">#{organicOrders},</if>
+            <if test="indirectOrders != null">#{indirectOrders},</if>
+            <if test="totalOrders != null">#{totalOrders},</if>
+            <if test="adSales != null">#{adSales},</if>
+            <if test="directSales != null">#{directSales},</if>
+            <if test="indirectSales != null">#{indirectSales},</if>
+            <if test="conversionRate != null">#{conversionRate},</if>
+            <if test="adRoi != null">#{adRoi},</if>
+            <if test="acos != null">#{acos},</if>
+            <if test="roas != null">#{roas},</if>
+            <if test="isDelete != null">#{isDelete},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+         </trim>
+    </insert>
+
+    <update id="updateAdvertisingData" parameterType="AdvertisingData">
+        update advertising_data
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="range != null">range = #{range},</if>
+            <if test="dataType != null">data_type = #{dataType},</if>
+            <if test="productName != null">product_name = #{productName},</if>
+            <if test="sku != null">sku = #{sku},</if>
+            <if test="asin != null">asin = #{asin},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="adCampaign != null">ad_campaign = #{adCampaign},</if>
+            <if test="adGroup != null">ad_group = #{adGroup},</if>
+            <if test="billingMethod != null">billing_method = #{billingMethod},</if>
+            <if test="impressions != null">impressions = #{impressions},</if>
+            <if test="clicks != null">clicks = #{clicks},</if>
+            <if test="ctr != null">ctr = #{ctr},</if>
+            <if test="adCost != null">ad_cost = #{adCost},</if>
+            <if test="cpc != null">cpc = #{cpc},</if>
+            <if test="adOrders != null">ad_orders = #{adOrders},</if>
+            <if test="directOrders != null">direct_orders = #{directOrders},</if>
+            <if test="organicOrders != null">organic_orders = #{organicOrders},</if>
+            <if test="indirectOrders != null">indirect_orders = #{indirectOrders},</if>
+            <if test="totalOrders != null">total_orders = #{totalOrders},</if>
+            <if test="adSales != null">ad_sales = #{adSales},</if>
+            <if test="directSales != null">direct_sales = #{directSales},</if>
+            <if test="indirectSales != null">indirect_sales = #{indirectSales},</if>
+            <if test="conversionRate != null">conversion_rate = #{conversionRate},</if>
+            <if test="adRoi != null">ad_roi = #{adRoi},</if>
+            <if test="acos != null">acos = #{acos},</if>
+            <if test="roas != null">roas = #{roas},</if>
+            <if test="isDelete != null">is_delete = #{isDelete},</if>
+            <if test="createdAt != null">created_at = #{createdAt},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteAdvertisingDataById" parameterType="Long">
+        delete from advertising_data where id = #{id}
+    </delete>
+
+    <delete id="deleteAdvertisingDataByIds" parameterType="String">
+        delete from advertising_data where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.operationalAnalysis.mapper.OperationalAnalysisMapper">
+    
+    <resultMap type="OperationalAnalysis" id="OperationalAnalysisResult">
+        <result property="id"    column="id"    />
+        <result property="type"    column="type"    />
+        <result property="productName"    column="product_name"    />
+        <result property="sku"    column="sku"    />
+        <result property="avgSalesPrice"    column="avg_sales_price"    />
+        <result property="sales"    column="sales"    />
+        <result property="orderCount"    column="order_count"    />
+        <result property="multiChannelQuantity"    column="multi_channel_quantity"    />
+        <result property="salesAmount"    column="sales_amount"    />
+        <result property="categoryRankLarge"    column="category_rank_large"    />
+        <result property="categoryRankSmall"    column="category_rank_small"    />
+        <result property="pageViewsTotal"    column="page_views_total"    />
+        <result property="pageViewsPercentageTotal"    column="page_views_percentage_total"    />
+        <result property="refundCount"    column="refund_count"    />
+        <result property="refundAmount"    column="refund_amount"    />
+        <result property="refundRate"    column="refund_rate"    />
+        <result property="adSpend"    column="ad_spend"    />
+        <result property="spendPercentage"    column="spend_percentage"    />
+        <result property="impressions"    column="impressions"    />
+        <result property="clicks"    column="clicks"    />
+        <result property="clickThroughRate"    column="click_through_rate"    />
+        <result property="adOrderCount"    column="ad_order_count"    />
+        <result property="adOrderPercentage"    column="ad_order_percentage"    />
+        <result property="conversionRate"    column="conversion_rate"    />
+        <result property="adSalesAmount"    column="ad_sales_amount"    />
+        <result property="costPerClick"    column="cost_per_click"    />
+        <result property="adAcos"    column="ad_acos"    />
+        <result property="availableInventory"    column="available_inventory"    />
+        <result property="availableDays"    column="available_days"    />
+        <result property="reservedInventory"    column="reserved_inventory"    />
+        <result property="totalRevenue"    column="total_revenue"    />
+        <result property="totalExpenditure"    column="total_expenditure"    />
+        <result property="grossProfit"    column="gross_profit"    />
+        <result property="grossMargin"    column="gross_margin"    />
+        <result property="createdAt"    column="created_at"    />
+        <result property="isDelete"    column="is_delete"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="version"    column="version"    />
+    </resultMap>
+
+    <sql id="selectOperationalAnalysisVo">
+        select id, type, product_name, sku, avg_sales_price, sales, order_count, multi_channel_quantity, sales_amount, category_rank_large, category_rank_small, page_views_total, page_views_percentage_total, refund_count, refund_amount, refund_rate, ad_spend, spend_percentage, impressions, clicks, click_through_rate, ad_order_count, ad_order_percentage, conversion_rate, ad_sales_amount, cost_per_click, ad_acos, available_inventory, available_days, reserved_inventory, total_revenue, total_expenditure, gross_profit, gross_margin, created_at, is_delete, update_time, create_by, update_by, version from operational_analysis
+    </sql>
+
+    <select id="selectOperationalAnalysisList" parameterType="OperationalAnalysis" resultMap="OperationalAnalysisResult">
+        <include refid="selectOperationalAnalysisVo"/>
+        <where>  
+            <if test="type != null  and type != ''"> and type = #{type}</if>
+            <if test="productName != null  and productName != ''"> and product_name like concat('%', #{productName}, '%')</if>
+            <if test="sku != null  and sku != ''"> and sku = #{sku}</if>
+            <if test="avgSalesPrice != null  and avgSalesPrice != ''"> and avg_sales_price = #{avgSalesPrice}</if>
+            <if test="sales != null  and sales != ''"> and sales = #{sales}</if>
+            <if test="orderCount != null  and orderCount != ''"> and order_count = #{orderCount}</if>
+            <if test="multiChannelQuantity != null  and multiChannelQuantity != ''"> and multi_channel_quantity = #{multiChannelQuantity}</if>
+            <if test="salesAmount != null  and salesAmount != ''"> and sales_amount = #{salesAmount}</if>
+            <if test="categoryRankLarge != null  and categoryRankLarge != ''"> and category_rank_large = #{categoryRankLarge}</if>
+            <if test="categoryRankSmall != null  and categoryRankSmall != ''"> and category_rank_small = #{categoryRankSmall}</if>
+            <if test="pageViewsTotal != null  and pageViewsTotal != ''"> and page_views_total = #{pageViewsTotal}</if>
+            <if test="pageViewsPercentageTotal != null  and pageViewsPercentageTotal != ''"> and page_views_percentage_total = #{pageViewsPercentageTotal}</if>
+            <if test="refundCount != null  and refundCount != ''"> and refund_count = #{refundCount}</if>
+            <if test="refundAmount != null  and refundAmount != ''"> and refund_amount = #{refundAmount}</if>
+            <if test="refundRate != null  and refundRate != ''"> and refund_rate = #{refundRate}</if>
+            <if test="adSpend != null  and adSpend != ''"> and ad_spend = #{adSpend}</if>
+            <if test="spendPercentage != null  and spendPercentage != ''"> and spend_percentage = #{spendPercentage}</if>
+            <if test="impressions != null  and impressions != ''"> and impressions = #{impressions}</if>
+            <if test="clicks != null  and clicks != ''"> and clicks = #{clicks}</if>
+            <if test="clickThroughRate != null  and clickThroughRate != ''"> and click_through_rate = #{clickThroughRate}</if>
+            <if test="adOrderCount != null  and adOrderCount != ''"> and ad_order_count = #{adOrderCount}</if>
+            <if test="adOrderPercentage != null  and adOrderPercentage != ''"> and ad_order_percentage = #{adOrderPercentage}</if>
+            <if test="conversionRate != null  and conversionRate != ''"> and conversion_rate = #{conversionRate}</if>
+            <if test="adSalesAmount != null  and adSalesAmount != ''"> and ad_sales_amount = #{adSalesAmount}</if>
+            <if test="costPerClick != null  and costPerClick != ''"> and cost_per_click = #{costPerClick}</if>
+            <if test="adAcos != null  and adAcos != ''"> and ad_acos = #{adAcos}</if>
+            <if test="availableInventory != null  and availableInventory != ''"> and available_inventory = #{availableInventory}</if>
+            <if test="availableDays != null  and availableDays != ''"> and available_days = #{availableDays}</if>
+            <if test="reservedInventory != null  and reservedInventory != ''"> and reserved_inventory = #{reservedInventory}</if>
+            <if test="totalRevenue != null  and totalRevenue != ''"> and total_revenue = #{totalRevenue}</if>
+            <if test="totalExpenditure != null  and totalExpenditure != ''"> and total_expenditure = #{totalExpenditure}</if>
+            <if test="grossProfit != null  and grossProfit != ''"> and gross_profit = #{grossProfit}</if>
+            <if test="grossMargin != null  and grossMargin != ''"> and gross_margin = #{grossMargin}</if>
+            <if test="createdAt != null "> and created_at = #{createdAt}</if>
+            <if test="isDelete != null "> and is_delete = #{isDelete}</if>
+            <if test="version != null "> and version = #{version}</if>
+        </where>
+    </select>
+    
+    <select id="selectOperationalAnalysisById" parameterType="Long" resultMap="OperationalAnalysisResult">
+        <include refid="selectOperationalAnalysisVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertOperationalAnalysis" parameterType="OperationalAnalysis" useGeneratedKeys="true" keyProperty="id">
+        insert into operational_analysis
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="type != null">type,</if>
+            <if test="productName != null">product_name,</if>
+            <if test="sku != null">sku,</if>
+            <if test="avgSalesPrice != null">avg_sales_price,</if>
+            <if test="sales != null">sales,</if>
+            <if test="orderCount != null">order_count,</if>
+            <if test="multiChannelQuantity != null">multi_channel_quantity,</if>
+            <if test="salesAmount != null">sales_amount,</if>
+            <if test="categoryRankLarge != null">category_rank_large,</if>
+            <if test="categoryRankSmall != null">category_rank_small,</if>
+            <if test="pageViewsTotal != null">page_views_total,</if>
+            <if test="pageViewsPercentageTotal != null">page_views_percentage_total,</if>
+            <if test="refundCount != null">refund_count,</if>
+            <if test="refundAmount != null">refund_amount,</if>
+            <if test="refundRate != null">refund_rate,</if>
+            <if test="adSpend != null">ad_spend,</if>
+            <if test="spendPercentage != null">spend_percentage,</if>
+            <if test="impressions != null">impressions,</if>
+            <if test="clicks != null">clicks,</if>
+            <if test="clickThroughRate != null">click_through_rate,</if>
+            <if test="adOrderCount != null">ad_order_count,</if>
+            <if test="adOrderPercentage != null">ad_order_percentage,</if>
+            <if test="conversionRate != null">conversion_rate,</if>
+            <if test="adSalesAmount != null">ad_sales_amount,</if>
+            <if test="costPerClick != null">cost_per_click,</if>
+            <if test="adAcos != null">ad_acos,</if>
+            <if test="availableInventory != null">available_inventory,</if>
+            <if test="availableDays != null">available_days,</if>
+            <if test="reservedInventory != null">reserved_inventory,</if>
+            <if test="totalRevenue != null">total_revenue,</if>
+            <if test="totalExpenditure != null">total_expenditure,</if>
+            <if test="grossProfit != null">gross_profit,</if>
+            <if test="grossMargin != null">gross_margin,</if>
+            <if test="createdAt != null">created_at,</if>
+            <if test="isDelete != null">is_delete,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="version != null">version,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="type != null">#{type},</if>
+            <if test="productName != null">#{productName},</if>
+            <if test="sku != null">#{sku},</if>
+            <if test="avgSalesPrice != null">#{avgSalesPrice},</if>
+            <if test="sales != null">#{sales},</if>
+            <if test="orderCount != null">#{orderCount},</if>
+            <if test="multiChannelQuantity != null">#{multiChannelQuantity},</if>
+            <if test="salesAmount != null">#{salesAmount},</if>
+            <if test="categoryRankLarge != null">#{categoryRankLarge},</if>
+            <if test="categoryRankSmall != null">#{categoryRankSmall},</if>
+            <if test="pageViewsTotal != null">#{pageViewsTotal},</if>
+            <if test="pageViewsPercentageTotal != null">#{pageViewsPercentageTotal},</if>
+            <if test="refundCount != null">#{refundCount},</if>
+            <if test="refundAmount != null">#{refundAmount},</if>
+            <if test="refundRate != null">#{refundRate},</if>
+            <if test="adSpend != null">#{adSpend},</if>
+            <if test="spendPercentage != null">#{spendPercentage},</if>
+            <if test="impressions != null">#{impressions},</if>
+            <if test="clicks != null">#{clicks},</if>
+            <if test="clickThroughRate != null">#{clickThroughRate},</if>
+            <if test="adOrderCount != null">#{adOrderCount},</if>
+            <if test="adOrderPercentage != null">#{adOrderPercentage},</if>
+            <if test="conversionRate != null">#{conversionRate},</if>
+            <if test="adSalesAmount != null">#{adSalesAmount},</if>
+            <if test="costPerClick != null">#{costPerClick},</if>
+            <if test="adAcos != null">#{adAcos},</if>
+            <if test="availableInventory != null">#{availableInventory},</if>
+            <if test="availableDays != null">#{availableDays},</if>
+            <if test="reservedInventory != null">#{reservedInventory},</if>
+            <if test="totalRevenue != null">#{totalRevenue},</if>
+            <if test="totalExpenditure != null">#{totalExpenditure},</if>
+            <if test="grossProfit != null">#{grossProfit},</if>
+            <if test="grossMargin != null">#{grossMargin},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+            <if test="isDelete != null">#{isDelete},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="version != null">#{version},</if>
+         </trim>
+    </insert>
+
+    <update id="updateOperationalAnalysis" parameterType="OperationalAnalysis">
+        update operational_analysis
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="type != null">type = #{type},</if>
+            <if test="productName != null">product_name = #{productName},</if>
+            <if test="sku != null">sku = #{sku},</if>
+            <if test="avgSalesPrice != null">avg_sales_price = #{avgSalesPrice},</if>
+            <if test="sales != null">sales = #{sales},</if>
+            <if test="orderCount != null">order_count = #{orderCount},</if>
+            <if test="multiChannelQuantity != null">multi_channel_quantity = #{multiChannelQuantity},</if>
+            <if test="salesAmount != null">sales_amount = #{salesAmount},</if>
+            <if test="categoryRankLarge != null">category_rank_large = #{categoryRankLarge},</if>
+            <if test="categoryRankSmall != null">category_rank_small = #{categoryRankSmall},</if>
+            <if test="pageViewsTotal != null">page_views_total = #{pageViewsTotal},</if>
+            <if test="pageViewsPercentageTotal != null">page_views_percentage_total = #{pageViewsPercentageTotal},</if>
+            <if test="refundCount != null">refund_count = #{refundCount},</if>
+            <if test="refundAmount != null">refund_amount = #{refundAmount},</if>
+            <if test="refundRate != null">refund_rate = #{refundRate},</if>
+            <if test="adSpend != null">ad_spend = #{adSpend},</if>
+            <if test="spendPercentage != null">spend_percentage = #{spendPercentage},</if>
+            <if test="impressions != null">impressions = #{impressions},</if>
+            <if test="clicks != null">clicks = #{clicks},</if>
+            <if test="clickThroughRate != null">click_through_rate = #{clickThroughRate},</if>
+            <if test="adOrderCount != null">ad_order_count = #{adOrderCount},</if>
+            <if test="adOrderPercentage != null">ad_order_percentage = #{adOrderPercentage},</if>
+            <if test="conversionRate != null">conversion_rate = #{conversionRate},</if>
+            <if test="adSalesAmount != null">ad_sales_amount = #{adSalesAmount},</if>
+            <if test="costPerClick != null">cost_per_click = #{costPerClick},</if>
+            <if test="adAcos != null">ad_acos = #{adAcos},</if>
+            <if test="availableInventory != null">available_inventory = #{availableInventory},</if>
+            <if test="availableDays != null">available_days = #{availableDays},</if>
+            <if test="reservedInventory != null">reserved_inventory = #{reservedInventory},</if>
+            <if test="totalRevenue != null">total_revenue = #{totalRevenue},</if>
+            <if test="totalExpenditure != null">total_expenditure = #{totalExpenditure},</if>
+            <if test="grossProfit != null">gross_profit = #{grossProfit},</if>
+            <if test="grossMargin != null">gross_margin = #{grossMargin},</if>
+            <if test="createdAt != null">created_at = #{createdAt},</if>
+            <if test="isDelete != null">is_delete = #{isDelete},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="version != null">version = #{version},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteOperationalAnalysisById" parameterType="Long">
+        delete from operational_analysis where id = #{id}
+    </delete>
+
+    <delete id="deleteOperationalAnalysisByIds" parameterType="String">
+        delete from operational_analysis where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

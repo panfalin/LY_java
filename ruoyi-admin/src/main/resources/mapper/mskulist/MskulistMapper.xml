@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.mskulist.mapper.MskulistMapper">
+    
+    <resultMap type="Mskulist" id="MskulistResult">
+        <result property="id"    column="id"    />
+        <result property="storeName"    column="store_name"    />
+        <result property="msku"    column="msku"    />
+        <result property="categoryLevel1"    column="category_level_1"    />
+        <result property="categoryLevel2"    column="category_level_2"    />
+        <result property="fnsku"    column="fnsku"    />
+        <result property="localSku"    column="local_sku"    />
+        <result property="mainSku"    column="main_sku"    />
+        <result property="productName"    column="product_name"    />
+        <result property="asin"    column="asin"    />
+        <result property="stockStatus"    column="stock_status"    />
+        <result property="sales7Days"    column="sales_7_days"    />
+        <result property="sales14Days"    column="sales_14_days"    />
+        <result property="sales30Days"    column="sales_30_days"    />
+        <result property="sales90Days"    column="sales_90_days"    />
+        <result property="avgDailySales"    column="avg_daily_sales"    />
+        <result property="procurementInTransit"    column="procurement_in_transit"    />
+        <result property="localInventory"    column="local_inventory"    />
+        <result property="available"    column="available"    />
+        <result property="awaitingStock"    column="awaiting_stock"    />
+        <result property="inTransit"    column="in_transit"    />
+        <result property="availableDays"    column="available_days"    />
+        <result property="procurementDays"    column="procurement_days"    />
+        <result property="remarks"    column="remarks"    />
+        <result property="reserved"    column="reserved"    />
+        <result property="plannedStockIn"    column="planned_stock_in"    />
+        <result property="salesPerson"    column="sales_person"    />
+        <result property="listingDate"    column="listing_date"    />
+        <result property="isDelete"    column="is_delete"    />
+        <result property="createdAt"    column="created_at"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="version"    column="version"    />
+    </resultMap>
+
+    <sql id="selectMskulistVo">
+        select id, store_name, msku, category_level_1, category_level_2, fnsku, local_sku, main_sku, product_name, asin, stock_status, sales_7_days, sales_14_days, sales_30_days, sales_90_days, avg_daily_sales, procurement_in_transit, local_inventory, available, awaiting_stock, in_transit, available_days, procurement_days, remarks, reserved, planned_stock_in, sales_person, listing_date, is_delete, created_at, update_time, create_by, update_by, version from mskulist
+    </sql>
+
+    <select id="selectMskulistList" parameterType="Mskulist" resultMap="MskulistResult">
+        <include refid="selectMskulistVo"/>
+        <where>  
+            <if test="storeName != null  and storeName != ''"> and store_name like concat('%', #{storeName}, '%')</if>
+            <if test="msku != null  and msku != ''"> and msku = #{msku}</if>
+            <if test="categoryLevel1 != null  and categoryLevel1 != ''"> and category_level_1 = #{categoryLevel1}</if>
+            <if test="categoryLevel2 != null  and categoryLevel2 != ''"> and category_level_2 = #{categoryLevel2}</if>
+            <if test="fnsku != null  and fnsku != ''"> and fnsku = #{fnsku}</if>
+            <if test="localSku != null  and localSku != ''"> and local_sku = #{localSku}</if>
+            <if test="mainSku != null  and mainSku != ''"> and main_sku = #{mainSku}</if>
+            <if test="productName != null  and productName != ''"> and product_name like concat('%', #{productName}, '%')</if>
+            <if test="asin != null  and asin != ''"> and asin = #{asin}</if>
+            <if test="stockStatus != null  and stockStatus != ''"> and stock_status = #{stockStatus}</if>
+            <if test="sales7Days != null  and sales7Days != ''"> and sales_7_days = #{sales7Days}</if>
+            <if test="sales14Days != null  and sales14Days != ''"> and sales_14_days = #{sales14Days}</if>
+            <if test="sales30Days != null  and sales30Days != ''"> and sales_30_days = #{sales30Days}</if>
+            <if test="sales90Days != null  and sales90Days != ''"> and sales_90_days = #{sales90Days}</if>
+            <if test="avgDailySales != null  and avgDailySales != ''"> and avg_daily_sales = #{avgDailySales}</if>
+            <if test="procurementInTransit != null  and procurementInTransit != ''"> and procurement_in_transit = #{procurementInTransit}</if>
+            <if test="localInventory != null  and localInventory != ''"> and local_inventory = #{localInventory}</if>
+            <if test="available != null  and available != ''"> and available = #{available}</if>
+            <if test="awaitingStock != null  and awaitingStock != ''"> and awaiting_stock = #{awaitingStock}</if>
+            <if test="inTransit != null  and inTransit != ''"> and in_transit = #{inTransit}</if>
+            <if test="availableDays != null  and availableDays != ''"> and available_days = #{availableDays}</if>
+            <if test="procurementDays != null  and procurementDays != ''"> and procurement_days = #{procurementDays}</if>
+            <if test="remarks != null  and remarks != ''"> and remarks = #{remarks}</if>
+            <if test="reserved != null  and reserved != ''"> and reserved = #{reserved}</if>
+            <if test="plannedStockIn != null  and plannedStockIn != ''"> and planned_stock_in = #{plannedStockIn}</if>
+            <if test="salesPerson != null  and salesPerson != ''"> and sales_person = #{salesPerson}</if>
+            <if test="listingDate != null  and listingDate != ''"> and listing_date = #{listingDate}</if>
+            <if test="isDelete != null "> and is_delete = #{isDelete}</if>
+            <if test="createdAt != null "> and created_at = #{createdAt}</if>
+            <if test="version != null "> and version = #{version}</if>
+        </where>
+    </select>
+    
+    <select id="selectMskulistById" parameterType="Long" resultMap="MskulistResult">
+        <include refid="selectMskulistVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertMskulist" parameterType="Mskulist" useGeneratedKeys="true" keyProperty="id">
+        insert into mskulist
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="storeName != null">store_name,</if>
+            <if test="msku != null">msku,</if>
+            <if test="categoryLevel1 != null">category_level_1,</if>
+            <if test="categoryLevel2 != null">category_level_2,</if>
+            <if test="fnsku != null">fnsku,</if>
+            <if test="localSku != null">local_sku,</if>
+            <if test="mainSku != null">main_sku,</if>
+            <if test="productName != null">product_name,</if>
+            <if test="asin != null">asin,</if>
+            <if test="stockStatus != null">stock_status,</if>
+            <if test="sales7Days != null">sales_7_days,</if>
+            <if test="sales14Days != null">sales_14_days,</if>
+            <if test="sales30Days != null">sales_30_days,</if>
+            <if test="sales90Days != null">sales_90_days,</if>
+            <if test="avgDailySales != null">avg_daily_sales,</if>
+            <if test="procurementInTransit != null">procurement_in_transit,</if>
+            <if test="localInventory != null">local_inventory,</if>
+            <if test="available != null">available,</if>
+            <if test="awaitingStock != null">awaiting_stock,</if>
+            <if test="inTransit != null">in_transit,</if>
+            <if test="availableDays != null">available_days,</if>
+            <if test="procurementDays != null">procurement_days,</if>
+            <if test="remarks != null">remarks,</if>
+            <if test="reserved != null">reserved,</if>
+            <if test="plannedStockIn != null">planned_stock_in,</if>
+            <if test="salesPerson != null">sales_person,</if>
+            <if test="listingDate != null">listing_date,</if>
+            <if test="isDelete != null">is_delete,</if>
+            <if test="createdAt != null">created_at,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="version != null">version,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="storeName != null">#{storeName},</if>
+            <if test="msku != null">#{msku},</if>
+            <if test="categoryLevel1 != null">#{categoryLevel1},</if>
+            <if test="categoryLevel2 != null">#{categoryLevel2},</if>
+            <if test="fnsku != null">#{fnsku},</if>
+            <if test="localSku != null">#{localSku},</if>
+            <if test="mainSku != null">#{mainSku},</if>
+            <if test="productName != null">#{productName},</if>
+            <if test="asin != null">#{asin},</if>
+            <if test="stockStatus != null">#{stockStatus},</if>
+            <if test="sales7Days != null">#{sales7Days},</if>
+            <if test="sales14Days != null">#{sales14Days},</if>
+            <if test="sales30Days != null">#{sales30Days},</if>
+            <if test="sales90Days != null">#{sales90Days},</if>
+            <if test="avgDailySales != null">#{avgDailySales},</if>
+            <if test="procurementInTransit != null">#{procurementInTransit},</if>
+            <if test="localInventory != null">#{localInventory},</if>
+            <if test="available != null">#{available},</if>
+            <if test="awaitingStock != null">#{awaitingStock},</if>
+            <if test="inTransit != null">#{inTransit},</if>
+            <if test="availableDays != null">#{availableDays},</if>
+            <if test="procurementDays != null">#{procurementDays},</if>
+            <if test="remarks != null">#{remarks},</if>
+            <if test="reserved != null">#{reserved},</if>
+            <if test="plannedStockIn != null">#{plannedStockIn},</if>
+            <if test="salesPerson != null">#{salesPerson},</if>
+            <if test="listingDate != null">#{listingDate},</if>
+            <if test="isDelete != null">#{isDelete},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="version != null">#{version},</if>
+         </trim>
+    </insert>
+
+    <update id="updateMskulist" parameterType="Mskulist">
+        update mskulist
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="storeName != null">store_name = #{storeName},</if>
+            <if test="msku != null">msku = #{msku},</if>
+            <if test="categoryLevel1 != null">category_level_1 = #{categoryLevel1},</if>
+            <if test="categoryLevel2 != null">category_level_2 = #{categoryLevel2},</if>
+            <if test="fnsku != null">fnsku = #{fnsku},</if>
+            <if test="localSku != null">local_sku = #{localSku},</if>
+            <if test="mainSku != null">main_sku = #{mainSku},</if>
+            <if test="productName != null">product_name = #{productName},</if>
+            <if test="asin != null">asin = #{asin},</if>
+            <if test="stockStatus != null">stock_status = #{stockStatus},</if>
+            <if test="sales7Days != null">sales_7_days = #{sales7Days},</if>
+            <if test="sales14Days != null">sales_14_days = #{sales14Days},</if>
+            <if test="sales30Days != null">sales_30_days = #{sales30Days},</if>
+            <if test="sales90Days != null">sales_90_days = #{sales90Days},</if>
+            <if test="avgDailySales != null">avg_daily_sales = #{avgDailySales},</if>
+            <if test="procurementInTransit != null">procurement_in_transit = #{procurementInTransit},</if>
+            <if test="localInventory != null">local_inventory = #{localInventory},</if>
+            <if test="available != null">available = #{available},</if>
+            <if test="awaitingStock != null">awaiting_stock = #{awaitingStock},</if>
+            <if test="inTransit != null">in_transit = #{inTransit},</if>
+            <if test="availableDays != null">available_days = #{availableDays},</if>
+            <if test="procurementDays != null">procurement_days = #{procurementDays},</if>
+            <if test="remarks != null">remarks = #{remarks},</if>
+            <if test="reserved != null">reserved = #{reserved},</if>
+            <if test="plannedStockIn != null">planned_stock_in = #{plannedStockIn},</if>
+            <if test="salesPerson != null">sales_person = #{salesPerson},</if>
+            <if test="listingDate != null">listing_date = #{listingDate},</if>
+            <if test="isDelete != null">is_delete = #{isDelete},</if>
+            <if test="createdAt != null">created_at = #{createdAt},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="version != null">version = #{version},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteMskulistById" parameterType="Long">
+        delete from mskulist where id = #{id}
+    </delete>
+
+    <delete id="deleteMskulistByIds" parameterType="String">
+        delete from mskulist where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
