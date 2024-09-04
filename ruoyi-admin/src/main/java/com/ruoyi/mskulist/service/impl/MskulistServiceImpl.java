@@ -92,4 +92,15 @@ public class MskulistServiceImpl implements IMskulistService
     {
         return mskulistMapper.deleteMskulistById(id);
     }
+
+    /**
+     * 查询mskulist条数
+     *
+     * @param mskulist mskulist
+     * @return mskulist
+     */
+    @Override
+    public int countMskulist(Mskulist mskulist) {
+        return mskulistMapper.countMskulist(mskulist);
+    }
 }

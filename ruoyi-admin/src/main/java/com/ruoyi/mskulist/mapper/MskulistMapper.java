@@ -58,4 +58,12 @@ public interface MskulistMapper
      * @return 结果
      */
     public int deleteMskulistByIds(Long[] ids);
+
+    /**
+     * 查询mskulist条数
+     *
+     * @param mskulist mskulist
+     * @return mskulist集合
+     */
+    public int countMskulist(Mskulist mskulist);
 }

@@ -85,6 +85,41 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <include refid="selectMskulistVo"/>
         where id = #{id}
     </select>
+    <select id="countMskulist" resultType="java.lang.Integer">
+        select count(1) from mskulist
+        <where>
+            <if test="storeName != null  and storeName != ''"> and store_name like concat('%', #{storeName}, '%')</if>
+            <if test="msku != null  and msku != ''"> and msku = #{msku}</if>
+            <if test="categoryLevel1 != null  and categoryLevel1 != ''"> and category_level_1 = #{categoryLevel1}</if>
+            <if test="categoryLevel2 != null  and categoryLevel2 != ''"> and category_level_2 = #{categoryLevel2}</if>
+            <if test="fnsku != null  and fnsku != ''"> and fnsku = #{fnsku}</if>
+            <if test="localSku != null  and localSku != ''"> and local_sku = #{localSku}</if>
+            <if test="mainSku != null  and mainSku != ''"> and main_sku = #{mainSku}</if>
+            <if test="productName != null  and productName != ''"> and product_name like concat('%', #{productName}, '%')</if>
+            <if test="asin != null  and asin != ''"> and asin = #{asin}</if>
+            <if test="stockStatus != null  and stockStatus != ''"> and stock_status = #{stockStatus}</if>
+            <if test="sales7Days != null  and sales7Days != ''"> and sales_7_days = #{sales7Days}</if>
+            <if test="sales14Days != null  and sales14Days != ''"> and sales_14_days = #{sales14Days}</if>
+            <if test="sales30Days != null  and sales30Days != ''"> and sales_30_days = #{sales30Days}</if>
+            <if test="sales90Days != null  and sales90Days != ''"> and sales_90_days = #{sales90Days}</if>
+            <if test="avgDailySales != null  and avgDailySales != ''"> and avg_daily_sales = #{avgDailySales}</if>
+            <if test="procurementInTransit != null  and procurementInTransit != ''"> and procurement_in_transit = #{procurementInTransit}</if>
+            <if test="localInventory != null  and localInventory != ''"> and local_inventory = #{localInventory}</if>
+            <if test="available != null  and available != ''"> and available = #{available}</if>
+            <if test="awaitingStock != null  and awaitingStock != ''"> and awaiting_stock = #{awaitingStock}</if>
+            <if test="inTransit != null  and inTransit != ''"> and in_transit = #{inTransit}</if>
+            <if test="availableDays != null  and availableDays != ''"> and available_days = #{availableDays}</if>
+            <if test="procurementDays != null  and procurementDays != ''"> and procurement_days = #{procurementDays}</if>
+            <if test="remarks != null  and remarks != ''"> and remarks = #{remarks}</if>
+            <if test="reserved != null  and reserved != ''"> and reserved = #{reserved}</if>
+            <if test="plannedStockIn != null  and plannedStockIn != ''"> and planned_stock_in = #{plannedStockIn}</if>
+            <if test="salesPerson != null  and salesPerson != ''"> and sales_person = #{salesPerson}</if>
+            <if test="listingDate != null  and listingDate != ''"> and listing_date = #{listingDate}</if>
+            <if test="isDelete != null "> and is_delete = #{isDelete}</if>
+            <if test="createdAt != null "> and created_at = #{createdAt}</if>
+            <if test="version != null "> and version = #{version}</if>
+        </where>
+    </select>
 
     <insert id="insertMskulist" parameterType="Mskulist" useGeneratedKeys="true" keyProperty="id">
         insert into mskulist

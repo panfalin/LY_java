@@ -58,4 +58,12 @@ public interface IMskulistService
      * @return 结果
      */
     public int deleteMskulistById(Long id);
+
+    /**
+     * 查询mskulist条数
+     *
+     * @param mskulist
+     * @return
+     */
+    public int countMskulist(Mskulist mskulist);
 }

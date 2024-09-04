@@ -2,6 +2,9 @@ package com.ruoyi.amzlog.controller;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
+import com.ruoyi.mskulist.domain.Mskulist;
+import com.ruoyi.mskulist.service.IMskulistService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,6 +37,9 @@ public class AsinSkuAnalysisController extends BaseController
     @Autowired
     private IAsinSkuAnalysisService asinSkuAnalysisService;
 
+    @Autowired
+    private IMskulistService mskulistService;
+
     /**
      * 查询amzlog列表
      */
@@ -43,7 +49,11 @@ public class AsinSkuAnalysisController extends BaseController
     {
         startPage();
         List<AsinSkuAnalysis> list = asinSkuAnalysisService.selectAsinSkuAnalysisList(asinSkuAnalysis);
-        return getDataTable(list);
+        Mskulist mskulist = new Mskulist();
+        int countMskulist = mskulistService.countMskulist(mskulist);
+        TableDataInfo rspData = getDataTable(list);
+        rspData.setTotal(countMskulist);
+        return rspData;
     }
 
     /**
