@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.orders.mapper.OrdersMapper">
+
+    <resultMap type="Orders" id="OrdersResult">
+        <result property="orderId" column="order_id"/>
+        <result property="paymentTime" column="payment_time"/>
+        <result property="storeName" column="store_name"/>
+        <result property="country" column="country"/>
+        <result property="weight" column="weight"/>
+        <result property="skuDetails" column="sku_details"/>
+        <result property="skuQuantity" column="sku_quantity"/>
+        <result property="totalProductWeight" column="total_product_weight"/>
+        <result property="totalOrderAmount" column="total_order_amount"/>
+        <result property="actualShipping" column="actual_shipping"/>
+        <result property="adCostRmb" column="ad_cost_rmb"/>
+        <result property="platformFeeRmb" column="platform_fee_rmb"/>
+        <result property="vatFeeRmb" column="vat_fee_rmb"/>
+        <result property="orderProfit" column="order_profit"/>
+        <result property="orderProfitRate" column="order_profit_rate"/>
+    </resultMap>
+
+    <sql id="selectOrdersVo">
+        select order_id,
+               payment_time,
+               store_name,
+               country,
+               weight,
+               sku_details,
+               sku_quantity,
+               total_product_weight,
+               total_order_amount,
+               actual_shipping,
+               ad_cost_rmb,
+               platform_fee_rmb,
+               vat_fee_rmb,
+               order_profit,
+               order_profit_rate
+        from orders
+    </sql>
+
+    <select id="selectOrdersList" parameterType="Orders" resultMap="OrdersResult">
+        <include refid="selectOrdersVo"/>
+        <where>
+            <if test="startPaymentTime != null and endPaymentTime != null">
+                AND payment_time BETWEEN #{startPaymentTime} AND #{endPaymentTime}
+            </if>
+            <if test="orders.storeName != null and orders.storeName != ''">
+                AND store_name LIKE CONCAT('%', #{orders.storeName}, '%')
+            </if>
+            <if test="orders.country != null and orders.country != ''">
+                AND country = #{orders.country}
+            </if>
+            <if test="orders.weight != null">
+                AND weight = #{orders.weight}
+            </if>
+            <if test="orders.skuDetails != null and orders.skuDetails != ''">
+                AND sku_details LIKE CONCAT('%', #{orders.skuDetails}, '%')
+            </if>
+            <if test="orders.skuQuantity != null">
+                AND sku_quantity = #{orders.skuQuantity}
+            </if>
+            <if test="orders.totalProductWeight != null">
+                AND total_product_weight = #{orders.totalProductWeight}
+            </if>
+            <if test="orders.totalOrderAmount != null">
+                AND total_order_amount = #{orders.totalOrderAmount}
+            </if>
+            <if test="orders.actualShipping != null">
+                AND actual_shipping = #{orders.actualShipping}
+            </if>
+            <if test="orders.adCostRmb != null">
+                AND ad_cost_rmb = #{orders.adCostRmb}
+            </if>
+            <if test="orders.platformFeeRmb != null">
+                AND platform_fee_rmb = #{orders.platformFeeRmb}
+            </if>
+            <if test="orders.vatFeeRmb != null">
+                AND vat_fee_rmb = #{orders.vatFeeRmb}
+            </if>
+            <if test="orders.orderProfit != null and orders.orderProfit != ''">
+                AND order_profit = #{orders.orderProfit}
+            </if>
+            <if test="orders.orderProfitRate != null and orders.orderProfitRate != ''">
+                AND order_profit_rate = #{orders.orderProfitRate}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectOrdersByOrderId" parameterType="String" resultMap="OrdersResult">
+        <include refid="selectOrdersVo"/>
+        where order_id = #{orderId}
+    </select>
+
+    <insert id="insertOrders" parameterType="Orders">
+        insert into orders
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="orderId != null">order_id,</if>
+            <if test="paymentTime != null">payment_time,</if>
+            <if test="storeName != null">store_name,</if>
+            <if test="country != null">country,</if>
+            <if test="weight != null">weight,</if>
+            <if test="skuDetails != null">sku_details,</if>
+            <if test="skuQuantity != null">sku_quantity,</if>
+            <if test="totalProductWeight != null">total_product_weight,</if>
+            <if test="totalOrderAmount != null">total_order_amount,</if>
+            <if test="actualShipping != null">actual_shipping,</if>
+            <if test="adCostRmb != null">ad_cost_rmb,</if>
+            <if test="platformFeeRmb != null">platform_fee_rmb,</if>
+            <if test="vatFeeRmb != null">vat_fee_rmb,</if>
+            <if test="orderProfit != null">order_profit,</if>
+            <if test="orderProfitRate != null">order_profit_rate,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="orderId != null">#{orderId},</if>
+            <if test="paymentTime != null">#{paymentTime},</if>
+            <if test="storeName != null">#{storeName},</if>
+            <if test="country != null">#{country},</if>
+            <if test="weight != null">#{weight},</if>
+            <if test="skuDetails != null">#{skuDetails},</if>
+            <if test="skuQuantity != null">#{skuQuantity},</if>
+            <if test="totalProductWeight != null">#{totalProductWeight},</if>
+            <if test="totalOrderAmount != null">#{totalOrderAmount},</if>
+            <if test="actualShipping != null">#{actualShipping},</if>
+            <if test="adCostRmb != null">#{adCostRmb},</if>
+            <if test="platformFeeRmb != null">#{platformFeeRmb},</if>
+            <if test="vatFeeRmb != null">#{vatFeeRmb},</if>
+            <if test="orderProfit != null">#{orderProfit},</if>
+            <if test="orderProfitRate != null">#{orderProfitRate},</if>
+        </trim>
+    </insert>
+
+    <update id="updateOrders" parameterType="Orders">
+        update orders
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="paymentTime != null">payment_time = #{paymentTime},</if>
+            <if test="storeName != null">store_name = #{storeName},</if>
+            <if test="country != null">country = #{country},</if>
+            <if test="weight != null">weight = #{weight},</if>
+            <if test="skuDetails != null">sku_details = #{skuDetails},</if>
+            <if test="skuQuantity != null">sku_quantity = #{skuQuantity},</if>
+            <if test="totalProductWeight != null">total_product_weight = #{totalProductWeight},</if>
+            <if test="totalOrderAmount != null">total_order_amount = #{totalOrderAmount},</if>
+            <if test="actualShipping != null">actual_shipping = #{actualShipping},</if>
+            <if test="adCostRmb != null">ad_cost_rmb = #{adCostRmb},</if>
+            <if test="platformFeeRmb != null">platform_fee_rmb = #{platformFeeRmb},</if>
+            <if test="vatFeeRmb != null">vat_fee_rmb = #{vatFeeRmb},</if>
+            <if test="orderProfit != null">order_profit = #{orderProfit},</if>
+            <if test="orderProfitRate != null">order_profit_rate = #{orderProfitRate},</if>
+        </trim>
+        where order_id = #{orderId}
+    </update>
+
+    <delete id="deleteOrdersByOrderId" parameterType="String">
+        delete
+        from orders
+        where order_id = #{orderId}
+    </delete>
+
+    <delete id="deleteOrdersByOrderIds" parameterType="String">
+        delete from orders where order_id in
+        <foreach item="orderId" collection="array" open="(" separator="," close=")">
+            #{orderId}
+        </foreach>
+    </delete>
+
+    <select id="selectAllStores" resultType="String">
+        SELECT DISTINCT store_name
+        FROM orders
+        GROUP BY store_name
+        ORDER BY COUNT(*) DESC
+    </select>
+
+    <select id="selectAllCountry" resultType="String">
+        SELECT country
+        FROM orders
+        GROUP BY country
+        ORDER BY COUNT(*) DESC
+    </select>
+
+</mapper>

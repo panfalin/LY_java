@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.products.mapper.ProductsMapper">
+
+    <resultMap type="Products" id="ProductsResult">
+        <result property="id" column="id"/>
+        <result property="productCode" column="product_code"/>
+        <result property="productName" column="product_name"/>
+        <result property="status" column="status"/>
+        <result property="totalInventory" column="total_inventory"/>
+        <result property="latestPurchasePrice" column="latest_purchase_price"/>
+        <result property="imageUrl" column="image_url"/>
+        <result property="sales7Days" column="sales_7_Days"/>
+        <result property="sales28Days" column="sales_28_Days"/>
+        <result property="sales42Days" column="sales_42_Days"/>
+        <result property="totalListingCount" column="total_listing_count"/>
+        <result property="store_count" column="store_count"/>
+        <result property="target" column="target"/>
+    </resultMap>
+
+    <sql id="selectProductsVo">
+        select id,
+               product_code,
+               product_name,
+               status,
+               total_inventory,
+               latest_purchase_price,
+               image_url,
+               ae_competitor_id_one_extension_attribute,
+               ae_competitor_id_two_extension_attribute,
+               ae_competitor_id_three_extension_attribute,
+               sales_7_Days,
+               sales_28_Days,
+               sales_42_Days,
+               store_count,
+               total_listing_count,
+               target
+        from products
+    </sql>
+
+    <select id="selectProductsList" parameterType="Products" resultMap="ProductsResult">
+        <include refid="selectProductsVo"/>
+        <where>
+            <if test="productCode != null  and productCode != ''">AND product_code LIKE CONCAT('%', #{productCode},
+                '%')
+            </if>
+            <if test="productName != null  and productName != ''">AND product_name LIKE CONCAT('%', #{productName},
+                '%')
+            </if>
+            <if test="status != null  and status != ''">AND status LIKE CONCAT('%', #{status}, '%')</if>
+            <if test="totalInventory != null ">and total_inventory = #{totalInventory}</if>
+            <if test="latestPurchasePrice != null ">and latest_purchase_price = #{latestPurchasePrice}</if>
+            <if test="imageUrl != null  and imageUrl != ''">and image_url = #{imageUrl}</if>
+            <if test="ae_competitor_id_one_extension_attribute != null  and ae_competitor_id_one_extension_attribute != ''">
+                and ae_competitor_id_one_extension_attribute = #{ae_competitor_id_one_extension_attribute}
+            </if>
+            <if test="ae_competitor_id_two_extension_attribute != null  and ae_competitor_id_two_extension_attribute != ''">
+                and ae_competitor_id_two_extension_attribute = #{ae_competitor_id_two_extension_attribute}
+            </if>
+            <if test="ae_competitor_id_three_extension_attribute != null  and ae_competitor_id_three_extension_attribute != ''">
+                and ae_competitor_id_three_extension_attribute = #{ae_competitor_id_three_extension_attribute}
+            </if>
+            <!-- 确保只查找未删除的记录 -->
+            AND is_delete = 0
+        </where>
+        # ORDER BY sales_42_Days DESC
+    </select>
+
+    <select id="selectProductsById" parameterType="Long" resultMap="ProductsResult">
+        <include refid="selectProductsVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertProducts" parameterType="Products" useGeneratedKeys="true" keyProperty="id">
+        insert into products
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="productCode != null and productCode != ''">product_code,</if>
+            <if test="status != null">status,</if>
+            <if test="totalInventory != null">total_inventory,</if>
+            <if test="latestPurchasePrice != null">latest_purchase_price,</if>
+            <if test="imageUrl != null">image_url,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="productCode != null and productCode != ''">#{productCode},</if>
+            <if test="status != null">#{status},</if>
+            <if test="totalInventory != null">#{totalInventory},</if>
+            <if test="latestPurchasePrice != null">#{latestPurchasePrice},</if>
+            <if test="imageUrl != null">#{imageUrl},</if>
+        </trim>
+    </insert>
+
+    <update id="updateProducts" parameterType="Products">
+        update products
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="productCode != null and productCode != ''">product_code = #{productCode},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="totalInventory != null">total_inventory = #{totalInventory},</if>
+            <if test="latestPurchasePrice != null">latest_purchase_price = #{latestPurchasePrice},</if>
+            <if test="imageUrl != null">image_url = #{imageUrl},</if>
+            <if test="target != null">target = #{target},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <update id="deleteProductsById" parameterType="Long">
+        UPDATE products
+        SET is_delete = 1
+        WHERE id = #{id}
+    </update>
+
+    <update id="deleteProductsByIds" parameterType="Long[]">
+        UPDATE products
+        SET is_delete = 1
+        WHERE id IN
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+</mapper>
