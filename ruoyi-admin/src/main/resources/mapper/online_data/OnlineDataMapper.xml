@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.online_data.mapper.OnlineDataMapper">
+    
+    <resultMap type="OnlineData" id="OnlineDataResult">
+        <result property="id"    column="id"    />
+        <result property="productId"    column="product_id"    />
+        <result property="storeEmail"    column="store_email"    />
+        <result property="listingId"    column="listing_id"    />
+        <result property="listingCount"    column="listing_count"    />
+        <result property="totalListingCount"    column="total_listing_count"    />
+    </resultMap>
+
+    <sql id="selectOnlineDataVo">
+        select id, product_id, store_email, listing_id, listing_count, total_listing_count, store_count from online_data
+    </sql>
+
+    <select id="selectOnlineDataList" parameterType="OnlineData" resultMap="OnlineDataResult">
+        <include refid="selectOnlineDataVo"/>
+        <where>  
+            <if test="productId != null "> and product_id = #{productId}</if>
+            <if test="storeEmail != null  and storeEmail != ''"> and store_email = #{storeEmail}</if>
+            <if test="listingId != null  and listingId != ''"> and listing_id = #{listingId}</if>
+            <if test="listingCount != null "> and listing_count = #{listingCount}</if>
+            <if test="totalListingCount != null "> and total_listing_count = #{totalListingCount}</if>
+            <if test="store_count != null "> and store_count = #{store_count}</if>
+        </where>
+    </select>
+    
+    <select id="selectOnlineDataById" parameterType="Long" resultMap="OnlineDataResult">
+        <include refid="selectOnlineDataVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertOnlineData" parameterType="OnlineData" useGeneratedKeys="true" keyProperty="id">
+        insert into online_data
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="productId != null">product_id,</if>
+            <if test="storeEmail != null">store_email,</if>
+            <if test="listingId != null">listing_id,</if>
+            <if test="listingCount != null">listing_count,</if>
+            <if test="totalListingCount != null">total_listing_count,</if>
+            <if test="store_count != null">store_count,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="productId != null">#{productId},</if>
+            <if test="storeEmail != null">#{storeEmail},</if>
+            <if test="listingId != null">#{listingId},</if>
+            <if test="listingCount != null">#{listingCount},</if>
+            <if test="totalListingCount != null">#{totalListingCount},</if>
+            <if test="store_count != null">#{store_count},</if>
+         </trim>
+    </insert>
+
+    <update id="updateOnlineData" parameterType="OnlineData">
+        update online_data
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="productId != null">product_id = #{productId},</if>
+            <if test="storeEmail != null">store_email = #{storeEmail},</if>
+            <if test="listingId != null">listing_id = #{listingId},</if>
+            <if test="listingCount != null">listing_count = #{listingCount},</if>
+            <if test="totalListingCount != null">total_listing_count = #{totalListingCount},</if>
+            <if test="store_count != null">store_count = #{store_count},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteOnlineDataById" parameterType="Long">
+        delete from online_data where id = #{id}
+    </delete>
+
+    <delete id="deleteOnlineDataByIds" parameterType="String">
+        delete from online_data where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

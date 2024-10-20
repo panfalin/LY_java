@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.competitor_products.mapper.CompetitorProductsMapper">
+    
+    <resultMap type="CompetitorProducts" id="CompetitorProductsResult">
+        <result property="id"    column="id"    />
+        <result property="productId"    column="product_id"    />
+        <result property="competitorId"    column="competitor_id"    />
+        <result property="sales180Days"    column="sales_180_days"    />
+        <result property="sales7Days"    column="sales_7_days"    />
+        <result property="favoritesCount"    column="favorites_count"    />
+        <result property="reviewsCount"    column="reviews_count"    />
+        <result property="minPrice"    column="min_price"    />
+        <result property="maxPrice"    column="max_price"    />
+    </resultMap>
+
+    <sql id="selectCompetitorProductsVo">
+        select id, product_id, competitor_id, sales_180_days, sales_7_days, favorites_count, reviews_count, min_price, max_price from competitor_products
+    </sql>
+
+    <select id="selectCompetitorProductsList" parameterType="CompetitorProducts" resultMap="CompetitorProductsResult">
+        <include refid="selectCompetitorProductsVo"/>
+        <where>  
+            <if test="productId != null "> and product_id = #{productId}</if>
+            <if test="competitorId != null  and competitorId != ''"> and competitor_id = #{competitorId}</if>
+            <if test="sales180Days != null "> and sales_180_days = #{sales180Days}</if>
+            <if test="sales7Days != null "> and sales_7_days = #{sales7Days}</if>
+            <if test="favoritesCount != null "> and favorites_count = #{favoritesCount}</if>
+            <if test="reviewsCount != null "> and reviews_count = #{reviewsCount}</if>
+            <if test="minPrice != null "> and min_price = #{minPrice}</if>
+            <if test="maxPrice != null "> and max_price = #{maxPrice}</if>
+        </where>
+    </select>
+    
+    <select id="selectCompetitorProductsById" parameterType="Long" resultMap="CompetitorProductsResult">
+        <include refid="selectCompetitorProductsVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertCompetitorProducts" parameterType="CompetitorProducts" useGeneratedKeys="true" keyProperty="id">
+        insert into competitor_products
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="productId != null">product_id,</if>
+            <if test="competitorId != null">competitor_id,</if>
+            <if test="sales180Days != null">sales_180_days,</if>
+            <if test="sales7Days != null">sales_7_days,</if>
+            <if test="favoritesCount != null">favorites_count,</if>
+            <if test="reviewsCount != null">reviews_count,</if>
+            <if test="minPrice != null">min_price,</if>
+            <if test="maxPrice != null">max_price,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="productId != null">#{productId},</if>
+            <if test="competitorId != null">#{competitorId},</if>
+            <if test="sales180Days != null">#{sales180Days},</if>
+            <if test="sales7Days != null">#{sales7Days},</if>
+            <if test="favoritesCount != null">#{favoritesCount},</if>
+            <if test="reviewsCount != null">#{reviewsCount},</if>
+            <if test="minPrice != null">#{minPrice},</if>
+            <if test="maxPrice != null">#{maxPrice},</if>
+         </trim>
+    </insert>
+
+    <update id="updateCompetitorProducts" parameterType="CompetitorProducts">
+        update competitor_products
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="productId != null">product_id = #{productId},</if>
+            <if test="competitorId != null">competitor_id = #{competitorId},</if>
+            <if test="sales180Days != null">sales_180_days = #{sales180Days},</if>
+            <if test="sales7Days != null">sales_7_days = #{sales7Days},</if>
+            <if test="favoritesCount != null">favorites_count = #{favoritesCount},</if>
+            <if test="reviewsCount != null">reviews_count = #{reviewsCount},</if>
+            <if test="minPrice != null">min_price = #{minPrice},</if>
+            <if test="maxPrice != null">max_price = #{maxPrice},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteCompetitorProductsById" parameterType="Long">
+        delete from competitor_products where id = #{id}
+    </delete>
+
+    <delete id="deleteCompetitorProductsByIds" parameterType="String">
+        delete from competitor_products where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
