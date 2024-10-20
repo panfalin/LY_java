@@ -130,16 +130,16 @@ public class ProductsServiceImpl implements IProductsService {
 
             // 添加Mabang信息
             Map<String, Object> mabangInfo = new HashMap<>();
-            mabangInfo.put("商品名称", product.getProductName());
-            mabangInfo.put("库存图片链接", product.getImageUrl());
-            mabangInfo.put("可用库存总量", product.getTotalInventory());
-            mabangInfo.put("状态", product.getStatus());
-            mabangInfo.put("最新采购价", product.getLatestPurchasePrice());
-            mabangInfo.put("7天销量", product.getSales7Days());
-            mabangInfo.put("28天销量", product.getSales28Days());
-            mabangInfo.put("42天销量", product.getSales42Days());
-            mabangInfo.put("总刊登数", product.getTotalListingCount());
-            mabangInfo.put("上架店铺数", product.getStore_count());
+            mabangInfo.put("productName", product.getProductName());
+            mabangInfo.put("imageUrl", product.getImageUrl());
+            mabangInfo.put("totalInventory", product.getTotalInventory());
+            mabangInfo.put("status", product.getStatus());
+            mabangInfo.put("latestPurchasePrice", product.getLatestPurchasePrice());
+            mabangInfo.put("salesDays7", product.getSales7Days());
+            mabangInfo.put("salesDays28", product.getSales28Days());
+            mabangInfo.put("salesDays42", product.getSales42Days());
+            mabangInfo.put("totalListingCount", product.getTotalListingCount());
+            mabangInfo.put("store_count", product.getStore_count());
             mabangInfo.put("target", product.getTarget());
             // 假设我们按顺序分配竞品信息
             if (!competitorProductsList.isEmpty()) {

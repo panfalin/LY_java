@@ -49,15 +49,15 @@ public class Products extends BaseEntity
 
     /** 7天销量 */
     @Excel(name = "7天销量")
-    private Long sales7Days;
+    private Long salesDays7;
 
     /** 28天销量 */
     @Excel(name = "28天销量")
-    private Long sales28Days;
+    private Long salesDays28;
 
     /** 42天销量 */
     @Excel(name = "42天销量")
-    private Long sales42Days;
+    private Long salesDays42;
 
     /** AE-竞品ID一【扩展属性】 */
     @Excel(name = "AE-竞品ID一【扩展属性】")
@@ -73,7 +73,7 @@ public class Products extends BaseEntity
 
     /** 总刊登数 */
     @Excel(name = "总刊登数")
-    private Long totalListingCount;
+        private Long totalListingCount;
 
     /** 上架店铺数 */
     @Excel(name = "上架店铺数")
@@ -152,27 +152,27 @@ public class Products extends BaseEntity
         return imageUrl;
     }
     public Long getSales7Days() {
-        return sales7Days;
+        return salesDays7;
     }
 
     public void setSales7Days(Long sales7Days) {
-        this.sales7Days = sales7Days;
+        this.salesDays7 = salesDays7;
     }
 
     public Long getSales28Days() {
-        return sales28Days;
+        return salesDays28;
     }
 
     public void setSales28Days(Long sales28Days) {
-        this.sales28Days = sales28Days;
+        this.salesDays28 = salesDays28;
     }
 
     public Long getSales42Days() {
-        return sales42Days;
+        return salesDays42;
     }
 
     public void setSales42Days(Long sales42Days) {
-        this.sales42Days = sales42Days;
+        this.salesDays42 = salesDays42;
     }
 
     public String getAe_competitor_id_one_extension_attribute() {
