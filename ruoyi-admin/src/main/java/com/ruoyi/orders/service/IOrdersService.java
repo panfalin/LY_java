@@ -25,7 +25,7 @@ public interface IOrdersService
      * @param orders 订单数据
      * @return 订单数据集合
      */
-    public List<Orders> selectOrdersList(Orders orders, String paymentTime);
+    public List<Orders> selectOrdersList(Orders orders);
 
     /**
      * 新增订单数据

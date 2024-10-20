@@ -26,9 +26,7 @@ public interface OrdersMapper
      * @param orders 订单数据
      * @return 订单数据集合
      */
-public List<Orders> selectOrdersList(@Param("orders") Orders orders,
-                                      @Param("startPaymentTime") String startPaymentTime,
-                                      @Param("endPaymentTime") String endPaymentTime);
+public List<Orders> selectOrdersList(Orders orders);
 
     /**
      * 新增订单数据

@@ -40,14 +40,9 @@ public class OrdersServiceImpl implements IOrdersService {
      * @return 订单数据
      */
     @Override
-    public List<Orders> selectOrdersList(Orders orders, String paymentTime) {
-    if (paymentTime != null && !paymentTime.isEmpty()) {
-        String[] paymentTimes = paymentTime.split(" - ");
-        return ordersMapper.selectOrdersList(orders, paymentTimes[0], paymentTimes[1]);
-    } else {
-        return ordersMapper.selectOrdersList(orders, null, null);
+    public List<Orders> selectOrdersList(Orders orders) {
+        return ordersMapper.selectOrdersList(orders);
     }
-}
 
 
     /**

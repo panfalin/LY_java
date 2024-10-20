@@ -44,51 +44,26 @@
     <select id="selectOrdersList" parameterType="Orders" resultMap="OrdersResult">
         <include refid="selectOrdersVo"/>
         <where>
-            <if test="startPaymentTime != null and endPaymentTime != null">
-                AND payment_time BETWEEN #{startPaymentTime} AND #{endPaymentTime}
+            <if test="params.beginTime != null and params.beginTime != ''"><!-- 开始时间检索 -->
+                and date_format(payment_time,'%Y%m%d') &gt;= date_format(#{params.beginTime},'%Y%m%d')
             </if>
-            <if test="orders.storeName != null and orders.storeName != ''">
-                AND store_name LIKE CONCAT('%', #{orders.storeName}, '%')
-            </if>
-            <if test="orders.country != null and orders.country != ''">
-                AND country = #{orders.country}
-            </if>
-            <if test="orders.weight != null">
-                AND weight = #{orders.weight}
-            </if>
-            <if test="orders.skuDetails != null and orders.skuDetails != ''">
-                AND sku_details LIKE CONCAT('%', #{orders.skuDetails}, '%')
-            </if>
-            <if test="orders.skuQuantity != null">
-                AND sku_quantity = #{orders.skuQuantity}
-            </if>
-            <if test="orders.totalProductWeight != null">
-                AND total_product_weight = #{orders.totalProductWeight}
-            </if>
-            <if test="orders.totalOrderAmount != null">
-                AND total_order_amount = #{orders.totalOrderAmount}
-            </if>
-            <if test="orders.actualShipping != null">
-                AND actual_shipping = #{orders.actualShipping}
-            </if>
-            <if test="orders.adCostRmb != null">
-                AND ad_cost_rmb = #{orders.adCostRmb}
-            </if>
-            <if test="orders.platformFeeRmb != null">
-                AND platform_fee_rmb = #{orders.platformFeeRmb}
-            </if>
-            <if test="orders.vatFeeRmb != null">
-                AND vat_fee_rmb = #{orders.vatFeeRmb}
-            </if>
-            <if test="orders.orderProfit != null and orders.orderProfit != ''">
-                AND order_profit = #{orders.orderProfit}
-            </if>
-            <if test="orders.orderProfitRate != null and orders.orderProfitRate != ''">
-                AND order_profit_rate = #{orders.orderProfitRate}
-            </if>
+            <if test="params.endTime != null and params.endTime != ''"><!-- 结束时间检索 -->
+                and date_format(payment_time,'%Y%m%d') &lt;= date_format(#{params.endTime},'%Y%m%d')
+            </if>            <if test="storeName != null  and storeName != ''"> and store_name like concat('%', #{storeName}, '%')</if>
+            <if test="country != null  and country != ''"> and country = #{country}</if>
+            <if test="weight != null "> and weight = #{weight}</if>
+            <if test="skuDetails != null  and skuDetails != ''"> and sku_details = #{skuDetails}</if>
+            <if test="skuQuantity != null "> and sku_quantity = #{skuQuantity}</if>
+            <if test="totalProductWeight != null "> and total_product_weight = #{totalProductWeight}</if>
+            <if test="totalOrderAmount != null "> and total_order_amount = #{totalOrderAmount}</if>
+            <if test="actualShipping != null "> and actual_shipping = #{actualShipping}</if>
+            <if test="adCostRmb != null "> and ad_cost_rmb = #{adCostRmb}</if>
+            <if test="platformFeeRmb != null "> and platform_fee_rmb = #{platformFeeRmb}</if>
+            <if test="vatFeeRmb != null "> and vat_fee_rmb = #{vatFeeRmb}</if>
+            <if test="orderProfit != null  and orderProfit != ''"> and order_profit = #{orderProfit}</if>
+            <if test="orderProfitRate != null  and orderProfitRate != ''"> and order_profit_rate = #{orderProfitRate}</if>
         </where>
     </select>
-
     <select id="selectOrdersByOrderId" parameterType="String" resultMap="OrdersResult">
         <include refid="selectOrdersVo"/>
         where order_id = #{orderId}
