@@ -50,6 +50,7 @@
             <if test="params.endTime != null and params.endTime != ''"><!-- 结束时间检索 -->
                 and date_format(payment_time,'%Y%m%d') &lt;= date_format(#{params.endTime},'%Y%m%d')
             </if>            <if test="storeName != null  and storeName != ''"> and store_name like concat('%', #{storeName}, '%')</if>
+            <if test="orderId != null  and orderId != ''"> and order_id = #{orderId}</if>
             <if test="country != null  and country != ''"> and country = #{country}</if>
             <if test="weight != null "> and weight = #{weight}</if>
             <if test="skuDetails != null  and skuDetails != ''"> and sku_details = #{skuDetails}</if>
