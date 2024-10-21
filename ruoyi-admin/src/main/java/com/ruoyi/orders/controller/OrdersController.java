@@ -39,14 +39,9 @@ public class OrdersController extends BaseController {
      */
     @PreAuthorize("@ss.hasPermi('orders:orders:list')")
     @GetMapping("/list")
-    public TableDataInfo list(Orders orders, String paymentTime) {
+    public TableDataInfo list(Orders orders) {
         startPage();
-        List<Orders> list;
-        if (paymentTime != null && !paymentTime.isEmpty()) {
-            list = ordersService.selectOrdersList(orders, paymentTime);
-        } else {
-            list = ordersService.selectOrdersList(orders, null);
-        }
+        List<Orders> list= ordersService.selectOrdersList(orders);
         return getDataTable(list);
     }
 
@@ -56,8 +51,8 @@ public class OrdersController extends BaseController {
     @PreAuthorize("@ss.hasPermi('orders:orders:export')")
     @Log(title = "订单数据", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
-    public void export(HttpServletResponse response, Orders orders, String paymentTime) {
-        List<Orders> list = ordersService.selectOrdersList(orders, paymentTime);
+    public void export(HttpServletResponse response, Orders orders) {
+        List<Orders> list = ordersService.selectOrdersList(orders);
         ExcelUtil<Orders> util = new ExcelUtil<Orders>(Orders.class);
         util.exportExcel(response, list, "订单数据数据");
     }
