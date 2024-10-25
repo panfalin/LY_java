@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.order_data.mapper.OrderDataMapper">
+
+    <resultMap type="OrderData" id="OrderDataResult">
+        <result property="productId" column="product_id"/>
+        <result property="statisticalDate" column="statistical_date"/>
+        <result property="categoryId" column="category_id"/>
+        <result property="rank" column="rank"/>
+        <result property="payingOldBuyers" column="paying_old_buyers"/>
+        <result property="payingBuyers" column="paying_buyers"/>
+        <result property="paidProductQuantity" column="paid_product_quantity"/>
+        <result property="pageViews" column="page_views"/>
+        <result property="orderAmount" column="order_amount"/>
+        <result property="averageStayDuration" column="average_stay_duration"/>
+        <result property="payingNewBuyers" column="paying_new_buyers"/>
+        <result property="oldVisitorCount" column="old_visitor_count"/>
+        <result property="paymentConversionRate" column="payment_conversion_rate"/>
+        <result property="newVisitorCount" column="new_visitor_count"/>
+        <result property="searchExposure" column="search_exposure"/>
+        <result property="orderedProductQuantity" column="ordered_product_quantity"/>
+        <result property="orderingBuyers" column="ordering_buyers"/>
+        <result property="averageOrderValue" column="average_order_value"/>
+        <result property="successfulRefundAmount" column="successful_refund_amount"/>
+        <result property="tax" column="tax"/>
+        <result property="productFavorites" column="product_favorites"/>
+        <result property="productAddToCart" column="product_add_to_cart"/>
+        <result property="visitorCount" column="visitor_count"/>
+        <result property="searchClickThroughRate" column="search_click_through_rate"/>
+        <result property="transactionAmount" column="transaction_amount"/>
+        <result property="paidItemPrice" column="paid_item_price"/>
+        <result property="paidMainOrders" column="paid_main_orders"/>
+        <result property="orderConversionRate" column="order_conversion_rate"/>
+        <result property="orderedMainOrders" column="ordered_main_orders"/>
+        <result property="rootCategoryName" column="root_category_name"/>
+        <result property="categoryPath" column="category_path"/>
+        <result property="createdTime" column="created_time"/>
+        <result property="storeName" column="store_name"/>
+    </resultMap>
+
+    <sql id="selectOrderDataVo">
+        select *
+        from order_data
+    </sql>
+
+    <select id="selectOrderDataList" parameterType="OrderData" resultMap="OrderDataResult">
+        <include refid="selectOrderDataVo"/>
+        <where>
+            <if test="productId != null  and productId != ''">and product_id = #{productId}</if>
+            <if test="statisticalDate != null ">and statistical_date = #{statisticalDate}</if>
+            <if test="categoryId != null  and categoryId != ''">and category_id = #{categoryId}</if>
+            <if test="rank != null ">and rank = #{rank}</if>
+            <if test="payingOldBuyers != null ">and paying_old_buyers = #{payingOldBuyers}</if>
+            <if test="payingBuyers != null ">and paying_buyers = #{payingBuyers}</if>
+            <if test="paidProductQuantity != null ">and paid_product_quantity = #{paidProductQuantity}</if>
+            <if test="pageViews != null ">and page_views = #{pageViews}</if>
+            <if test="orderAmount != null ">and order_amount = #{orderAmount}</if>
+            <if test="averageStayDuration != null ">and average_stay_duration = #{averageStayDuration}</if>
+            <if test="payingNewBuyers != null ">and paying_new_buyers = #{payingNewBuyers}</if>
+            <if test="oldVisitorCount != null ">and old_visitor_count = #{oldVisitorCount}</if>
+            <if test="paymentConversionRate != null ">and payment_conversion_rate = #{paymentConversionRate}</if>
+            <if test="newVisitorCount != null ">and new_visitor_count = #{newVisitorCount}</if>
+            <if test="searchExposure != null ">and search_exposure = #{searchExposure}</if>
+            <if test="orderedProductQuantity != null ">and ordered_product_quantity = #{orderedProductQuantity}</if>
+            <if test="orderingBuyers != null ">and ordering_buyers = #{orderingBuyers}</if>
+            <if test="averageOrderValue != null ">and average_order_value = #{averageOrderValue}</if>
+            <if test="successfulRefundAmount != null ">and successful_refund_amount = #{successfulRefundAmount}</if>
+            <if test="tax != null ">and tax = #{tax}</if>
+            <if test="productFavorites != null ">and product_favorites = #{productFavorites}</if>
+            <if test="productAddToCart != null ">and product_add_to_cart = #{productAddToCart}</if>
+            <if test="visitorCount != null ">and visitor_count = #{visitorCount}</if>
+            <if test="searchClickThroughRate != null ">and search_click_through_rate = #{searchClickThroughRate}</if>
+            <if test="transactionAmount != null ">and transaction_amount = #{transactionAmount}</if>
+            <if test="paidItemPrice != null ">and paid_item_price = #{paidItemPrice}</if>
+            <if test="paidMainOrders != null ">and paid_main_orders = #{paidMainOrders}</if>
+            <if test="orderConversionRate != null ">and order_conversion_rate = #{orderConversionRate}</if>
+            <if test="orderedMainOrders != null ">and ordered_main_orders = #{orderedMainOrders}</if>
+            <if test="rootCategoryName != null  and rootCategoryName != ''">and root_category_name like concat('%',
+                #{rootCategoryName}, '%')
+            </if>
+            <if test="categoryPath != null  and categoryPath != ''">and category_path = #{categoryPath}</if>
+            <if test="createdTime != null ">and created_time = #{createdTime}</if>
+            <if test="storeName != null  and storeName != ''">
+                and store_name IN
+                <foreach collection="storeName.split(',')" item="store" open="(" separator="," close=")">
+                    #{store}
+                </foreach>
+            </if>
+        </where>
+    </select>
+
+    <select id="selectOrderDataByProductId" parameterType="String" resultMap="OrderDataResult">
+        <include refid="selectOrderDataVo"/>
+        where product_id = #{productId}
+    </select>
+
+    <insert id="insertOrderData" parameterType="OrderData">
+        insert into order_data
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="productId != null">product_id,</if>
+            <if test="statisticalDate != null">statistical_date,</if>
+            <if test="categoryId != null">category_id,</if>
+            <if test="rank != null">rank,</if>
+            <if test="payingOldBuyers != null">paying_old_buyers,</if>
+            <if test="payingBuyers != null">paying_buyers,</if>
+            <if test="paidProductQuantity != null">paid_product_quantity,</if>
+            <if test="pageViews != null">page_views,</if>
+            <if test="orderAmount != null">order_amount,</if>
+            <if test="averageStayDuration != null">average_stay_duration,</if>
+            <if test="payingNewBuyers != null">paying_new_buyers,</if>
+            <if test="oldVisitorCount != null">old_visitor_count,</if>
+            <if test="paymentConversionRate != null">payment_conversion_rate,</if>
+            <if test="newVisitorCount != null">new_visitor_count,</if>
+            <if test="searchExposure != null">search_exposure,</if>
+            <if test="orderedProductQuantity != null">ordered_product_quantity,</if>
+            <if test="orderingBuyers != null">ordering_buyers,</if>
+            <if test="averageOrderValue != null">average_order_value,</if>
+            <if test="successfulRefundAmount != null">successful_refund_amount,</if>
+            <if test="tax != null">tax,</if>
+            <if test="productFavorites != null">product_favorites,</if>
+            <if test="productAddToCart != null">product_add_to_cart,</if>
+            <if test="visitorCount != null">visitor_count,</if>
+            <if test="searchClickThroughRate != null">search_click_through_rate,</if>
+            <if test="transactionAmount != null">transaction_amount,</if>
+            <if test="paidItemPrice != null">paid_item_price,</if>
+            <if test="paidMainOrders != null">paid_main_orders,</if>
+            <if test="orderConversionRate != null">order_conversion_rate,</if>
+            <if test="orderedMainOrders != null">ordered_main_orders,</if>
+            <if test="rootCategoryName != null">root_category_name,</if>
+            <if test="categoryPath != null">category_path,</if>
+            <if test="createdTime != null">created_time,</if>
+            <if test="storeName != null and storeName != ''">store_name,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="productId != null">#{productId},</if>
+            <if test="statisticalDate != null">#{statisticalDate},</if>
+            <if test="categoryId != null">#{categoryId},</if>
+            <if test="rank != null">#{rank},</if>
+            <if test="payingOldBuyers != null">#{payingOldBuyers},</if>
+            <if test="payingBuyers != null">#{payingBuyers},</if>
+            <if test="paidProductQuantity != null">#{paidProductQuantity},</if>
+            <if test="pageViews != null">#{pageViews},</if>
+            <if test="orderAmount != null">#{orderAmount},</if>
+            <if test="averageStayDuration != null">#{averageStayDuration},</if>
+            <if test="payingNewBuyers != null">#{payingNewBuyers},</if>
+            <if test="oldVisitorCount != null">#{oldVisitorCount},</if>
+            <if test="paymentConversionRate != null">#{paymentConversionRate},</if>
+            <if test="newVisitorCount != null">#{newVisitorCount},</if>
+            <if test="searchExposure != null">#{searchExposure},</if>
+            <if test="orderedProductQuantity != null">#{orderedProductQuantity},</if>
+            <if test="orderingBuyers != null">#{orderingBuyers},</if>
+            <if test="averageOrderValue != null">#{averageOrderValue},</if>
+            <if test="successfulRefundAmount != null">#{successfulRefundAmount},</if>
+            <if test="tax != null">#{tax},</if>
+            <if test="productFavorites != null">#{productFavorites},</if>
+            <if test="productAddToCart != null">#{productAddToCart},</if>
+            <if test="visitorCount != null">#{visitorCount},</if>
+            <if test="searchClickThroughRate != null">#{searchClickThroughRate},</if>
+            <if test="transactionAmount != null">#{transactionAmount},</if>
+            <if test="paidItemPrice != null">#{paidItemPrice},</if>
+            <if test="paidMainOrders != null">#{paidMainOrders},</if>
+            <if test="orderConversionRate != null">#{orderConversionRate},</if>
+            <if test="orderedMainOrders != null">#{orderedMainOrders},</if>
+            <if test="rootCategoryName != null">#{rootCategoryName},</if>
+            <if test="categoryPath != null">#{categoryPath},</if>
+            <if test="createdTime != null">#{createdTime},</if>
+            <if test="storeName != null and storeName != ''">#{storeName},</if>
+        </trim>
+    </insert>
+
+    <update id="updateOrderData" parameterType="OrderData">
+        update order_data
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="statisticalDate != null">statistical_date = #{statisticalDate},</if>
+            <if test="categoryId != null">category_id = #{categoryId},</if>
+            <if test="rank != null">rank = #{rank},</if>
+            <if test="payingOldBuyers != null">paying_old_buyers = #{payingOldBuyers},</if>
+            <if test="payingBuyers != null">paying_buyers = #{payingBuyers},</if>
+            <if test="paidProductQuantity != null">paid_product_quantity = #{paidProductQuantity},</if>
+            <if test="pageViews != null">page_views = #{pageViews},</if>
+            <if test="orderAmount != null">order_amount = #{orderAmount},</if>
+            <if test="averageStayDuration != null">average_stay_duration = #{averageStayDuration},</if>
+            <if test="payingNewBuyers != null">paying_new_buyers = #{payingNewBuyers},</if>
+            <if test="oldVisitorCount != null">old_visitor_count = #{oldVisitorCount},</if>
+            <if test="paymentConversionRate != null">payment_conversion_rate = #{paymentConversionRate},</if>
+            <if test="newVisitorCount != null">new_visitor_count = #{newVisitorCount},</if>
+            <if test="searchExposure != null">search_exposure = #{searchExposure},</if>
+            <if test="orderedProductQuantity != null">ordered_product_quantity = #{orderedProductQuantity},</if>
+            <if test="orderingBuyers != null">ordering_buyers = #{orderingBuyers},</if>
+            <if test="averageOrderValue != null">average_order_value = #{averageOrderValue},</if>
+            <if test="successfulRefundAmount != null">successful_refund_amount = #{successfulRefundAmount},</if>
+            <if test="tax != null">tax = #{tax},</if>
+            <if test="productFavorites != null">product_favorites = #{productFavorites},</if>
+            <if test="productAddToCart != null">product_add_to_cart = #{productAddToCart},</if>
+            <if test="visitorCount != null">visitor_count = #{visitorCount},</if>
+            <if test="searchClickThroughRate != null">search_click_through_rate = #{searchClickThroughRate},</if>
+            <if test="transactionAmount != null">transaction_amount = #{transactionAmount},</if>
+            <if test="paidItemPrice != null">paid_item_price = #{paidItemPrice},</if>
+            <if test="paidMainOrders != null">paid_main_orders = #{paidMainOrders},</if>
+            <if test="orderConversionRate != null">order_conversion_rate = #{orderConversionRate},</if>
+            <if test="orderedMainOrders != null">ordered_main_orders = #{orderedMainOrders},</if>
+            <if test="rootCategoryName != null">root_category_name = #{rootCategoryName},</if>
+            <if test="categoryPath != null">category_path = #{categoryPath},</if>
+            <if test="createdTime != null">created_time = #{createdTime},</if>
+            <if test="storeName != null and storeName != ''">store_name = #{storeName},</if>
+        </trim>
+        where product_id = #{productId}
+    </update>
+
+    <delete id="deleteOrderDataByProductId" parameterType="String">
+        delete
+        from order_data
+        where product_id = #{productId}
+    </delete>
+
+    <delete id="deleteOrderDataByProductIds" parameterType="String">
+        delete from order_data where product_id in
+        <foreach item="productId" collection="array" open="(" separator="," close=")">
+            #{productId}
+        </foreach>
+    </delete>
+
+    <select id="selectAllStores" resultType="String">
+        SELECT DISTINCT store_name
+        FROM order_data
+        GROUP BY store_name
+        ORDER BY COUNT(*) DESC
+    </select>
+</mapper>

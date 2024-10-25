@@ -3,6 +3,7 @@ package com.ruoyi.amzlog.controller;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ruoyi.common.core.domain.model.LoginUser;
 import com.ruoyi.mskulist.domain.Mskulist;
 import com.ruoyi.mskulist.service.IMskulistService;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -49,7 +50,13 @@ public class AsinSkuAnalysisController extends BaseController
     {
         startPage();
         List<AsinSkuAnalysis> list = asinSkuAnalysisService.selectAsinSkuAnalysisList(asinSkuAnalysis);
+        LoginUser user = getLoginUser();
+        String userRoleKey = user.getUser().getRoles().get(0).getRoleKey();
         Mskulist mskulist = new Mskulist();
+        if (!"admin".equals(userRoleKey)) {
+            String userName = user.getUser().getUserName();
+            mskulist.setSalesPerson(userName);
+        }
         int countMskulist = mskulistService.countMskulist(mskulist);
         TableDataInfo rspData = getDataTable(list);
         rspData.setTotal(countMskulist);

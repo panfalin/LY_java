@@ -141,16 +141,25 @@ public class ProductsServiceImpl implements IProductsService {
             mabangInfo.put("totalListingCount", product.getTotalListingCount());
             mabangInfo.put("store_count", product.getStore_count());
             mabangInfo.put("target", product.getTarget());
+            Long competitorOneSalesDays180 = 0L;
+            Long competitorTwoSalesDays180 = 0L;
+            Long competitorThreeSalesDays180 = 0L;
             // 假设我们按顺序分配竞品信息
             if (!competitorProductsList.isEmpty()) {
                 mabangInfo.put("竞品一", competitorProductsList.get(0));
+                competitorOneSalesDays180 = competitorProductsList.get(0).getSales180Days();
             }
             if (competitorProductsList.size() > 1) {
                 mabangInfo.put("竞品二", competitorProductsList.get(1));
+                competitorTwoSalesDays180 = competitorProductsList.get(1).getSales180Days();
             }
             if (competitorProductsList.size() > 2) {
                 mabangInfo.put("竞品三", competitorProductsList.get(2));
+                competitorThreeSalesDays180 = competitorProductsList.get(2).getSales180Days();
             }
+            Double marketCapacity = (competitorOneSalesDays180 + competitorTwoSalesDays180 + competitorThreeSalesDays180) /0.5;
+            mabangInfo.put("marketCapacity", marketCapacity);
+
             productInfo.put("mabang_info", mabangInfo);
             productInfo.put("id", product.getId()   );
 
