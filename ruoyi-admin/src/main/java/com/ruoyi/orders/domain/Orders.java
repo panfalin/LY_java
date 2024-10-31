@@ -58,6 +58,10 @@ public class Orders extends BaseEntity
     @Excel(name = "实际运费")
     private BigDecimal actualShipping;
 
+    /** 运费收入 */
+    @Excel(name = "运费收入")
+    private BigDecimal shippingRevenue;
+
     /** 广告费(人民币) */
     @Excel(name = "广告费(人民币)")
     private BigDecimal adCostRmb;
@@ -77,6 +81,14 @@ public class Orders extends BaseEntity
     /** 订单利润率 */
     @Excel(name = "订单利润率")
     private String orderProfitRate;
+
+    public BigDecimal getShippingRevenue() {
+        return shippingRevenue;
+    }
+
+    public void setShippingRevenue(BigDecimal shippingRevenue) {
+        this.shippingRevenue = shippingRevenue;
+    }
 
     public void setOrderId(String orderId) 
     {

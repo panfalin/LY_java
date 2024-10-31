@@ -1,6 +1,9 @@
 package com.ruoyi.products.domain;
 
 import java.math.BigDecimal;
+import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import com.ruoyi.common.annotation.Excel;
@@ -26,6 +29,43 @@ public class Products extends BaseEntity
     /** 商品名称 */
     @Excel(name = "商品名称")
     private String productName;
+
+    /** 上架时间 */
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Excel(name = "上架时间", width = 30, dateFormat = "yyyy-MM-dd")
+    private Date listingTime;
+
+    /** 分类 */
+    @Excel(name = "分类")
+    private String category;
+
+    /** 热销国家 */
+    @Excel(name = "热销国家")
+    private String bestSellingCountries;
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getBestSellingCountries() {
+        return bestSellingCountries;
+    }
+
+    public void setBestSellingCountries(String bestSellingCountries) {
+        this.bestSellingCountries = bestSellingCountries;
+    }
+
+    public Date getListingTime() {
+        return listingTime;
+    }
+
+    public void setListingTime(Date listingTime) {
+        this.listingTime = listingTime;
+    }
 
     /** 状态 */
     @Excel(name = "状态")

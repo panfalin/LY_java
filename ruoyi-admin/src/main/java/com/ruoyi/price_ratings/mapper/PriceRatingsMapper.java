@@ -4,55 +4,55 @@ import java.util.List;
 import com.ruoyi.price_ratings.domain.PriceRatings;
 
 /**
- * price_ratingsMapper接口
+ * 价格和评分信息Mapper接口
  * 
  * @author ruoyi
- * @date 2024-10-16
+ * @date 2024-10-31
  */
 public interface PriceRatingsMapper 
 {
     /**
-     * 查询price_ratings
+     * 查询价格和评分信息
      * 
-     * @param id price_ratings主键
-     * @return price_ratings
+     * @param id 价格和评分信息主键
+     * @return 价格和评分信息
      */
     public PriceRatings selectPriceRatingsById(Long id);
 
     /**
-     * 查询price_ratings列表
+     * 查询价格和评分信息列表
      * 
-     * @param priceRatings price_ratings
-     * @return price_ratings集合
+     * @param priceRatings 价格和评分信息
+     * @return 价格和评分信息集合
      */
     public List<PriceRatings> selectPriceRatingsList(PriceRatings priceRatings);
 
     /**
-     * 新增price_ratings
+     * 新增价格和评分信息
      * 
-     * @param priceRatings price_ratings
+     * @param priceRatings 价格和评分信息
      * @return 结果
      */
     public int insertPriceRatings(PriceRatings priceRatings);
 
     /**
-     * 修改price_ratings
+     * 修改价格和评分信息
      * 
-     * @param priceRatings price_ratings
+     * @param priceRatings 价格和评分信息
      * @return 结果
      */
     public int updatePriceRatings(PriceRatings priceRatings);
 
     /**
-     * 删除price_ratings
+     * 删除价格和评分信息
      * 
-     * @param id price_ratings主键
+     * @param id 价格和评分信息主键
      * @return 结果
      */
     public int deletePriceRatingsById(Long id);
 
     /**
-     * 批量删除price_ratings
+     * 批量删除价格和评分信息
      * 
      * @param ids 需要删除的数据主键集合
      * @return 结果

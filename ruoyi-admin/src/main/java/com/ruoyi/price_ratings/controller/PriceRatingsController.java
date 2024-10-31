@@ -22,22 +22,22 @@ import com.ruoyi.common.utils.poi.ExcelUtil;
 import com.ruoyi.common.core.page.TableDataInfo;
 
 /**
- * price_ratingsController
+ * 价格和评分信息Controller
  * 
  * @author ruoyi
- * @date 2024-10-16
+ * @date 2024-10-31
  */
 @RestController
-@RequestMapping("/price_ratings/price_ratings")
+@RequestMapping("/PriceRatings/PriceRatings")
 public class PriceRatingsController extends BaseController
 {
     @Autowired
     private IPriceRatingsService priceRatingsService;
 
     /**
-     * 查询price_ratings列表
+     * 查询价格和评分信息列表
      */
-    @PreAuthorize("@ss.hasPermi('price_ratings:price_ratings:list')")
+    @PreAuthorize("@ss.hasPermi('PriceRatings:PriceRatings:list')")
     @GetMapping("/list")
     public TableDataInfo list(PriceRatings priceRatings)
     {
@@ -47,22 +47,22 @@ public class PriceRatingsController extends BaseController
     }
 
     /**
-     * 导出price_ratings列表
+     * 导出价格和评分信息列表
      */
-    @PreAuthorize("@ss.hasPermi('price_ratings:price_ratings:export')")
-    @Log(title = "price_ratings", businessType = BusinessType.EXPORT)
+    @PreAuthorize("@ss.hasPermi('PriceRatings:PriceRatings:export')")
+    @Log(title = "价格和评分信息", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, PriceRatings priceRatings)
     {
         List<PriceRatings> list = priceRatingsService.selectPriceRatingsList(priceRatings);
         ExcelUtil<PriceRatings> util = new ExcelUtil<PriceRatings>(PriceRatings.class);
-        util.exportExcel(response, list, "price_ratings数据");
+        util.exportExcel(response, list, "价格和评分信息数据");
     }
 
     /**
-     * 获取price_ratings详细信息
+     * 获取价格和评分信息详细信息
      */
-    @PreAuthorize("@ss.hasPermi('price_ratings:price_ratings:query')")
+    @PreAuthorize("@ss.hasPermi('PriceRatings:PriceRatings:query')")
     @GetMapping(value = "/{id}")
     public AjaxResult getInfo(@PathVariable("id") Long id)
     {
@@ -70,10 +70,10 @@ public class PriceRatingsController extends BaseController
     }
 
     /**
-     * 新增price_ratings
+     * 新增价格和评分信息
      */
-    @PreAuthorize("@ss.hasPermi('price_ratings:price_ratings:add')")
-    @Log(title = "price_ratings", businessType = BusinessType.INSERT)
+    @PreAuthorize("@ss.hasPermi('PriceRatings:PriceRatings:add')")
+    @Log(title = "价格和评分信息", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody PriceRatings priceRatings)
     {
@@ -81,10 +81,10 @@ public class PriceRatingsController extends BaseController
     }
 
     /**
-     * 修改price_ratings
+     * 修改价格和评分信息
      */
-    @PreAuthorize("@ss.hasPermi('price_ratings:price_ratings:edit')")
-    @Log(title = "price_ratings", businessType = BusinessType.UPDATE)
+    @PreAuthorize("@ss.hasPermi('PriceRatings:PriceRatings:edit')")
+    @Log(title = "价格和评分信息", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody PriceRatings priceRatings)
     {
@@ -92,10 +92,10 @@ public class PriceRatingsController extends BaseController
     }
 
     /**
-     * 删除price_ratings
+     * 删除价格和评分信息
      */
-    @PreAuthorize("@ss.hasPermi('price_ratings:price_ratings:remove')")
-    @Log(title = "price_ratings", businessType = BusinessType.DELETE)
+    @PreAuthorize("@ss.hasPermi('PriceRatings:PriceRatings:remove')")
+    @Log(title = "价格和评分信息", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{ids}")
     public AjaxResult remove(@PathVariable Long[] ids)
     {

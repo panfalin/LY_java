@@ -152,6 +152,138 @@ public class OrderData extends BaseEntity
     @Excel(name = "店铺名")
     private String storeName;
 
+    /** SKU明细 */
+    @Excel(name = "SKU明细")
+    private String skuDetails;
+
+    /** 总销售数量 */
+    @Excel(name = "总销售数量")
+    private Long totalQuantity;
+
+    /** 订单总金额 */
+    @Excel(name = "订单总金额")
+    private BigDecimal totalOrderAmount;
+
+    /** 总运费 */
+    @Excel(name = "总运费")
+    private BigDecimal totalShippingCost;
+
+    /** 广告费(人民币) */
+    @Excel(name = "广告费(人民币)")
+    private BigDecimal totalAdCost;
+
+    /** VAT税费（人民币） */
+    @Excel(name = "VAT税费（人民币）")
+    private BigDecimal totalVatFee;
+
+    /** 总订单利润 */
+    @Excel(name = "总订单利润")
+    private BigDecimal totalSales;
+
+    /** 订单数量 */
+    @Excel(name = "订单数量")
+    private Long orderCount;
+
+    /** 国家详情 */
+    @Excel(name = "国家详情")
+    private String countryDetail;
+
+    /** 总平台交易费 */
+    @Excel(name = "总平台交易费")
+    private BigDecimal totalPlatformFee;
+
+    /** 国家数量 */
+    @Excel(name = "国家数量")
+    private Long uniqueCountries;
+
+    public String getSkuDetails() {
+        return skuDetails;
+    }
+
+    public void setSkuDetails(String skuDetails) {
+        this.skuDetails = skuDetails;
+    }
+
+    public Long getTotalQuantity() {
+        return totalQuantity;
+    }
+
+    public void setTotalQuantity(Long totalQuantity) {
+        this.totalQuantity = totalQuantity;
+    }
+
+    public BigDecimal getTotalOrderAmount() {
+        return totalOrderAmount;
+    }
+
+    public void setTotalOrderAmount(BigDecimal totalOrderAmount) {
+        this.totalOrderAmount = totalOrderAmount;
+    }
+
+    public BigDecimal getTotalShippingCost() {
+        return totalShippingCost;
+    }
+
+    public void setTotalShippingCost(BigDecimal totalShippingCost) {
+        this.totalShippingCost = totalShippingCost;
+    }
+
+    public BigDecimal getTotalAdCost() {
+        return totalAdCost;
+    }
+
+    public void setTotalAdCost(BigDecimal totalAdCost) {
+        this.totalAdCost = totalAdCost;
+    }
+
+    public BigDecimal getTotalVatFee() {
+        return totalVatFee;
+    }
+
+    public void setTotalVatFee(BigDecimal totalVatFee) {
+        this.totalVatFee = totalVatFee;
+    }
+
+    public BigDecimal getTotalSales() {
+        return totalSales;
+    }
+
+    public void setTotalSales(BigDecimal totalSales) {
+        this.totalSales = totalSales;
+    }
+
+    public Long getOrderCount() {
+        return orderCount;
+    }
+
+    public void setOrderCount(Long orderCount) {
+        this.orderCount = orderCount;
+    }
+
+    public String getCountryDetail() {
+        return countryDetail;
+    }
+
+    public void setCountryDetail(String countryDetail) {
+        this.countryDetail = countryDetail;
+    }
+
+    public BigDecimal getTotalPlatformFee() {
+        return totalPlatformFee;
+    }
+
+    public void setTotalPlatformFee(BigDecimal totalPlatformFee) {
+        this.totalPlatformFee = totalPlatformFee;
+    }
+
+    public Long getUniqueCountries() {
+        return uniqueCountries;
+    }
+
+    public void setUniqueCountries(Long uniqueCountries) {
+        this.uniqueCountries = uniqueCountries;
+    }
+
     public void setProductId(String productId) 
     {
         this.productId = productId;

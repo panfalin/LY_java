@@ -38,6 +38,17 @@
         <result property="categoryPath" column="category_path"/>
         <result property="createdTime" column="created_time"/>
         <result property="storeName" column="store_name"/>
+        <result property="skuDetails" column="sku_details"/>
+        <result property="totalQuantity" column="total_quantity"/>
+        <result property="totalOrderAmount" column="total_order_amount"/>
+        <result property="totalShippingCost" column="total_shipping_cost"/>
+        <result property="totalAdCost" column="total_ad_cost"/>
+        <result property="totalVatFee" column="total_vat_fee"/>
+        <result property="totalSales" column="total_sales"/>
+        <result property="orderCount" column="order_count"/>
+        <result property="countryDetail" column="country_detail"/>
+        <result property="totalPlatformFee" column="total_platform_fee"/>
+        <result property="uniqueCountries" column="unique_countries"/>
     </resultMap>
 
     <sql id="selectOrderDataVo">

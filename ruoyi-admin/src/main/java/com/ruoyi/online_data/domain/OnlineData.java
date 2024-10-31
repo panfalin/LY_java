@@ -42,6 +42,18 @@ public class OnlineData extends BaseEntity
     @Excel(name = "上架店铺数")
     private Long store_count;
 
+    /** 销量 */
+    @Excel(name = "销量")
+    private Long totalSales;
+
+    public Long getTotalSales() {
+        return totalSales;
+    }
+
+    public void setTotalSales(Long totalSales) {
+        this.totalSales = totalSales;
+    }
+
     public void setId(Long id)
     {
         this.id = id;

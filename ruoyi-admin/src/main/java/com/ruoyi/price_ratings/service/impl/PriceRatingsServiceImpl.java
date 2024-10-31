@@ -8,10 +8,10 @@ import com.ruoyi.price_ratings.domain.PriceRatings;
 import com.ruoyi.price_ratings.service.IPriceRatingsService;
 
 /**
- * price_ratingsService业务层处理
+ * 价格和评分信息Service业务层处理
  * 
  * @author ruoyi
- * @date 2024-10-16
+ * @date 2024-10-31
  */
 @Service
 public class PriceRatingsServiceImpl implements IPriceRatingsService 
@@ -20,10 +20,10 @@ public class PriceRatingsServiceImpl implements IPriceRatingsService
     private PriceRatingsMapper priceRatingsMapper;
 
     /**
-     * 查询price_ratings
+     * 查询价格和评分信息
      * 
-     * @param id price_ratings主键
-     * @return price_ratings
+     * @param id 价格和评分信息主键
+     * @return 价格和评分信息
      */
     @Override
     public PriceRatings selectPriceRatingsById(Long id)
@@ -32,10 +32,10 @@ public class PriceRatingsServiceImpl implements IPriceRatingsService
     }
 
     /**
-     * 查询price_ratings列表
+     * 查询价格和评分信息列表
      * 
-     * @param priceRatings price_ratings
-     * @return price_ratings
+     * @param priceRatings 价格和评分信息
+     * @return 价格和评分信息
      */
     @Override
     public List<PriceRatings> selectPriceRatingsList(PriceRatings priceRatings)
@@ -44,9 +44,9 @@ public class PriceRatingsServiceImpl implements IPriceRatingsService
     }
 
     /**
-     * 新增price_ratings
+     * 新增价格和评分信息
      * 
-     * @param priceRatings price_ratings
+     * @param priceRatings 价格和评分信息
      * @return 结果
      */
     @Override
@@ -56,9 +56,9 @@ public class PriceRatingsServiceImpl implements IPriceRatingsService
     }
 
     /**
-     * 修改price_ratings
+     * 修改价格和评分信息
      * 
-     * @param priceRatings price_ratings
+     * @param priceRatings 价格和评分信息
      * @return 结果
      */
     @Override
@@ -68,9 +68,9 @@ public class PriceRatingsServiceImpl implements IPriceRatingsService
     }
 
     /**
-     * 批量删除price_ratings
+     * 批量删除价格和评分信息
      * 
-     * @param ids 需要删除的price_ratings主键
+     * @param ids 需要删除的价格和评分信息主键
      * @return 结果
      */
     @Override
@@ -80,9 +80,9 @@ public class PriceRatingsServiceImpl implements IPriceRatingsService
     }
 
     /**
-     * 删除price_ratings信息
+     * 删除价格和评分信息信息
      * 
-     * @param id price_ratings主键
+     * @param id 价格和评分信息主键
      * @return 结果
      */
     @Override

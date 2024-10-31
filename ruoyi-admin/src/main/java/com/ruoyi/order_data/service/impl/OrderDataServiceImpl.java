@@ -39,6 +39,25 @@ public class OrderDataServiceImpl implements IOrderDataService {
     public List<OrderData> selectOrderDataList(OrderData orderData) {
         List<OrderData> orderDataList = orderDataMapper.selectOrderDataList(orderData);
 
+        orderDataList.sort(Comparator.comparing(OrderData::getStatisticalDate).reversed());
+
+        orderDataList.forEach(data -> {
+            if ("yangyangyang_gz01@163.com".equals(data.getStoreName()) || "yyy05".equals(data.getStoreName()) || "jingwan_ae01@163.com".equals(data.getStoreName())) {
+                // data.setP
+            }
+            String skuDetails = data.getSkuDetails();
+            if (skuDetails != null && !skuDetails.isEmpty() && !skuDetails.contains("null")) {
+                skuDetails = skuDetails.replace(',', '\n');
+                data.setSkuDetails(skuDetails);
+            }
+
+            String countryDetail = data.getCountryDetail();
+            if (countryDetail != null && !countryDetail.isEmpty() && !countryDetail.contains("null")) {
+                countryDetail = countryDetail.replace(',', '\n');
+                data.setCountryDetail(countryDetail);
+            }
+
+        });
         // Map<String, List<OrderData>> groupedByStore = new HashMap<>();
         //
         // for (OrderData data : orderDataList) {

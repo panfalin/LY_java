@@ -15,6 +15,7 @@
         <result property="totalProductWeight" column="total_product_weight"/>
         <result property="totalOrderAmount" column="total_order_amount"/>
         <result property="actualShipping" column="actual_shipping"/>
+        <result property="shippingRevenue" column="shipping_revenue"/>
         <result property="adCostRmb" column="ad_cost_rmb"/>
         <result property="platformFeeRmb" column="platform_fee_rmb"/>
         <result property="vatFeeRmb" column="vat_fee_rmb"/>
@@ -33,6 +34,7 @@
                total_product_weight,
                total_order_amount,
                actual_shipping,
+               shipping_revenue,
                ad_cost_rmb,
                platform_fee_rmb,
                vat_fee_rmb,
@@ -49,20 +51,22 @@
             </if>
             <if test="params.endTime != null and params.endTime != ''"><!-- 结束时间检索 -->
                 and date_format(payment_time,'%Y%m%d') &lt;= date_format(#{params.endTime},'%Y%m%d')
-            </if>            <if test="storeName != null  and storeName != ''"> and store_name like concat('%', #{storeName}, '%')</if>
-            <if test="orderId != null  and orderId != ''"> and order_id = #{orderId}</if>
-            <if test="country != null  and country != ''"> and country = #{country}</if>
-            <if test="weight != null "> and weight = #{weight}</if>
-            <if test="skuDetails != null  and skuDetails != ''"> and sku_details = #{skuDetails}</if>
-            <if test="skuQuantity != null "> and sku_quantity = #{skuQuantity}</if>
-            <if test="totalProductWeight != null "> and total_product_weight = #{totalProductWeight}</if>
-            <if test="totalOrderAmount != null "> and total_order_amount = #{totalOrderAmount}</if>
-            <if test="actualShipping != null "> and actual_shipping = #{actualShipping}</if>
-            <if test="adCostRmb != null "> and ad_cost_rmb = #{adCostRmb}</if>
-            <if test="platformFeeRmb != null "> and platform_fee_rmb = #{platformFeeRmb}</if>
-            <if test="vatFeeRmb != null "> and vat_fee_rmb = #{vatFeeRmb}</if>
-            <if test="orderProfit != null  and orderProfit != ''"> and order_profit = #{orderProfit}</if>
-            <if test="orderProfitRate != null  and orderProfitRate != ''"> and order_profit_rate = #{orderProfitRate}</if>
+            </if>
+            <if test="storeName != null  and storeName != ''">and store_name like concat('%', #{storeName}, '%')</if>
+            <if test="orderId != null  and orderId != ''">and order_id = #{orderId}</if>
+            <if test="country != null  and country != ''">and country = #{country}</if>
+            <if test="weight != null ">and weight = #{weight}</if>
+            <if test="skuDetails != null  and skuDetails != ''">and sku_details = #{skuDetails}</if>
+            <if test="skuQuantity != null ">and sku_quantity = #{skuQuantity}</if>
+            <if test="totalProductWeight != null ">and total_product_weight = #{totalProductWeight}</if>
+            <if test="totalOrderAmount != null ">and total_order_amount = #{totalOrderAmount}</if>
+            <if test="actualShipping != null ">and actual_shipping = #{actualShipping}</if>
+            <if test="adCostRmb != null ">and ad_cost_rmb = #{adCostRmb}</if>
+            <if test="platformFeeRmb != null ">and platform_fee_rmb = #{platformFeeRmb}</if>
+            <if test="vatFeeRmb != null ">and vat_fee_rmb = #{vatFeeRmb}</if>
+            <if test="orderProfit != null  and orderProfit != ''">and order_profit = #{orderProfit}</if>
+            <if test="orderProfitRate != null  and orderProfitRate != ''">and order_profit_rate = #{orderProfitRate}
+            </if>
         </where>
     </select>
     <select id="selectOrdersByOrderId" parameterType="String" resultMap="OrdersResult">
@@ -155,5 +159,36 @@
         GROUP BY country
         ORDER BY COUNT(*) DESC
     </select>
+
+    <!-- <select id="selectCountryDetail" resultType="String"> -->
+    <!--     WITH RankedCountries AS ( -->
+    <!--     SELECT -->
+    <!--     store_name, -->
+    <!--     country, -->
+    <!--     COUNT(*) AS count, -->
+    <!--     ROW_NUMBER() OVER (PARTITION BY store_name ORDER BY COUNT(*) DESC) AS rn -->
+    <!--     FROM -->
+    <!--     orders -->
+    <!--     WHERE -->
+    <!--     store_name LIKE '%jingwan_ae01@163.com%' -->
+    <!--     GROUP BY -->
+    <!--     store_name, -->
+    <!--     country -->
+    <!--     ) -->
+    <!--     SELECT -->
+    <!--     store_name, -->
+    <!--     country, -->
+    <!--     count -->
+    <!--     FROM -->
+    <!--     RankedCountries -->
+    <!--     WHERE -->
+    <!--     rn <= 10 -->
+    <!--     ORDER BY -->
+    <!--     store_name, -->
+    <!--     count DESC; -->
+    <!--     select distinct store_name from orders; -->
+    <!-- </select> -->
+
+
 
 </mapper>

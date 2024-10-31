@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.price_ratings.mapper.PriceRatingsMapper">
+    
+    <resultMap type="PriceRatings" id="PriceRatingsResult">
+        <result property="id"    column="id"    />
+        <result property="title"    column="title"    />
+        <result property="smallImg"    column="small_img"    />
+        <result property="middleImg"    column="middle_img"    />
+        <result property="largerImg"    column="larger_img"    />
+        <result property="originalPrice"    column="original_price"    />
+        <result property="promotionPrice"    column="promotion_price"    />
+        <result property="currency"    column="currency"    />
+        <result property="promotionDiscount"    column="promotion_discount"    />
+        <result property="orders"    column="orders"    />
+        <result property="sales"    column="sales"    />
+        <result property="averageStar"    column="average_star"    />
+        <result property="feedbacks"    column="feedbacks"    />
+        <result property="isPromotion"    column="is_promotion"    />
+        <result property="isBigSaleProduct"    column="is_big_sale_product"    />
+        <result property="detailUrl"    column="detail_url"    />
+        <result property="storeName"    column="store_name"    />
+        <result property="listingTime" column="listing_time"/>
+    </resultMap>
+
+    <sql id="selectPriceRatingsVo">
+        select id, title, small_img, middle_img, larger_img, original_price, promotion_price, currency, promotion_discount, orders, sales, average_star, feedbacks, is_promotion, is_big_sale_product, detail_url, store_name, listing_time from price_ratings
+    </sql>
+
+    <select id="selectPriceRatingsList" parameterType="PriceRatings" resultMap="PriceRatingsResult">
+        <include refid="selectPriceRatingsVo"/>
+        <where>  
+            <if test="title != null  and title != ''"> and title = #{title}</if>
+            <if test="smallImg != null  and smallImg != ''"> and small_img = #{smallImg}</if>
+            <if test="middleImg != null  and middleImg != ''"> and middle_img = #{middleImg}</if>
+            <if test="largerImg != null  and largerImg != ''"> and larger_img = #{largerImg}</if>
+            <if test="originalPrice != null  and originalPrice != ''"> and original_price = #{originalPrice}</if>
+            <if test="promotionPrice != null  and promotionPrice != ''"> and promotion_price = #{promotionPrice}</if>
+            <if test="currency != null  and currency != ''"> and currency = #{currency}</if>
+            <if test="promotionDiscount != null "> and promotion_discount = #{promotionDiscount}</if>
+            <if test="orders != null "> and orders = #{orders}</if>
+            <if test="sales != null  and sales != ''"> and sales = #{sales}</if>
+            <if test="averageStar != null "> and average_star = #{averageStar}</if>
+            <if test="feedbacks != null "> and feedbacks = #{feedbacks}</if>
+            <if test="isPromotion != null "> and is_promotion = #{isPromotion}</if>
+            <if test="isBigSaleProduct != null "> and is_big_sale_product = #{isBigSaleProduct}</if>
+            <if test="detailUrl != null  and detailUrl != ''"> and detail_url = #{detailUrl}</if>
+            <if test="storeName != null  and storeName != ''"> and store_name like concat('%', #{storeName}, '%')</if>
+        </where>
+    </select>
+    
+    <select id="selectPriceRatingsById" parameterType="Long" resultMap="PriceRatingsResult">
+        <include refid="selectPriceRatingsVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertPriceRatings" parameterType="PriceRatings">
+        insert into price_ratings
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="title != null">title,</if>
+            <if test="smallImg != null">small_img,</if>
+            <if test="middleImg != null">middle_img,</if>
+            <if test="largerImg != null">larger_img,</if>
+            <if test="originalPrice != null">original_price,</if>
+            <if test="promotionPrice != null">promotion_price,</if>
+            <if test="currency != null">currency,</if>
+            <if test="promotionDiscount != null">promotion_discount,</if>
+            <if test="orders != null">orders,</if>
+            <if test="sales != null">sales,</if>
+            <if test="averageStar != null">average_star,</if>
+            <if test="feedbacks != null">feedbacks,</if>
+            <if test="isPromotion != null">is_promotion,</if>
+            <if test="isBigSaleProduct != null">is_big_sale_product,</if>
+            <if test="detailUrl != null">detail_url,</if>
+            <if test="storeName != null">store_name,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="title != null">#{title},</if>
+            <if test="smallImg != null">#{smallImg},</if>
+            <if test="middleImg != null">#{middleImg},</if>
+            <if test="largerImg != null">#{largerImg},</if>
+            <if test="originalPrice != null">#{originalPrice},</if>
+            <if test="promotionPrice != null">#{promotionPrice},</if>
+            <if test="currency != null">#{currency},</if>
+            <if test="promotionDiscount != null">#{promotionDiscount},</if>
+            <if test="orders != null">#{orders},</if>
+            <if test="sales != null">#{sales},</if>
+            <if test="averageStar != null">#{averageStar},</if>
+            <if test="feedbacks != null">#{feedbacks},</if>
+            <if test="isPromotion != null">#{isPromotion},</if>
+            <if test="isBigSaleProduct != null">#{isBigSaleProduct},</if>
+            <if test="detailUrl != null">#{detailUrl},</if>
+            <if test="storeName != null">#{storeName},</if>
+         </trim>
+    </insert>
+
+    <update id="updatePriceRatings" parameterType="PriceRatings">
+        update price_ratings
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="title != null">title = #{title},</if>
+            <if test="smallImg != null">small_img = #{smallImg},</if>
+            <if test="middleImg != null">middle_img = #{middleImg},</if>
+            <if test="largerImg != null">larger_img = #{largerImg},</if>
+            <if test="originalPrice != null">original_price = #{originalPrice},</if>
+            <if test="promotionPrice != null">promotion_price = #{promotionPrice},</if>
+            <if test="currency != null">currency = #{currency},</if>
+            <if test="promotionDiscount != null">promotion_discount = #{promotionDiscount},</if>
+            <if test="orders != null">orders = #{orders},</if>
+            <if test="sales != null">sales = #{sales},</if>
+            <if test="averageStar != null">average_star = #{averageStar},</if>
+            <if test="feedbacks != null">feedbacks = #{feedbacks},</if>
+            <if test="isPromotion != null">is_promotion = #{isPromotion},</if>
+            <if test="isBigSaleProduct != null">is_big_sale_product = #{isBigSaleProduct},</if>
+            <if test="detailUrl != null">detail_url = #{detailUrl},</if>
+            <if test="storeName != null">store_name = #{storeName},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deletePriceRatingsById" parameterType="Long">
+        delete from price_ratings where id = #{id}
+    </delete>
+
+    <delete id="deletePriceRatingsByIds" parameterType="String">
+        delete from price_ratings where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

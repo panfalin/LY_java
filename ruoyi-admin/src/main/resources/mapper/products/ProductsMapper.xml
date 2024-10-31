@@ -18,10 +18,13 @@
         <result property="totalListingCount" column="total_listing_count"/>
         <result property="store_count" column="store_count"/>
         <result property="target" column="target"/>
+        <result property="bestSellingCountries" column="best_selling_countries"/>
+        <result property="listingTime" column="listing_time"/>
     </resultMap>
 
     <sql id="selectProductsVo">
         select id,
+               category,
                product_code,
                product_name,
                status,
@@ -36,7 +39,9 @@
                sales_Days42,
                store_count,
                total_listing_count,
-               target
+               target,
+               best_selling_countries,
+               listing_time
         from products
     </sql>
 
@@ -49,6 +54,7 @@
             <if test="productName != null  and productName != ''">AND product_name LIKE CONCAT('%', #{productName},
                 '%')
             </if>
+            <if test="category != null  and category != ''">AND category LIKE CONCAT('%', #{category}, '%')</if>
             <if test="status != null  and status != ''">AND status LIKE CONCAT('%', #{status}, '%')</if>
             <if test="totalInventory != null ">and total_inventory = #{totalInventory}</if>
             <if test="latestPurchasePrice != null ">and latest_purchase_price = #{latestPurchasePrice}</if>
@@ -68,6 +74,7 @@
             <!-- 确保只查找未删除的记录 -->
             AND is_delete = 0
         </where>
+        order by category desc
     </select>
 
     <select id="selectProductsById" parameterType="Long" resultMap="ProductsResult">

@@ -11,10 +11,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="listingId"    column="listing_id"    />
         <result property="listingCount"    column="listing_count"    />
         <result property="totalListingCount"    column="total_listing_count"    />
+        <result property="totalSales"    column="total_sales"    />
     </resultMap>
 
     <sql id="selectOnlineDataVo">
-        select id, product_id, store_email, listing_id, listing_count, total_listing_count, store_count from online_data
+        select id, product_id, store_email, listing_id, listing_count, total_listing_count, store_count, total_sales from online_data
     </sql>
 
     <select id="selectOnlineDataList" parameterType="OnlineData" resultMap="OnlineDataResult">
