@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.aliexpress.mapper.DailyTaskMapper">
+    
+    <resultMap type="DailyTask" id="DailyTaskResult">
+        <result property="id"    column="id"    />
+        <result property="sku"    column="sku"    />
+        <result property="largeImg"    column="large_img"    />
+        <result property="productName"    column="product_name"    />
+        <result property="sales"    column="sales"    />
+        <result property="visitorCount"    column="visitor_count"    />
+        <result property="store"    column="store"    />
+        <result property="tasks"    column="tasks"    />
+        <result property="responsiblePerson"    column="responsible_person"    />
+        <result property="suggestions"    column="suggestions"    />
+        <result property="goals"    column="goals"    />
+        <result property="logs"    column="logs"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectDailyTaskVo">
+        select id,
+               sku,
+               large_img,
+               product_name,
+               sales,
+               visitor_count,
+               store,
+               tasks,
+               responsible_person,
+               suggestions,
+               goals,
+               logs,
+               update_time
+        from daily_task
+    </sql>
+
+    <select id="selectDailyTaskList" parameterType="DailyTask" resultMap="DailyTaskResult">
+        <include refid="selectDailyTaskVo"/>
+        <where>  
+            <if test="sku != null  and sku != ''"> and sku = #{sku}</if>
+            <if test="largeImg != null  and largeImg != ''"> and large_img = #{largeImg}</if>
+            <if test="productName != null  and productName != ''"> and product_name like concat('%', #{productName}, '%')</if>
+            <if test="sales != null  and sales != ''"> and sales = #{sales}</if>
+            <if test="visitorCount != null "> and visitor_count = #{visitorCount}</if>
+            <if test="store != null  and store != ''"> and store like concat('%', #{store}, '%')</if>
+            <if test="tasks != null  and tasks != ''"> and tasks = #{tasks}</if>
+            <if test="responsiblePerson != null  and responsiblePerson != ''"> and responsible_person = #{responsiblePerson}</if>
+            <if test="suggestions != null  and suggestions != ''"> and suggestions = #{suggestions}</if>
+            <if test="goals != null  and goals != ''"> and goals = #{goals}</if>
+            <if test="logs != null  and logs != ''"> and logs = #{logs}</if>
+        </where>
+        order by store desc, sku desc
+    </select>
+    
+    <select id="selectDailyTaskById" parameterType="Long" resultMap="DailyTaskResult">
+        <include refid="selectDailyTaskVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertDailyTask" parameterType="DailyTask">
+        insert into daily_task
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="sku != null">sku,</if>
+            <if test="largeImg != null">large_img,</if>
+            <if test="productName != null">product_name,</if>
+            <if test="sales != null">sales,</if>
+            <if test="visitorCount != null">visitor_count,</if>
+            <if test="store != null">store,</if>
+            <if test="tasks != null">tasks,</if>
+            <if test="responsiblePerson != null">responsible_person,</if>
+            <if test="suggestions != null">suggestions,</if>
+            <if test="goals != null">goals,</if>
+            <if test="logs != null">logs,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="sku != null">#{sku},</if>
+            <if test="largeImg != null">#{largeImg},</if>
+            <if test="productName != null">#{productName},</if>
+            <if test="sales != null">#{sales},</if>
+            <if test="visitorCount != null">#{visitorCount},</if>
+            <if test="store != null">#{store},</if>
+            <if test="tasks != null">#{tasks},</if>
+            <if test="responsiblePerson != null">#{responsiblePerson},</if>
+            <if test="suggestions != null">#{suggestions},</if>
+            <if test="goals != null">#{goals},</if>
+            <if test="logs != null">#{logs},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateDailyTask" parameterType="DailyTask">
+        update daily_task
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="sku != null">sku = #{sku},</if>
+            <if test="largeImg != null">large_img = #{largeImg},</if>
+            <if test="productName != null">product_name = #{productName},</if>
+            <if test="sales != null">sales = #{sales},</if>
+            <if test="visitorCount != null">visitor_count = #{visitorCount},</if>
+            <if test="store != null">store = #{store},</if>
+            <if test="tasks != null">tasks = #{tasks},</if>
+            <if test="responsiblePerson != null">responsible_person = #{responsiblePerson},</if>
+            <if test="suggestions != null">suggestions = #{suggestions},</if>
+            <if test="goals != null">goals = #{goals},</if>
+            <if test="logs != null">logs = #{logs},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteDailyTaskById" parameterType="Long">
+        delete from daily_task where id = #{id}
+    </delete>
+
+    <delete id="deleteDailyTaskByIds" parameterType="String">
+        delete from daily_task where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
