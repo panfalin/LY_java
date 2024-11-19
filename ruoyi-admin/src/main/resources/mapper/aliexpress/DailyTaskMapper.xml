@@ -43,6 +43,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="sku != null  and sku != ''"> and sku = #{sku}</if>
             <if test="largeImg != null  and largeImg != ''"> and large_img = #{largeImg}</if>
             <if test="productName != null  and productName != ''"> and product_name like concat('%', #{productName}, '%')</if>
+            <if test="id != null  and id != ''"> and id like concat('%', #{id}, '%')</if>
             <if test="sales != null  and sales != ''"> and sales = #{sales}</if>
             <if test="visitorCount != null "> and visitor_count = #{visitorCount}</if>
             <if test="store != null  and store != ''"> and store like concat('%', #{store}, '%')</if>
