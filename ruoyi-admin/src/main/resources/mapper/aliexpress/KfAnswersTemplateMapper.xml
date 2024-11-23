@@ -140,7 +140,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="remark2 != null">remark2 = #{remark2},</if>
             <if test="standardResponses != null">standard_responses = #{standardResponses},</if>
         </trim>
-        where sku = #{sku}
+        where s_id = #{sId}
     </update>
 
     <delete id="deleteKfAnswersTemplateBySku" parameterType="String">
