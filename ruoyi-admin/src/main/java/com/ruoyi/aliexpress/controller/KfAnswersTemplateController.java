@@ -63,10 +63,10 @@ public class KfAnswersTemplateController extends BaseController
      * 获取客服问答SKU收集模板详细信息
      */
     @PreAuthorize("@ss.hasPermi('template:template:query')")
-    @GetMapping(value = "/{sku}")
-    public AjaxResult getInfo(@PathVariable("sku") String sku)
+    @GetMapping(value = "/{sId}")
+    public AjaxResult getInfo(@PathVariable("sId") String sId)
     {
-        return success(kfAnswersTemplateService.selectKfAnswersTemplateBySku(sku));
+        return success(kfAnswersTemplateService.selectKfAnswersTemplateBySku(sId));
     }
 
     /**

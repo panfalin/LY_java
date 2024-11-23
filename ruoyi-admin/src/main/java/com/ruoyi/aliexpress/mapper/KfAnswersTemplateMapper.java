@@ -17,7 +17,7 @@ public interface KfAnswersTemplateMapper
      * @param sku 客服问答SKU收集模板主键
      * @return 客服问答SKU收集模板
      */
-    public KfAnswersTemplate selectKfAnswersTemplateBySku(String sku);
+    public KfAnswersTemplate selectKfAnswersTemplateBySku(String sId);
 
     /**
      * 查询客服问答SKU收集模板列表

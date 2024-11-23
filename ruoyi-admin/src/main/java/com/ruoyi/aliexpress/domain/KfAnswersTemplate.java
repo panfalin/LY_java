@@ -14,7 +14,9 @@ import com.ruoyi.common.core.domain.BaseEntity;
 public class KfAnswersTemplate extends BaseEntity
 {
     private static final long serialVersionUID = 1L;
-
+    /** 商品sku */
+    @Excel(name = "s_id")
+    private int sId;
     /** 商品sku */
     @Excel(name = "商品sku")
     private String sku;
@@ -99,11 +101,19 @@ public class KfAnswersTemplate extends BaseEntity
     @Excel(name = "标准回复")
     private String standardResponses;
 
+    public void setsId(int sId)
+    {
+        this.sId = sId;
+    }
+    public int getsId()
+    {
+        return sId;
+    }
+
     public void setSku(String sku) 
     {
         this.sku = sku;
     }
-
     public String getSku() 
     {
         return sku;
@@ -292,6 +302,7 @@ public class KfAnswersTemplate extends BaseEntity
     @Override
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
+                .append("sId", getsId())
             .append("sku", getSku())
             .append("preQuestions", getPreQuestions())
             .append("preResponse", getPreResponse())
