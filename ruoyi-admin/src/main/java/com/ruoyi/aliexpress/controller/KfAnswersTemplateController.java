@@ -41,12 +41,18 @@ public class KfAnswersTemplateController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('template:template:list:peoplelist')")
     @GetMapping("/list/peopleList")
-    public List<userOptions> questionType()
+    public List<userOptions> userOptions()
     {
         List<userOptions> list = kfAnswersTemplateService.selectUserOptions();
         return list;
     }
-
+    @PreAuthorize("@ss.hasPermi('template:template:questionType:')")
+    @GetMapping("/list/questionType")
+    public List<KfAnswersTemplate> questionType()
+    {
+        List<KfAnswersTemplate> list = kfAnswersTemplateService.selectKfAnswersTemplateAllList();
+        return list;
+    }
 
     /**
      * 查询客服问答SKU收集模板列表

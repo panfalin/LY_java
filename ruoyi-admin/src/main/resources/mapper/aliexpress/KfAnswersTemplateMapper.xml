@@ -66,6 +66,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="standardResponses != null  and standardResponses != ''"> and standard_responses = #{standardResponses}</if>
         </where>
     </select>
+
+
+    <select id="selectKfAnswersTemplateAllList" parameterType="KfAnswersTemplate" resultMap="KfAnswersTemplateResult">
+        select DISTINCT type_question from kf_answers_template
+    </select>
+
     
     <select id="selectKfAnswersTemplateBySku" parameterType="String" resultMap="KfAnswersTemplateResult">
         <include refid="selectKfAnswersTemplateVo"/>

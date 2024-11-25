@@ -35,6 +35,7 @@ public interface IKfAnswersTemplateService
      * @return 客服问答SKU收集模板集合
      */
     public List<KfAnswersTemplate> selectKfAnswersTemplateList(KfAnswersTemplate kfAnswersTemplate);
+    public List<KfAnswersTemplate> selectKfAnswersTemplateAllList();
 
     /**
      * 新增客服问答SKU收集模板

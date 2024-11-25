@@ -22,7 +22,7 @@ public interface KfAnswersTemplateMapper
      */
     public List<userOptions> selectUserOptions();
 
-
+    public List<KfAnswersTemplate> selectKfAnswersTemplateAllList();
     /**
      * 查询客服问答SKU收集模板
      * 
