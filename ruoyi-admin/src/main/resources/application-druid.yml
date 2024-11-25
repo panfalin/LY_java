@@ -59,3 +59,22 @@ spring:
                 wall:
                     config:
                         multi-statement-allow: true
+    # 邮箱配置
+    mail:
+        username: 3004188570@qq.com  # 确保是授权的QQ邮箱
+        password: hjbquepbsvecdchi  # 授权码
+        host: smtp.qq.com
+        port: 465
+        properties:
+          mail:
+            smtp:
+              socketFactory:
+                class: javax.net.ssl.SSLSocketFactory
+                port: 465
+              ssl:
+                trust: smtp.qq.com
+              auth: true
+              starttls:
+                enable: true
+                required: true
+    from: ${spring.mail.username}  # 发件人设置为username的邮箱
