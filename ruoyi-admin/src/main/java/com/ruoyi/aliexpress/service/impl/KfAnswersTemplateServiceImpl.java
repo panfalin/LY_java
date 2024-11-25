@@ -1,6 +1,10 @@
 package com.ruoyi.aliexpress.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+import com.ruoyi.aliexpress.domain.userOptions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.aliexpress.mapper.KfAnswersTemplateMapper;
@@ -19,9 +23,22 @@ public class KfAnswersTemplateServiceImpl implements IKfAnswersTemplateService
     @Autowired
     private KfAnswersTemplateMapper kfAnswersTemplateMapper;
 
+
+    /**
+     *  客服问答查询问题分类
+     * @return 客服问答查询问题分类
+     */
+    public List<userOptions> selectUserOptions(){
+        List<userOptions> resultList = this.kfAnswersTemplateMapper.selectUserOptions();
+        if (resultList == null) {
+            resultList = new ArrayList<>();
+        }
+        return resultList;
+    }
+
+
     /**
      * 查询客服问答SKU收集模板
-     * 
      * @param sku 客服问答SKU收集模板主键
      * @return 客服问答SKU收集模板
      */

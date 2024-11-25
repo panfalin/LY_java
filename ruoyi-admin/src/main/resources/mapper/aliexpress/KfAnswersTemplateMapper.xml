@@ -3,7 +3,13 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ruoyi.aliexpress.mapper.KfAnswersTemplateMapper">
-    
+
+    <resultMap id="UserOptionsResult" type="com.ruoyi.aliexpress.domain.userOptions">
+        <result property="userId" column="user_id" />
+        <result property="nickName" column="nick_name" />
+    </resultMap>
+
+
     <resultMap type="KfAnswersTemplate" id="KfAnswersTemplateResult">
         <result property="sId"    column="s_id"    />
         <result property="sku"    column="sku"    />
@@ -153,4 +159,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{sku}
         </foreach>
     </delete>
+
+
+    <select id="selectUserOptions" resultMap="UserOptionsResult">
+        select DISTINCT nick_name,user_id from sys_user
+    </select>
+
 </mapper>

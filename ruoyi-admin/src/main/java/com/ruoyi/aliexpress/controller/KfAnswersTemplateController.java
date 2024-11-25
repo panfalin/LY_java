@@ -2,6 +2,8 @@ package com.ruoyi.aliexpress.controller;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
+import com.ruoyi.aliexpress.domain.userOptions;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,6 +39,18 @@ public class KfAnswersTemplateController extends BaseController
     /**
      * 查询客服问答SKU收集模板列表
      */
+    @PreAuthorize("@ss.hasPermi('template:template:list:peoplelist')")
+    @GetMapping("/list/peopleList")
+    public List<userOptions> questionType()
+    {
+        List<userOptions> list = kfAnswersTemplateService.selectUserOptions();
+        return list;
+    }
+
+
+    /**
+     * 查询客服问答SKU收集模板列表
+     */
     @PreAuthorize("@ss.hasPermi('template:template:list')")
     @GetMapping("/list")
     public TableDataInfo list(KfAnswersTemplate kfAnswersTemplate)
@@ -62,12 +76,14 @@ public class KfAnswersTemplateController extends BaseController
     /**
      * 获取客服问答SKU收集模板详细信息
      */
-    @PreAuthorize("@ss.hasPermi('template:template:query')")
-    @GetMapping(value = "/{sId}")
+    @PreAuthorize("@ss.hasPermi('template:template:detail:query')")
+    @GetMapping(value = "/detail/{sId}")
     public AjaxResult getInfo(@PathVariable("sId") String sId)
     {
         return success(kfAnswersTemplateService.selectKfAnswersTemplateBySku(sId));
     }
+
+
 
     /**
      * 新增客服问答SKU收集模板

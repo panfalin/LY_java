@@ -1,7 +1,10 @@
 package com.ruoyi.aliexpress.service;
 
 import java.util.List;
+import java.util.Map;
+
 import com.ruoyi.aliexpress.domain.KfAnswersTemplate;
+import com.ruoyi.aliexpress.domain.userOptions;
 
 /**
  * 客服问答SKU收集模板Service接口
@@ -12,9 +15,15 @@ import com.ruoyi.aliexpress.domain.KfAnswersTemplate;
 public interface IKfAnswersTemplateService 
 {
     /**
+     *  客服问答查询问题分类
+     * @return 客服问答查询问题分类
+     */
+    public List<userOptions> selectUserOptions();
+
+    /**
      * 查询客服问答SKU收集模板
      * 
-     * @param sku 客服问答SKU收集模板主键
+     * @param sId 客服问答SKU收集模板主键
      * @return 客服问答SKU收集模板
      */
     public KfAnswersTemplate selectKfAnswersTemplateBySku(String sId);
