@@ -101,6 +101,19 @@ public class KfAnswersTemplate extends BaseEntity
     @Excel(name = "标准回复")
     private String standardResponses;
 
+
+    /** 标准回复 */
+    @Excel(name = "产品类型")
+    private String productType;
+
+    public String getProductType() {
+        return productType;
+    }
+
+    public void setProductType(String productType) {
+        this.productType = productType;
+    }
+
     public void setsId(int sId)
     {
         this.sId = sId;

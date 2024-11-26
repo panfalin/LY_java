@@ -33,10 +33,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="remark1"    column="remark1"    />
         <result property="remark2"    column="remark2"    />
         <result property="standardResponses"    column="standard_responses"    />
+        <result property="productType"    column="product_type"    />
+
     </resultMap>
 
     <sql id="selectKfAnswersTemplateVo">
-        select s_id, sku, pre_questions, pre_response, pre_ask_time, after_questions, after_response, after_ask_time, supplier_response, order_no, listing_id, store_id, type_question, recorders, expect_results, expect_time, processors, proce_status, final_treatment, remark1, remark2, standard_responses from kf_answers_template
+        select s_id, sku, pre_questions, pre_response, pre_ask_time, after_questions, after_response, after_ask_time, supplier_response, order_no, listing_id, store_id, type_question, recorders, expect_results, expect_time, processors, proce_status, final_treatment, remark1, remark2, standard_responses,product_type from kf_answers_template
     </sql>
 
     <select id="selectKfAnswersTemplateList" parameterType="KfAnswersTemplate" resultMap="KfAnswersTemplateResult">
@@ -64,12 +66,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="remark1 != null  and remark1 != ''"> and remark1 = #{remark1}</if>
             <if test="remark2 != null  and remark2 != ''"> and remark2 = #{remark2}</if>
             <if test="standardResponses != null  and standardResponses != ''"> and standard_responses = #{standardResponses}</if>
+            <if test="productType != null  and productType != ''"> and product_type = #{productType}</if>
+
         </where>
     </select>
 
 
     <select id="selectKfAnswersTemplateAllList" parameterType="KfAnswersTemplate" resultMap="KfAnswersTemplateResult">
         select DISTINCT type_question from kf_answers_template
+    </select>
+
+
+    <select id="selectKfAnswersProductTypeList" parameterType="KfAnswersTemplate" resultMap="KfAnswersTemplateResult">
+        select DISTINCT  product_type from kf_answers_template
+    </select>
+
+    <select id="selectKfAnswersFinalTreatmentList" parameterType="KfAnswersTemplate" resultMap="KfAnswersTemplateResult">
+        select DISTINCT final_treatment from kf_answers_template
     </select>
 
     
@@ -102,6 +115,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="remark1 != null">remark1,</if>
             <if test="remark2 != null">remark2,</if>
             <if test="standardResponses != null">standard_responses,</if>
+            <if test="productType != null">product_type,</if>
+
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="sku != null">#{sku},</if>
@@ -125,6 +140,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="remark1 != null">#{remark1},</if>
             <if test="remark2 != null">#{remark2},</if>
             <if test="standardResponses != null">#{standardResponses},</if>
+            <if test="productType != null">#{productType},</if>
+
          </trim>
     </insert>
 
@@ -151,6 +168,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="remark1 != null">remark1 = #{remark1},</if>
             <if test="remark2 != null">remark2 = #{remark2},</if>
             <if test="standardResponses != null">standard_responses = #{standardResponses},</if>
+            <if test="productType != null">product_type = #{productType},</if>
         </trim>
         where s_id = #{sId}
     </update>

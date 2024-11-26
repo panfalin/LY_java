@@ -36,6 +36,8 @@ public interface IKfAnswersTemplateService
      */
     public List<KfAnswersTemplate> selectKfAnswersTemplateList(KfAnswersTemplate kfAnswersTemplate);
     public List<KfAnswersTemplate> selectKfAnswersTemplateAllList();
+    public List<KfAnswersTemplate> selectKfAnswersFinalTreatmentList();
+    public List<KfAnswersTemplate> selectKfAnswersProductTypeList();
 
     /**
      * 新增客服问答SKU收集模板

@@ -54,6 +54,24 @@ public class KfAnswersTemplateController extends BaseController
         return list;
     }
 
+    @PreAuthorize("@ss.hasPermi('template:template:productType:')")
+    @GetMapping("/list/productType")
+    public List<KfAnswersTemplate> productType()
+    {
+        List<KfAnswersTemplate> list = kfAnswersTemplateService.selectKfAnswersProductTypeList();
+        return list;
+    }
+
+    @PreAuthorize("@ss.hasPermi('template:template:finalTreatment:')")
+    @GetMapping("/list/finalTreatment")
+    public List<KfAnswersTemplate> finalTreatment()
+    {
+        List<KfAnswersTemplate> list = kfAnswersTemplateService.selectKfAnswersFinalTreatmentList();
+        return list;
+    }
+
+
+
     /**
      * 查询客服问答SKU收集模板列表
      */

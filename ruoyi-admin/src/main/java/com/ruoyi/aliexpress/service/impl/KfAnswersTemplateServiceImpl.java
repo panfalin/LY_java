@@ -64,6 +64,18 @@ public class KfAnswersTemplateServiceImpl implements IKfAnswersTemplateService
         return kfAnswersTemplateMapper.selectKfAnswersTemplateAllList();
     }
 
+    public List<KfAnswersTemplate> selectKfAnswersProductTypeList()
+    {
+        return kfAnswersTemplateMapper.selectKfAnswersProductTypeList();
+    }
+    public List<KfAnswersTemplate> selectKfAnswersFinalTreatmentList()
+    {
+        return kfAnswersTemplateMapper.selectKfAnswersFinalTreatmentList();
+    }
+
+
+
+
     /**
      * 新增客服问答SKU收集模板
      * 

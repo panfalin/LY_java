@@ -23,6 +23,9 @@ public interface KfAnswersTemplateMapper
     public List<userOptions> selectUserOptions();
 
     public List<KfAnswersTemplate> selectKfAnswersTemplateAllList();
+    public List<KfAnswersTemplate> selectKfAnswersFinalTreatmentList();
+    public List<KfAnswersTemplate> selectKfAnswersProductTypeList();
+
     /**
      * 查询客服问答SKU收集模板
      * 
