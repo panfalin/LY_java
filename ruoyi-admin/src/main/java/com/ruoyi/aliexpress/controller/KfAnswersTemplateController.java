@@ -39,14 +39,14 @@ public class KfAnswersTemplateController extends BaseController
     /**
      * 查询客服问答SKU收集模板列表
      */
-    @PreAuthorize("@ss.hasPermi('template:template:list:peoplelist')")
+    @PreAuthorize("@ss.hasPermi('template:template:list')")
     @GetMapping("/list/peopleList")
     public List<userOptions> userOptions()
     {
         List<userOptions> list = kfAnswersTemplateService.selectUserOptions();
         return list;
     }
-    @PreAuthorize("@ss.hasPermi('template:template:questionType:')")
+    @PreAuthorize("@ss.hasPermi('template:template:list')")
     @GetMapping("/list/questionType")
     public List<KfAnswersTemplate> questionType()
     {
@@ -54,7 +54,7 @@ public class KfAnswersTemplateController extends BaseController
         return list;
     }
 
-    @PreAuthorize("@ss.hasPermi('template:template:productType:')")
+    @PreAuthorize("@ss.hasPermi('template:template:list')")
     @GetMapping("/list/productType")
     public List<KfAnswersTemplate> productType()
     {
@@ -62,7 +62,7 @@ public class KfAnswersTemplateController extends BaseController
         return list;
     }
 
-    @PreAuthorize("@ss.hasPermi('template:template:finalTreatment:')")
+    @PreAuthorize("@ss.hasPermi('template:template:list')")
     @GetMapping("/list/finalTreatment")
     public List<KfAnswersTemplate> finalTreatment()
     {
