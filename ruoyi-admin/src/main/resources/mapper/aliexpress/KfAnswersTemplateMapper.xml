@@ -60,7 +60,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="recorders != null  and recorders != ''"> and recorders = #{recorders}</if>
             <if test="expectResults != null  and expectResults != ''"> and expect_results = #{expectResults}</if>
             <if test="expectTime != null  and expectTime != ''"> and expect_time = #{expectTime}</if>
-            <if test="processors != null  and processors != ''"> and processors = #{processors}</if>
+            <!-- 使用 processorsArray 进行 IN 查询 -->
+            <if test="processorsArray != null and processorsArray.length > 0">
+                and processors IN
+                <foreach collection="processorsArray" item="processor" open="(" close=")" separator=",">
+                    #{processor}
+                </foreach>
+            </if>
             <if test="proceStatus != null  and proceStatus != ''"> and proce_status = #{proceStatus}</if>
             <if test="finalTreatment != null  and finalTreatment != ''"> and final_treatment = #{finalTreatment}</if>
             <if test="remark1 != null  and remark1 != ''"> and remark1 = #{remark1}</if>

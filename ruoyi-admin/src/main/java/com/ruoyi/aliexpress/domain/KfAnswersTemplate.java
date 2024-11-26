@@ -106,6 +106,17 @@ public class KfAnswersTemplate extends BaseEntity
     @Excel(name = "产品类型")
     private String productType;
 
+    /** case处理人数组 */
+    private String[] processorsArray;
+
+    public String[] getProcessorsArray() {
+        return processorsArray;
+    }
+
+    public void setProcessorsArray(String[] processorsArray) {
+        this.processorsArray = processorsArray;
+    }
+
     public String getProductType() {
         return productType;
     }

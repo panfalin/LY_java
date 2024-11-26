@@ -57,6 +57,15 @@ public class KfAnswersTemplateServiceImpl implements IKfAnswersTemplateService
     @Override
     public List<KfAnswersTemplate> selectKfAnswersTemplateList(KfAnswersTemplate kfAnswersTemplate)
     {
+        String processors = kfAnswersTemplate.getProcessors();
+
+        if (processors != null && !processors.isEmpty()) {
+            // 将逗号分隔的字符串拆分为数组
+            String[] processorsArray = processors.split(",");
+            // 将拆分后的数组传递给查询方法
+            kfAnswersTemplate.setProcessorsArray(processorsArray);
+        }
+
         return kfAnswersTemplateMapper.selectKfAnswersTemplateList(kfAnswersTemplate);
     }
     public List<KfAnswersTemplate> selectKfAnswersTemplateAllList()
