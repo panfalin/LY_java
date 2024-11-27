@@ -104,30 +104,21 @@ public class KfAnswersTemplate extends BaseEntity
     @Excel(name = "产品类型")
     private String productType;
 
-    @Excel(name = "记录创建者")
-    private String createBy;
+    @Excel(name = "数据标签")
+    private String dataTag;
 
-    @Excel(name = "记录最后更新者")
-    private String updateBy;
-
-    public String getUpdateBy() {
-        return updateBy;
+    public String getDataTag() {
+        return dataTag;
     }
 
-    public void setUpdateBy(String update_by) {
-        this.updateBy = update_by;
-    }
-
-    public String getCreateBy() {
-        return createBy;
-    }
-
-    public void setCreate_by(String createBy) {
-        this.createBy = createBy;
+    public void setDataTag(String dataTag) {
+        this.dataTag = dataTag;
     }
 
     /** case处理人数组 */
     private String[] processorsArray;
+
+
 
     public String[] getProcessorsArray() {
         return processorsArray;

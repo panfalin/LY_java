@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.ruoyi.aliexpress.domain.KfAnswersTemplate;
 import com.ruoyi.aliexpress.domain.userOptions;
+import com.ruoyi.common.core.domain.entity.SysDictData;
 import org.apache.catalina.valves.rewrite.Substitution;
 
 /**
@@ -49,6 +50,8 @@ public interface KfAnswersTemplateMapper
      * @return 结果
      */
     public int insertKfAnswersTemplate(KfAnswersTemplate kfAnswersTemplate);
+
+    public int insertKfAnswersTemplateDict(SysDictData sysDictData);
 
     /**
      * 修改客服问答SKU收集模板

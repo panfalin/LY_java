@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.ruoyi.aliexpress.domain.userOptions;
+import com.ruoyi.common.core.domain.entity.SysDictData;
 import com.ruoyi.common.core.domain.entity.SysUser;
 import com.ruoyi.common.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -102,6 +103,21 @@ public class KfAnswersTemplateServiceImpl implements IKfAnswersTemplateService
         kfAnswersTemplate.setCreateBy(nickName);
         return kfAnswersTemplateMapper.insertKfAnswersTemplate(kfAnswersTemplate);
     }
+
+    /**
+     * 新增客服问答SKU收集模板
+     *
+     * @param sysDictData 客服问答SKU收集模板
+     * @return 结果
+     */
+    @Override
+    public int insertKfAnswersTemplateDict(SysDictData sysDictData)
+    {
+        return kfAnswersTemplateMapper.insertKfAnswersTemplateDict(sysDictData);
+    }
+
+
+
 
     /**
      * 修改客服问答SKU收集模板

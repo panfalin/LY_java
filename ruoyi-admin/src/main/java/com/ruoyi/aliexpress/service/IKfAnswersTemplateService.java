@@ -5,6 +5,13 @@ import java.util.Map;
 
 import com.ruoyi.aliexpress.domain.KfAnswersTemplate;
 import com.ruoyi.aliexpress.domain.userOptions;
+import com.ruoyi.common.annotation.Log;
+import com.ruoyi.common.core.domain.AjaxResult;
+import com.ruoyi.common.core.domain.entity.SysDictData;
+import com.ruoyi.common.enums.BusinessType;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  * 客服问答SKU收集模板Service接口
@@ -46,6 +53,9 @@ public interface IKfAnswersTemplateService
      * @return 结果
      */
     public int insertKfAnswersTemplate(KfAnswersTemplate kfAnswersTemplate);
+
+    public int insertKfAnswersTemplateDict(SysDictData sysDictData);
+
 
     /**
      * 修改客服问答SKU收集模板

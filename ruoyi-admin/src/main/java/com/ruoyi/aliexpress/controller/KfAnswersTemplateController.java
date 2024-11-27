@@ -4,6 +4,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ruoyi.aliexpress.domain.userOptions;
+import com.ruoyi.common.core.domain.entity.SysDictData;
 import com.ruoyi.common.core.domain.entity.SysUser;
 import com.ruoyi.common.utils.SecurityUtils;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -123,6 +124,21 @@ public class KfAnswersTemplateController extends BaseController
 
         return toAjax(kfAnswersTemplateService.insertKfAnswersTemplate(kfAnswersTemplate));
     }
+
+
+    /**
+     * 新增同步数据字典
+     */
+    @PreAuthorize("@ss.hasPermi('template:template:add')")
+    @Log(title = "客服问答SKU收集模板", businessType = BusinessType.INSERT)
+    @PostMapping("/dict")
+    public AjaxResult addDict(@RequestBody SysDictData sysDictData)
+    {
+
+        return toAjax(kfAnswersTemplateService.insertKfAnswersTemplateDict(sysDictData));
+    }
+
+
 
     /**
      * 修改客服问答SKU收集模板
