@@ -45,7 +45,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <include refid="selectKfAnswersTemplateVo"/>
         <where>
             <if test="sId != null  and sId != ''"> and s_id = #{sId}</if>
-            <if test="sku != null  and sku != ''"> and sku = #{sku}</if>
+            <if test="sku != null  and sku != ''"> and sku LIKE CONCAT('%',#{sku},'%')</if>
             <if test="preQuestions != null  and preQuestions != ''"> and pre_questions = #{preQuestions}</if>
             <if test="preResponse != null  and preResponse != ''"> and pre_response = #{preResponse}</if>
             <if test="preAskTime != null  and preAskTime != ''"> and pre_ask_time = #{preAskTime}</if>
@@ -73,8 +73,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="remark2 != null  and remark2 != ''"> and remark2 = #{remark2}</if>
             <if test="standardResponses != null  and standardResponses != ''"> and standard_responses = #{standardResponses}</if>
             <if test="productType != null  and productType != ''"> and product_type = #{productType}</if>
-
         </where>
+
     </select>
 
 
@@ -122,7 +122,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="remark2 != null">remark2,</if>
             <if test="standardResponses != null">standard_responses,</if>
             <if test="productType != null">product_type,</if>
-
+            <if test="createBy != null">create_by,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="sku != null">#{sku},</if>
@@ -147,7 +147,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="remark2 != null">#{remark2},</if>
             <if test="standardResponses != null">#{standardResponses},</if>
             <if test="productType != null">#{productType},</if>
-
+            <if test="createBy != null">create_by,</if>
          </trim>
     </insert>
 
@@ -175,6 +175,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="remark2 != null">remark2 = #{remark2},</if>
             <if test="standardResponses != null">standard_responses = #{standardResponses},</if>
             <if test="productType != null">product_type = #{productType},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
         </trim>
         where s_id = #{sId}
     </update>

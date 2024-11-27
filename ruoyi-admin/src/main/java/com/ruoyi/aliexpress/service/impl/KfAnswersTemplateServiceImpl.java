@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.ruoyi.aliexpress.domain.userOptions;
+import com.ruoyi.common.core.domain.entity.SysUser;
+import com.ruoyi.common.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.aliexpress.mapper.KfAnswersTemplateMapper;
@@ -94,6 +96,10 @@ public class KfAnswersTemplateServiceImpl implements IKfAnswersTemplateService
     @Override
     public int insertKfAnswersTemplate(KfAnswersTemplate kfAnswersTemplate)
     {
+        SysUser user = SecurityUtils.getLoginUser().getUser();
+        String nickName = user.getNickName();
+        kfAnswersTemplate.setUpdateBy(nickName);
+        kfAnswersTemplate.setCreateBy(nickName);
         return kfAnswersTemplateMapper.insertKfAnswersTemplate(kfAnswersTemplate);
     }
 
@@ -106,6 +112,9 @@ public class KfAnswersTemplateServiceImpl implements IKfAnswersTemplateService
     @Override
     public int updateKfAnswersTemplate(KfAnswersTemplate kfAnswersTemplate)
     {
+        SysUser user = SecurityUtils.getLoginUser().getUser();
+        String nickName = user.getNickName();
+        kfAnswersTemplate.setUpdateBy(nickName);
         return kfAnswersTemplateMapper.updateKfAnswersTemplate(kfAnswersTemplate);
     }
 

@@ -100,11 +100,31 @@ public class KfAnswersTemplate extends BaseEntity
     /** 标准回复 */
     @Excel(name = "标准回复")
     private String standardResponses;
-
-
-    /** 标准回复 */
+    /** 产品类型 */
     @Excel(name = "产品类型")
     private String productType;
+
+    @Excel(name = "记录创建者")
+    private String createBy;
+
+    @Excel(name = "记录最后更新者")
+    private String updateBy;
+
+    public String getUpdateBy() {
+        return updateBy;
+    }
+
+    public void setUpdateBy(String update_by) {
+        this.updateBy = update_by;
+    }
+
+    public String getCreateBy() {
+        return createBy;
+    }
+
+    public void setCreate_by(String createBy) {
+        this.createBy = createBy;
+    }
 
     /** case处理人数组 */
     private String[] processorsArray;
@@ -272,6 +292,7 @@ public class KfAnswersTemplate extends BaseEntity
     {
         this.processors = processors;
     }
+
 
     public String getProcessors() 
     {
