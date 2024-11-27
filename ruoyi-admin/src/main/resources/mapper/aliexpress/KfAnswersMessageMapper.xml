@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.aliexpress.mapper.KfAnswersMessageMapper">
+    
+    <resultMap type="KfAnswersMessage" id="KfAnswersMessageResult">
+        <result property="messageId"    column="message_id"    />
+        <result property="senderId"    column="sender_id"    />
+        <result property="receiverId"    column="receiver_id"    />
+        <result property="shopId"    column="shop_id"    />
+        <result property="messageContent"    column="message_content"    />
+        <result property="sendTime"    column="send_time"    />
+        <result property="isRead"    column="is_read"    />
+        <result property="createdTime"    column="created_time"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="customFieldOne"    column="custom_field_one"    />
+        <result property="customFieldTwo"    column="custom_field_two"    />
+        <result property="customFieldThree"    column="custom_field_three"    />
+    </resultMap>
+
+    <sql id="selectKfAnswersMessageVo">
+        select message_id, sender_id, receiver_id, shop_id, message_content, send_time, is_read, created_time, update_time, create_by, update_by, custom_field_one, custom_field_two, custom_field_three from kf_answers_message
+    </sql>
+
+    <select id="selectKfAnswersMessageList" parameterType="KfAnswersMessage" resultMap="KfAnswersMessageResult">
+        <include refid="selectKfAnswersMessageVo"/>
+        <where>  
+            <if test="senderId != null  and senderId != ''"> and sender_id = #{senderId}</if>
+            <if test="receiverId != null  and receiverId != ''"> and receiver_id = #{receiverId}</if>
+            <if test="shopId != null  and shopId != ''"> and shop_id = #{shopId}</if>
+            <if test="messageContent != null  and messageContent != ''"> and message_content like concat('%', #{messageContent}, '%')</if>
+            <if test="sendTime != null "> and send_time = #{sendTime}</if>
+            <if test="isRead != null  and isRead != ''"> and is_read = #{isRead}</if>
+            <if test="createdTime != null "> and created_time = #{createdTime}</if>
+            <if test="customFieldOne != null  and customFieldOne != ''"> and custom_field_one = #{customFieldOne}</if>
+            <if test="customFieldTwo != null  and customFieldTwo != ''"> and custom_field_two = #{customFieldTwo}</if>
+            <if test="customFieldThree != null  and customFieldThree != ''"> and custom_field_three = #{customFieldThree}</if>
+        </where>
+    </select>
+    
+    <select id="selectKfAnswersMessageByMessageId" parameterType="String" resultMap="KfAnswersMessageResult">
+        <include refid="selectKfAnswersMessageVo"/>
+        where message_id = #{messageId}
+    </select>
+
+    <insert id="insertKfAnswersMessage" parameterType="KfAnswersMessage">
+        insert into kf_answers_message
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="messageId != null">message_id,</if>
+            <if test="senderId != null">sender_id,</if>
+            <if test="receiverId != null">receiver_id,</if>
+            <if test="shopId != null">shop_id,</if>
+            <if test="messageContent != null">message_content,</if>
+            <if test="sendTime != null">send_time,</if>
+            <if test="isRead != null">is_read,</if>
+            <if test="createdTime != null">created_time,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="customFieldOne != null">custom_field_one,</if>
+            <if test="customFieldTwo != null">custom_field_two,</if>
+            <if test="customFieldThree != null">custom_field_three,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="messageId != null">#{messageId},</if>
+            <if test="senderId != null">#{senderId},</if>
+            <if test="receiverId != null">#{receiverId},</if>
+            <if test="shopId != null">#{shopId},</if>
+            <if test="messageContent != null">#{messageContent},</if>
+            <if test="sendTime != null">#{sendTime},</if>
+            <if test="isRead != null">#{isRead},</if>
+            <if test="createdTime != null">#{createdTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="customFieldOne != null">#{customFieldOne},</if>
+            <if test="customFieldTwo != null">#{customFieldTwo},</if>
+            <if test="customFieldThree != null">#{customFieldThree},</if>
+         </trim>
+    </insert>
+
+    <update id="updateKfAnswersMessage" parameterType="KfAnswersMessage">
+        update kf_answers_message
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="senderId != null">sender_id = #{senderId},</if>
+            <if test="receiverId != null">receiver_id = #{receiverId},</if>
+            <if test="shopId != null">shop_id = #{shopId},</if>
+            <if test="messageContent != null">message_content = #{messageContent},</if>
+            <if test="sendTime != null">send_time = #{sendTime},</if>
+            <if test="isRead != null">is_read = #{isRead},</if>
+            <if test="createdTime != null">created_time = #{createdTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="customFieldOne != null">custom_field_one = #{customFieldOne},</if>
+            <if test="customFieldTwo != null">custom_field_two = #{customFieldTwo},</if>
+            <if test="customFieldThree != null">custom_field_three = #{customFieldThree},</if>
+        </trim>
+        where message_id = #{messageId}
+    </update>
+
+    <delete id="deleteKfAnswersMessageByMessageId" parameterType="String">
+        delete from kf_answers_message where message_id = #{messageId}
+    </delete>
+
+    <delete id="deleteKfAnswersMessageByMessageIds" parameterType="String">
+        delete from kf_answers_message where message_id in 
+        <foreach item="messageId" collection="array" open="(" separator="," close=")">
+            #{messageId}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.aliexpress.mapper.KfAnswersClientMapper">
+    
+    <resultMap type="KfAnswersClient" id="KfAnswersClientResult">
+        <result property="clientId"    column="client_id"    />
+        <result property="clientName"    column="client_name"    />
+        <result property="clientNumber"    column="client_number"    />
+        <result property="email"    column="email"    />
+        <result property="avatarUrl"    column="avatar_url"    />
+        <result property="createdTime"    column="created_time"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="customFieldOne"    column="custom_field_one"    />
+        <result property="customFieldTwo"    column="custom_field_two"    />
+        <result property="customFieldThree"    column="custom_field_three"    />
+    </resultMap>
+
+    <sql id="selectKfAnswersClientVo">
+        select client_id, client_name, client_number, email, avatar_url, created_time, update_time, create_by, update_by, custom_field_one, custom_field_two, custom_field_three from kf_answers_client
+    </sql>
+
+    <select id="selectKfAnswersClientList" parameterType="KfAnswersClient" resultMap="KfAnswersClientResult">
+        <include refid="selectKfAnswersClientVo"/>
+        <where>  
+            <if test="clientName != null  and clientName != ''"> and client_name like concat('%', #{clientName}, '%')</if>
+            <if test="clientNumber != null  and clientNumber != ''"> and client_number like concat('%', #{clientNumber}, '%')</if>
+            <if test="email != null  and email != ''"> and email like concat('%', #{email}, '%')</if>
+            <if test="avatarUrl != null  and avatarUrl != ''"> and avatar_url = #{avatarUrl}</if>
+            <if test="createdTime != null "> and created_time = #{createdTime}</if>
+            <if test="customFieldOne != null  and customFieldOne != ''"> and custom_field_one = #{customFieldOne}</if>
+            <if test="customFieldTwo != null  and customFieldTwo != ''"> and custom_field_two = #{customFieldTwo}</if>
+            <if test="customFieldThree != null  and customFieldThree != ''"> and custom_field_three = #{customFieldThree}</if>
+        </where>
+    </select>
+    
+    <select id="selectKfAnswersClientByClientId" parameterType="String" resultMap="KfAnswersClientResult">
+        <include refid="selectKfAnswersClientVo"/>
+        where client_id = #{clientId}
+    </select>
+
+    <insert id="insertKfAnswersClient" parameterType="KfAnswersClient">
+        insert into kf_answers_client
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="clientId != null">client_id,</if>
+            <if test="clientName != null">client_name,</if>
+            <if test="clientNumber != null">client_number,</if>
+            <if test="email != null">email,</if>
+            <if test="avatarUrl != null">avatar_url,</if>
+            <if test="createdTime != null">created_time,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="customFieldOne != null">custom_field_one,</if>
+            <if test="customFieldTwo != null">custom_field_two,</if>
+            <if test="customFieldThree != null">custom_field_three,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="clientId != null">#{clientId},</if>
+            <if test="clientName != null">#{clientName},</if>
+            <if test="clientNumber != null">#{clientNumber},</if>
+            <if test="email != null">#{email},</if>
+            <if test="avatarUrl != null">#{avatarUrl},</if>
+            <if test="createdTime != null">#{createdTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="customFieldOne != null">#{customFieldOne},</if>
+            <if test="customFieldTwo != null">#{customFieldTwo},</if>
+            <if test="customFieldThree != null">#{customFieldThree},</if>
+         </trim>
+    </insert>
+
+    <update id="updateKfAnswersClient" parameterType="KfAnswersClient">
+        update kf_answers_client
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="clientName != null">client_name = #{clientName},</if>
+            <if test="clientNumber != null">client_number = #{clientNumber},</if>
+            <if test="email != null">email = #{email},</if>
+            <if test="avatarUrl != null">avatar_url = #{avatarUrl},</if>
+            <if test="createdTime != null">created_time = #{createdTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="customFieldOne != null">custom_field_one = #{customFieldOne},</if>
+            <if test="customFieldTwo != null">custom_field_two = #{customFieldTwo},</if>
+            <if test="customFieldThree != null">custom_field_three = #{customFieldThree},</if>
+        </trim>
+        where client_id = #{clientId}
+    </update>
+
+    <delete id="deleteKfAnswersClientByClientId" parameterType="String">
+        delete from kf_answers_client where client_id = #{clientId}
+    </delete>
+
+    <delete id="deleteKfAnswersClientByClientIds" parameterType="String">
+        delete from kf_answers_client where client_id in 
+        <foreach item="clientId" collection="array" open="(" separator="," close=")">
+            #{clientId}
+        </foreach>
+    </delete>
+</mapper>

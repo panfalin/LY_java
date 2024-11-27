@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.aliexpress.mapper.KfAnswersOrderMapper">
+    
+    <resultMap type="KfAnswersOrder" id="KfAnswersOrderResult">
+        <result property="orderId"    column="order_id"    />
+        <result property="clientId"    column="client_id"    />
+        <result property="storeName"    column="store_name"    />
+        <result property="orderAmount"    column="order_amount"    />
+        <result property="orderStatus"    column="order_status"    />
+        <result property="createdTime"    column="created_time"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="customFieldOne"    column="custom_field_one"    />
+        <result property="customFieldTwo"    column="custom_field_two"    />
+        <result property="customFieldThree"    column="custom_field_three"    />
+    </resultMap>
+
+    <sql id="selectKfAnswersOrderVo">
+        select order_id, client_id, store_name, order_amount, order_status, created_time, update_time, create_by, update_by, custom_field_one, custom_field_two, custom_field_three from kf_answers_order
+    </sql>
+
+    <select id="selectKfAnswersOrderList" parameterType="KfAnswersOrder" resultMap="KfAnswersOrderResult">
+        <include refid="selectKfAnswersOrderVo"/>
+        <where>  
+            <if test="clientId != null  and clientId != ''"> and client_id like concat('%', #{clientId}, '%')</if>
+            <if test="storeName != null  and storeName != ''"> and store_name like concat('%', #{storeName}, '%')</if>
+            <if test="orderAmount != null "> and order_amount = #{orderAmount}</if>
+            <if test="orderStatus != null  and orderStatus != ''"> and order_status = #{orderStatus}</if>
+            <if test="createdTime != null "> and created_time = #{createdTime}</if>
+            <if test="customFieldOne != null  and customFieldOne != ''"> and custom_field_one = #{customFieldOne}</if>
+            <if test="customFieldTwo != null  and customFieldTwo != ''"> and custom_field_two = #{customFieldTwo}</if>
+            <if test="customFieldThree != null  and customFieldThree != ''"> and custom_field_three = #{customFieldThree}</if>
+        </where>
+    </select>
+    
+    <select id="selectKfAnswersOrderByOrderId" parameterType="String" resultMap="KfAnswersOrderResult">
+        <include refid="selectKfAnswersOrderVo"/>
+        where order_id = #{orderId}
+    </select>
+
+    <insert id="insertKfAnswersOrder" parameterType="KfAnswersOrder">
+        insert into kf_answers_order
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="orderId != null">order_id,</if>
+            <if test="clientId != null">client_id,</if>
+            <if test="storeName != null">store_name,</if>
+            <if test="orderAmount != null">order_amount,</if>
+            <if test="orderStatus != null">order_status,</if>
+            <if test="createdTime != null">created_time,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="customFieldOne != null">custom_field_one,</if>
+            <if test="customFieldTwo != null">custom_field_two,</if>
+            <if test="customFieldThree != null">custom_field_three,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="orderId != null">#{orderId},</if>
+            <if test="clientId != null">#{clientId},</if>
+            <if test="storeName != null">#{storeName},</if>
+            <if test="orderAmount != null">#{orderAmount},</if>
+            <if test="orderStatus != null">#{orderStatus},</if>
+            <if test="createdTime != null">#{createdTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="customFieldOne != null">#{customFieldOne},</if>
+            <if test="customFieldTwo != null">#{customFieldTwo},</if>
+            <if test="customFieldThree != null">#{customFieldThree},</if>
+         </trim>
+    </insert>
+
+    <update id="updateKfAnswersOrder" parameterType="KfAnswersOrder">
+        update kf_answers_order
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="clientId != null">client_id = #{clientId},</if>
+            <if test="storeName != null">store_name = #{storeName},</if>
+            <if test="orderAmount != null">order_amount = #{orderAmount},</if>
+            <if test="orderStatus != null">order_status = #{orderStatus},</if>
+            <if test="createdTime != null">created_time = #{createdTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="customFieldOne != null">custom_field_one = #{customFieldOne},</if>
+            <if test="customFieldTwo != null">custom_field_two = #{customFieldTwo},</if>
+            <if test="customFieldThree != null">custom_field_three = #{customFieldThree},</if>
+        </trim>
+        where order_id = #{orderId}
+    </update>
+
+    <delete id="deleteKfAnswersOrderByOrderId" parameterType="String">
+        delete from kf_answers_order where order_id = #{orderId}
+    </delete>
+
+    <delete id="deleteKfAnswersOrderByOrderIds" parameterType="String">
+        delete from kf_answers_order where order_id in 
+        <foreach item="orderId" collection="array" open="(" separator="," close=")">
+            #{orderId}
+        </foreach>
+    </delete>
+</mapper>
