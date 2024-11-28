@@ -41,9 +41,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         </where>
     </select>
     
-    <select id="selectKfAnswersMessageByMessageId" parameterType="String" resultMap="KfAnswersMessageResult">
+    <select id="selectKfAnswersMessageByMessageId" parameterType="Map" resultMap="KfAnswersMessageResult">
         <include refid="selectKfAnswersMessageVo"/>
-        where message_id = #{messageId}
+        where sender_id = #{senderId} and shop_id=#{shopId}
     </select>
 
     <insert id="insertKfAnswersMessage" parameterType="KfAnswersMessage">
@@ -101,6 +101,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         </trim>
         where message_id = #{messageId}
     </update>
+
+
+
+    <update id="updateKfAnswersMessageRead" parameterType="KfAnswersMessage">
+        update kf_answers_message
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="isRead != null">is_read =#{isRead},</if>
+        </trim>
+        where sender_id = #{senderId} and shop_id=#{shopId}
+    </update>
+
+
+
 
     <delete id="deleteKfAnswersMessageByMessageId" parameterType="String">
         delete from kf_answers_message where message_id = #{messageId}

@@ -1,5 +1,6 @@
 package com.ruoyi.aliexpress.mapper;
 
+import java.util.HashMap;
 import java.util.List;
 import com.ruoyi.aliexpress.domain.KfAnswersMessage;
 
@@ -14,10 +15,10 @@ public interface KfAnswersMessageMapper
     /**
      * 查询消息
      * 
-     * @param messageId 消息主键
+     * @param
      * @return 消息
      */
-    public KfAnswersMessage selectKfAnswersMessageByMessageId(String messageId);
+    public List<KfAnswersMessage> selectKfAnswersMessageByMessageId(HashMap paramMap);
 
     /**
      * 查询消息列表
@@ -42,6 +43,17 @@ public interface KfAnswersMessageMapper
      * @return 结果
      */
     public int updateKfAnswersMessage(KfAnswersMessage kfAnswersMessage);
+
+
+    /**
+     * 标记已读
+     *
+     * @param kfAnswersMessage 消息
+     * @return 结果
+     */
+    public int updateKfAnswersMessageRead(KfAnswersMessage kfAnswersMessage);
+
+
 
     /**
      * 删除消息

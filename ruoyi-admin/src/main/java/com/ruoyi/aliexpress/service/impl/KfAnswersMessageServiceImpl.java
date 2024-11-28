@@ -1,6 +1,9 @@
 package com.ruoyi.aliexpress.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import com.ruoyi.common.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,14 +25,17 @@ public class KfAnswersMessageServiceImpl implements IKfAnswersMessageService
 
     /**
      * 查询消息
-     * 
-     * @param messageId 消息主键
+     *
+     * @param
      * @return 消息
      */
     @Override
-    public KfAnswersMessage selectKfAnswersMessageByMessageId(String messageId)
+    public List<KfAnswersMessage> selectKfAnswersMessageByMessageId(String senderId, String shopId)
     {
-        return kfAnswersMessageMapper.selectKfAnswersMessageByMessageId(messageId);
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("senderId", senderId);
+        paramMap.put("shopId", shopId);
+        return (List<KfAnswersMessage>) kfAnswersMessageMapper.selectKfAnswersMessageByMessageId((HashMap) paramMap);
     }
 
     /**
@@ -67,6 +73,12 @@ public class KfAnswersMessageServiceImpl implements IKfAnswersMessageService
     {
         kfAnswersMessage.setUpdateTime(DateUtils.getNowDate());
         return kfAnswersMessageMapper.updateKfAnswersMessage(kfAnswersMessage);
+    }
+
+    @Override
+    public int updateKfAnswersMessageRead(KfAnswersMessage kfAnswersMessage) {
+        kfAnswersMessage.setUpdateTime(DateUtils.getNowDate());
+        return kfAnswersMessageMapper.updateKfAnswersMessageRead(kfAnswersMessage);
     }
 
     /**

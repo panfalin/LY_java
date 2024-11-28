@@ -14,31 +14,63 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="updateTime"    column="update_time"    />
         <result property="createBy"    column="create_by"    />
         <result property="updateBy"    column="update_by"    />
-        <result property="customFieldOne"    column="custom_field_one"    />
+        <result property="storeName"    column="store_name"    />
         <result property="customFieldTwo"    column="custom_field_two"    />
         <result property="customFieldThree"    column="custom_field_three"    />
+        <result property="messageContent" column="message_content"/>
+    </resultMap>
+    <resultMap id="KfAnswersClientResultWithMessage" type="KfAnswersClient">
+        <result property="clientId"    column="client_id"    />
+        <result property="clientName"    column="client_name"    />
+        <result property="clientNumber"    column="client_number"    />
+        <result property="email"    column="email"    />
+        <result property="avatarUrl"    column="avatar_url"    />
+        <result property="createdTime"    column="created_time"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="storeName"    column="store_name"    />
+        <result property="customFieldTwo"    column="custom_field_two"    />
+        <result property="customFieldThree"    column="custom_field_three"    />
+        <result property="messageContent" column="message_content"/>
+        <result property="isRead" column="is_read"/>
     </resultMap>
 
-    <sql id="selectKfAnswersClientVo">
-        select client_id, client_name, client_number, email, avatar_url, created_time, update_time, create_by, update_by, custom_field_one, custom_field_two, custom_field_three from kf_answers_client
+    <sql id="selectKfAnswersClient">
+        select client_id, client_name, client_number, email, avatar_url,created_time, update_time, create_by, update_by, store_name, custom_field_two, custom_field_three from kf_answers_client
     </sql>
 
-    <select id="selectKfAnswersClientList" parameterType="KfAnswersClient" resultMap="KfAnswersClientResult">
+    <sql id="selectKfAnswersClientVo">
+        select client_id, client_name, client_number, email, avatar_url, created_time, update_time, create_by, update_by, store_name, custom_field_two, custom_field_three,message_content,latest_message.is_read  from kf_answers_client
+    </sql>
+    <select id="selectKfAnswersClientList" parameterType="KfAnswersClient" resultMap="KfAnswersClientResultWithMessage">
         <include refid="selectKfAnswersClientVo"/>
+        LEFT JOIN (
+        SELECT sender_id, shop_id, message_content, is_read
+        FROM (
+        SELECT sender_id, shop_id, message_content, is_read,
+        -- 使用ROW_NUMBER()函数按照sender_id和shop_id分组并根据created_time降序排序，这样每一组最新的消息序号就是1
+        ROW_NUMBER() OVER (PARTITION BY sender_id, shop_id ORDER BY created_time DESC) AS row_num
+        FROM kf_answers_message
+        ) AS latest_messages
+        WHERE row_num = 1
+        ) AS latest_message ON (kf_answers_client.client_id = latest_message.sender_id
+        AND kf_answers_client.store_name = latest_message.shop_id)
         <where>  
             <if test="clientName != null  and clientName != ''"> and client_name like concat('%', #{clientName}, '%')</if>
             <if test="clientNumber != null  and clientNumber != ''"> and client_number like concat('%', #{clientNumber}, '%')</if>
             <if test="email != null  and email != ''"> and email like concat('%', #{email}, '%')</if>
             <if test="avatarUrl != null  and avatarUrl != ''"> and avatar_url = #{avatarUrl}</if>
             <if test="createdTime != null "> and created_time = #{createdTime}</if>
-            <if test="customFieldOne != null  and customFieldOne != ''"> and custom_field_one = #{customFieldOne}</if>
+            <if test="storeName != null  and storeName != ''"> and store_name = #{storeName}</if>
+            <if test="isRead != null  and isRead != ''"> and is_read = #{isRead}</if>
             <if test="customFieldTwo != null  and customFieldTwo != ''"> and custom_field_two = #{customFieldTwo}</if>
             <if test="customFieldThree != null  and customFieldThree != ''"> and custom_field_three = #{customFieldThree}</if>
         </where>
     </select>
     
     <select id="selectKfAnswersClientByClientId" parameterType="String" resultMap="KfAnswersClientResult">
-        <include refid="selectKfAnswersClientVo"/>
+        <include refid="selectKfAnswersClient"/>
         where client_id = #{clientId}
     </select>
 
@@ -54,7 +86,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="updateTime != null">update_time,</if>
             <if test="createBy != null">create_by,</if>
             <if test="updateBy != null">update_by,</if>
-            <if test="customFieldOne != null">custom_field_one,</if>
+            <if test="storeName != null">store_name,</if>
             <if test="customFieldTwo != null">custom_field_two,</if>
             <if test="customFieldThree != null">custom_field_three,</if>
          </trim>
@@ -68,7 +100,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="updateTime != null">#{updateTime},</if>
             <if test="createBy != null">#{createBy},</if>
             <if test="updateBy != null">#{updateBy},</if>
-            <if test="customFieldOne != null">#{customFieldOne},</if>
+            <if test="storeName != null">#{storeName},</if>
             <if test="customFieldTwo != null">#{customFieldTwo},</if>
             <if test="customFieldThree != null">#{customFieldThree},</if>
          </trim>
@@ -85,7 +117,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="updateTime != null">update_time = #{updateTime},</if>
             <if test="createBy != null">create_by = #{createBy},</if>
             <if test="updateBy != null">update_by = #{updateBy},</if>
-            <if test="customFieldOne != null">custom_field_one = #{customFieldOne},</if>
+            <if test="storeName != null">store_name = #{storeName},</if>
             <if test="customFieldTwo != null">custom_field_two = #{customFieldTwo},</if>
             <if test="customFieldThree != null">custom_field_three = #{customFieldThree},</if>
         </trim>

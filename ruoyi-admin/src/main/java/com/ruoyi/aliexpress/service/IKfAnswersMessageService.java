@@ -14,10 +14,10 @@ public interface IKfAnswersMessageService
     /**
      * 查询消息
      * 
-     * @param messageId 消息主键
+     * @param
      * @return 消息
      */
-    public KfAnswersMessage selectKfAnswersMessageByMessageId(String messageId);
+    public List<KfAnswersMessage> selectKfAnswersMessageByMessageId(String senderId, String shopId);
 
     /**
      * 查询消息列表
@@ -42,6 +42,15 @@ public interface IKfAnswersMessageService
      * @return 结果
      */
     public int updateKfAnswersMessage(KfAnswersMessage kfAnswersMessage);
+
+    /**
+     * 修改消息
+     *
+     * @param kfAnswersMessage 消息
+     * @return 结果
+     */
+    public int updateKfAnswersMessageRead(KfAnswersMessage kfAnswersMessage);
+
 
     /**
      * 批量删除消息

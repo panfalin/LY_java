@@ -63,11 +63,16 @@ public class KfAnswersMessageController extends BaseController
      * 获取消息详细信息
      */
     @PreAuthorize("@ss.hasPermi('aliexpress:message:query')")
-    @GetMapping(value = "/{messageId}")
-    public AjaxResult getInfo(@PathVariable("messageId") String messageId)
+    @GetMapping(value = "/{senderId}/{shopId}")
+    public TableDataInfo getInfo(@PathVariable("senderId") String senderId, @PathVariable("shopId") String shopId)
     {
-        return success(kfAnswersMessageService.selectKfAnswersMessageByMessageId(messageId));
+        List<KfAnswersMessage> list = kfAnswersMessageService.selectKfAnswersMessageByMessageId(senderId,shopId);
+        return getDataTable(list);
     }
+
+
+
+
 
     /**
      * 新增消息
@@ -90,6 +95,19 @@ public class KfAnswersMessageController extends BaseController
     {
         return toAjax(kfAnswersMessageService.updateKfAnswersMessage(kfAnswersMessage));
     }
+
+    /**
+     * 修改消息
+     */
+    @PreAuthorize("@ss.hasPermi('aliexpress:message:edit')")
+    @Log(title = "修改消息已读", businessType = BusinessType.UPDATE)
+    @PutMapping("/read")
+    public AjaxResult editRead(@RequestBody KfAnswersMessage kfAnswersMessage)
+    {
+        return toAjax(kfAnswersMessageService.updateKfAnswersMessageRead(kfAnswersMessage));
+    }
+
+
 
     /**
      * 删除消息

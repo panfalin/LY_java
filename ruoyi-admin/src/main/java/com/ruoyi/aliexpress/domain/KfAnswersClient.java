@@ -43,7 +43,7 @@ public class KfAnswersClient extends BaseEntity
 
     /** 自定义字段1 */
     @Excel(name = "自定义字段1")
-    private String customFieldOne;
+    private String storeName;
 
     /** 自定义字段2 */
     @Excel(name = "自定义字段2")
@@ -53,7 +53,30 @@ public class KfAnswersClient extends BaseEntity
     @Excel(name = "自定义字段3")
     private String customFieldThree;
 
-    public void setClientId(String clientId) 
+    /** 最新消息内容 */
+    @Excel(name = "最新消息内容")
+    private String messageContent;
+    /** 最新消息内容 */
+    @Excel(name = "最新消息内容是否已读")
+    private String isRead;
+
+    public String getIsRead() {
+        return isRead;
+    }
+
+    public void setIsRead(String isRead) {
+        this.isRead = isRead;
+    }
+
+    public String getMessageContent() {
+        return messageContent;
+    }
+
+    public void setMessageContent(String messageContent) {
+        this.messageContent = messageContent;
+    }
+
+    public void setClientId(String clientId)
     {
         this.clientId = clientId;
     }
@@ -107,14 +130,14 @@ public class KfAnswersClient extends BaseEntity
     {
         return createdTime;
     }
-    public void setCustomFieldOne(String customFieldOne) 
+    public void setstoreName(String storeName)
     {
-        this.customFieldOne = customFieldOne;
+        this.storeName = storeName;
     }
 
-    public String getCustomFieldOne() 
+    public String getstoreName()
     {
-        return customFieldOne;
+        return storeName;
     }
     public void setCustomFieldTwo(String customFieldTwo) 
     {
@@ -147,7 +170,7 @@ public class KfAnswersClient extends BaseEntity
             .append("updateTime", getUpdateTime())
             .append("createBy", getCreateBy())
             .append("updateBy", getUpdateBy())
-            .append("customFieldOne", getCustomFieldOne())
+            .append("storeName", getstoreName())
             .append("customFieldTwo", getCustomFieldTwo())
             .append("customFieldThree", getCustomFieldThree())
             .toString();
