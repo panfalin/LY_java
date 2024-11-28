@@ -1,5 +1,6 @@
 package com.ruoyi.aliexpress.service.impl;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,11 +33,23 @@ public class KfAnswersMessageServiceImpl implements IKfAnswersMessageService
     @Override
     public List<KfAnswersMessage> selectKfAnswersMessageByMessageId(String senderId, String shopId)
     {
+        String receiverId = "客服";
+        String conversationId = generateMessageId(senderId, receiverId);
         Map<String, Object> paramMap = new HashMap<>();
-        paramMap.put("senderId", senderId);
+        paramMap.put("conversationId", conversationId);
         paramMap.put("shopId", shopId);
         return (List<KfAnswersMessage>) kfAnswersMessageMapper.selectKfAnswersMessageByMessageId((HashMap) paramMap);
     }
+
+    public static String generateMessageId(String senderId, String receiverId) {
+        // 使用Arrays.sort方法对包含发送者ID和接收者ID的数组进行排序
+        String[] ids = {senderId, receiverId};
+        Arrays.sort(ids);
+
+        // 使用String的format方法或者直接拼接字符串的方式将排序后的两个ID用下划线连接
+        return String.format("%s_%s", ids[0], ids[1]);
+    }
+
 
     /**
      * 查询消息列表
@@ -48,6 +61,11 @@ public class KfAnswersMessageServiceImpl implements IKfAnswersMessageService
     public List<KfAnswersMessage> selectKfAnswersMessageList(KfAnswersMessage kfAnswersMessage)
     {
         return kfAnswersMessageMapper.selectKfAnswersMessageList(kfAnswersMessage);
+    }
+
+    @Override
+    public List<Map<String, String>> selectKfAnswersClientUnreadCountOnly() {
+        return kfAnswersMessageMapper.selectKfAnswersClientUnreadCountOnly();
     }
 
     /**

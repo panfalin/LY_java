@@ -1,6 +1,7 @@
 package com.ruoyi.aliexpress.controller;
 
 import java.util.List;
+import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +46,20 @@ public class KfAnswersMessageController extends BaseController
         List<KfAnswersMessage> list = kfAnswersMessageService.selectKfAnswersMessageList(kfAnswersMessage);
         return getDataTable(list);
     }
+
+
+    /**
+     * 查询消息列表
+     */
+    @PreAuthorize("@ss.hasPermi('aliexpress:message:list')")
+    @GetMapping("/list/unread")
+    public TableDataInfo listUnread(KfAnswersMessage kfAnswersMessage)
+    {
+        startPage();
+        List<Map<String,String>> list = kfAnswersMessageService.selectKfAnswersClientUnreadCountOnly();
+        return getDataTable(list);
+    }
+
 
     /**
      * 导出消息列表

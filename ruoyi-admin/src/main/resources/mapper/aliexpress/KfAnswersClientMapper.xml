@@ -3,7 +3,9 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ruoyi.aliexpress.mapper.KfAnswersClientMapper">
-    
+
+
+
     <resultMap type="KfAnswersClient" id="KfAnswersClientResult">
         <result property="clientId"    column="client_id"    />
         <result property="clientName"    column="client_name"    />
@@ -73,6 +75,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <include refid="selectKfAnswersClient"/>
         where client_id = #{clientId}
     </select>
+
+
+
+
+
 
     <insert id="insertKfAnswersClient" parameterType="KfAnswersClient">
         insert into kf_answers_client

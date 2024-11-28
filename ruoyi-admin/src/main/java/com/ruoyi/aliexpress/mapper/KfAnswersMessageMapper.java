@@ -2,6 +2,8 @@ package com.ruoyi.aliexpress.mapper;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import com.ruoyi.aliexpress.domain.KfAnswersMessage;
 
 /**
@@ -27,6 +29,9 @@ public interface KfAnswersMessageMapper
      * @return 消息集合
      */
     public List<KfAnswersMessage> selectKfAnswersMessageList(KfAnswersMessage kfAnswersMessage);
+
+
+    public List<Map<String,String>> selectKfAnswersClientUnreadCountOnly();
 
     /**
      * 新增消息
