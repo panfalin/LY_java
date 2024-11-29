@@ -1,6 +1,9 @@
 package com.ruoyi.aliexpress.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import com.ruoyi.common.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,6 +45,17 @@ public class KfAnswersOrderServiceImpl implements IKfAnswersOrderService
     public List<KfAnswersOrder> selectKfAnswersOrderList(KfAnswersOrder kfAnswersOrder)
     {
         return kfAnswersOrderMapper.selectKfAnswersOrderList(kfAnswersOrder);
+    }
+
+    @Override
+    public List<KfAnswersOrder> selectKfAnswersOrderDetail(String clientId, String storeName) {
+
+        Map<String, String> paramMap = new HashMap<>();
+        paramMap.put("clientId", clientId);
+        paramMap.put("storeName", storeName);
+
+
+        return kfAnswersOrderMapper.selectKfAnswersOrderDetail((HashMap) paramMap);
     }
 
     /**

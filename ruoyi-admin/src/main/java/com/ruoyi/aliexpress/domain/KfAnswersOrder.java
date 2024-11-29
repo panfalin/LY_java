@@ -43,18 +43,34 @@ public class KfAnswersOrder extends BaseEntity
     private Date createdTime;
 
     /** 自定义字段1 */
-    @Excel(name = "自定义字段1")
-    private String customFieldOne;
+    @Excel(name = "商品名")
+    private String produceName;
 
     /** 自定义字段2 */
-    @Excel(name = "自定义字段2")
-    private String customFieldTwo;
+    @Excel(name = "商品图片")
+    private String producePicture;
 
     /** 自定义字段3 */
     @Excel(name = "自定义字段3")
     private String customFieldThree;
 
-    public void setOrderId(String orderId) 
+    public String getProduceName() {
+        return produceName;
+    }
+
+    public void setProduceName(String produceName) {
+        this.produceName = produceName;
+    }
+
+    public String getProducePicture() {
+        return producePicture;
+    }
+
+    public void setProducePicture(String producePicture) {
+        this.producePicture = producePicture;
+    }
+
+    public void setOrderId(String orderId)
     {
         this.orderId = orderId;
     }
@@ -108,24 +124,7 @@ public class KfAnswersOrder extends BaseEntity
     {
         return createdTime;
     }
-    public void setCustomFieldOne(String customFieldOne) 
-    {
-        this.customFieldOne = customFieldOne;
-    }
 
-    public String getCustomFieldOne() 
-    {
-        return customFieldOne;
-    }
-    public void setCustomFieldTwo(String customFieldTwo) 
-    {
-        this.customFieldTwo = customFieldTwo;
-    }
-
-    public String getCustomFieldTwo() 
-    {
-        return customFieldTwo;
-    }
     public void setCustomFieldThree(String customFieldThree) 
     {
         this.customFieldThree = customFieldThree;
@@ -148,8 +147,6 @@ public class KfAnswersOrder extends BaseEntity
             .append("updateTime", getUpdateTime())
             .append("createBy", getCreateBy())
             .append("updateBy", getUpdateBy())
-            .append("customFieldOne", getCustomFieldOne())
-            .append("customFieldTwo", getCustomFieldTwo())
             .append("customFieldThree", getCustomFieldThree())
             .toString();
     }

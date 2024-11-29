@@ -2,6 +2,8 @@ package com.ruoyi.aliexpress.controller;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
+import com.ruoyi.aliexpress.domain.KfAnswersMessage;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -101,4 +103,19 @@ public class KfAnswersOrderController extends BaseController
     {
         return toAjax(kfAnswersOrderService.deleteKfAnswersOrderByOrderIds(orderIds));
     }
+
+    /**
+     * 获取消息详细信息
+     */
+    @PreAuthorize("@ss.hasPermi('aliexpress:order:query')")
+    @GetMapping(value = "/{clientId}/{storeName}")
+    public TableDataInfo getInfo(@PathVariable("clientId") String clientId, @PathVariable("storeName") String storeName)
+    {
+        List<KfAnswersOrder> list = kfAnswersOrderService.selectKfAnswersOrderDetail(clientId,storeName);
+        return getDataTable(list);
+    }
+
+
+
+
 }

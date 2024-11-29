@@ -1,5 +1,6 @@
 package com.ruoyi.aliexpress.mapper;
 
+import java.util.HashMap;
 import java.util.List;
 import com.ruoyi.aliexpress.domain.KfAnswersOrder;
 
@@ -26,6 +27,16 @@ public interface KfAnswersOrderMapper
      * @return 订单集合
      */
     public List<KfAnswersOrder> selectKfAnswersOrderList(KfAnswersOrder kfAnswersOrder);
+
+
+    /**
+     * 查询订单列表详情
+     *
+     * @param
+     * @return 订单集合
+     */
+    public List<KfAnswersOrder> selectKfAnswersOrderDetail(HashMap paramMap);
+
 
     /**
      * 新增订单

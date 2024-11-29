@@ -14,14 +14,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="updateTime"    column="update_time"    />
         <result property="createBy"    column="create_by"    />
         <result property="updateBy"    column="update_by"    />
-        <result property="customFieldOne"    column="custom_field_one"    />
-        <result property="customFieldTwo"    column="custom_field_two"    />
+        <result property="produceName"    column="produce_name"    />
+        <result property="producePicture"    column="produce_picture"    />
         <result property="customFieldThree"    column="custom_field_three"    />
     </resultMap>
 
     <sql id="selectKfAnswersOrderVo">
-        select order_id, client_id, store_name, order_amount, order_status, created_time, update_time, create_by, update_by, custom_field_one, custom_field_two, custom_field_three from kf_answers_order
+        select order_id, client_id, store_name, order_amount, order_status, created_time, update_time, create_by, update_by, produce_name, produce_picture, custom_field_three from kf_answers_order
     </sql>
+
+    <select id="selectKfAnswersOrderDetail" parameterType="Map" resultMap="KfAnswersOrderResult">
+        <include refid="selectKfAnswersOrderVo"/>
+        where client_id = #{clientId} and store_name=#{storeName}
+    </select>
+
+
+
+
+
 
     <select id="selectKfAnswersOrderList" parameterType="KfAnswersOrder" resultMap="KfAnswersOrderResult">
         <include refid="selectKfAnswersOrderVo"/>
@@ -31,8 +41,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="orderAmount != null "> and order_amount = #{orderAmount}</if>
             <if test="orderStatus != null  and orderStatus != ''"> and order_status = #{orderStatus}</if>
             <if test="createdTime != null "> and created_time = #{createdTime}</if>
-            <if test="customFieldOne != null  and customFieldOne != ''"> and custom_field_one = #{customFieldOne}</if>
-            <if test="customFieldTwo != null  and customFieldTwo != ''"> and custom_field_two = #{customFieldTwo}</if>
+            <if test="produceName != null  and produceName != ''"> and produce_name = #{produceName}</if>
+            <if test="producePicture != null  and producePicture != ''"> and produce_picture = #{producePicture}</if>
             <if test="customFieldThree != null  and customFieldThree != ''"> and custom_field_three = #{customFieldThree}</if>
         </where>
     </select>
@@ -54,8 +64,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="updateTime != null">update_time,</if>
             <if test="createBy != null">create_by,</if>
             <if test="updateBy != null">update_by,</if>
-            <if test="customFieldOne != null">custom_field_one,</if>
-            <if test="customFieldTwo != null">custom_field_two,</if>
+            <if test="produceName != null">produce_name,</if>
+            <if test="producePicture != null">produce_picture,</if>
             <if test="customFieldThree != null">custom_field_three,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -68,8 +78,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="updateTime != null">#{updateTime},</if>
             <if test="createBy != null">#{createBy},</if>
             <if test="updateBy != null">#{updateBy},</if>
-            <if test="customFieldOne != null">#{customFieldOne},</if>
-            <if test="customFieldTwo != null">#{customFieldTwo},</if>
+            <if test="produceName != null">#{produceName},</if>
+            <if test="producePicture != null">#{producePicture},</if>
             <if test="customFieldThree != null">#{customFieldThree},</if>
          </trim>
     </insert>
@@ -85,8 +95,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="updateTime != null">update_time = #{updateTime},</if>
             <if test="createBy != null">create_by = #{createBy},</if>
             <if test="updateBy != null">update_by = #{updateBy},</if>
-            <if test="customFieldOne != null">custom_field_one = #{customFieldOne},</if>
-            <if test="customFieldTwo != null">custom_field_two = #{customFieldTwo},</if>
+            <if test="produceName != null">produce_name = #{produceName},</if>
+            <if test="producePicture != null">produce_picture = #{producePicture},</if>
             <if test="customFieldThree != null">custom_field_three = #{customFieldThree},</if>
         </trim>
         where order_id = #{orderId}

@@ -28,6 +28,16 @@ public interface IKfAnswersOrderService
     public List<KfAnswersOrder> selectKfAnswersOrderList(KfAnswersOrder kfAnswersOrder);
 
     /**
+     * 查询订单列表详情
+     *
+     * @param
+     * @return 订单集合
+     */
+    public List<KfAnswersOrder> selectKfAnswersOrderDetail(String clientId,String storeName);
+
+
+
+    /**
      * 新增订单
      * 
      * @param kfAnswersOrder 订单
