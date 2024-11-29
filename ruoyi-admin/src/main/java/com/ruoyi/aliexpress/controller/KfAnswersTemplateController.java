@@ -162,4 +162,11 @@ public class KfAnswersTemplateController extends BaseController
     {
         return toAjax(kfAnswersTemplateService.deleteKfAnswersTemplateBySkus(skus));
     }
+
+
+
+
+
+
+
 }

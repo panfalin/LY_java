@@ -46,7 +46,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <where>
             <if test="sId != null  and sId != ''"> and s_id = #{sId}</if>
             <if test="sku != null  and sku != ''"> and sku LIKE CONCAT('%',#{sku},'%')</if>
-            <if test="preQuestions != null  and preQuestions != ''"> and pre_questions = #{preQuestions}</if>
+            <if test="preQuestions != null  and preQuestions != ''"> and (pre_questions LIKE CONCAT('%',#{preQuestions},'%') or  after_questions  LIKE CONCAT('%',#{afterQuestions},'%') )</if>
             <if test="preResponse != null  and preResponse != ''"> and pre_response = #{preResponse}</if>
             <if test="preAskTime != null  and preAskTime != ''"> and pre_ask_time = #{preAskTime}</if>
             <if test="afterQuestions != null  and afterQuestions != ''"> and after_questions = #{afterQuestions}</if>
