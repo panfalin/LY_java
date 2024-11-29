@@ -48,16 +48,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="selectKfAnswersClientList" parameterType="KfAnswersClient" resultMap="KfAnswersClientResultWithMessage">
         <include refid="selectKfAnswersClientVo"/>
         LEFT JOIN (
-        SELECT sender_id, shop_id, message_content, is_read,created_time,update_time
+        SELECT sender_id, receiver_id, shop_id, message_content, is_read, created_time, update_time, conversation_id
         FROM (
-        SELECT sender_id, shop_id, message_content, is_read,created_time,update_time,
-        -- 使用ROW_NUMBER()函数按照sender_id和shop_id分组并根据created_time降序排序，这样每一组最新的消息序号就是1
-        ROW_NUMBER() OVER (PARTITION BY sender_id, shop_id ORDER BY created_time DESC) AS row_num
+        SELECT sender_id, receiver_id, shop_id, message_content, is_read, created_time, update_time, conversation_id,
+        ROW_NUMBER() OVER (PARTITION BY conversation_id, shop_id ORDER BY created_time DESC) AS row_num
         FROM kf_answers_message
         ) AS latest_messages
         WHERE row_num = 1
-        ) AS latest_message ON (kf_answers_client.client_id = latest_message.sender_id
-        AND kf_answers_client.store_name = latest_message.shop_id)
+        ) AS latest_message
+        ON (
+        kf_answers_client.store_name = latest_message.shop_id
+        AND (
+        CASE
+        WHEN latest_message.sender_id = '客服' THEN kf_answers_client.client_id = latest_message.receiver_id
+        ELSE kf_answers_client.client_id = latest_message.sender_id
+        END)
+        )
         <where>  
             <if test="clientName != null  and clientName != ''"> and client_name like concat('%', #{clientName}, '%')</if>
             <if test="clientNumber != null  and clientNumber != ''"> and client_number like concat('%', #{clientNumber}, '%')</if>
