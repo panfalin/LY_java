@@ -37,8 +37,8 @@ public class KfAnswersMessage extends BaseEntity
     private String messageContent;
 
     /** 消息发送时间 */
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    @Excel(name = "消息发送时间", width = 30, dateFormat = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @Excel(name = "消息发送时间", width = 30, dateFormat = "yyyy-MM-dd HH:mm:ss")
     private Date sendTime;
 
     /** 消息是否已读（0 表示未读，1 表示已读） */

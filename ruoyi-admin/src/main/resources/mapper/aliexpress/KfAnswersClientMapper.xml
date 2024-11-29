@@ -43,14 +43,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </sql>
 
     <sql id="selectKfAnswersClientVo">
-        select client_id, client_name, client_number, email, avatar_url, created_time, update_time, create_by, update_by, store_name, custom_field_two, custom_field_three,message_content,latest_message.is_read  from kf_answers_client
+        select client_id, client_name, client_number, email, avatar_url, latest_message.created_time, latest_message.update_time, create_by, update_by, store_name, custom_field_two, custom_field_three,message_content,latest_message.is_read  from kf_answers_client
     </sql>
     <select id="selectKfAnswersClientList" parameterType="KfAnswersClient" resultMap="KfAnswersClientResultWithMessage">
         <include refid="selectKfAnswersClientVo"/>
         LEFT JOIN (
-        SELECT sender_id, shop_id, message_content, is_read
+        SELECT sender_id, shop_id, message_content, is_read,created_time,update_time
         FROM (
-        SELECT sender_id, shop_id, message_content, is_read,
+        SELECT sender_id, shop_id, message_content, is_read,created_time,update_time,
         -- 使用ROW_NUMBER()函数按照sender_id和shop_id分组并根据created_time降序排序，这样每一组最新的消息序号就是1
         ROW_NUMBER() OVER (PARTITION BY sender_id, shop_id ORDER BY created_time DESC) AS row_num
         FROM kf_answers_message
