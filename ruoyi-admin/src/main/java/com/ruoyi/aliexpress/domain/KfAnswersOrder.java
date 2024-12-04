@@ -31,7 +31,7 @@ public class KfAnswersOrder extends BaseEntity
 
     /** 订单金额 */
     @Excel(name = "订单金额")
-    private BigDecimal orderAmount;
+    private String orderAmount;
 
     /** 订单状态（如已支付、待发货、已完成等） */
     @Excel(name = "订单状态", readConverterExp = "如=已支付、待发货、已完成等")
@@ -97,12 +97,12 @@ public class KfAnswersOrder extends BaseEntity
     {
         return storeName;
     }
-    public void setOrderAmount(BigDecimal orderAmount) 
+    public void setOrderAmount(String orderAmount)
     {
         this.orderAmount = orderAmount;
     }
 
-    public BigDecimal getOrderAmount() 
+    public String getOrderAmount()
     {
         return orderAmount;
     }

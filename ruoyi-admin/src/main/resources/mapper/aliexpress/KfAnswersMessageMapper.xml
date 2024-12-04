@@ -39,7 +39,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="shopId != null  and shopId != ''"> and shop_id = #{shopId}</if>
             <if test="messageContent != null  and messageContent != ''"> and message_content like concat('%', #{messageContent}, '%')</if>
             <if test="sendTime != null "> and send_time = #{sendTime}</if>
-            <if test="isRead != null  and isRead != ''"> and is_read = #{isRead}</if>
             <if test="createdTime != null "> and created_time = #{createdTime}</if>
             <if test="conversationId != null  and conversationId != ''"> and conversation_id = #{conversationId}</if>
             <if test="customFieldTwo != null  and customFieldTwo != ''"> and custom_field_two = #{customFieldTwo}</if>
