@@ -48,19 +48,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="selectKfAnswersClientList" parameterType="KfAnswersClient" resultMap="KfAnswersClientResultWithMessage">
         <include refid="selectKfAnswersClientVo"/>
         LEFT JOIN (
+        -- 找到各个会话中排名为1的数据
         SELECT sender_id, receiver_id, shop_id, message_content, is_read, created_time, update_time, conversation_id
         FROM (
+        -- 查询message表中的数据 根据conversation_id 并且按创建时间排序排名
         SELECT sender_id, receiver_id, shop_id, message_content, is_read, created_time, update_time, conversation_id,
         ROW_NUMBER() OVER (PARTITION BY conversation_id, shop_id ORDER BY created_time DESC) AS row_num
         FROM kf_answers_message
         ) AS latest_messages
+        -- 只查找排名为第一位的
         WHERE row_num = 1
         ) AS latest_message
         ON (
         kf_answers_client.store_name = latest_message.shop_id
         AND (
         CASE
+        -- 如果sender_id为客服的话 那就拼接client_id=receiver_id
         WHEN latest_message.sender_id = '客服' THEN kf_answers_client.client_id = latest_message.receiver_id
+        -- 如果否则 那就拼接client_id=sender_id
         ELSE kf_answers_client.client_id = latest_message.sender_id
         END)
         )
