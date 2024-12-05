@@ -80,6 +80,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="customFieldTwo != null  and customFieldTwo != ''"> and custom_field_two = #{customFieldTwo}</if>
             <if test="customFieldThree != null  and customFieldThree != ''"> and custom_field_three = #{customFieldThree}</if>
         </where>
+        ORDER BY created_time DESC -- 添加这一行按照创建时间降序排序，可按需修改为ASC（升序）
     </select>
     
     <select id="selectKfAnswersClientByClientId" parameterType="String" resultMap="KfAnswersClientResult">
