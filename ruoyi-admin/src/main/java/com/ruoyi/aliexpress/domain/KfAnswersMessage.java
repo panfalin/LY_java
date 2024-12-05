@@ -55,8 +55,8 @@ public class KfAnswersMessage extends BaseEntity
     private String conversationId;
 
     /** 自定义字段2 */
-    @Excel(name = "自定义字段2")
-    private String customFieldTwo;
+    @Excel(name = "系统发送ID")
+    private String sendId;
 
     /** 自定义字段3 */
     @Excel(name = "自定义字段3")
@@ -142,14 +142,14 @@ public class KfAnswersMessage extends BaseEntity
     {
         return createdTime;
     }
-    public void setCustomFieldTwo(String customFieldTwo) 
+    public void setSendId(String sendId)
     {
-        this.customFieldTwo = customFieldTwo;
+        this.sendId = sendId;
     }
 
-    public String getCustomFieldTwo() 
+    public String getSendId()
     {
-        return customFieldTwo;
+        return sendId;
     }
     public void setCustomFieldThree(String customFieldThree) 
     {
@@ -175,7 +175,7 @@ public class KfAnswersMessage extends BaseEntity
             .append("updateTime", getUpdateTime())
             .append("createBy", getCreateBy())
             .append("updateBy", getUpdateBy())
-            .append("customFieldTwo", getCustomFieldTwo())
+            .append("sendId", getSendId())
             .append("customFieldThree", getCustomFieldThree())
             .toString();
     }
