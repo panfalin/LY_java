@@ -18,7 +18,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="updateBy"    column="update_by"    />
         <result property="storeName"    column="store_name"    />
         <result property="customFieldTwo"    column="custom_field_two"    />
-        <result property="customFieldThree"    column="custom_field_three"    />
         <result property="messageContent" column="message_content"/>
     </resultMap>
     <resultMap id="KfAnswersClientResultWithMessage" type="KfAnswersClient">
@@ -33,26 +32,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="updateBy"    column="update_by"    />
         <result property="storeName"    column="store_name"    />
         <result property="customFieldTwo"    column="custom_field_two"    />
-        <result property="customFieldThree"    column="custom_field_three"    />
         <result property="messageContent" column="message_content"/>
         <result property="isRead" column="is_read"/>
+        <result property="messageStatus" column="message_status"/>
     </resultMap>
 
     <sql id="selectKfAnswersClient">
-        select client_id, client_name, client_number, email, avatar_url,created_time, update_time, create_by, update_by, store_name, custom_field_two, custom_field_three from kf_answers_client
+        select client_id, client_name, client_number, email, avatar_url,created_time, update_time, create_by, update_by, store_name, custom_field_two from kf_answers_client
     </sql>
 
     <sql id="selectKfAnswersClientVo">
-        select client_id, client_name, client_number, email, avatar_url, latest_message.created_time, latest_message.update_time, create_by, update_by, store_name, custom_field_two, custom_field_three,message_content,latest_message.is_read  from kf_answers_client
-    </sql>
+        select client_id, client_name, client_number, email, avatar_url, latest_message.created_time, latest_message.update_time, create_by, update_by, store_name, custom_field_two,message_content,latest_message.is_read,latest_message.message_status  from kf_answers_client    </sql>
     <select id="selectKfAnswersClientList" parameterType="KfAnswersClient" resultMap="KfAnswersClientResultWithMessage">
         <include refid="selectKfAnswersClientVo"/>
         LEFT JOIN (
         -- 找到各个会话中排名为1的数据
-        SELECT sender_id, receiver_id, shop_id, message_content, is_read, created_time, update_time, conversation_id
+        SELECT sender_id, receiver_id, shop_id, message_content, is_read, created_time, update_time, conversation_id,message_status
         FROM (
         -- 查询message表中的数据 根据conversation_id 并且按创建时间排序排名
-        SELECT sender_id, receiver_id, shop_id, message_content, is_read, created_time, update_time, conversation_id,
+        SELECT sender_id, receiver_id, shop_id, message_content, is_read, created_time, update_time, conversation_id,message_status,
         ROW_NUMBER() OVER (PARTITION BY conversation_id, shop_id ORDER BY created_time DESC) AS row_num
         FROM kf_answers_message
         ) AS latest_messages
@@ -77,8 +75,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="createdTime != null "> and created_time = #{createdTime}</if>
             <if test="storeName != null  and storeName != ''"> and store_name = #{storeName}</if>
             <if test="isRead != null  and isRead != ''"> and is_read = #{isRead}</if>
-            <if test="customFieldTwo != null  and customFieldTwo != ''"> and custom_field_two = #{customFieldTwo}</if>
-            <if test="customFieldThree != null  and customFieldThree != ''"> and custom_field_three = #{customFieldThree}</if>
+            <if test="messageStatus != null  and messageStatus != ''"> and message_status = #{messageStatus}</if>
         </where>
         ORDER BY created_time DESC -- 添加这一行按照创建时间降序排序，可按需修改为ASC（升序）
     </select>
@@ -107,7 +104,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="updateBy != null">update_by,</if>
             <if test="storeName != null">store_name,</if>
             <if test="customFieldTwo != null">custom_field_two,</if>
-            <if test="customFieldThree != null">custom_field_three,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="clientId != null">#{clientId},</if>
@@ -138,7 +134,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="updateBy != null">update_by = #{updateBy},</if>
             <if test="storeName != null">store_name = #{storeName},</if>
             <if test="customFieldTwo != null">custom_field_two = #{customFieldTwo},</if>
-            <if test="customFieldThree != null">custom_field_three = #{customFieldThree},</if>
         </trim>
         where client_id = #{clientId}
     </update>

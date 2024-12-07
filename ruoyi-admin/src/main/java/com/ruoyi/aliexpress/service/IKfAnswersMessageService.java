@@ -50,12 +50,21 @@ public interface IKfAnswersMessageService
     public int updateKfAnswersMessage(KfAnswersMessage kfAnswersMessage);
 
     /**
-     * 修改消息
+     * 修改已读
      *
      * @param kfAnswersMessage 消息
      * @return 结果
      */
     public int updateKfAnswersMessageRead(KfAnswersMessage kfAnswersMessage);
+
+
+    /**
+     * 修改消息状态已回复
+     *
+     * @param kfAnswersMessage 消息
+     * @return 结果
+     */
+    public int updateKfAnswersMessageStatus(KfAnswersMessage kfAnswersMessage);
 
 
     /**

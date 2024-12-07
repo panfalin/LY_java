@@ -112,7 +112,7 @@ public class KfAnswersMessageController extends BaseController
     }
 
     /**
-     * 修改消息
+     * 修改消息已读
      */
     @PreAuthorize("@ss.hasPermi('aliexpress:message:edit')")
     @Log(title = "修改消息已读", businessType = BusinessType.UPDATE)
@@ -120,6 +120,18 @@ public class KfAnswersMessageController extends BaseController
     public AjaxResult editRead(@RequestBody KfAnswersMessage kfAnswersMessage)
     {
         return toAjax(kfAnswersMessageService.updateKfAnswersMessageRead(kfAnswersMessage));
+    }
+
+
+    /**
+     * 修改消息已读
+     */
+    @PreAuthorize("@ss.hasPermi('aliexpress:message:edit')")
+    @Log(title = "修改消息已读", businessType = BusinessType.UPDATE)
+    @PutMapping("/status")
+    public AjaxResult editStatus(@RequestBody KfAnswersMessage kfAnswersMessage)
+    {
+        return toAjax(kfAnswersMessageService.updateKfAnswersMessageStatus(kfAnswersMessage));
     }
 
 

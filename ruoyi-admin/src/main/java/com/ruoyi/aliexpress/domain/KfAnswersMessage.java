@@ -54,13 +54,37 @@ public class KfAnswersMessage extends BaseEntity
     @Excel(name = "会话ID")
     private String conversationId;
 
+
     /** 自定义字段2 */
     @Excel(name = "系统发送ID")
     private String sendId;
 
-    /** 自定义字段3 */
-    @Excel(name = "自定义字段3")
-    private String customFieldThree;
+
+
+
+
+    @Excel(name = "消息状态")
+    private String messageStatus;
+
+
+    @Excel(name = "头像地址")
+    private String avatarUrl;
+
+    public String getMessageStatus() {
+        return messageStatus;
+    }
+
+    public void setMessageStatus(String messageStatus) {
+        this.messageStatus = messageStatus;
+    }
+
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
+    }
 
     public String getConversationId() {
         return conversationId;
@@ -151,15 +175,7 @@ public class KfAnswersMessage extends BaseEntity
     {
         return sendId;
     }
-    public void setCustomFieldThree(String customFieldThree) 
-    {
-        this.customFieldThree = customFieldThree;
-    }
 
-    public String getCustomFieldThree() 
-    {
-        return customFieldThree;
-    }
 
     @Override
     public String toString() {
@@ -176,7 +192,6 @@ public class KfAnswersMessage extends BaseEntity
             .append("createBy", getCreateBy())
             .append("updateBy", getUpdateBy())
             .append("sendId", getSendId())
-            .append("customFieldThree", getCustomFieldThree())
             .toString();
     }
 }

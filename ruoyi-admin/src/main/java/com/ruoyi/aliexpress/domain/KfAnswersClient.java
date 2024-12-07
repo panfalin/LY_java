@@ -59,6 +59,17 @@ public class KfAnswersClient extends BaseEntity
     /** 最新消息内容 */
     @Excel(name = "最新消息内容是否已读")
     private String isRead;
+    @Excel(name = "最新消息内容是否回复")
+    private String messageStatus;
+
+
+    public String getMessageStatus() {
+        return messageStatus;
+    }
+
+    public void setMessageStatus(String messageStatus) {
+        this.messageStatus = messageStatus;
+    }
 
     public String getIsRead() {
         return isRead;

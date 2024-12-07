@@ -103,6 +103,16 @@ public class KfAnswersMessageServiceImpl implements IKfAnswersMessageService
         return 1;
     }
 
+    @Override
+    public int updateKfAnswersMessageStatus(KfAnswersMessage kfAnswersMessage) {
+        kfAnswersMessage.setUpdateTime(DateUtils.getNowDate());
+        List<KfAnswersMessage> list=kfAnswersMessageMapper.selectKfAnswersMessageList(kfAnswersMessage);
+        if (list.size()>0){
+            return kfAnswersMessageMapper.updateKfAnswersMessageStatus(kfAnswersMessage);
+        }
+        return 1;
+    }
+
     /**
      * 批量删除消息
      * 

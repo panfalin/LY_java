@@ -58,7 +58,13 @@ public interface KfAnswersMessageMapper
      */
     public int updateKfAnswersMessageRead(KfAnswersMessage kfAnswersMessage);
 
-
+    /**
+     * 标记已回复
+     *
+     * @param kfAnswersMessage 消息
+     * @return 结果
+     */
+    public int updateKfAnswersMessageStatus(KfAnswersMessage kfAnswersMessage);
 
     /**
      * 删除消息
