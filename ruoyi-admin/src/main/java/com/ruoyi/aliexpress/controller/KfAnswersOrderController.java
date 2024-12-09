@@ -39,7 +39,7 @@ public class KfAnswersOrderController extends BaseController
     /**
      * 查询订单列表
      */
-    @PreAuthorize("@ss.hasPermi('aliexpress:order:list')")
+    @PreAuthorize("@ss.hasPermi('aliexpress:message:list')")
     @GetMapping("/list")
     public TableDataInfo list(KfAnswersOrder kfAnswersOrder)
     {
@@ -51,7 +51,7 @@ public class KfAnswersOrderController extends BaseController
     /**
      * 导出订单列表
      */
-    @PreAuthorize("@ss.hasPermi('aliexpress:order:export')")
+    @PreAuthorize("@ss.hasPermi('aliexpress:message:export')")
     @Log(title = "订单", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, KfAnswersOrder kfAnswersOrder)
@@ -64,7 +64,7 @@ public class KfAnswersOrderController extends BaseController
     /**
      * 获取订单详细信息
      */
-    @PreAuthorize("@ss.hasPermi('aliexpress:order:query')")
+    @PreAuthorize("@ss.hasPermi('aliexpress:message:query')")
     @GetMapping(value = "/{orderId}")
     public AjaxResult getInfo(@PathVariable("orderId") String orderId)
     {
@@ -74,7 +74,7 @@ public class KfAnswersOrderController extends BaseController
     /**
      * 新增订单
      */
-    @PreAuthorize("@ss.hasPermi('aliexpress:order:add')")
+    @PreAuthorize("@ss.hasPermi('aliexpress:message:add')")
     @Log(title = "订单", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody KfAnswersOrder kfAnswersOrder)
@@ -85,7 +85,7 @@ public class KfAnswersOrderController extends BaseController
     /**
      * 修改订单
      */
-    @PreAuthorize("@ss.hasPermi('aliexpress:order:edit')")
+    @PreAuthorize("@ss.hasPermi('aliexpress:message:edit')")
     @Log(title = "订单", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody KfAnswersOrder kfAnswersOrder)
@@ -96,7 +96,7 @@ public class KfAnswersOrderController extends BaseController
     /**
      * 删除订单
      */
-    @PreAuthorize("@ss.hasPermi('aliexpress:order:remove')")
+    @PreAuthorize("@ss.hasPermi('aliexpress:message:remove')")
     @Log(title = "订单", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{orderIds}")
     public AjaxResult remove(@PathVariable String[] orderIds)
@@ -107,7 +107,7 @@ public class KfAnswersOrderController extends BaseController
     /**
      * 获取消息详细信息
      */
-    @PreAuthorize("@ss.hasPermi('aliexpress:order:query')")
+    @PreAuthorize("@ss.hasPermi('aliexpress:message:query')")
     @GetMapping(value = "/{clientId}/{storeName}")
     public TableDataInfo getInfo(@PathVariable("clientId") String clientId, @PathVariable("storeName") String storeName)
     {

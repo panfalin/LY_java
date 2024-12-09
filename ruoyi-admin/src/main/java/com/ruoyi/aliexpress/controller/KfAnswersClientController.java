@@ -37,7 +37,7 @@ public class KfAnswersClientController extends BaseController
     /**
      * 查询用户列表
      */
-    @PreAuthorize("@ss.hasPermi('aliexpress:client:list')")
+    @PreAuthorize("@ss.hasPermi('aliexpress:message:list')")
     @GetMapping("/list")
     public TableDataInfo list(KfAnswersClient kfAnswersClient)
     {
@@ -50,7 +50,7 @@ public class KfAnswersClientController extends BaseController
     /**
      * 导出用户列表
      */
-    @PreAuthorize("@ss.hasPermi('aliexpress:client:export')")
+    @PreAuthorize("@ss.hasPermi('aliexpress:message:export')")
     @Log(title = "用户", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, KfAnswersClient kfAnswersClient)
@@ -63,7 +63,7 @@ public class KfAnswersClientController extends BaseController
     /**
      * 获取用户详细信息
      */
-    @PreAuthorize("@ss.hasPermi('aliexpress:client:query')")
+    @PreAuthorize("@ss.hasPermi('aliexpress:message:query')")
     @GetMapping(value = "/{clientId}")
     public AjaxResult getInfo(@PathVariable("clientId") String clientId)
     {
@@ -73,7 +73,7 @@ public class KfAnswersClientController extends BaseController
     /**
      * 新增用户
      */
-    @PreAuthorize("@ss.hasPermi('aliexpress:client:add')")
+    @PreAuthorize("@ss.hasPermi('aliexpress:message:add')")
     @Log(title = "用户", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody KfAnswersClient kfAnswersClient)
@@ -84,7 +84,7 @@ public class KfAnswersClientController extends BaseController
     /**
      * 修改用户
      */
-    @PreAuthorize("@ss.hasPermi('aliexpress:client:edit')")
+    @PreAuthorize("@ss.hasPermi('aliexpress:message:edit')")
     @Log(title = "用户", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody KfAnswersClient kfAnswersClient)
@@ -95,7 +95,7 @@ public class KfAnswersClientController extends BaseController
     /**
      * 删除用户
      */
-    @PreAuthorize("@ss.hasPermi('aliexpress:client:remove')")
+    @PreAuthorize("@ss.hasPermi('aliexpress:message:remove')")
     @Log(title = "用户", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{clientIds}")
     public AjaxResult remove(@PathVariable String[] clientIds)

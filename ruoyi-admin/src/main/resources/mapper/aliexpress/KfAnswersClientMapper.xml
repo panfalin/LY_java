@@ -74,7 +74,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="avatarUrl != null  and avatarUrl != ''"> and avatar_url = #{avatarUrl}</if>
             <if test="createdTime != null "> and created_time = #{createdTime}</if>
             <if test="storeName != null  and storeName != ''"> and store_name = #{storeName}</if>
-            <if test="isRead != null  and isRead != ''"> and is_read = #{isRead}</if>
+            <if test="isRead != null  and isRead != ''"> and is_read = #{isRead} and latest_message.sender_id != '客服'</if>
             <if test="messageStatus != null  and messageStatus != ''"> and message_status = #{messageStatus}</if>
         </where>
         ORDER BY created_time DESC -- 添加这一行按照创建时间降序排序，可按需修改为ASC（升序）

@@ -41,7 +41,12 @@ public class KfAnswersClientServiceImpl implements IKfAnswersClientService
     @Override
     public List<KfAnswersClient> selectKfAnswersClientList(KfAnswersClient kfAnswersClient)
     {
-        return kfAnswersClientMapper.selectKfAnswersClientList(kfAnswersClient);
+
+        List<KfAnswersClient> lists=kfAnswersClientMapper.selectKfAnswersClientList(kfAnswersClient);
+
+
+
+        return lists;
     }
 
     /**
