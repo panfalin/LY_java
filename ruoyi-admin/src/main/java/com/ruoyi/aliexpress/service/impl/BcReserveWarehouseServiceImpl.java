@@ -1,0 +1,93 @@
+package com.ruoyi.aliexpress.service.impl;
+
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import com.ruoyi.aliexpress.mapper.BcReserveWarehouseMapper;
+import com.ruoyi.aliexpress.domain.BcReserveWarehouse;
+import com.ruoyi.aliexpress.service.IBcReserveWarehouseService;
+
+/**
+ * warehouseService业务层处理
+ * 
+ * @author ruoyi
+ * @date 2024-12-10
+ */
+@Service
+public class BcReserveWarehouseServiceImpl implements IBcReserveWarehouseService 
+{
+    @Autowired
+    private BcReserveWarehouseMapper bcReserveWarehouseMapper;
+
+    /**
+     * 查询warehouse
+     * 
+     * @param sku warehouse主键
+     * @return warehouse
+     */
+    @Override
+    public BcReserveWarehouse selectBcReserveWarehouseBySku(String sku)
+    {
+        return bcReserveWarehouseMapper.selectBcReserveWarehouseBySku(sku);
+    }
+
+    /**
+     * 查询warehouse列表
+     * 
+     * @param bcReserveWarehouse warehouse
+     * @return warehouse
+     */
+    @Override
+    public List<BcReserveWarehouse> selectBcReserveWarehouseList(BcReserveWarehouse bcReserveWarehouse)
+    {
+        return bcReserveWarehouseMapper.selectBcReserveWarehouseList(bcReserveWarehouse);
+    }
+
+    /**
+     * 新增warehouse
+     * 
+     * @param bcReserveWarehouse warehouse
+     * @return 结果
+     */
+    @Override
+    public int insertBcReserveWarehouse(BcReserveWarehouse bcReserveWarehouse)
+    {
+        return bcReserveWarehouseMapper.insertBcReserveWarehouse(bcReserveWarehouse);
+    }
+
+    /**
+     * 修改warehouse
+     * 
+     * @param bcReserveWarehouse warehouse
+     * @return 结果
+     */
+    @Override
+    public int updateBcReserveWarehouse(BcReserveWarehouse bcReserveWarehouse)
+    {
+        return bcReserveWarehouseMapper.updateBcReserveWarehouse(bcReserveWarehouse);
+    }
+
+    /**
+     * 批量删除warehouse
+     * 
+     * @param skus 需要删除的warehouse主键
+     * @return 结果
+     */
+    @Override
+    public int deleteBcReserveWarehouseBySkus(String[] skus)
+    {
+        return bcReserveWarehouseMapper.deleteBcReserveWarehouseBySkus(skus);
+    }
+
+    /**
+     * 删除warehouse信息
+     * 
+     * @param sku warehouse主键
+     * @return 结果
+     */
+    @Override
+    public int deleteBcReserveWarehouseBySku(String sku)
+    {
+        return bcReserveWarehouseMapper.deleteBcReserveWarehouseBySku(sku);
+    }
+}

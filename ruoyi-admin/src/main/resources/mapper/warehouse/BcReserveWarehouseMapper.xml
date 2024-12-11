@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.aliexpress.mapper.BcReserveWarehouseMapper">
+    
+    <resultMap type="BcReserveWarehouse" id="BcReserveWarehouseResult">
+        <result property="sku"    column="sku"    />
+        <result property="stockId"    column="stock_id"    />
+        <result property="stockWarehouse"    column="stock_warehouse"    />
+        <result property="goodsId"    column="goods_id"    />
+        <result property="goodsNumber"    column="goods_number"    />
+        <result property="shopId"    column="shop_id"    />
+        <result property="box1"    column="box1"    />
+        <result property="box2"    column="box2"    />
+        <result property="box3"    column="box3"    />
+        <result property="box4"    column="box4"    />
+        <result property="box5"    column="box5"    />
+        <result property="box6"    column="box6"    />
+        <result property="box7"    column="box7"    />
+        <result property="box8"    column="box8"    />
+        <result property="box9"    column="box9"    />
+        <result property="box10"    column="box10"    />
+        <result property="boxSize"    column="box_size"    />
+        <result property="weight"    column="weight"    />
+    </resultMap>
+
+    <sql id="selectBcReserveWarehouseVo">
+        select sku, stock_id, stock_warehouse, goods_id, goods_number, shop_id, box1, box2, box3, box4, box5, box6, box7, box8, box9, box10, box_size, weight from bc_reserve_warehouse
+    </sql>
+
+    <select id="selectBcReserveWarehouseList" parameterType="BcReserveWarehouse" resultMap="BcReserveWarehouseResult">
+        <include refid="selectBcReserveWarehouseVo"/>
+        <where>  
+            <if test="sku != null  and sku != ''"> and sku like concat('%', #{sku}, '%')</if>
+            <if test="stockId != null  and stockId != ''"> and stock_id like concat('%', #{stockId}, '%')</if>
+            <if test="stockWarehouse != null  and stockWarehouse != ''"> and stock_warehouse like concat('%', #{stockWarehouse}, '%')</if>
+            <if test="goodsId != null  and goodsId != ''"> and goods_id like concat('%', #{goodsId}, '%')</if>
+            <if test="goodsNumber != null  and goodsNumber != ''"> and goods_number like concat('%', #{goodsNumber}, '%')</if>
+            <if test="shopId != null  and shopId != ''"> and shop_id like concat('%', #{shopId}, '%')</if>
+            <if test="box1 != null  and box1 != ''"> and box1 = #{box1}</if>
+            <if test="box2 != null  and box2 != ''"> and box2 = #{box2}</if>
+            <if test="box3 != null  and box3 != ''"> and box3 = #{box3}</if>
+            <if test="box4 != null  and box4 != ''"> and box4 = #{box4}</if>
+            <if test="box5 != null  and box5 != ''"> and box5 = #{box5}</if>
+            <if test="box6 != null  and box6 != ''"> and box6 = #{box6}</if>
+            <if test="box7 != null  and box7 != ''"> and box7 = #{box7}</if>
+            <if test="box8 != null  and box8 != ''"> and box8 = #{box8}</if>
+            <if test="box9 != null  and box9 != ''"> and box9 = #{box9}</if>
+            <if test="box10 != null  and box10 != ''"> and box10 = #{box10}</if>
+            <if test="boxSize != null  and boxSize != ''"> and box_size = #{boxSize}</if>
+            <if test="weight != null  and weight != ''"> and weight = #{weight}</if>
+        </where>
+    </select>
+    
+    <select id="selectBcReserveWarehouseBySku" parameterType="String" resultMap="BcReserveWarehouseResult">
+        <include refid="selectBcReserveWarehouseVo"/>
+        where sku = #{sku}
+    </select>
+
+    <insert id="insertBcReserveWarehouse" parameterType="BcReserveWarehouse">
+        insert into bc_reserve_warehouse
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="sku != null">sku,</if>
+            <if test="stockId != null">stock_id,</if>
+            <if test="stockWarehouse != null">stock_warehouse,</if>
+            <if test="goodsId != null">goods_id,</if>
+            <if test="goodsNumber != null">goods_number,</if>
+            <if test="shopId != null">shop_id,</if>
+            <if test="box1 != null">box1,</if>
+            <if test="box2 != null">box2,</if>
+            <if test="box3 != null">box3,</if>
+            <if test="box4 != null">box4,</if>
+            <if test="box5 != null">box5,</if>
+            <if test="box6 != null">box6,</if>
+            <if test="box7 != null">box7,</if>
+            <if test="box8 != null">box8,</if>
+            <if test="box9 != null">box9,</if>
+            <if test="box10 != null">box10,</if>
+            <if test="boxSize != null">box_size,</if>
+            <if test="weight != null">weight,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="sku != null">#{sku},</if>
+            <if test="stockId != null">#{stockId},</if>
+            <if test="stockWarehouse != null">#{stockWarehouse},</if>
+            <if test="goodsId != null">#{goodsId},</if>
+            <if test="goodsNumber != null">#{goodsNumber},</if>
+            <if test="shopId != null">#{shopId},</if>
+            <if test="box1 != null">#{box1},</if>
+            <if test="box2 != null">#{box2},</if>
+            <if test="box3 != null">#{box3},</if>
+            <if test="box4 != null">#{box4},</if>
+            <if test="box5 != null">#{box5},</if>
+            <if test="box6 != null">#{box6},</if>
+            <if test="box7 != null">#{box7},</if>
+            <if test="box8 != null">#{box8},</if>
+            <if test="box9 != null">#{box9},</if>
+            <if test="box10 != null">#{box10},</if>
+            <if test="boxSize != null">#{boxSize},</if>
+            <if test="weight != null">#{weight},</if>
+         </trim>
+    </insert>
+
+    <update id="updateBcReserveWarehouse" parameterType="BcReserveWarehouse">
+        update bc_reserve_warehouse
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="stockId != null">stock_id = #{stockId},</if>
+            <if test="stockWarehouse != null">stock_warehouse = #{stockWarehouse},</if>
+            <if test="goodsId != null">goods_id = #{goodsId},</if>
+            <if test="goodsNumber != null">goods_number = #{goodsNumber},</if>
+            <if test="shopId != null">shop_id = #{shopId},</if>
+            <if test="box1 != null">box1 = #{box1},</if>
+            <if test="box2 != null">box2 = #{box2},</if>
+            <if test="box3 != null">box3 = #{box3},</if>
+            <if test="box4 != null">box4 = #{box4},</if>
+            <if test="box5 != null">box5 = #{box5},</if>
+            <if test="box6 != null">box6 = #{box6},</if>
+            <if test="box7 != null">box7 = #{box7},</if>
+            <if test="box8 != null">box8 = #{box8},</if>
+            <if test="box9 != null">box9 = #{box9},</if>
+            <if test="box10 != null">box10 = #{box10},</if>
+            <if test="boxSize != null">box_size = #{boxSize},</if>
+            <if test="weight != null">weight = #{weight},</if>
+        </trim>
+        where sku = #{sku}
+    </update>
+
+    <delete id="deleteBcReserveWarehouseBySku" parameterType="String">
+        delete from bc_reserve_warehouse where sku = #{sku}
+    </delete>
+
+    <delete id="deleteBcReserveWarehouseBySkus" parameterType="String">
+        delete from bc_reserve_warehouse where sku in 
+        <foreach item="sku" collection="array" open="(" separator="," close=")">
+            #{sku}
+        </foreach>
+    </delete>
+</mapper>
