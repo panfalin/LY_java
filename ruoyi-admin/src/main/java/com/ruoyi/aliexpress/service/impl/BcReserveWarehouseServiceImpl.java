@@ -90,4 +90,9 @@ public class BcReserveWarehouseServiceImpl implements IBcReserveWarehouseService
     {
         return bcReserveWarehouseMapper.deleteBcReserveWarehouseBySku(sku);
     }
+
+    @Override
+    public int insertOrUpdateExcel(List<BcReserveWarehouse> dataList) {
+        return bcReserveWarehouseMapper.insertOrUpdateExcel(dataList);
+    }
 }

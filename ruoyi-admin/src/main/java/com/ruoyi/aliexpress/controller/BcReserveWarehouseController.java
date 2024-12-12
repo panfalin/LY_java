@@ -3,20 +3,17 @@ package com.ruoyi.aliexpress.controller;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ruoyi.common.core.text.CharsetKit;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.ruoyi.common.annotation.Log;
 import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.core.domain.AjaxResult;
@@ -27,6 +24,8 @@ import com.ruoyi.common.utils.poi.ExcelUtil;
 import com.ruoyi.common.core.page.TableDataInfo;
 import org.apache.poi.ss.usermodel.*;
 import com.ruoyi.aliexpress.util.ExcelExporter;
+import org.springframework.web.multipart.MultipartFile;
+
 /**
  * warehouseController
  *
@@ -39,6 +38,7 @@ import com.ruoyi.aliexpress.util.ExcelExporter;
 
 @RestController
 @RequestMapping("/warehouse/warehouse")
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class BcReserveWarehouseController extends BaseController
 {
     @Autowired
@@ -95,9 +95,75 @@ public class BcReserveWarehouseController extends BaseController
     }
 
 
+    /**
+     * 处理Excel文件上传并将数据导入数据库
+     *
+     * @param file 上传的Excel文件
+     * @return 导入结果信息
+     */
+    @PreAuthorize("@ss.hasPermi('warehouse:warehouse:export')")
+    @PostMapping("/import")
+    public ResponseEntity<String> importDataFromExcel(@RequestParam("file") MultipartFile file) {
+        List<BcReserveWarehouse> dataList = new ArrayList<>();
 
+        try (Workbook workbook = new XSSFWorkbook(file.getInputStream())) {
+            Sheet sheet = workbook.getSheetAt(0);
+            // 从第二行（索引为1）开始遍历表格
+            for (int i = 1; i <= sheet.getLastRowNum(); i++) {
+                Row row = sheet.getRow(i);
+                BcReserveWarehouse data = new BcReserveWarehouse();
+                data.setSku(getCellValueAsString(row.getCell(0)));
+                data.setStockId(getCellValueAsString(row.getCell(1)));
+                data.setStockWarehouse(getCellValueAsString(row.getCell(2)));
+                data.setGoodsId(getCellValueAsString(row.getCell(3)));
+                data.setGoodsNumber(removeDecimalIfExists(getCellValueAsString(row.getCell(4))));
+                data.setShopId(getCellValueAsString(row.getCell(5)));
+                data.setBox1(removeDecimalIfExists(getCellValueAsString(row.getCell(6))));
+                data.setBox2(removeDecimalIfExists(getCellValueAsString(row.getCell(7))));
+                data.setBox3(removeDecimalIfExists(getCellValueAsString(row.getCell(8))));
+                data.setBox4(removeDecimalIfExists(getCellValueAsString(row.getCell(9))));
+                data.setBox5(removeDecimalIfExists(getCellValueAsString(row.getCell(10))));
+                data.setBox6(removeDecimalIfExists(getCellValueAsString(row.getCell(11))));
+                data.setBox7(removeDecimalIfExists(getCellValueAsString(row.getCell(12))));
+                data.setBox8(removeDecimalIfExists(getCellValueAsString(row.getCell(13))));
+                data.setBox9(removeDecimalIfExists(getCellValueAsString(row.getCell(14))));
+                data.setBox10(removeDecimalIfExists(getCellValueAsString(row.getCell(15))));
+                data.setBoxSize(removeDecimalIfExists(getCellValueAsString(row.getCell(16))));
+                data.setWeight(removeDecimalIfExists(getCellValueAsString(row.getCell(17))));
+                dataList.add(data);
+            }
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("读取Excel文件时出错: " + e.getMessage());
+        }
 
+        try {
+            bcReserveWarehouseService.insertOrUpdateExcel(dataList);
+            return ResponseEntity.ok("数据导入成功！");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("数据导入失败: " + e.getMessage());
+        }
+    }
 
+    private String getCellValueAsString(Cell cell) {
+        if (cell == null) {
+            return null;
+        }
+        switch (cell.getCellType()) {
+            case NUMERIC:
+                return String.valueOf(cell.getNumericCellValue());
+            case STRING:
+                return cell.getStringCellValue();
+            default:
+                return null;
+        }
+    }
+
+    private String removeDecimalIfExists(String value) {
+        if (value!= null && value.contains(".")) {
+            return value.split("\\.")[0];
+        }
+        return value;
+    }
 
     /**
      * 获取warehouse详细信息

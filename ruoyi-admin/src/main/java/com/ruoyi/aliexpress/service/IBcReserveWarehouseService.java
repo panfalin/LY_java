@@ -59,6 +59,6 @@ public interface IBcReserveWarehouseService
      */
     public int deleteBcReserveWarehouseBySku(String sku);
 
-
+    public int insertOrUpdateExcel(List<BcReserveWarehouse> dataList);
 
 }

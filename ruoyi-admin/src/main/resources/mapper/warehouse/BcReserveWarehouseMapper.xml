@@ -136,4 +136,35 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{sku}
         </foreach>
     </delete>
+
+
+    <insert id="insertOrUpdateExcel" parameterType="list">
+        INSERT INTO bc_reserve_warehouse (sku,stock_id,stock_warehouse,goods_id,goods_number,shop_id,box1,box2,box3,box4,box5,box6,box7,box8,box9,box10,box_size,weight) VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.sku}, #{item.stockId}, #{item.stockWarehouse},#{item.goodsId},#{item.goodsNumber},#{item.shopId},#{item.box1},#{item.box2},#{item.box3},#{item.box4},#{item.box5},#{item.box6},#{item.box7},#{item.box8},#{item.box9},#{item.box10},#{item.boxSize},#{item.weight})
+        </foreach>
+        ON DUPLICATE KEY UPDATE
+        sku=VALUES(sku),
+        stock_id = VALUES(stock_id),
+        stock_warehouse = VALUES(stock_warehouse),
+        goods_id = VALUES(goods_id),
+        goods_number = VALUES(goods_number),
+        shop_id = VALUES(shop_id),
+        box1 = VALUES(box1),
+        box2 = VALUES(box2),
+        box3 = VALUES(box3),
+        box4 = VALUES(box4),
+        box5 = VALUES(box5),
+        box6 = VALUES(box6),
+        box7 = VALUES(box7),
+        box8 = VALUES(box8),
+        box9 = VALUES(box9),
+        box10 = VALUES(box10),
+        box_size = VALUES(box_size),
+        weight = VALUES(weight)
+    </insert>
+
+
+
+
 </mapper>

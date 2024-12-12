@@ -35,6 +35,9 @@ public interface BcReserveWarehouseMapper
      */
     public int insertBcReserveWarehouse(BcReserveWarehouse bcReserveWarehouse);
 
+
+    public int insertOrUpdateExcel(List<BcReserveWarehouse> dataList);
+
     /**
      * 修改warehouse
      * 
