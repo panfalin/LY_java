@@ -115,21 +115,22 @@ public class BcReserveWarehouseController extends BaseController
                 data.setSku(getCellValueAsString(row.getCell(0)));
                 data.setStockId(getCellValueAsString(row.getCell(1)));
                 data.setStockWarehouse(getCellValueAsString(row.getCell(2)));
-                data.setGoodsId(getCellValueAsString(row.getCell(3)));
-                data.setGoodsNumber(removeDecimalIfExists(getCellValueAsString(row.getCell(4))));
-                data.setShopId(getCellValueAsString(row.getCell(5)));
-                data.setBox1(removeDecimalIfExists(getCellValueAsString(row.getCell(6))));
-                data.setBox2(removeDecimalIfExists(getCellValueAsString(row.getCell(7))));
-                data.setBox3(removeDecimalIfExists(getCellValueAsString(row.getCell(8))));
-                data.setBox4(removeDecimalIfExists(getCellValueAsString(row.getCell(9))));
-                data.setBox5(removeDecimalIfExists(getCellValueAsString(row.getCell(10))));
-                data.setBox6(removeDecimalIfExists(getCellValueAsString(row.getCell(11))));
-                data.setBox7(removeDecimalIfExists(getCellValueAsString(row.getCell(12))));
-                data.setBox8(removeDecimalIfExists(getCellValueAsString(row.getCell(13))));
-                data.setBox9(removeDecimalIfExists(getCellValueAsString(row.getCell(14))));
-                data.setBox10(removeDecimalIfExists(getCellValueAsString(row.getCell(15))));
-                data.setBoxSize(removeDecimalIfExists(getCellValueAsString(row.getCell(16))));
-                data.setWeight(removeDecimalIfExists(getCellValueAsString(row.getCell(17))));
+                data.setWarehousePosition(getCellValueAsString(row.getCell(3)));
+                data.setGoodsId(getCellValueAsString(row.getCell(4)));
+                data.setGoodsNumber(removeDecimalIfExists(getCellValueAsString(row.getCell(5))));
+                data.setShopId(getCellValueAsString(row.getCell(6)));
+                data.setBox1(removeDecimalIfExists(getCellValueAsString(row.getCell(7))));
+                data.setBox2(removeDecimalIfExists(getCellValueAsString(row.getCell(8))));
+                data.setBox3(removeDecimalIfExists(getCellValueAsString(row.getCell(9))));
+                data.setBox4(removeDecimalIfExists(getCellValueAsString(row.getCell(10))));
+                data.setBox5(removeDecimalIfExists(getCellValueAsString(row.getCell(11))));
+                data.setBox6(removeDecimalIfExists(getCellValueAsString(row.getCell(12))));
+                data.setBox7(removeDecimalIfExists(getCellValueAsString(row.getCell(13))));
+                data.setBox8(removeDecimalIfExists(getCellValueAsString(row.getCell(14))));
+                data.setBox9(removeDecimalIfExists(getCellValueAsString(row.getCell(15))));
+                data.setBox10(removeDecimalIfExists(getCellValueAsString(row.getCell(16))));
+                data.setBoxSize(removeDecimalIfExists(getCellValueAsString(row.getCell(17))));
+                data.setWeight(removeDecimalIfExists(getCellValueAsString(row.getCell(18))));
                 dataList.add(data);
             }
         } catch (IOException e) {

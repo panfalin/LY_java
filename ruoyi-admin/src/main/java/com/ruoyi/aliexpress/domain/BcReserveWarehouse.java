@@ -27,8 +27,13 @@ public class BcReserveWarehouse extends BaseEntity
     @Excel(name = "备货仓")
     private String stockWarehouse;
 
+    /** 仓位 */
+    @Excel(name = "仓位")
+    private String warehousePosition;
+
+
     /** 货品编号 */
-    @Excel(name = "货品编号")
+    @Excel(name = "货品ID")
     private String goodsId;
 
     /** 货品数量 */
@@ -87,7 +92,16 @@ public class BcReserveWarehouse extends BaseEntity
     @Excel(name = "重量")
     private String weight;
 
-    public void setSku(String sku) 
+
+    public String getWarehousePosition() {
+        return warehousePosition;
+    }
+
+    public void setWarehousePosition(String warehousePosition) {
+        this.warehousePosition = warehousePosition;
+    }
+
+    public void setSku(String sku)
     {
         this.sku = sku;
     }
