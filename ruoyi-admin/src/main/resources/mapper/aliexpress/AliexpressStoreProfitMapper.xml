@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.aliexpress.mapper.AliexpressStoreProfitMapper">
+    
+    <resultMap type="AliexpressStoreProfit" id="AliexpressStoreProfitResult">
+        <result property="id"    column="id"    />
+        <result property="storeName"    column="store_name"    />
+        <result property="storeManager"    column="store_manager"    />
+        <result property="orderAmount"    column="order_amount"    />
+        <result property="shippingFee"    column="shipping_fee"    />
+        <result property="otherIncome"    column="other_income"    />
+        <result property="subsidyAmount"    column="subsidy_amount"    />
+        <result property="returnCost"    column="return_cost"    />
+        <result property="shippingReturn"    column="shipping_return"    />
+        <result property="otherStoreIncome"    column="other_store_income"    />
+        <result property="total"    column="total"    />
+        <result property="orderQuantity"    column="order_quantity"    />
+        <result property="refundOrderQuantity"    column="refund_order_quantity"    />
+        <result property="refundAmount"    column="refund_amount"    />
+        <result property="customerUnitPrice"    column="customer_unit_price"    />
+        <result property="grossProfit"    column="gross_profit"    />
+        <result property="actualRefundUsd"    column="actual_refund_usd"    />
+        <result property="directCar"    column="direct_car"    />
+        <result property="cancelOrderRmb"    column="cancel_order_rmb"    />
+        <result property="clearanceCostSubsidy"    column="clearance_cost_subsidy"    />
+        <result property="refundDifference"    column="refund_difference"    />
+        <result property="directCarCost"    column="direct_car_cost"    />
+        <result property="overseasFirstShipping"    column="overseas_first_shipping"    />
+        <result property="overseasLastShipping"    column="overseas_last_shipping"    />
+        <result property="operationFee"    column="operation_fee"    />
+        <result property="returnCost2"    column="return_cost_2"    />
+        <result property="supplierReshipCost"    column="supplier_reship_cost"    />
+        <result property="warehouseErrorLoss"    column="warehouse_error_loss"    />
+        <result property="actualCostProfit"    column="actual_cost_profit"    />
+        <result property="actualCostProfitRate1"    column="actual_cost_profit_rate1"    />
+        <result property="orderActualProfit"    column="order_actual_profit"    />
+        <result property="orderActualProfitRate"    column="order_actual_profit_rate"    />
+        <result property="half托管Revenue"    column="half托管_revenue"    />
+        <result property="half托管Profit"    column="half托管_profit"    />
+        <result property="selfHalf托管Revenue"    column="self_half托管_revenue"    />
+        <result property="selfHalf托管Profit"    column="self_half托管_profit"    />
+        <result property="profitRate"    column="profit_rate"    />
+        <result property="septemberRevenue"    column="september_revenue"    />
+        <result property="septemberProfit"    column="september_profit"    />
+        <result property="septemberProfitRate"    column="september_profit_rate"    />
+        <result property="compareRevenue"    column="compare_revenue"    />
+        <result property="compareProfitRate"    column="compare_profit_rate"    />
+    </resultMap>
+
+    <sql id="selectAliexpressStoreProfitVo">
+        select id, store_name, store_manager, order_amount, shipping_fee, other_income, subsidy_amount, return_cost, shipping_return, other_store_income, total, order_quantity, refund_order_quantity, refund_amount, customer_unit_price, gross_profit, actual_refund_usd, direct_car, cancel_order_rmb, clearance_cost_subsidy, refund_difference, direct_car_cost, overseas_first_shipping, overseas_last_shipping, operation_fee, return_cost_2, supplier_reship_cost, warehouse_error_loss, actual_cost_profit, actual_cost_profit_rate1, order_actual_profit, order_actual_profit_rate, half托管_revenue, half托管_profit, self_half托管_revenue, self_half托管_profit, profit_rate, september_revenue, september_profit, september_profit_rate, compare_revenue, compare_profit_rate from aliexpress_store_profit
+    </sql>
+
+    <select id="selectAliexpressStoreProfitList" parameterType="AliexpressStoreProfit" resultMap="AliexpressStoreProfitResult">
+        <include refid="selectAliexpressStoreProfitVo"/>
+        <where>
+            <!-- 添加 store_manager 不为空的过滤条件 -->
+            store_manager IS NOT NULL
+            <if test="storeName != null  and storeName != ''"> and store_name like concat('%', #{storeName}, '%')</if>
+            <if test="storeManager != null  and storeManager != ''"> and store_manager = #{storeManager}</if>
+            <if test="orderAmount != null  and orderAmount != ''"> and order_amount = #{orderAmount}</if>
+            <if test="shippingFee != null  and shippingFee != ''"> and shipping_fee = #{shippingFee}</if>
+            <if test="otherIncome != null  and otherIncome != ''"> and other_income = #{otherIncome}</if>
+            <if test="subsidyAmount != null  and subsidyAmount != ''"> and subsidy_amount = #{subsidyAmount}</if>
+            <if test="returnCost != null  and returnCost != ''"> and return_cost = #{returnCost}</if>
+            <if test="shippingReturn != null  and shippingReturn != ''"> and shipping_return = #{shippingReturn}</if>
+            <if test="otherStoreIncome != null  and otherStoreIncome != ''"> and other_store_income = #{otherStoreIncome}</if>
+            <if test="total != null  and total != ''"> and total = #{total}</if>
+            <if test="orderQuantity != null  and orderQuantity != ''"> and order_quantity = #{orderQuantity}</if>
+            <if test="refundOrderQuantity != null  and refundOrderQuantity != ''"> and refund_order_quantity = #{refundOrderQuantity}</if>
+            <if test="refundAmount != null  and refundAmount != ''"> and refund_amount = #{refundAmount}</if>
+            <if test="customerUnitPrice != null  and customerUnitPrice != ''"> and customer_unit_price = #{customerUnitPrice}</if>
+            <if test="grossProfit != null  and grossProfit != ''"> and gross_profit = #{grossProfit}</if>
+            <if test="actualRefundUsd != null  and actualRefundUsd != ''"> and actual_refund_usd = #{actualRefundUsd}</if>
+            <if test="directCar != null  and directCar != ''"> and direct_car = #{directCar}</if>
+            <if test="cancelOrderRmb != null  and cancelOrderRmb != ''"> and cancel_order_rmb = #{cancelOrderRmb}</if>
+            <if test="clearanceCostSubsidy != null  and clearanceCostSubsidy != ''"> and clearance_cost_subsidy = #{clearanceCostSubsidy}</if>
+            <if test="refundDifference != null  and refundDifference != ''"> and refund_difference = #{refundDifference}</if>
+            <if test="directCarCost != null  and directCarCost != ''"> and direct_car_cost = #{directCarCost}</if>
+            <if test="overseasFirstShipping != null  and overseasFirstShipping != ''"> and overseas_first_shipping = #{overseasFirstShipping}</if>
+            <if test="overseasLastShipping != null  and overseasLastShipping != ''"> and overseas_last_shipping = #{overseasLastShipping}</if>
+            <if test="operationFee != null  and operationFee != ''"> and operation_fee = #{operationFee}</if>
+            <if test="returnCost2 != null  and returnCost2 != ''"> and return_cost_2 = #{returnCost2}</if>
+            <if test="supplierReshipCost != null  and supplierReshipCost != ''"> and supplier_reship_cost = #{supplierReshipCost}</if>
+            <if test="warehouseErrorLoss != null  and warehouseErrorLoss != ''"> and warehouse_error_loss = #{warehouseErrorLoss}</if>
+            <if test="actualCostProfit != null  and actualCostProfit != ''"> and actual_cost_profit = #{actualCostProfit}</if>
+            <if test="actualCostProfitRate1 != null  and actualCostProfitRate1 != ''"> and actual_cost_profit_rate1 = #{actualCostProfitRate1}</if>
+            <if test="orderActualProfit != null  and orderActualProfit != ''"> and order_actual_profit = #{orderActualProfit}</if>
+            <if test="orderActualProfitRate != null  and orderActualProfitRate != ''"> and order_actual_profit_rate = #{orderActualProfitRate}</if>
+            <if test="half托管Revenue != null  and half托管Revenue != ''"> and half托管_revenue = #{half托管Revenue}</if>
+            <if test="half托管Profit != null  and half托管Profit != ''"> and half托管_profit = #{half托管Profit}</if>
+            <if test="selfHalf托管Revenue != null  and selfHalf托管Revenue != ''"> and self_half托管_revenue = #{selfHalf托管Revenue}</if>
+            <if test="selfHalf托管Profit != null  and selfHalf托管Profit != ''"> and self_half托管_profit = #{selfHalf托管Profit}</if>
+            <if test="profitRate != null  and profitRate != ''"> and profit_rate = #{profitRate}</if>
+            <if test="septemberRevenue != null  and septemberRevenue != ''"> and september_revenue = #{septemberRevenue}</if>
+            <if test="septemberProfit != null  and septemberProfit != ''"> and september_profit = #{septemberProfit}</if>
+            <if test="septemberProfitRate != null  and septemberProfitRate != ''"> and september_profit_rate = #{septemberProfitRate}</if>
+            <if test="compareRevenue != null  and compareRevenue != ''"> and compare_revenue = #{compareRevenue}</if>
+            <if test="compareProfitRate != null  and compareProfitRate != ''"> and compare_profit_rate = #{compareProfitRate}</if>
+        </where>
+    </select>
+    
+    <select id="selectAliexpressStoreProfitById" parameterType="Long" resultMap="AliexpressStoreProfitResult">
+        <include refid="selectAliexpressStoreProfitVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertAliexpressStoreProfit" parameterType="AliexpressStoreProfit" useGeneratedKeys="true" keyProperty="id">
+        insert into aliexpress_store_profit
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="storeName != null">store_name,</if>
+            <if test="storeManager != null">store_manager,</if>
+            <if test="orderAmount != null">order_amount,</if>
+            <if test="shippingFee != null">shipping_fee,</if>
+            <if test="otherIncome != null">other_income,</if>
+            <if test="subsidyAmount != null">subsidy_amount,</if>
+            <if test="returnCost != null">return_cost,</if>
+            <if test="shippingReturn != null">shipping_return,</if>
+            <if test="otherStoreIncome != null">other_store_income,</if>
+            <if test="total != null">total,</if>
+            <if test="orderQuantity != null">order_quantity,</if>
+            <if test="refundOrderQuantity != null">refund_order_quantity,</if>
+            <if test="refundAmount != null">refund_amount,</if>
+            <if test="customerUnitPrice != null">customer_unit_price,</if>
+            <if test="grossProfit != null">gross_profit,</if>
+            <if test="actualRefundUsd != null">actual_refund_usd,</if>
+            <if test="directCar != null">direct_car,</if>
+            <if test="cancelOrderRmb != null">cancel_order_rmb,</if>
+            <if test="clearanceCostSubsidy != null">clearance_cost_subsidy,</if>
+            <if test="refundDifference != null">refund_difference,</if>
+            <if test="directCarCost != null">direct_car_cost,</if>
+            <if test="overseasFirstShipping != null">overseas_first_shipping,</if>
+            <if test="overseasLastShipping != null">overseas_last_shipping,</if>
+            <if test="operationFee != null">operation_fee,</if>
+            <if test="returnCost2 != null">return_cost_2,</if>
+            <if test="supplierReshipCost != null">supplier_reship_cost,</if>
+            <if test="warehouseErrorLoss != null">warehouse_error_loss,</if>
+            <if test="actualCostProfit != null">actual_cost_profit,</if>
+            <if test="actualCostProfitRate1 != null">actual_cost_profit_rate1,</if>
+            <if test="orderActualProfit != null">order_actual_profit,</if>
+            <if test="orderActualProfitRate != null">order_actual_profit_rate,</if>
+            <if test="half托管Revenue != null">half托管_revenue,</if>
+            <if test="half托管Profit != null">half托管_profit,</if>
+            <if test="selfHalf托管Revenue != null">self_half托管_revenue,</if>
+            <if test="selfHalf托管Profit != null">self_half托管_profit,</if>
+            <if test="profitRate != null">profit_rate,</if>
+            <if test="septemberRevenue != null">september_revenue,</if>
+            <if test="septemberProfit != null">september_profit,</if>
+            <if test="septemberProfitRate != null">september_profit_rate,</if>
+            <if test="compareRevenue != null">compare_revenue,</if>
+            <if test="compareProfitRate != null">compare_profit_rate,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="storeName != null">#{storeName},</if>
+            <if test="storeManager != null">#{storeManager},</if>
+            <if test="orderAmount != null">#{orderAmount},</if>
+            <if test="shippingFee != null">#{shippingFee},</if>
+            <if test="otherIncome != null">#{otherIncome},</if>
+            <if test="subsidyAmount != null">#{subsidyAmount},</if>
+            <if test="returnCost != null">#{returnCost},</if>
+            <if test="shippingReturn != null">#{shippingReturn},</if>
+            <if test="otherStoreIncome != null">#{otherStoreIncome},</if>
+            <if test="total != null">#{total},</if>
+            <if test="orderQuantity != null">#{orderQuantity},</if>
+            <if test="refundOrderQuantity != null">#{refundOrderQuantity},</if>
+            <if test="refundAmount != null">#{refundAmount},</if>
+            <if test="customerUnitPrice != null">#{customerUnitPrice},</if>
+            <if test="grossProfit != null">#{grossProfit},</if>
+            <if test="actualRefundUsd != null">#{actualRefundUsd},</if>
+            <if test="directCar != null">#{directCar},</if>
+            <if test="cancelOrderRmb != null">#{cancelOrderRmb},</if>
+            <if test="clearanceCostSubsidy != null">#{clearanceCostSubsidy},</if>
+            <if test="refundDifference != null">#{refundDifference},</if>
+            <if test="directCarCost != null">#{directCarCost},</if>
+            <if test="overseasFirstShipping != null">#{overseasFirstShipping},</if>
+            <if test="overseasLastShipping != null">#{overseasLastShipping},</if>
+            <if test="operationFee != null">#{operationFee},</if>
+            <if test="returnCost2 != null">#{returnCost2},</if>
+            <if test="supplierReshipCost != null">#{supplierReshipCost},</if>
+            <if test="warehouseErrorLoss != null">#{warehouseErrorLoss},</if>
+            <if test="actualCostProfit != null">#{actualCostProfit},</if>
+            <if test="actualCostProfitRate1 != null">#{actualCostProfitRate1},</if>
+            <if test="orderActualProfit != null">#{orderActualProfit},</if>
+            <if test="orderActualProfitRate != null">#{orderActualProfitRate},</if>
+            <if test="half托管Revenue != null">#{half托管Revenue},</if>
+            <if test="half托管Profit != null">#{half托管Profit},</if>
+            <if test="selfHalf托管Revenue != null">#{selfHalf托管Revenue},</if>
+            <if test="selfHalf托管Profit != null">#{selfHalf托管Profit},</if>
+            <if test="profitRate != null">#{profitRate},</if>
+            <if test="septemberRevenue != null">#{septemberRevenue},</if>
+            <if test="septemberProfit != null">#{septemberProfit},</if>
+            <if test="septemberProfitRate != null">#{septemberProfitRate},</if>
+            <if test="compareRevenue != null">#{compareRevenue},</if>
+            <if test="compareProfitRate != null">#{compareProfitRate},</if>
+         </trim>
+    </insert>
+
+    <update id="updateAliexpressStoreProfit" parameterType="AliexpressStoreProfit">
+        update aliexpress_store_profit
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="storeName != null">store_name = #{storeName},</if>
+            <if test="storeManager != null">store_manager = #{storeManager},</if>
+            <if test="orderAmount != null">order_amount = #{orderAmount},</if>
+            <if test="shippingFee != null">shipping_fee = #{shippingFee},</if>
+            <if test="otherIncome != null">other_income = #{otherIncome},</if>
+            <if test="subsidyAmount != null">subsidy_amount = #{subsidyAmount},</if>
+            <if test="returnCost != null">return_cost = #{returnCost},</if>
+            <if test="shippingReturn != null">shipping_return = #{shippingReturn},</if>
+            <if test="otherStoreIncome != null">other_store_income = #{otherStoreIncome},</if>
+            <if test="total != null">total = #{total},</if>
+            <if test="orderQuantity != null">order_quantity = #{orderQuantity},</if>
+            <if test="refundOrderQuantity != null">refund_order_quantity = #{refundOrderQuantity},</if>
+            <if test="refundAmount != null">refund_amount = #{refundAmount},</if>
+            <if test="customerUnitPrice != null">customer_unit_price = #{customerUnitPrice},</if>
+            <if test="grossProfit != null">gross_profit = #{grossProfit},</if>
+            <if test="actualRefundUsd != null">actual_refund_usd = #{actualRefundUsd},</if>
+            <if test="directCar != null">direct_car = #{directCar},</if>
+            <if test="cancelOrderRmb != null">cancel_order_rmb = #{cancelOrderRmb},</if>
+            <if test="clearanceCostSubsidy != null">clearance_cost_subsidy = #{clearanceCostSubsidy},</if>
+            <if test="refundDifference != null">refund_difference = #{refundDifference},</if>
+            <if test="directCarCost != null">direct_car_cost = #{directCarCost},</if>
+            <if test="overseasFirstShipping != null">overseas_first_shipping = #{overseasFirstShipping},</if>
+            <if test="overseasLastShipping != null">overseas_last_shipping = #{overseasLastShipping},</if>
+            <if test="operationFee != null">operation_fee = #{operationFee},</if>
+            <if test="returnCost2 != null">return_cost_2 = #{returnCost2},</if>
+            <if test="supplierReshipCost != null">supplier_reship_cost = #{supplierReshipCost},</if>
+            <if test="warehouseErrorLoss != null">warehouse_error_loss = #{warehouseErrorLoss},</if>
+            <if test="actualCostProfit != null">actual_cost_profit = #{actualCostProfit},</if>
+            <if test="actualCostProfitRate1 != null">actual_cost_profit_rate1 = #{actualCostProfitRate1},</if>
+            <if test="orderActualProfit != null">order_actual_profit = #{orderActualProfit},</if>
+            <if test="orderActualProfitRate != null">order_actual_profit_rate = #{orderActualProfitRate},</if>
+            <if test="half托管Revenue != null">half托管_revenue = #{half托管Revenue},</if>
+            <if test="half托管Profit != null">half托管_profit = #{half托管Profit},</if>
+            <if test="selfHalf托管Revenue != null">self_half托管_revenue = #{selfHalf托管Revenue},</if>
+            <if test="selfHalf托管Profit != null">self_half托管_profit = #{selfHalf托管Profit},</if>
+            <if test="profitRate != null">profit_rate = #{profitRate},</if>
+            <if test="septemberRevenue != null">september_revenue = #{septemberRevenue},</if>
+            <if test="septemberProfit != null">september_profit = #{septemberProfit},</if>
+            <if test="septemberProfitRate != null">september_profit_rate = #{septemberProfitRate},</if>
+            <if test="compareRevenue != null">compare_revenue = #{compareRevenue},</if>
+            <if test="compareProfitRate != null">compare_profit_rate = #{compareProfitRate},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteAliexpressStoreProfitById" parameterType="Long">
+        delete from aliexpress_store_profit where id = #{id}
+    </delete>
+
+    <delete id="deleteAliexpressStoreProfitByIds" parameterType="String">
+        delete from aliexpress_store_profit where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
