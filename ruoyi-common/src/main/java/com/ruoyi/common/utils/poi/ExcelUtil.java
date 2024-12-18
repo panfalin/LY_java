@@ -253,6 +253,47 @@ public class ExcelUtil<T>
             sheet.addMergedRegion(new CellRangeAddress(titleRow.getRowNum(), titleRow.getRowNum(), titleRow.getRowNum(), titleLastCol));
         }
     }
+    public void init(List<T> list, String sheetName, String title, Type type,String stock_name, String send_time)
+    {
+        if (list == null)
+        {
+            list = new ArrayList<T>();
+        }
+        this.list = list;
+        this.sheetName = sheetName;
+        this.type = type;
+        this.title = title;
+        createExcelField();
+        createWorkbook();
+        createTitle(stock_name,send_time);
+        createSubHead();
+    }
+    public void createTitle(String stock_name, String send_time) {
+        if (StringUtils.isNotEmpty(title)) {
+            subMergedFirstRowNum++;
+            subMergedLastRowNum++;
+            int titleLastCol = this.fields.size() - 1;
+            if (isSubList()) {
+                titleLastCol = titleLastCol + subFields.size() - 1;
+            }
+            Row titleRow = sheet.createRow(rownum == 0? rownum++ : 0);
+            // 创建放置send_time的单元格
+            Cell sendTimeCell = titleRow.createCell(0);
+            sendTimeCell.setCellValue(send_time);
+            //sendTimeCell.setCellValue("预约时间：12/19");
+            // 创建放置stock_name的单元格
+            Cell stockNameCell = titleRow.createCell(9);
+            stockNameCell.setCellValue(stock_name);
+            //stockNameCell.setCellValue("半托管jla02star赵世杰");
+            // 创建中间用于间隔的空白单元格（这里简单假设占一个单元格宽度，你可根据实际情况调整）
+            Cell blankCell = titleRow.createCell(1);
+            //blankCell.setCellStyle(styles.get("title"));
+            blankCell.setCellValue("");
+
+            // 根据实际情况调整合并区域，这里假设合并这三个单元格所在的行范围（可能需要根据实际表格布局调整列范围等）
+            //sheet.addMergedRegion(new CellRangeAddress(titleRow.getRowNum(), titleRow.getRowNum(), 0, 2));
+        }
+    }
 
     /**
      * 创建对象的子列表名称
@@ -561,7 +602,13 @@ public class ExcelUtil<T>
         exportExcel(response);
     }
 
-
+    public void exportExcel(HttpServletResponse response, List<T> list, String sheetName, String title,String stock_name, String send_time)
+    {
+        response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        response.setCharacterEncoding("utf-8");
+        this.init(list, sheetName, title, Type.EXPORT,stock_name,send_time);
+        exportExcel(response);
+    }
 
     /**
      * 对list数据源将其里面的数据导入到excel表单

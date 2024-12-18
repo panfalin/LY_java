@@ -16,7 +16,7 @@ public class BcReserveWarehouse extends BaseEntity
     private static final long serialVersionUID = 1L;
 
     /** sku */
-    @Excel(name = "sku")
+    @Excel(name = "sku",width=18)
     private String sku;
 
     /** 备货单号 */
@@ -41,12 +41,20 @@ public class BcReserveWarehouse extends BaseEntity
     private String goodsNumber;
 
     /** 店铺名 */
-    @Excel(name = "店铺名",width=22)
+//    @Excel(name = "店铺名",width=22)
     private String stockName;
 
-    /** 店铺名 */
-//    @Excel(name = "店铺名",width=22)
     private String shopId;
+
+
+    /** 发货时间 */
+    private String sendTime;
+
+
+    /** 备注 */
+    @Excel(name = "备注",width=22)
+    private String remark;
+
 
     /** 箱号1 */
     @Excel(name = "箱号1",width=7)
@@ -73,11 +81,11 @@ public class BcReserveWarehouse extends BaseEntity
     private String box6;
 
     /** 箱号7 */
-    //@Excel(name = "箱号7")
+    @Excel(name = "箱号7",width=7)
     private String box7;
 
     /** 箱号8 */
-    //@Excel(name = "箱号8")
+    @Excel(name = "箱号8",width=7)
     private String box8;
 
     /** 箱号9 */
@@ -96,6 +104,24 @@ public class BcReserveWarehouse extends BaseEntity
     //@Excel(name = "重量")
     private String weight;
 
+
+    @Override
+    public String getRemark() {
+        return remark;
+    }
+
+    @Override
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
+    public String getSendTime() {
+        return sendTime;
+    }
+
+    public void setSendTime(String sendTime) {
+        this.sendTime = sendTime;
+    }
 
     public String getStockName() {
         return stockName;

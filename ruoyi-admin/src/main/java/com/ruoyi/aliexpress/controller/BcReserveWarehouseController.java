@@ -65,8 +65,10 @@ public class BcReserveWarehouseController extends BaseController
     public void export(HttpServletResponse response, BcReserveWarehouse bcReserveWarehouse)
     {
         List<BcReserveWarehouse> list = bcReserveWarehouseService.selectBcReserveWarehouseList(bcReserveWarehouse);
+        String stockName= list.get(0).getStockName();
+        String sendTime= list.get(0).getSendTime();
         ExcelUtil<BcReserveWarehouse> util = new ExcelUtil<BcReserveWarehouse>(BcReserveWarehouse.class);
-        util.exportExcel(response, list, "data");
+        util.exportExcel(response, list, "data","1",stockName,sendTime);
     }
 
     /**

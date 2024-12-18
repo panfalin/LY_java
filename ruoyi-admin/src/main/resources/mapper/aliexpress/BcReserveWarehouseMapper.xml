@@ -13,6 +13,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="goodsId"    column="goods_id"    />
         <result property="goodsNumber"    column="goods_number"    />
         <result property="shopId"    column="shop_id"    />
+        <result property="sendTime"    column="send_time"    />
+        <result property="remark"    column="remark"    />
         <result property="box1"    column="box1"    />
         <result property="box2"    column="box2"    />
         <result property="box3"    column="box3"    />
@@ -28,7 +30,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectBcReserveWarehouseVo">
-        select sku, stock_id, stock_name,stock_warehouse,warehouse_position,goods_id,goods_number, shop_id, box1, box2, box3, box4, box5, box6, box7, box8, box9, box10, box_size, weight from bc_reserve_warehouse
+        select sku, stock_id, stock_name,stock_warehouse,send_time,remark,warehouse_position,goods_id,goods_number, shop_id, box1, box2, box3, box4, box5, box6, box7, box8, box9, box10, box_size, weight from bc_reserve_warehouse
     </sql>
 
     <select id="selectBcReserveWarehouseList" parameterType="BcReserveWarehouse" resultMap="BcReserveWarehouseResult">
