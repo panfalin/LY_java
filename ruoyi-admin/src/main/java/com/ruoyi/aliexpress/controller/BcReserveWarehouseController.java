@@ -66,7 +66,7 @@ public class BcReserveWarehouseController extends BaseController
     {
         List<BcReserveWarehouse> list = bcReserveWarehouseService.selectBcReserveWarehouseList(bcReserveWarehouse);
         ExcelUtil<BcReserveWarehouse> util = new ExcelUtil<BcReserveWarehouse>(BcReserveWarehouse.class);
-        util.exportExcel(response, list, "warehouse数据");
+        util.exportExcel(response, list, "data");
     }
 
     /**

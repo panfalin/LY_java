@@ -543,6 +543,7 @@ public class ExcelUtil<T>
         exportExcel(response, list, sheetName, StringUtils.EMPTY);
     }
 
+
     /**
      * 对list数据源将其里面的数据导入到excel表单
      * 
@@ -559,6 +560,8 @@ public class ExcelUtil<T>
         this.init(list, sheetName, title, Type.EXPORT);
         exportExcel(response);
     }
+
+
 
     /**
      * 对list数据源将其里面的数据导入到excel表单

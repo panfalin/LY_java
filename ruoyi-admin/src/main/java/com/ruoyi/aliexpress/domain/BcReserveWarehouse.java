@@ -20,78 +20,90 @@ public class BcReserveWarehouse extends BaseEntity
     private String sku;
 
     /** 备货单号 */
-    @Excel(name = "备货单号")
+    //@Excel(name = "备货单号")
     private String stockId;
 
     /** 备货仓 */
-    @Excel(name = "备货仓")
+    //@Excel(name = "备货仓")
     private String stockWarehouse;
 
     /** 仓位 */
-    @Excel(name = "仓位")
+    @Excel(name = "仓位",width=14)
     private String warehousePosition;
 
 
     /** 货品编号 */
-    @Excel(name = "货品ID")
+    //@Excel(name = "货品ID")
     private String goodsId;
 
     /** 货品数量 */
-    @Excel(name = "货品数量")
+    @Excel(name = "货品数量",width=7)
     private String goodsNumber;
 
     /** 店铺名 */
-    @Excel(name = "店铺名")
+    @Excel(name = "店铺名",width=22)
+    private String stockName;
+
+    /** 店铺名 */
+//    @Excel(name = "店铺名",width=22)
     private String shopId;
 
     /** 箱号1 */
-    @Excel(name = "箱号1")
+    @Excel(name = "箱号1",width=7)
     private String box1;
 
     /** 箱号2 */
-    @Excel(name = "箱号2")
+    @Excel(name = "箱号2",width=7)
     private String box2;
 
     /** 箱号3 */
-    @Excel(name = "箱号3")
+    @Excel(name = "箱号3",width=7)
     private String box3;
 
     /** 箱号4 */
-    @Excel(name = "箱号4")
+    @Excel(name = "箱号4",width=7)
     private String box4;
 
     /** 箱号5 */
-    @Excel(name = "箱号5")
+    @Excel(name = "箱号5",width=7)
     private String box5;
 
     /** 箱号6 */
-    @Excel(name = "箱号6")
+    @Excel(name = "箱号6",width=7)
     private String box6;
 
     /** 箱号7 */
-    @Excel(name = "箱号7")
+    //@Excel(name = "箱号7")
     private String box7;
 
     /** 箱号8 */
-    @Excel(name = "箱号8")
+    //@Excel(name = "箱号8")
     private String box8;
 
     /** 箱号9 */
-    @Excel(name = "箱号9")
+    //@Excel(name = "箱号9")
     private String box9;
 
     /** 箱号10 */
-    @Excel(name = "箱号10")
+    //@Excel(name = "箱号10")
     private String box10;
 
     /** 外箱尺寸 */
-    @Excel(name = "外箱尺寸")
+    //@Excel(name = "外箱尺寸")
     private String boxSize;
 
     /** 重量 */
-    @Excel(name = "重量")
+    //@Excel(name = "重量")
     private String weight;
 
+
+    public String getStockName() {
+        return stockName;
+    }
+
+    public void setStockName(String stockName) {
+        this.stockName = stockName;
+    }
 
     public String getWarehousePosition() {
         return warehousePosition;

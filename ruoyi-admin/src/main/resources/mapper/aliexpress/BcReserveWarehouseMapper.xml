@@ -8,6 +8,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="sku"    column="sku"    />
         <result property="stockId"    column="stock_id"    />
         <result property="stockWarehouse"    column="stock_warehouse"    />
+        <result property="stockName"    column="stock_name"    />
         <result property="warehousePosition"    column="warehouse_position"    />
         <result property="goodsId"    column="goods_id"    />
         <result property="goodsNumber"    column="goods_number"    />
@@ -27,7 +28,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectBcReserveWarehouseVo">
-        select sku, stock_id, stock_warehouse,warehouse_position,goods_id,goods_number, shop_id, box1, box2, box3, box4, box5, box6, box7, box8, box9, box10, box_size, weight from bc_reserve_warehouse
+        select sku, stock_id, stock_name,stock_warehouse,warehouse_position,goods_id,goods_number, shop_id, box1, box2, box3, box4, box5, box6, box7, box8, box9, box10, box_size, weight from bc_reserve_warehouse
     </sql>
 
     <select id="selectBcReserveWarehouseList" parameterType="BcReserveWarehouse" resultMap="BcReserveWarehouseResult">
@@ -53,6 +54,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="boxSize != null  and boxSize != ''"> and box_size = #{boxSize}</if>
             <if test="weight != null  and weight != ''"> and weight = #{weight}</if>
         </where>
+        order by create_time desc
     </select>
     
     <select id="selectBcReserveWarehouseBySku" parameterType="String" resultMap="BcReserveWarehouseResult">
