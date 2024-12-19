@@ -172,10 +172,10 @@ public class BcReserveWarehouseController extends BaseController
      * 获取warehouse详细信息
      */
     @PreAuthorize("@ss.hasPermi('warehouse:warehouse:query')")
-    @GetMapping(value = "/{sku}")
-    public AjaxResult getInfo(@PathVariable("sku") String sku)
+    @GetMapping(value = "/{sId}")
+    public AjaxResult getInfo(@PathVariable("sId") String sId)
     {
-        return success(bcReserveWarehouseService.selectBcReserveWarehouseBySku(sku));
+        return success(bcReserveWarehouseService.selectBcReserveWarehouseBySku(sId));
     }
 
     /**

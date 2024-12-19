@@ -105,6 +105,16 @@ public class BcReserveWarehouse extends BaseEntity
     private String weight;
 
 
+    private String sId;
+
+    public String getsId() {
+        return sId;
+    }
+
+    public void setsId(String sId) {
+        this.sId = sId;
+    }
+
     @Override
     public String getRemark() {
         return remark;

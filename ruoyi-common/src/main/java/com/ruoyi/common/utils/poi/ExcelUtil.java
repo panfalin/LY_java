@@ -282,7 +282,7 @@ public class ExcelUtil<T>
             sendTimeCell.setCellValue(send_time);
             //sendTimeCell.setCellValue("预约时间：12/19");
             // 创建放置stock_name的单元格
-            Cell stockNameCell = titleRow.createCell(9);
+            Cell stockNameCell = titleRow.createCell(7);
             stockNameCell.setCellValue(stock_name);
             //stockNameCell.setCellValue("半托管jla02star赵世杰");
             // 创建中间用于间隔的空白单元格（这里简单假设占一个单元格宽度，你可根据实际情况调整）
