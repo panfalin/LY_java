@@ -7,6 +7,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <resultMap type="AliexpressStoreProfit" id="AliexpressStoreProfitResult">
         <result property="id"    column="id"    />
         <result property="storeName"    column="store_name"    />
+        <result property="mouth"    column="mouth"    />
+        <result property="moneyType"    column="money_type"    />
         <result property="storeManager"    column="store_manager"    />
         <result property="orderAmount"    column="order_amount"    />
         <result property="shippingFee"    column="shipping_fee"    />
@@ -50,7 +52,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectAliexpressStoreProfitVo">
-        select id, store_name, store_manager, order_amount, shipping_fee, other_income, subsidy_amount, return_cost, shipping_return, other_store_income, total, order_quantity, refund_order_quantity, refund_amount, customer_unit_price, gross_profit, actual_refund_usd, direct_car, cancel_order_rmb, clearance_cost_subsidy, refund_difference, direct_car_cost, overseas_first_shipping, overseas_last_shipping, operation_fee, return_cost_2, supplier_reship_cost, warehouse_error_loss, actual_cost_profit, actual_cost_profit_rate1, order_actual_profit, order_actual_profit_rate, half托管_revenue, half托管_profit, self_half托管_revenue, self_half托管_profit, profit_rate, september_revenue, september_profit, september_profit_rate, compare_revenue, compare_profit_rate from aliexpress_store_profit
+        select id, mouth, store_name, money_type, store_manager, order_amount, shipping_fee, other_income, subsidy_amount, return_cost, shipping_return, other_store_income, total, order_quantity, refund_order_quantity, refund_amount, customer_unit_price, gross_profit, actual_refund_usd, direct_car, cancel_order_rmb, clearance_cost_subsidy, refund_difference, direct_car_cost, overseas_first_shipping, overseas_last_shipping, operation_fee, return_cost_2, supplier_reship_cost, warehouse_error_loss, actual_cost_profit, actual_cost_profit_rate1, order_actual_profit, order_actual_profit_rate, half托管_revenue, half托管_profit, self_half托管_revenue, self_half托管_profit, profit_rate, september_revenue, september_profit, september_profit_rate, compare_revenue, compare_profit_rate from aliexpress_store_profit
     </sql>
 
     <select id="selectAliexpressStoreProfitList" parameterType="AliexpressStoreProfit" resultMap="AliexpressStoreProfitResult">
@@ -59,6 +61,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <!-- 添加 store_manager 不为空的过滤条件 -->
             store_manager IS NOT NULL
             <if test="storeName != null  and storeName != ''"> and store_name like concat('%', #{storeName}, '%')</if>
+            <if test="mouth != null  and mouth != ''"> and mouth like concat('%', #{mouth}, '%')</if>
+            <if test="moneyType != null  and moneyType != ''"> and money_type like concat('%', #{moneyType}, '%')</if>
             <if test="storeManager != null  and storeManager != ''"> and store_manager = #{storeManager}</if>
             <if test="orderAmount != null  and orderAmount != ''"> and order_amount = #{orderAmount}</if>
             <if test="shippingFee != null  and shippingFee != ''"> and shipping_fee = #{shippingFee}</if>
@@ -111,6 +115,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         insert into aliexpress_store_profit
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="storeName != null">store_name,</if>
+            <if test="mouth != null">mouth,</if>
+            <if test="moneyType != null">money_type,</if>
             <if test="storeManager != null">store_manager,</if>
             <if test="orderAmount != null">order_amount,</if>
             <if test="shippingFee != null">shipping_fee,</if>
@@ -154,6 +160,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="storeName != null">#{storeName},</if>
+            <if test="mouth != null">#{mouth},</if>
+            <if test="moneyType != null">#{moneyType},</if>
             <if test="storeManager != null">#{storeManager},</if>
             <if test="orderAmount != null">#{orderAmount},</if>
             <if test="shippingFee != null">#{shippingFee},</if>
@@ -201,6 +209,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         update aliexpress_store_profit
         <trim prefix="SET" suffixOverrides=",">
             <if test="storeName != null">store_name = #{storeName},</if>
+            <if test="mouth != null">mouth = #{mouth},</if>
+            <if test="moneyType != null">money_type = #{moneyType},</if>
             <if test="storeManager != null">store_manager = #{storeManager},</if>
             <if test="orderAmount != null">order_amount = #{orderAmount},</if>
             <if test="shippingFee != null">shipping_fee = #{shippingFee},</if>

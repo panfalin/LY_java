@@ -19,6 +19,14 @@ public class AliexpressStoreProfit extends BaseEntity
     /** 主键 */
     private Long id;
 
+    /** 利润月份 */
+    @Excel(name = "利润月份")
+    private String mouth;
+
+    /** 货币类型 */
+    @Excel(name = "货币类型")
+    private String moneyType;
+
     /** 店铺 */
     @Excel(name = "店铺")
     private String storeName;
@@ -88,7 +96,7 @@ public class AliexpressStoreProfit extends BaseEntity
     private BigDecimal directCar;
 
     /** 取消订单（rmb） */
-    @Excel(name = "取消订单", readConverterExp = "r=mb")
+    @Excel(name = "物流赔付", readConverterExp = "r=mb")
     private BigDecimal cancelOrderRmb;
 
     /** 清仓成本补助 */
@@ -195,6 +203,22 @@ public class AliexpressStoreProfit extends BaseEntity
     public void setStoreName(String storeName)
     {
         this.storeName = storeName;
+    }
+
+    public String getMouth() {
+        return mouth;
+    }
+
+    public void setMouth(String mouth) {
+        this.mouth = mouth;
+    }
+
+    public String getMoneyType() {
+        return moneyType;
+    }
+
+    public void setMoneyType(String moneyType) {
+        this.moneyType = moneyType;
     }
 
     public String getStoreName()
