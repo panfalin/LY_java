@@ -23,6 +23,10 @@ public class AliexpressStoreProfit extends BaseEntity
     @Excel(name = "利润月份")
     private String mouth;
 
+    /** 类别 */
+    @Excel(name = "类别")
+    private String category;
+
     /** 货币类型 */
     @Excel(name = "货币类型")
     private String moneyType;
@@ -199,6 +203,14 @@ public class AliexpressStoreProfit extends BaseEntity
     public Long getId()
     {
         return id;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
     public void setStoreName(String storeName)
     {
