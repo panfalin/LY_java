@@ -50,6 +50,8 @@ public class BcReserveWarehouse extends BaseEntity
     /** 发货时间 */
     private String sendTime;
 
+    /** 发货时间 */
+    private String appointmentTime;
 
     /** 备注 */
     @Excel(name = "备注",width=22)
@@ -100,12 +102,22 @@ public class BcReserveWarehouse extends BaseEntity
     //@Excel(name = "外箱尺寸")
     private String boxSize;
 
+
+
     /** 重量 */
     //@Excel(name = "重量")
     private String weight;
 
 
     private String sId;
+
+    public String getAppointmentTime() {
+        return appointmentTime;
+    }
+
+    public void setAppointmentTime(String appointmentTime) {
+        this.appointmentTime = appointmentTime;
+    }
 
     public String getsId() {
         return sId;

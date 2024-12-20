@@ -23,6 +23,15 @@ public class ExcelExporter {
         try (Workbook workbook = new XSSFWorkbook()) {
             // 用于存储每个box列的有效数据总和
             int[] boxTotals = new int[10];
+            String appointmentTime = "";
+//            // 遍历数据，填充box数据列表和总和
+            for (BcReserveWarehouse item2 : dataList) {
+                if (item2.getAppointmentTime() == null) {
+                    continue;
+                }
+                appointmentTime = item2.getAppointmentTime();
+            }
+
 
             // 遍历数据，填充box数据列表和总和
             for (BcReserveWarehouse item : dataList) {
@@ -179,7 +188,7 @@ public class ExcelExporter {
 
                     // 添加预计揽收时间
                     Row estimatedPickupRow = sheet.createRow(rowIndex + 1);
-                    estimatedPickupRow.createCell(0).setCellValue(ESTIMATED_PICKUP_TIME_COLUMN_NAME+":");
+                    estimatedPickupRow.createCell(0).setCellValue(ESTIMATED_PICKUP_TIME_COLUMN_NAME + ":" + appointmentTime);
                     // 预计揽收时间不加样式
                 }
             }

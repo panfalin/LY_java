@@ -14,6 +14,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="goodsNumber"    column="goods_number"    />
         <result property="shopId"    column="shop_id"    />
         <result property="sendTime"    column="send_time"    />
+        <result property="appointmentTime"    column="appointment_time"    />
         <result property="remark"    column="remark"    />
         <result property="box1"    column="box1"    />
         <result property="box2"    column="box2"    />
@@ -31,7 +32,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectBcReserveWarehouseVo">
-        select sku,s_id, stock_id, stock_name,stock_warehouse,send_time,remark,warehouse_position,goods_id,goods_number, shop_id, box1, box2, box3, box4, box5, box6, box7, box8, box9, box10, box_size, weight from bc_reserve_warehouse
+        select sku,s_id, stock_id, appointment_time,stock_name,stock_warehouse,send_time,remark,warehouse_position,goods_id,goods_number, shop_id, box1, box2, box3, box4, box5, box6, box7, box8, box9, box10, box_size, weight from bc_reserve_warehouse
     </sql>
 
     <select id="selectBcReserveWarehouseList" parameterType="BcReserveWarehouse" resultMap="BcReserveWarehouseResult">
@@ -116,6 +117,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <trim prefix="SET" suffixOverrides=",">
             <if test="stockId != null">stock_id = #{stockId},</if>
             <if test="stockWarehouse != null">stock_warehouse = #{stockWarehouse},</if>
+            <if test="appointmentTime != null">appointment_time = #{appointmentTime},</if>
             <if test="warehousePosition != null">warehouse_position = #{warehousePosition},</if>
             <if test="goodsId != null">goods_id = #{goodsId},</if>
             <if test="goodsNumber != null">goods_number = #{goodsNumber},</if>
@@ -133,7 +135,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="boxSize != null">box_size = #{boxSize},</if>
             <if test="weight != null">weight = #{weight},</if>
         </trim>
-        where sku = #{sku}
+        where s_id = #{sId}
     </update>
 
     <delete id="deleteBcReserveWarehouseBySku" parameterType="String">
