@@ -40,6 +40,15 @@ public class AliexpressStoreProfitServiceImpl implements IAliexpressStoreProfitS
     @Override
     public List<AliexpressStoreProfit> selectAliexpressStoreProfitList(AliexpressStoreProfit aliexpressStoreProfit)
     {
+        String categories = aliexpressStoreProfit.getCategory();
+
+        if (categories != null && !categories.isEmpty()) {
+            // 将逗号分隔的字符串拆分为数组
+            String[] categoryArray = categories.split(",");
+            aliexpressStoreProfit.setCategory(null);
+            // 将拆分后的数组传递给查询方法
+            aliexpressStoreProfit.setCategoryArray(categoryArray);
+        }
         return aliexpressStoreProfitMapper.selectAliexpressStoreProfitList(aliexpressStoreProfit);
     }
 

@@ -64,7 +64,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="storeName != null  and storeName != ''"> and store_name like concat('%', #{storeName}, '%')</if>
             <if test="mouth != null  and mouth != ''"> and mouth like concat('%', #{mouth}, '%')</if>
             <if test="moneyType != null  and moneyType != ''"> and money_type like concat('%', #{moneyType}, '%')</if>
-            <if test="category != null  and category != ''"> and category like concat('%', #{category}, '%')</if>
+            <if test="category != null and category != ''">
+                and category like concat('%', #{category}, '%')
+            </if>
+            <!-- 使用 categoryArray 进行 IN 查询 -->
+            <if test="categoryArray != null and categoryArray.length > 0">
+                and category IN
+                <foreach collection="categoryArray" item="cat" open="(" close=")" separator=",">
+                    #{cat}
+                </foreach>
+            </if>
             <if test="storeManager != null  and storeManager != ''"> and store_manager = #{storeManager}</if>
             <if test="orderAmount != null  and orderAmount != ''"> and order_amount = #{orderAmount}</if>
             <if test="shippingFee != null  and shippingFee != ''"> and shipping_fee = #{shippingFee}</if>

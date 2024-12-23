@@ -27,6 +27,9 @@ public class AliexpressStoreProfit extends BaseEntity
     @Excel(name = "类别")
     private String category;
 
+    /** 类别数组 */
+    private String[] categoryArray;
+
     /** 货币类型 */
     @Excel(name = "货币类型")
     private String moneyType;
@@ -99,8 +102,8 @@ public class AliexpressStoreProfit extends BaseEntity
     @Excel(name = "直通车")
     private BigDecimal directCar;
 
-    /** 取消订单（rmb） */
-    @Excel(name = "物流赔付", readConverterExp = "r=mb")
+    /** 物流赔付 */
+    @Excel(name = "物流赔付")
     private BigDecimal cancelOrderRmb;
 
     /** 清仓成本补助 */
@@ -139,20 +142,20 @@ public class AliexpressStoreProfit extends BaseEntity
     @Excel(name = "仓库发错损失")
     private BigDecimal warehouseErrorLoss;
 
-    /** 实际花费毛利 */
-    @Excel(name = "实际花费毛利")
+    /** 运营利润 */
+    @Excel(name = "运营利润")
     private BigDecimal actualCostProfit;
 
-    /** 实际花费毛利率1 */
-    @Excel(name = "实际花费毛利率1")
+    /** 运营利润率 */
+    @Excel(name = "运营利润率")
     private BigDecimal actualCostProfitRate1;
 
-    /** 订单实际毛利 */
-    @Excel(name = "订单实际毛利")
+    /** 财务利润 */
+    @Excel(name = "财务利润")
     private BigDecimal orderActualProfit;
 
-    /** 订单实际毛利率 */
-    @Excel(name = "订单实际毛利率")
+    /** 财务利润率 */
+    @Excel(name = "财务利润率")
     private BigDecimal orderActualProfitRate;
 
     /** 半托管营业额 */
@@ -203,6 +206,14 @@ public class AliexpressStoreProfit extends BaseEntity
     public Long getId()
     {
         return id;
+    }
+
+    public String[] getCategoryArray() {
+        return categoryArray;
+    }
+
+    public void setCategoryArray(String[] categoryArray) {
+        this.categoryArray = categoryArray;
     }
 
     public String getCategory() {
