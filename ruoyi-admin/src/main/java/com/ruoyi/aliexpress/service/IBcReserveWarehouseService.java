@@ -27,6 +27,17 @@ public interface IBcReserveWarehouseService
      */
     public List<BcReserveWarehouse> selectBcReserveWarehouseList(BcReserveWarehouse bcReserveWarehouse);
 
+
+
+    /**
+     * 查询warehouse列表
+     *
+     * @param bcReserveWarehouse warehouse
+     * @return warehouse集合
+     */
+    public List<BcReserveWarehouse> selectBcReserveWarehouseListName(BcReserveWarehouse bcReserveWarehouse);
+
+
     /**
      * 新增warehouse
      * 

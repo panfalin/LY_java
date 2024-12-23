@@ -56,6 +56,18 @@ public class BcReserveWarehouseController extends BaseController
         return getDataTable(list);
     }
 
+    @PreAuthorize("@ss.hasPermi('warehouse:warehouse:list')")
+    @GetMapping("/list/name")
+    public TableDataInfo listName(BcReserveWarehouse bcReserveWarehouse)
+    {
+        startPage();
+        List<BcReserveWarehouse> list = bcReserveWarehouseService.selectBcReserveWarehouseListName(bcReserveWarehouse);
+        return getDataTable(list);
+    }
+
+
+
+
     /**
      * 导出warehouse列表
      */

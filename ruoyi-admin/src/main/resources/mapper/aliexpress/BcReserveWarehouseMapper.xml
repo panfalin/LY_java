@@ -35,12 +35,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         select sku,s_id, stock_id, appointment_time,stock_name,stock_warehouse,send_time,remark,warehouse_position,goods_id,goods_number, shop_id, box1, box2, box3, box4, box5, box6, box7, box8, box9, box10, box_size, weight from bc_reserve_warehouse
     </sql>
 
+    <select id="selectBcReserveWarehouseListName" parameterType="BcReserveWarehouse" resultMap="BcReserveWarehouseResult">
+        <include refid="selectBcReserveWarehouseVo"/>
+        <where>
+            <if test="stock_name != null  and stock_name != ''"> and stock_name like concat('%', #{stockName}, '%')</if>
+        </where>
+    </select>
+
+
+
+
+
     <select id="selectBcReserveWarehouseList" parameterType="BcReserveWarehouse" resultMap="BcReserveWarehouseResult">
         <include refid="selectBcReserveWarehouseVo"/>
         <where>  
             <if test="sku != null  and sku != ''"> and sku like concat('%', #{sku}, '%')</if>
             <if test="stockId != null  and stockId != ''"> and stock_id like concat('%', #{stockId}, '%')</if>
             <if test="stockWarehouse != null  and stockWarehouse != ''"> and stock_warehouse like concat('%', #{stockWarehouse}, '%')</if>
+            <if test="stockName != null  and stockName != ''"> and stock_name like concat('%', #{stockName}, '%')</if>
+
             <if test="warehousePosition != null  and warehousePosition != ''"> and warehouse_position like concat('%', #{warehouse_position}, '%')</if>
             <if test="goodsId != null  and goodsId != ''"> and goods_id like concat('%', #{goodsId}, '%')</if>
             <if test="goodsNumber != null  and goodsNumber != ''"> and goods_number like concat('%', #{goodsNumber}, '%')</if>

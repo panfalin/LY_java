@@ -1,6 +1,9 @@
 package com.ruoyi.aliexpress.service.impl;
 
 import java.util.List;
+
+import com.ruoyi.common.core.domain.entity.SysUser;
+import com.ruoyi.common.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.aliexpress.mapper.BcReserveWarehouseMapper;
@@ -40,8 +43,24 @@ public class BcReserveWarehouseServiceImpl implements IBcReserveWarehouseService
     @Override
     public List<BcReserveWarehouse> selectBcReserveWarehouseList(BcReserveWarehouse bcReserveWarehouse)
     {
+        SysUser user = SecurityUtils.getLoginUser().getUser();
+        String nickName = user.getNickName();
+        bcReserveWarehouse.setStockName(nickName);
         return bcReserveWarehouseMapper.selectBcReserveWarehouseList(bcReserveWarehouse);
     }
+
+
+    /**
+     * 查询warehouse列表
+     *
+     * @param bcReserveWarehouse warehouse
+     * @return warehouse集合
+     */
+    public List<BcReserveWarehouse> selectBcReserveWarehouseListName(BcReserveWarehouse bcReserveWarehouse) {
+
+        return bcReserveWarehouseMapper.selectBcReserveWarehouseListName(bcReserveWarehouse);
+    }
+
 
     /**
      * 新增warehouse
