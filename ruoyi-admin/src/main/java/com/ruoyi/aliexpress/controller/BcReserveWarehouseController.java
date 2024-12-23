@@ -87,7 +87,6 @@ public class BcReserveWarehouseController extends BaseController
             // 对文件名进行编码，防止中文等特殊字符出现乱码问题
             String fileName = URLEncoder.encode("output.xlsx", CharsetKit.UTF_8);
             response.setHeader("Content-Disposition", "attachment;filename=" + fileName);
-
             ExcelExporter.exportToExcel(list, response.getOutputStream());
         } catch (IOException e) {
             e.printStackTrace();

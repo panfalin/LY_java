@@ -87,7 +87,7 @@ public class ExcelExporter {
                     int colIndex = 0;
                     headerRow.createCell(colIndex++).setCellValue(INDEX_COLUMN_NAME);
                     headerRow.createCell(colIndex++).setCellValue(SKU_COLUMN_NAME);
-                    headerRow.createCell(colIndex++).setCellValue("箱号" + (i + 1));
+                    headerRow.createCell(colIndex++).setCellValue("数量");
 
                     // 设置列宽：sku列宽增加，其他列适当调整
                     sheet.setColumnWidth(1, 8000);  // 将SKU列宽度加大

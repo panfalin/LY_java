@@ -122,6 +122,19 @@ public class KfAnswersMessageController extends BaseController
         return toAjax(kfAnswersMessageService.updateKfAnswersMessageRead(kfAnswersMessage));
     }
 
+    /**
+     * 修改消息已读
+     */
+    @PreAuthorize("@ss.hasPermi('aliexpress:message:edit')")
+    @Log(title = "修改最新消息已读", businessType = BusinessType.UPDATE)
+    @PutMapping("/sendnew")
+    public AjaxResult editsendnew(@RequestBody KfAnswersMessage kfAnswersMessage)
+    {
+        return toAjax(kfAnswersMessageService.updateKfAnswersMessageSendNew(kfAnswersMessage));
+    }
+
+
+
 
     /**
      * 修改消息已读

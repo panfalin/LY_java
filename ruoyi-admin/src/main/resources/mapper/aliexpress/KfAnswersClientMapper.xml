@@ -35,6 +35,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="messageContent" column="message_content"/>
         <result property="isRead" column="is_read"/>
         <result property="messageStatus" column="message_status"/>
+        <result property="orderStatus" column="order_status"/>
+        <result property="ifSendNewUs" column="if_send_new_us"/>
     </resultMap>
 
     <sql id="selectKfAnswersClient">
@@ -42,20 +44,59 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </sql>
 
     <sql id="selectKfAnswersClientVo">
-        select client_id, client_name, client_number, email, avatar_url, latest_message.created_time, latest_message.update_time, create_by, update_by, store_name, custom_field_two,message_content,latest_message.is_read,latest_message.message_status  from kf_answers_client    </sql>
+        SELECT
+            kf_answers_client.client_id,  -- 明确指定client_id的来源表
+            kf_answers_client.client_name,
+            kf_answers_client.client_number,
+            kf_answers_client.email,
+            kf_answers_client.avatar_url,
+            latest_message.created_time,
+            latest_message.update_time,
+            kf_answers_client.create_by,
+            kf_answers_client.update_by,
+            kf_answers_client.store_name,
+            kf_answers_client.custom_field_two,
+            latest_message.message_content,
+            latest_message.is_read,
+            latest_message.if_send_new_us,
+            latest_message.message_status,
+            latest_order.order_status        -- 添加订单状态
+        FROM
+            kf_answers_client
+    </sql>
     <select id="selectKfAnswersClientList" parameterType="KfAnswersClient" resultMap="KfAnswersClientResultWithMessage">
         <include refid="selectKfAnswersClientVo"/>
-        LEFT JOIN (
-        -- 找到各个会话中排名为1的数据
-        SELECT sender_id, receiver_id, shop_id, message_content, is_read, created_time, update_time, conversation_id,message_status
-        FROM (
-        -- 查询message表中的数据 根据conversation_id 并且按创建时间排序排名
-        SELECT sender_id, receiver_id, shop_id, message_content, is_read, created_time, update_time, conversation_id,message_status,
-        ROW_NUMBER() OVER (PARTITION BY conversation_id, shop_id ORDER BY created_time DESC) AS row_num
-        FROM kf_answers_message
-        ) AS latest_messages
-        -- 只查找排名为第一位的
-        WHERE row_num = 1
+        LEFT JOIN (-- 找到各个会话中排名为1的数据
+        SELECT
+        sender_id,
+        receiver_id,
+        shop_id,
+        message_content,
+        is_read,
+        created_time,
+        update_time,
+        conversation_id,
+        message_status,
+        if_send_new_us
+        FROM
+        (-- 查询message表中的数据 根据conversation_id 并且按创建时间排序排名
+        SELECT
+        sender_id,
+        receiver_id,
+        shop_id,
+        message_content,
+        is_read,
+        created_time,
+        update_time,
+        conversation_id,
+        message_status,
+        ROW_NUMBER() OVER ( PARTITION BY conversation_id, shop_id ORDER BY created_time DESC ) AS row_num,
+        if_send_new_us
+        FROM
+        kf_answers_message
+        ) AS latest_messages -- 只查找排名为第一位的
+        WHERE
+        row_num = 1
         ) AS latest_message
         ON (
         kf_answers_client.store_name = latest_message.shop_id
@@ -63,11 +104,36 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         CASE
         -- 如果sender_id为客服的话 那就拼接client_id=receiver_id
         WHEN latest_message.sender_id = '客服' THEN kf_answers_client.client_id = latest_message.receiver_id
-        -- 如果否则 那就拼接client_id=sender_id
+        -- 如果sender_id不是客服，那就拼接client_id=sender_id
         ELSE kf_answers_client.client_id = latest_message.sender_id
-        END)
+        END
         )
-        <where>  
+        )
+        LEFT JOIN (-- 获取每个客户最优订单
+        SELECT
+        order_id,
+        client_id,  -- 明确指定client_id的来源表
+        order_status,
+        ROW_NUMBER() OVER (
+        PARTITION BY client_id
+        ORDER BY
+        CASE order_status
+        WHEN '纠纷中的订单' THEN 1
+        WHEN '等待您发货' THEN 2
+        WHEN '等待买家付款' THEN 3
+        WHEN '付款处理中' THEN 4
+        WHEN '等待买家收货' THEN 5
+        WHEN '订单关闭' THEN 6
+        WHEN '交易完成' THEN 7
+        ELSE 8 -- 默认为最后
+        END
+        ) AS row_num
+        FROM
+        kf_answers_order
+        ) AS latest_order
+        ON kf_answers_client.client_id = latest_order.client_id
+        AND latest_order.row_num = 1  -- 只返回每个客户的最优订单
+        <where>
             <if test="clientName != null  and clientName != ''"> and client_name like concat('%', #{clientName}, '%')</if>
             <if test="clientNumber != null  and clientNumber != ''"> and client_number like concat('%', #{clientNumber}, '%')</if>
             <if test="email != null  and email != ''"> and email like concat('%', #{email}, '%')</if>

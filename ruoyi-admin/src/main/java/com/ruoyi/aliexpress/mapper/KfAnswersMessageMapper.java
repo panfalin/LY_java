@@ -58,6 +58,9 @@ public interface KfAnswersMessageMapper
      */
     public int updateKfAnswersMessageRead(KfAnswersMessage kfAnswersMessage);
 
+    public int updateKfAnswersMessageSendNew(KfAnswersMessage kfAnswersMessage);
+
+
     /**
      * 标记已回复
      *

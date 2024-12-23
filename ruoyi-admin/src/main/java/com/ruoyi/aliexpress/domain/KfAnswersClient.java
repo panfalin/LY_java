@@ -62,6 +62,26 @@ public class KfAnswersClient extends BaseEntity
     @Excel(name = "最新消息内容是否回复")
     private String messageStatus;
 
+    private String orderStatus;
+
+
+    private String ifSendNewUs;
+
+    public String getIfSendNewUs() {
+        return ifSendNewUs;
+    }
+
+    public void setIfSendNewUs(String ifSendNewUs) {
+        this.ifSendNewUs = ifSendNewUs;
+    }
+
+    public String getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(String orderStatus) {
+        this.orderStatus = orderStatus;
+    }
 
     public String getMessageStatus() {
         return messageStatus;

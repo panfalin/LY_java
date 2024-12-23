@@ -58,6 +58,9 @@ public interface IKfAnswersMessageService
     public int updateKfAnswersMessageRead(KfAnswersMessage kfAnswersMessage);
 
 
+
+    public int updateKfAnswersMessageSendNew(KfAnswersMessage kfAnswersMessage);
+
     /**
      * 修改消息状态已回复
      *

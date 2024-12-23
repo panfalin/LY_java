@@ -126,9 +126,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         update kf_answers_message
         <trim prefix="SET" suffixOverrides=",">
             <if test="isRead != null">is_read =#{isRead},</if>
+
         </trim>
         where sender_id = #{senderId} and shop_id=#{shopId}
     </update>
+
+
+    <update id="updateKfAnswersMessageSendNew" parameterType="KfAnswersMessage">
+        update kf_answers_message
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="ifSendNewUs != null">if_send_new_us =#{ifSendNewUs},</if>
+        </trim>
+        where conversation_id=#{conversationId} and shop_id=#{shopId}
+    </update>
+
+
 
     <update id="updateKfAnswersMessageStatus" parameterType="KfAnswersMessage">
         update kf_answers_message

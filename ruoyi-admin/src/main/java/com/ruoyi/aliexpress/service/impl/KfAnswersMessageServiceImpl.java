@@ -104,6 +104,16 @@ public class KfAnswersMessageServiceImpl implements IKfAnswersMessageService
     }
 
     @Override
+    public int updateKfAnswersMessageSendNew(KfAnswersMessage kfAnswersMessage) {
+        kfAnswersMessage.setUpdateTime(DateUtils.getNowDate());
+        List<KfAnswersMessage> list=kfAnswersMessageMapper.selectKfAnswersMessageList(kfAnswersMessage);
+        if (list.size()>0){
+            return kfAnswersMessageMapper.updateKfAnswersMessageSendNew(kfAnswersMessage);
+        }
+        return 1;
+    }
+
+    @Override
     public int updateKfAnswersMessageStatus(KfAnswersMessage kfAnswersMessage) {
         kfAnswersMessage.setUpdateTime(DateUtils.getNowDate());
         List<KfAnswersMessage> list=kfAnswersMessageMapper.selectKfAnswersMessageList(kfAnswersMessage);

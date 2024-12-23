@@ -70,6 +70,17 @@ public class KfAnswersMessage extends BaseEntity
     @Excel(name = "头像地址")
     private String avatarUrl;
 
+
+    private String ifSendNewUs;
+
+    public String getIfSendNewUs() {
+        return ifSendNewUs;
+    }
+
+    public void setIfSendNewUs(String ifSendNewUs) {
+        this.ifSendNewUs = ifSendNewUs;
+    }
+
     public String getMessageStatus() {
         return messageStatus;
     }
