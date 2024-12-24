@@ -45,7 +45,10 @@ public class BcReserveWarehouseServiceImpl implements IBcReserveWarehouseService
     {
         SysUser user = SecurityUtils.getLoginUser().getUser();
         String nickName = user.getNickName();
-        bcReserveWarehouse.setStockName(nickName);
+        if (nickName != null && !nickName.trim().equalsIgnoreCase("管理员")) {
+            bcReserveWarehouse.setUserName(nickName);
+        }
+
         return bcReserveWarehouseMapper.selectBcReserveWarehouseList(bcReserveWarehouse);
     }
 

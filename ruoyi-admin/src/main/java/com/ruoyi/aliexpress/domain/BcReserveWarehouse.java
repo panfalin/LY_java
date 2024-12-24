@@ -22,6 +22,7 @@ public class BcReserveWarehouse extends BaseEntity
     /** 备货单号 */
     //@Excel(name = "备货单号")
     private String stockId;
+    private String userName;
 
     /** 备货仓 */
     //@Excel(name = "备货仓")
@@ -110,6 +111,14 @@ public class BcReserveWarehouse extends BaseEntity
 
 
     private String sId;
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
     public String getAppointmentTime() {
         return appointmentTime;

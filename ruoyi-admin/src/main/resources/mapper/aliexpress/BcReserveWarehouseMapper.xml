@@ -7,6 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <resultMap type="BcReserveWarehouse" id="BcReserveWarehouseResult">
         <result property="sku"    column="sku"    />
         <result property="stockId"    column="stock_id"    />
+        <result property="userName"    column="user_name"    />
         <result property="stockWarehouse"    column="stock_warehouse"    />
         <result property="stockName"    column="stock_name"    />
         <result property="warehousePosition"    column="warehouse_position"    />
@@ -32,7 +33,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectBcReserveWarehouseVo">
-        select sku,s_id, stock_id, appointment_time,stock_name,stock_warehouse,send_time,remark,warehouse_position,goods_id,goods_number, shop_id, box1, box2, box3, box4, box5, box6, box7, box8, box9, box10, box_size, weight from bc_reserve_warehouse
+        select sku,user_name,s_id, stock_id, appointment_time,stock_name,stock_warehouse,send_time,remark,warehouse_position,goods_id,goods_number, shop_id, box1, box2, box3, box4, box5, box6, box7, box8, box9, box10, box_size, weight from bc_reserve_warehouse
     </sql>
 
     <select id="selectBcReserveWarehouseListName" parameterType="BcReserveWarehouse" resultMap="BcReserveWarehouseResult">
@@ -53,6 +54,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="stockId != null  and stockId != ''"> and stock_id like concat('%', #{stockId}, '%')</if>
             <if test="stockWarehouse != null  and stockWarehouse != ''"> and stock_warehouse like concat('%', #{stockWarehouse}, '%')</if>
             <if test="stockName != null  and stockName != ''"> and stock_name like concat('%', #{stockName}, '%')</if>
+            <if test="userName != null  and userName != ''"> and user_name = #{userName}</if>
 
             <if test="warehousePosition != null  and warehousePosition != ''"> and warehouse_position like concat('%', #{warehouse_position}, '%')</if>
             <if test="goodsId != null  and goodsId != ''"> and goods_id like concat('%', #{goodsId}, '%')</if>
