@@ -1,6 +1,7 @@
 package com.ruoyi.aliexpress.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import com.ruoyi.common.core.domain.entity.SysUser;
 import com.ruoyi.common.utils.SecurityUtils;
@@ -50,6 +51,16 @@ public class BcReserveWarehouseServiceImpl implements IBcReserveWarehouseService
         }
 
         return bcReserveWarehouseMapper.selectBcReserveWarehouseList(bcReserveWarehouse);
+    }
+
+
+    public List<Map<String,String>> selectBcReserveWarehouseShopName(String storeManager)
+    {
+        if (storeManager != null && storeManager.trim().equalsIgnoreCase("管理员")) {
+            storeManager = null;
+        }
+
+        return bcReserveWarehouseMapper.selectBcReserveWarehouseShopName(storeManager);
     }
 
 

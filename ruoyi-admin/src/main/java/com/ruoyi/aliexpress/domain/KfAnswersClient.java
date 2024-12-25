@@ -63,9 +63,16 @@ public class KfAnswersClient extends BaseEntity
     private String messageStatus;
 
     private String orderStatus;
-
-
     private String ifSendNewUs;
+    private String storeManagerName;
+
+    public String getStoreManagerName() {
+        return storeManagerName;
+    }
+
+    public void setStoreManagerName(String storeManagerName) {
+        this.storeManagerName = storeManagerName;
+    }
 
     public String getIfSendNewUs() {
         return ifSendNewUs;

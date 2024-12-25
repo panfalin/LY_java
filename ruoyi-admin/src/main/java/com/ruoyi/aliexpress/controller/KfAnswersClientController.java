@@ -43,7 +43,6 @@ public class KfAnswersClientController extends BaseController
     {
         startPage();
         List<KfAnswersClient> list = kfAnswersClientService.selectKfAnswersClientList(kfAnswersClient);
-
         return getDataTable(list);
     }
 

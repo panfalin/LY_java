@@ -1,6 +1,8 @@
 package com.ruoyi.aliexpress.mapper;
 
 import java.util.List;
+import java.util.Map;
+
 import com.ruoyi.aliexpress.domain.BcReserveWarehouse;
 
 /**
@@ -34,6 +36,8 @@ public interface BcReserveWarehouseMapper
      * @return warehouse集合
      */
     public List<BcReserveWarehouse> selectBcReserveWarehouseListName(BcReserveWarehouse bcReserveWarehouse);
+
+    public List<Map<String,String>> selectBcReserveWarehouseShopName(String storeManager);
 
 
 

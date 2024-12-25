@@ -31,6 +31,7 @@ public interface IKfAnswersMessageService
 
     public List<Map<String,String>> selectKfAnswersClientUnreadCountOnly();
 
+    public List<Map<String,String>> selectKfAnswersMessageByStore();
 
 
     /**

@@ -33,6 +33,8 @@ public interface KfAnswersMessageMapper
 
     public List<Map<String,String>> selectKfAnswersClientUnreadCountOnly();
 
+    public List<Map<String,String>> selectKfAnswersMessageByStore();
+
     /**
      * 新增消息
      * 

@@ -28,6 +28,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="messageStatus"    column="message_status"    />
     </resultMap>
 
+    <resultMap id="Map" type="java.util.Map">
+        <result column="store_name" property="storeName"/>
+        <result column="store_manager" property="storeManager"/>
+    </resultMap>
+
+
+
     <sql id="selectKfAnswersMessageVo">
         select message_id, sender_id, receiver_id, shop_id, message_content, send_time, is_read, created_time, update_time, create_by, update_by, conversation_id, send_id,message_status from kf_answers_message
     </sql>
@@ -54,6 +61,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         LEFT JOIN kf_answers_client as kc ON km.sender_id=kc.client_id
         where conversation_id = #{conversationId} and shop_id=#{shopId}
     </select>
+
+    <select id="selectKfAnswersMessageByStore"  resultMap="Map">
+        select store_name,store_manager from stores_notescrow
+    </select>
+
+
 
 
     <select id="selectKfAnswersClientUnreadCountOnly" resultMap="KfAnswersClientUnreadCountResultMap">

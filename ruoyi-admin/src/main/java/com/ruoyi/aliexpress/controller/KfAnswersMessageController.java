@@ -86,7 +86,13 @@ public class KfAnswersMessageController extends BaseController
     }
 
 
-
+    @PreAuthorize("@ss.hasPermi('aliexpress:message:query')")
+    @GetMapping(value = "/list/store")
+    public TableDataInfo getInfoStore()
+    {
+        List<Map<String,String>> list = kfAnswersMessageService.selectKfAnswersMessageByStore();
+        return getDataTable(list);
+    }
 
 
     /**

@@ -31,6 +31,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="createBy"    column="create_by"    />
         <result property="updateBy"    column="update_by"    />
         <result property="storeName"    column="store_name"    />
+        <result property="storeManagerName"    column="store_manager_name"    />
         <result property="customFieldTwo"    column="custom_field_two"    />
         <result property="messageContent" column="message_content"/>
         <result property="isRead" column="is_read"/>
@@ -142,6 +143,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="storeName != null  and storeName != ''"> and store_name = #{storeName}</if>
             <if test="isRead != null  and isRead != ''"> and is_read = #{isRead} and latest_message.sender_id != '客服'</if>
             <if test="messageStatus != null  and messageStatus != ''"> and message_status = #{messageStatus}</if>
+            <if test="storeManagerName != null  and storeManagerName != ''"> and store_manager_name = #{storeManagerName}</if>
         </where>
         ORDER BY created_time DESC -- 添加这一行按照创建时间降序排序，可按需修改为ASC（升序）
     </select>

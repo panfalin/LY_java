@@ -1,6 +1,8 @@
 package com.ruoyi.aliexpress.service;
 
 import java.util.List;
+import java.util.Map;
+
 import com.ruoyi.aliexpress.domain.BcReserveWarehouse;
 
 /**
@@ -37,6 +39,8 @@ public interface IBcReserveWarehouseService
      */
     public List<BcReserveWarehouse> selectBcReserveWarehouseListName(BcReserveWarehouse bcReserveWarehouse);
 
+    public List<Map<String,String>> selectBcReserveWarehouseShopName(String storeManager);
+
 
     /**
      * 新增warehouse
@@ -71,5 +75,8 @@ public interface IBcReserveWarehouseService
     public int deleteBcReserveWarehouseBySku(String sku);
 
     public int insertOrUpdateExcel(List<BcReserveWarehouse> dataList);
+
+
+
 
 }

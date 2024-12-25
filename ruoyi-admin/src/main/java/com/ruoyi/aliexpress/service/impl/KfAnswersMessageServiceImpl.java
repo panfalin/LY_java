@@ -68,6 +68,14 @@ public class KfAnswersMessageServiceImpl implements IKfAnswersMessageService
         return kfAnswersMessageMapper.selectKfAnswersClientUnreadCountOnly();
     }
 
+    @Override
+    public List<Map<String,String>> selectKfAnswersMessageByStore()
+    {
+        return kfAnswersMessageMapper.selectKfAnswersMessageByStore();
+    }
+
+
+
     /**
      * 新增消息
      * 

@@ -5,9 +5,12 @@ import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ruoyi.common.core.domain.entity.SysUser;
 import com.ruoyi.common.core.text.CharsetKit;
+import com.ruoyi.common.utils.SecurityUtils;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -65,7 +68,15 @@ public class BcReserveWarehouseController extends BaseController
         return getDataTable(list);
     }
 
-
+    @PreAuthorize("@ss.hasPermi('warehouse:warehouse:list')")
+    @GetMapping("/list/shopname")
+    public TableDataInfo listShopName(String storeManager)
+    {
+        SysUser user = SecurityUtils.getLoginUser().getUser();
+        storeManager = user.getNickName();
+        List<Map<String,String>> list = bcReserveWarehouseService.selectBcReserveWarehouseShopName(storeManager);
+        return getDataTable(list);
+    }
 
 
     /**

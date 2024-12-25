@@ -31,10 +31,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="weight"    column="weight"    />
         <result property="sId"    column="s_id"    />
     </resultMap>
+    <resultMap id="Map" type="java.util.Map">
+        <result column="store_name" property="store_name"/>
+        <result column="store_manager" property="store_manager"/>
+    </resultMap>
+
+
 
     <sql id="selectBcReserveWarehouseVo">
         select sku,user_name,s_id, stock_id, appointment_time,stock_name,stock_warehouse,send_time,remark,warehouse_position,goods_id,goods_number, shop_id, box1, box2, box3, box4, box5, box6, box7, box8, box9, box10, box_size, weight from bc_reserve_warehouse
     </sql>
+
+
+
 
     <select id="selectBcReserveWarehouseListName" parameterType="BcReserveWarehouse" resultMap="BcReserveWarehouseResult">
         <include refid="selectBcReserveWarehouseVo"/>
@@ -43,7 +52,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         </where>
     </select>
 
-
+    <select id="selectBcReserveWarehouseShopName" parameterType="String" resultMap="Map">
+        select store_name,store_manager from stores_notescrow
+        <where>
+            <if test="storeManager != null  and storeManager != ''"> and store_manager like concat('%', #{storeManager}, '%')</if>
+        </where>
+    </select>
 
 
 
