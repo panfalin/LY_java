@@ -20,6 +20,10 @@ public class DailyTask extends BaseEntity {
     @Excel(name = "刊登ID")
     private Long id;
 
+    /** $column.columnComment */
+    private Long sId;
+
+
     /** SKU */
     @Excel(name = "SKU")
     private String sku;
@@ -72,6 +76,27 @@ public class DailyTask extends BaseEntity {
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Excel(name = "更新时间", width = 30, dateFormat = "yyyy-MM-dd")
     private Date updateTime;
+
+
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Excel(name = "任务时间", width = 30, dateFormat = "yyyy-MM-dd")
+    private String taskTime;
+
+    public String getTaskTime() {
+        return taskTime;
+    }
+
+    public void setTaskTime(String taskTime) {
+        this.taskTime = taskTime;
+    }
+
+    public Long getsId() {
+        return sId;
+    }
+
+    public void setsId(Long sId) {
+        this.sId = sId;
+    }
 
     public Long getId() {
         return id;

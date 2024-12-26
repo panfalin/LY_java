@@ -1,6 +1,9 @@
 package com.ruoyi.aliexpress.mapper;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+
 import com.ruoyi.aliexpress.domain.DailyTask;
 
 /**
@@ -27,6 +30,16 @@ public interface DailyTaskMapper
      */
     public List<DailyTask> selectDailyTaskList(DailyTask dailyTask);
 
+
+    /**
+     * 查询速卖通分析-未完成任务清单列表
+     *
+     * @return 速卖通分析-任务清单集合
+     */
+    public List<DailyTask> selectDailyTaskUnfinishedList();
+
+
+
     /**
      * 新增速卖通分析-任务清单
      * 
@@ -42,6 +55,15 @@ public interface DailyTaskMapper
      * @return 结果
      */
     public int updateDailyTask(DailyTask dailyTask);
+
+    /**
+     * 修改未完成时间-任务清单
+     *
+     * @return 结果
+     */
+    public int updateDailyTaskUnfinished(Map<String,Object> params);
+
+
 
     /**
      * 删除速卖通分析-任务清单

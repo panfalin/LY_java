@@ -1,7 +1,10 @@
 package com.ruoyi.aliexpress.controller;
 
 import java.util.List;
+import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,6 +48,17 @@ public class DailyTaskController extends BaseController
         List<DailyTask> list = dailyTaskService.selectDailyTaskList(dailyTask);
         return getDataTable(list);
     }
+
+    @PreAuthorize("@ss.hasPermi('task:task:list')")
+    @GetMapping("/updateDailyTasks")
+    public ResponseEntity<Map<String, Object>> updateDailyTaskUnfinished(DailyTask dailyTask) {
+        // 调用 service 层的业务逻辑方法，返回更新结果
+        return dailyTaskService.updateDailyTaskUnfinished(dailyTask);
+    }
+
+
+
+
 
     /**
      * 导出速卖通分析-任务清单列表

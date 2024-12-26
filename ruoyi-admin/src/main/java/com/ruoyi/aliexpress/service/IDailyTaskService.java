@@ -1,7 +1,10 @@
 package com.ruoyi.aliexpress.service;
 
 import java.util.List;
+import java.util.Map;
+
 import com.ruoyi.aliexpress.domain.DailyTask;
+import org.springframework.http.ResponseEntity;
 
 /**
  * 速卖通分析-任务清单Service接口
@@ -42,6 +45,19 @@ public interface IDailyTaskService
      * @return 结果
      */
     public int updateDailyTask(DailyTask dailyTask);
+
+
+    /**
+     * 修改速卖通分析-任务清单
+     *
+     * @param dailyTask 速卖通分析-任务清单
+     * @return 结果
+     */
+    public ResponseEntity<Map<String, Object>> updateDailyTaskUnfinished(DailyTask dailyTask);
+
+
+
+
 
     /**
      * 批量删除速卖通分析-任务清单

@@ -6,6 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <resultMap type="DailyTask" id="DailyTaskResult">
         <result property="id"    column="id"    />
+        <result property="sId"    column="s_id"    />
         <result property="sku"    column="sku"    />
         <result property="largeImg"    column="large_img"    />
         <result property="productName"    column="product_name"    />
@@ -18,10 +19,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="goals"    column="goals"    />
         <result property="logs"    column="logs"    />
         <result property="updateTime"    column="update_time"    />
+        <result property="taskTime"    column="task_time"    />
     </resultMap>
 
     <sql id="selectDailyTaskVo">
         select id,
+               s_id,
                sku,
                large_img,
                product_name,
@@ -52,13 +55,35 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="suggestions != null  and suggestions != ''"> and suggestions = #{suggestions}</if>
             <if test="goals != null  and goals != ''"> and goals = #{goals}</if>
             <if test="logs != null  and logs != ''"> and logs = #{logs}</if>
+            <if test="taskTime != null  and taskTime != ''"> and task_time = #{taskTime}</if>
         </where>
         order by store desc, sku desc
     </select>
+
+    <select id="selectDailyTaskUnfinishedList"  resultMap="DailyTaskResult">
+        <include refid="selectDailyTaskVo"/>
+        where logs IS NULL
+        order by store desc, sku desc
+    </select>
+
+    <update id="updateDailyTaskUnfinished" parameterType="map">
+        UPDATE daily_task
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="taskTime != null">task_time = #{taskTime},</if>
+            <if test="responsiblePerson != null">responsible_person = #{responsiblePerson},</if>
+        </trim>
+        WHERE s_id IN
+        <foreach item="taskId" index="index" collection="taskIds" open="(" separator="," close=")">
+            #{taskId}
+        </foreach>
+    </update>
+
+
+
     
     <select id="selectDailyTaskById" parameterType="Long" resultMap="DailyTaskResult">
         <include refid="selectDailyTaskVo"/>
-        where id = #{id}
+        where s_id = #{sId}
     </select>
 
     <insert id="insertDailyTask" parameterType="DailyTask">
@@ -111,7 +136,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="logs != null">logs = #{logs},</if>
             <if test="updateTime != null">update_time = #{updateTime},</if>
         </trim>
-        where id = #{id}
+        where s_id = #{sId}
     </update>
 
     <delete id="deleteDailyTaskById" parameterType="Long">
