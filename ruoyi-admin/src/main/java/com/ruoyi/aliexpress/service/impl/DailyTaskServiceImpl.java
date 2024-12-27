@@ -4,6 +4,9 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+
+import com.ruoyi.aliexpress.util.EmailUtils;
+import com.ruoyi.aliexpress.util.ExcelExporterTask;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
 import com.ruoyi.common.utils.DateUtils;
@@ -84,6 +87,24 @@ public class DailyTaskServiceImpl implements IDailyTaskService
 
     @Override
     public ResponseEntity<Map<String, Object>> updateDailyTaskUnfinished(DailyTask dailyTask) {
+        Map<String,String> sendto=new HashMap<>();
+        sendto.put("夏慧颖","857240603@qq.com");
+        sendto.put("赵世杰","3004188570@qq.com");
+        sendto.put("沈娟","3004188570@qq.com");
+        sendto.put("陈雪芳","2885072146@qq.com");
+        sendto.put("voice","857240603@qq.com");
+        sendto.put("未分配","857240603@qq.com");
+
+
+
+//        sendto.put("夏慧颖","2355799969@qq.com");
+//        sendto.put("赵世杰","3003669197@qq.com");
+//        sendto.put("沈娟","2881970600@qq.com");
+//        sendto.put("陈雪芳","2850511085@qq.com");
+//        sendto.put("voice","3004275997@qq.com");
+//        sendto.put("未分配","857240603@qq.com");
+
+
         // 创建一个返回的 Map 对象
         Map<String, Object> response = new HashMap<>();
         try{
@@ -110,7 +131,25 @@ public class DailyTaskServiceImpl implements IDailyTaskService
                List<DailyTask> tasks = entry.getValue();
 
                // 随机选取20个任务
-               Collections.shuffle(tasks);  // 打乱任务顺序
+//               Collections.shuffle(tasks);  // 打乱任务顺序
+               //将任务根据销售数量进行排序
+               // 将任务根据销售数量进行排序
+               Collections.sort(tasks, new Comparator<DailyTask>() {
+                   @Override
+                   public int compare(DailyTask task1, DailyTask task2) {
+                       try {
+                           // 将 sales 字段从 String 转换为 Integer 或 Double
+                           Integer sales1 = Integer.parseInt(task1.getSales());
+                           Integer sales2 = Integer.parseInt(task2.getSales());
+                           return Integer.compare(sales2, sales1);  // 按销售数量降序排列
+                       } catch (NumberFormatException e) {
+                           // 如果 sales 字段无法解析为数字，则认为它们相等
+                           return 0;
+                       }
+                   }
+               });
+
+
                List<DailyTask> selectedTasks = new ArrayList<>();
 
                int taskCount = 0;
@@ -126,12 +165,19 @@ public class DailyTaskServiceImpl implements IDailyTaskService
                for (DailyTask selectedTask : selectedTasks) {
                    taskIds.add(selectedTask.getsId());
                }
-
                // 使用 Map 传递参数给 MyBatis
                Map<String, Object> params = new HashMap<>();
                params.put("taskTime", taskTime);
                params.put("responsiblePerson", responsiblePerson);
                params.put("taskIds", taskIds);
+
+               // 生成 Excel 文件
+               String filePath = "tasks_" + responsiblePerson + "_" + taskTime + ".xlsx";
+               ExcelExporterTask.generateExcelFile(selectedTasks, filePath);
+               // 发送邮件
+               String subject = "任务分配报告 - " + taskTime;
+               String body = responsiblePerson + "，\n\n请查收您的任务分配报告。";
+//               EmailUtils.sendEmailWithAttachment(sendto.get(responsiblePerson), subject, body, filePath);
 
 
                // 更新任务的任务时间和责任人
