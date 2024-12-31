@@ -88,21 +88,20 @@ public class DailyTaskServiceImpl implements IDailyTaskService
     @Override
     public ResponseEntity<Map<String, Object>> updateDailyTaskUnfinished(DailyTask dailyTask) {
         Map<String,String> sendto=new HashMap<>();
-        sendto.put("夏慧颖","857240603@qq.com");
-        sendto.put("赵世杰","3004188570@qq.com");
-        sendto.put("沈娟","3004188570@qq.com");
-        sendto.put("陈雪芳","2885072146@qq.com");
-        sendto.put("voice","857240603@qq.com");
-        sendto.put("未分配","857240603@qq.com");
-
-
-
-//        sendto.put("夏慧颖","2355799969@qq.com");
-//        sendto.put("赵世杰","3003669197@qq.com");
-//        sendto.put("沈娟","2881970600@qq.com");
-//        sendto.put("陈雪芳","2850511085@qq.com");
-//        sendto.put("voice","3004275997@qq.com");
+//        sendto.put("夏慧颖","857240603@qq.com");
+//        sendto.put("赵世杰","2885072146@qq.com");
+//        sendto.put("沈娟","2885072146@qq.com");
+//        sendto.put("陈雪芳","2885072146@qq.com");
+//        sendto.put("voice","857240603@qq.com");
 //        sendto.put("未分配","857240603@qq.com");
+
+
+        sendto.put("夏慧颖","2355799969@qq.com");
+        sendto.put("赵世杰","3003669197@qq.com");
+        sendto.put("沈娟","2881970600@qq.com");
+        sendto.put("陈雪芳","2850511085@qq.com");
+        sendto.put("voice","3004275997@qq.com");
+        sendto.put("未分配","2885072146@qq.com");
 
 
         // 创建一个返回的 Map 对象
@@ -125,41 +124,81 @@ public class DailyTaskServiceImpl implements IDailyTaskService
            // 统计总共更新了多少任务
            int totalUpdatedTasks = 0;
 
-           // 对每个负责人分配20个任务
-           for (Map.Entry<String, List<DailyTask>> entry : tasksByResponsiblePerson.entrySet()) {
-               String responsiblePerson = entry.getKey();
-               List<DailyTask> tasks = entry.getValue();
+            // 对每个负责人分配任务
+            for (Map.Entry<String, List<DailyTask>> entry : tasksByResponsiblePerson.entrySet()) {
+                String responsiblePerson = entry.getKey();
+                List<DailyTask> tasks = entry.getValue();
 
-               // 随机选取20个任务
-//               Collections.shuffle(tasks);  // 打乱任务顺序
-               //将任务根据销售数量进行排序
-               // 将任务根据销售数量进行排序
-               Collections.sort(tasks, new Comparator<DailyTask>() {
-                   @Override
-                   public int compare(DailyTask task1, DailyTask task2) {
-                       try {
-                           // 将 sales 字段从 String 转换为 Integer 或 Double
-                           Integer sales1 = Integer.parseInt(task1.getSales());
-                           Integer sales2 = Integer.parseInt(task2.getSales());
-                           return Integer.compare(sales2, sales1);  // 按销售数量降序排列
-                       } catch (NumberFormatException e) {
-                           // 如果 sales 字段无法解析为数字，则认为它们相等
-                           return 0;
-                       }
-                   }
-               });
+                // 创建两个列表来分别存储上架任务和下架任务
+                List<DailyTask> shelveTasks = new ArrayList<>();
+                List<DailyTask> unshelveTasks = new ArrayList<>();
+
+                // 将任务按类型分类
+                for (DailyTask task : tasks) {
+                    if (task.getSuggestions().equals("上架")) {
+                        shelveTasks.add(task);  // 上架任务
+                    } else if (task.getSuggestions().equals("下架")) {
+                        unshelveTasks.add(task);  // 下架任务
+                    }
+                }
+
+                // 对上架任务按销量进行排序（降序）
+                Collections.sort(shelveTasks, new Comparator<DailyTask>() {
+                    @Override
+                    public int compare(DailyTask task1, DailyTask task2) {
+                        try {
+                            Integer sales1 = Integer.parseInt(task1.getSales());
+                            Integer sales2 = Integer.parseInt(task2.getSales());
+                            return Integer.compare(sales2, sales1);  // 按销量降序排列
+                        } catch (NumberFormatException e) {
+                            return 0;  // 如果无法解析销量，认为它们相等
+                        }
+                    }
+                });
+
+                // 对下架任务按销量进行排序（降序）
+                Collections.sort(unshelveTasks, new Comparator<DailyTask>() {
+                    @Override
+                    public int compare(DailyTask task1, DailyTask task2) {
+                        try {
+                            Integer sales1 = Integer.parseInt(task1.getSales());
+                            Integer sales2 = Integer.parseInt(task2.getSales());
+                            return Integer.compare(sales2, sales1);  // 按销量降序排列
+                        } catch (NumberFormatException e) {
+                            return 0;  // 如果无法解析销量，认为它们相等
+                        }
+                    }
+                });
+
+                // 从上架任务中取出前10个任务，如果不足10个则补充下架任务
+                List<DailyTask> selectedShelveTasks = shelveTasks.size() >= 10 ? shelveTasks.subList(0, 10) : shelveTasks;
+                int remainingShelveTasks = 10 - selectedShelveTasks.size();
+
+                // 如果上架任务不足10个，使用下架任务来补充
+                if (remainingShelveTasks >= 0 && !unshelveTasks.isEmpty()) {
+                    List<DailyTask> additionalUnshelveTasks = unshelveTasks.size() >= remainingShelveTasks ?
+                            unshelveTasks.subList(0, remainingShelveTasks) : unshelveTasks;
+                    selectedShelveTasks.addAll(additionalUnshelveTasks);  // 补充下架任务
+                }
+
+                // 从下架任务中取出前10个任务，如果不足10个则补充上架任务
+                List<DailyTask> selectedUnshelveTasks = unshelveTasks.size() >= 10 ? unshelveTasks.subList(0, 10) : unshelveTasks;
+                int remainingUnshelveTasks = 10 - selectedUnshelveTasks.size();
+
+                // 如果下架任务不足10个，使用上架任务来补充
+                if (remainingUnshelveTasks >= 0 && !shelveTasks.isEmpty()) {
+                    List<DailyTask> additionalShelveTasks = shelveTasks.size() >= remainingUnshelveTasks ?
+                            shelveTasks.subList(0, remainingUnshelveTasks) : shelveTasks;
+                    selectedUnshelveTasks.addAll(additionalShelveTasks);  // 补充上架任务
+                }
+
+                // 合并选中的上架任务和下架任务
+                List<DailyTask> selectedTasks = new ArrayList<>();
+                selectedTasks.addAll(selectedShelveTasks);
+                selectedTasks.addAll(selectedUnshelveTasks);
 
 
-               List<DailyTask> selectedTasks = new ArrayList<>();
 
-               int taskCount = 0;
-               for (int i = 0; i < tasks.size(); i++) {
-                   if (taskCount >= 20) {
-                       break;  // 已经选够20个任务，停止选取
-                   }
-                   selectedTasks.add(tasks.get(i));
-                   taskCount++;
-               }
                // 获取任务ID
                List<Long> taskIds = new ArrayList<>();
                for (DailyTask selectedTask : selectedTasks) {
@@ -177,7 +216,7 @@ public class DailyTaskServiceImpl implements IDailyTaskService
                // 发送邮件
                String subject = "任务分配报告 - " + taskTime;
                String body = responsiblePerson + "，\n\n请查收您的任务分配报告。";
-//               EmailUtils.sendEmailWithAttachment(sendto.get(responsiblePerson), subject, body, filePath);
+               EmailUtils.sendEmailWithAttachment(sendto.get(responsiblePerson), subject, body, filePath);
 
 
                // 更新任务的任务时间和责任人
