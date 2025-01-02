@@ -103,14 +103,36 @@ public class BcReserveWarehouse extends BaseEntity
     //@Excel(name = "外箱尺寸")
     private String boxSize;
 
-
-
     /** 重量 */
     //@Excel(name = "重量")
     private String weight;
+    /** 重量 */
+    //@Excel(name = "重量")
+    private String externalOrder;
+
+    /** 重量 */
+    //@Excel(name = "重量")
+    private String lbxOrder;
 
 
     private String sId;
+
+
+    public String getLbxOrder() {
+        return lbxOrder;
+    }
+
+    public void setLbxOrder(String lbxOrder) {
+        this.lbxOrder = lbxOrder;
+    }
+
+    public String getExternalOrder() {
+        return externalOrder;
+    }
+
+    public void setExternalOrder(String externalOrder) {
+        this.externalOrder = externalOrder;
+    }
 
     public String getUserName() {
         return userName;

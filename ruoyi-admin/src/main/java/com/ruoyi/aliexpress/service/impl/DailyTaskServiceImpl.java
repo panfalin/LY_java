@@ -217,8 +217,6 @@ public class DailyTaskServiceImpl implements IDailyTaskService
                String subject = "任务分配报告 - " + taskTime;
                String body = responsiblePerson + "，\n\n请查收您的任务分配报告。";
                EmailUtils.sendEmailWithAttachment(sendto.get(responsiblePerson), subject, body, filePath);
-
-
                // 更新任务的任务时间和责任人
                int updatedCount = dailyTaskMapper.updateDailyTaskUnfinished(params);
                // 累计更新的任务数量
