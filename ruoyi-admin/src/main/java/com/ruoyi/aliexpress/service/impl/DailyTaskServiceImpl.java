@@ -56,7 +56,6 @@ public class DailyTaskServiceImpl implements IDailyTaskService
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String taskDate = currentDate.format(formatter);
         dailyTask.setTaskTime(taskDate);
-
         return dailyTaskMapper.selectDailyTaskList(dailyTask);
     }
 

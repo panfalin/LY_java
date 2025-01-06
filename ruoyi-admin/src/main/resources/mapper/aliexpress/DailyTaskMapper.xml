@@ -18,6 +18,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="suggestions"    column="suggestions"    />
         <result property="goals"    column="goals"    />
         <result property="logs"    column="logs"    />
+        <result property="ifComplete"    column="if_complete"    />
         <result property="updateTime"    column="update_time"    />
         <result property="taskTime"    column="task_time"    />
     </resultMap>
@@ -35,6 +36,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                responsible_person,
                suggestions,
                goals,
+               if_complete,
                logs,
                update_time
         from daily_task
@@ -55,6 +57,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="suggestions != null  and suggestions != ''"> and suggestions = #{suggestions}</if>
             <if test="goals != null  and goals != ''"> and goals = #{goals}</if>
             <if test="logs != null  and logs != ''"> and logs = #{logs}</if>
+            <if test="ifComplete != null  and ifComplete != ''"> and if_complete = #{ifComplete}</if>
             <if test="taskTime != null  and taskTime != ''"> and task_time = #{taskTime}</if>
         </where>
         order by store desc, sku desc
@@ -101,6 +104,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="suggestions != null">suggestions,</if>
             <if test="goals != null">goals,</if>
             <if test="logs != null">logs,</if>
+            <if test="ifComplete != null">if_complete,</if>
             <if test="updateTime != null">update_time,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -116,6 +120,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="suggestions != null">#{suggestions},</if>
             <if test="goals != null">#{goals},</if>
             <if test="logs != null">#{logs},</if>
+            <if test="ifComplete != null">#{ifComplete},</if>
             <if test="updateTime != null">#{updateTime},</if>
          </trim>
     </insert>
@@ -134,6 +139,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="suggestions != null">suggestions = #{suggestions},</if>
             <if test="goals != null">goals = #{goals},</if>
             <if test="logs != null">logs = #{logs},</if>
+            <if test="ifComplete != null">if_complete = #{ifComplete},</if>
             <if test="updateTime != null">update_time = #{updateTime},</if>
         </trim>
         where s_id = #{sId}

@@ -69,6 +69,10 @@ public class DailyTask extends BaseEntity {
     private String goals;
 
     /** 日志记录 */
+    @Excel(name = "是否完成")
+    private String ifComplete;
+
+    /** 日志记录 */
     @Excel(name = "日志记录")
     private String logs;
 
@@ -81,6 +85,14 @@ public class DailyTask extends BaseEntity {
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Excel(name = "任务时间", width = 30, dateFormat = "yyyy-MM-dd")
     private String taskTime;
+
+    public String getIfComplete() {
+        return ifComplete;
+    }
+
+    public void setIfComplete(String ifComplete) {
+        this.ifComplete = ifComplete;
+    }
 
     public String getTaskTime() {
         return taskTime;

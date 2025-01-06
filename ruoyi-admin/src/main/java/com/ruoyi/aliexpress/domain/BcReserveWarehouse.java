@@ -92,7 +92,7 @@ public class BcReserveWarehouse extends BaseEntity
     private String box8;
 
     /** 箱号9 */
-    //@Excel(name = "箱号9")
+    @Excel(name = "箱号9",width=7)
     private String box9;
 
     /** 箱号10 */
