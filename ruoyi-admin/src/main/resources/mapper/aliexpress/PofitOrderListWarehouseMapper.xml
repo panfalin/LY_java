@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.aliexpress.mapper.PofitOrderListWarehouseMapper">
+    
+    <resultMap type="PofitOrderListWarehouse" id="PofitOrderListWarehouseResult">
+        <result property="sId"    column="s_id"    />
+        <result property="year"    column="year"    />
+        <result property="moon"    column="moon"    />
+        <result property="sku"    column="sku"    />
+        <result property="quantity"    column="quantity"    />
+        <result property="actualProfit"    column="actual_profit"    />
+        <result property="transitQuantity"    column="transit_quantity"    />
+        <result property="stockQuantity"    column="stock_quantity"    />
+        <result property="bcStockQuantity"    column="bc_stock_quantity"    />
+        <result property="bdStockQuantity"    column="bd_stock_quantity"    />
+        <result property="unshippedQuantity"    column="unshipped_quantity"    />
+        <result property="inventoryCost"    column="inventory_cost"    />
+        <result property="dailyAvgSales"    column="daily_avg_sales"    />
+        <result property="loanAmount"    column="loan_amount"    />
+        <result property="profitMargin"    column="profit_margin"    />
+        <result property="costPrice"    column="cost_price"    />
+        <result property="monthlyReturn"    column="monthly_return"    />
+        <result property="returnRate"    column="return_rate"    />
+        <result property="inventoryTurns"    column="inventory_turns"    />
+        <result property="saleDays"    column="sale_days"    />
+        <result property="skuState"    column="sku_state"    />
+        <result property="marketCapacity"    column="market_capacity"    />
+        <result property="category"    column="category"    />
+    </resultMap>
+
+    <sql id="selectPofitOrderListWarehouseVo">
+        select s_id, year, moon, sku, quantity, actual_profit, transit_quantity, stock_quantity,bd_stock_quantity,bc_stock_quantity, unshipped_quantity,inventory_cost,daily_avg_sales,loan_amount,profit_margin,cost_price,monthly_return,inventory_turns,return_rate,sale_days,sku_state,market_capacity,category from pofit_order_list_warehouse
+    </sql>
+
+    <select id="selectPofitOrderListWarehouseList" parameterType="PofitOrderListWarehouse" resultMap="PofitOrderListWarehouseResult">
+        <include refid="selectPofitOrderListWarehouseVo"/>
+        <where>  
+            <if test="year != null "> and year = #{year}</if>
+            <if test="moon != null "> and moon = #{moon}</if>
+            <if test="sku != null  and sku != ''"> and sku like concat('%', #{sku}, '%')</if>
+            <if test="quantity != null "> and quantity = #{quantity}</if>
+            <if test="actualProfit != null "> and actual_profit = #{actualProfit}</if>
+            <if test="transitQuantity != null "> and transit_quantity = #{transitQuantity}</if>
+            <if test="stockQuantity != null "> and stock_quantity = #{stockQuantity}</if>
+            <if test="unshippedQuantity != null "> and unshipped_quantity = #{unshippedQuantity}</if>
+            <if test="inventoryCost != null "> and inventory_cost = #{inventoryCost}</if>
+            <if test="dailyAvgSales != null "> and daily_avg_sales = #{dailyAvgSales}</if>
+            <if test="loanAmount != null "> and loan_amount = #{loanAmount}</if>
+            <if test="profitMargin != null "> and profit_margin = #{profitMargin}</if>
+            <if test="costPrice != null "> and cost_price = #{costPrice}</if>
+            <if test="monthlyReturn != null "> and monthly_return = #{monthlyReturn}</if>
+            <if test="inventoryTurns != null "> and inventory_turns = #{inventoryTurns}</if>
+            <if test="returnRate != null "> and return_rate = #{returnRate}</if>
+            <if test="saleDays != null "> and sale_days >= #{saleDays}</if>
+            <if test="skuState != null "> and sku_state = #{skuState}</if>
+            <if test="marketCapacity != null "> and market_capacity = #{marketCapacity}</if>
+            <if test="category != null "> and category = #{category}</if>
+        </where>
+    </select>
+    
+    <select id="selectPofitOrderListWarehouseBySId" parameterType="Long" resultMap="PofitOrderListWarehouseResult">
+        <include refid="selectPofitOrderListWarehouseVo"/>
+        where s_id = #{sId}
+    </select>
+
+    <insert id="insertPofitOrderListWarehouse" parameterType="PofitOrderListWarehouse" useGeneratedKeys="true" keyProperty="sId">
+        insert into pofit_order_list_warehouse
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="year != null">year,</if>
+            <if test="moon != null">moon,</if>
+            <if test="sku != null">sku,</if>
+            <if test="quantity != null">quantity,</if>
+            <if test="actualProfit != null">actual_profit,</if>
+            <if test="transitQuantity != null">transit_quantity,</if>
+            <if test="stockQuantity != null">stock_quantity,</if>
+            <if test="unshippedQuantity != null">unshipped_quantity,</if>
+            <if test="inventoryCost != null">inventory_cost,</if>
+            <if test="dailyAvgSales != null">daily_avg_sales,</if>
+            <if test="loanAmount != null">loan_amount,</if>
+            <if test="profitMargin != null">profit_margin,</if>
+            <if test="costPrice != null">cost_price,</if>
+            <if test="saleDays != null">sale_days,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="year != null">#{year},</if>
+            <if test="moon != null">#{moon},</if>
+            <if test="sku != null">#{sku},</if>
+            <if test="quantity != null">#{quantity},</if>
+            <if test="actualProfit != null">#{actualProfit},</if>
+            <if test="transitQuantity != null">#{transitQuantity},</if>
+            <if test="stockQuantity != null">#{stockQuantity},</if>
+            <if test="unshippedQuantity != null">#{unshippedQuantity},</if>
+            <if test="inventoryCost != null">#{inventoryCost},</if>
+            <if test="dailyAvgSales != null">#{dailyAvgSales},</if>
+            <if test="loanAmount != null">#{loanAmount},</if>
+            <if test="profitMargin != null">#{profitMargin},</if>
+            <if test="costPrice != null">#{costPrice},</if>
+            <if test="saleDays != null">#{saleDays},</if>
+         </trim>
+    </insert>
+
+    <update id="updatePofitOrderListWarehouse" parameterType="PofitOrderListWarehouse">
+        update pofit_order_list_warehouse
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="year != null">year = #{year},</if>
+            <if test="moon != null">moon = #{moon},</if>
+            <if test="sku != null">sku = #{sku},</if>
+            <if test="quantity != null">quantity = #{quantity},</if>
+            <if test="actualProfit != null">actual_profit = #{actualProfit},</if>
+            <if test="transitQuantity != null">transit_quantity = #{transitQuantity},</if>
+            <if test="stockQuantity != null">stock_quantity = #{stockQuantity},</if>
+            <if test="unshippedQuantity != null">unshipped_quantity = #{unshippedQuantity},</if>
+            <if test="inventoryCost != null">inventory_cost = #{inventoryCost},</if>
+            <if test="dailyAvgSales != null">daily_avg_sales = #{dailyAvgSales},</if>
+            <if test="loanAmount != null">loan_amount = #{loanAmount},</if>
+            <if test="profitMargin != null">profit_margin = #{profitMargin},</if>
+            <if test="costPrice != null">cost_price = #{costPrice},</if>
+            <if test="saleDays != null">sale_days = #{saleDays},</if>
+        </trim>
+        where s_id = #{sId}
+    </update>
+
+    <delete id="deletePofitOrderListWarehouseBySId" parameterType="Long">
+        delete from pofit_order_list_warehouse where s_id = #{sId}
+    </delete>
+
+    <delete id="deletePofitOrderListWarehouseBySIds" parameterType="String">
+        delete from pofit_order_list_warehouse where s_id in 
+        <foreach item="sId" collection="array" open="(" separator="," close=")">
+            #{sId}
+        </foreach>
+    </delete>
+</mapper>

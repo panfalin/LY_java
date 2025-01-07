@@ -71,7 +71,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="stockWarehouse != null  and stockWarehouse != ''"> and stock_warehouse like concat('%', #{stockWarehouse}, '%')</if>
             <if test="stockName != null  and stockName != ''"> and stock_name like concat('%', #{stockName}, '%')</if>
             <if test="userName != null  and userName != ''"> and user_name = #{userName}</if>
-
             <if test="warehousePosition != null  and warehousePosition != ''"> and warehouse_position like concat('%', #{warehouse_position}, '%')</if>
             <if test="goodsId != null  and goodsId != ''"> and goods_id like concat('%', #{goodsId}, '%')</if>
             <if test="goodsNumber != null  and goodsNumber != ''"> and goods_number like concat('%', #{goodsNumber}, '%')</if>
@@ -88,6 +87,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="box10 != null  and box10 != ''"> and box10 = #{box10}</if>
             <if test="boxSize != null  and boxSize != ''"> and box_size = #{boxSize}</if>
             <if test="weight != null  and weight != ''"> and weight = #{weight}</if>
+            <if test="lbxOrder != null  and lbxOrder != ''"> and lbx_order = #{lbxOrder}</if>
+            <if test="externalOrder != null  and externalOrder != ''"> and external_order = #{externalOrder}</if>
         </where>
         order by create_time desc
     </select>
