@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.aliexpress.mapper.OperationStoreManagerMapper">
+    
+    <resultMap type="OperationStoreManager" id="OperationStoreManagerResult">
+        <result property="sId"    column="s_id"    />
+        <result property="operatingId"    column="operating_id"    />
+        <result property="checkContent"    column="check_content"    />
+        <result property="operationContent"    column="operation_content"    />
+        <result property="date"    column="date"    />
+        <result property="analyze"    column="analyze"    />
+        <result property="result"    column="result"    />
+        <result property="shopName"    column="shop_name"    />
+        <result property="createTime"    column="create_time"    />
+    </resultMap>
+
+    <sql id="selectOperationStoreManagerVo">
+        select s_id, operating_id, check_content, operation_content, date, `analyze`, result, shop_name, create_time from operation_store_manager
+    </sql>
+
+    <select id="selectOperationStoreManagerList" parameterType="OperationStoreManager" resultMap="OperationStoreManagerResult">
+        <include refid="selectOperationStoreManagerVo"/>
+        <where>  
+            <if test="operatingId != null  and operatingId != ''"> and operating_id = #{operatingId}</if>
+            <if test="checkContent != null  and checkContent != ''"> and check_content like concat('%', #{checkContent}, '%')</if>
+            <if test="operationContent != null  and operationContent != ''"> and operation_content like concat('%', #{operationContent}, '%')</if>
+            <if test="date != null "> and date = #{date}</if>
+            <if test="analyze != null  and analyze != ''"> and analyze = #{analyze}</if>
+            <if test="result != null  and result != ''"> and result = #{result}</if>
+            <if test="shopName != null  and shopName != ''"> and shop_name like concat('%', #{shopName}, '%')</if>
+        </where>
+    </select>
+    
+    <select id="selectOperationStoreManagerBySId" parameterType="Long" resultMap="OperationStoreManagerResult">
+        <include refid="selectOperationStoreManagerVo"/>
+        where s_id = #{sId}
+    </select>
+
+    <insert id="insertOperationStoreManager" parameterType="OperationStoreManager" useGeneratedKeys="true" keyProperty="sId">
+        insert into operation_store_manager
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="operatingId != null">operating_id,</if>
+            <if test="checkContent != null">check_content,</if>
+            <if test="operationContent != null">operation_content,</if>
+            <if test="date != null">date,</if>
+            <if test="analyze != null">analyze,</if>
+            <if test="result != null">result,</if>
+            <if test="shopName != null">shop_name,</if>
+            <if test="createTime != null">create_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="operatingId != null">#{operatingId},</if>
+            <if test="checkContent != null">#{checkContent},</if>
+            <if test="operationContent != null">#{operationContent},</if>
+            <if test="date != null">#{date},</if>
+            <if test="analyze != null">#{analyze},</if>
+            <if test="result != null">#{result},</if>
+            <if test="shopName != null">#{shopName},</if>
+            <if test="createTime != null">#{createTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateOperationStoreManager" parameterType="OperationStoreManager">
+        update operation_store_manager
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="operatingId != null">operating_id = #{operatingId},</if>
+            <if test="checkContent != null">check_content = #{checkContent},</if>
+            <if test="operationContent != null">operation_content = #{operationContent},</if>
+            <if test="date != null">date = #{date},</if>
+            <if test="analyze != null">analyze = #{analyze},</if>
+            <if test="result != null">result = #{result},</if>
+            <if test="shopName != null">shop_name = #{shopName},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+        </trim>
+        where s_id = #{sId}
+    </update>
+
+    <delete id="deleteOperationStoreManagerBySId" parameterType="Long">
+        delete from operation_store_manager where s_id = #{sId}
+    </delete>
+
+    <delete id="deleteOperationStoreManagerBySIds" parameterType="String">
+        delete from operation_store_manager where s_id in 
+        <foreach item="sId" collection="array" open="(" separator="," close=")">
+            #{sId}
+        </foreach>
+    </delete>
+</mapper>

@@ -7,12 +7,12 @@ import com.ruoyi.common.annotation.Excel;
 import com.ruoyi.common.core.domain.BaseEntity;
 
 /**
- * 马帮后台导出金额订单数据对象 pofit_order_list_warehouse_category
+ * 马帮后台导出金额订单数据对象 pofit_order_list_warehouse_store_name
  * 
  * @author ruoyi
- * @date 2025-01-08
+ * @date 2025-01-09
  */
-public class PofitOrderListWarehouseCategory extends BaseEntity
+public class PofitOrderListWarehouseStoreName extends BaseEntity
 {
     private static final long serialVersionUID = 1L;
 
@@ -26,6 +26,10 @@ public class PofitOrderListWarehouseCategory extends BaseEntity
     /** 月份 */
     @Excel(name = "月份")
     private Long moon;
+
+    /** 店铺名称 */
+    @Excel(name = "店铺名称")
+    private String storeName;
 
     /** SKU */
     @Excel(name = "SKU")
@@ -107,231 +111,87 @@ public class PofitOrderListWarehouseCategory extends BaseEntity
     @Excel(name = "市场容量")
     private BigDecimal marketCapacity;
 
-    /** 市场容量 */
+    /** POP实际利润 */
     @Excel(name = "POP实际利润")
     private BigDecimal actualProfitPop;
-    /** 市场容量 */
+
+    /** POP销售数量 */
     @Excel(name = "POP销售数量")
-    private BigDecimal quantityPop;
-    /** 市场容量 */
+    private Long quantityPop;
+
+    /** POP销售金额 */
     @Excel(name = "POP销售金额")
     private BigDecimal loanAmountPop;
 
+    /** POP利润率 */
     @Excel(name = "POP利润率")
     private BigDecimal profitMarginPop;
 
-    /** 市场容量 */
+    /** 半托管-JIT实际利润 */
     @Excel(name = "半托管-JIT实际利润")
     private BigDecimal actualProfitJitHalf;
-    /** 市场容量 */
+
+    /** 半托管-JIT销售数量 */
     @Excel(name = "半托管-JIT销售数量")
-    private BigDecimal quantityJitHalf;
-    /** 市场容量 */
+    private Long quantityJitHalf;
+
+    /** 半托管-JIT销售金额 */
     @Excel(name = "半托管-JIT销售金额")
     private BigDecimal loanAmountJitHalf;
 
+    /** 半托管-JIT利润率 */
     @Excel(name = "半托管-JIT利润率")
     private BigDecimal profitMarginJitHalf;
 
-
-    /** 市场容量 */
+    /** 半托管-仓发实际利润 */
     @Excel(name = "半托管-仓发实际利润")
     private BigDecimal actualProfitWarehouseHalf;
-    /** 市场容量 */
+
+    /** 半托管-仓发销售数量 */
     @Excel(name = "半托管-仓发销售数量")
-    private BigDecimal quantityWarehouseHalf;
-    /** 市场容量 */
+    private Long quantityWarehouseHalf;
+
+    /** 半托管-仓发销售金额 */
     @Excel(name = "半托管-仓发销售金额")
     private BigDecimal loanAmountWarehouseHalf;
+
+    /** 半托管-仓发利润率 */
     @Excel(name = "半托管-仓发利润率")
     private BigDecimal profitMarginWarehouseHalf;
 
-    /** 市场容量 */
+    /** 全托管-JIT实际利润 */
     @Excel(name = "全托管-JIT实际利润")
     private BigDecimal actualProfitAllJit;
-    /** 市场容量 */
+
+    /** 全托管-JIT销售数量 */
     @Excel(name = "全托管-JIT销售数量")
-    private BigDecimal quantityAllJit;
-    /** 市场容量 */
+    private Long quantityAllJit;
+
+    /** 全托管-JIT销售金额 */
     @Excel(name = "全托管-JIT销售金额")
     private BigDecimal loanAmountAllJit;
+
+    /** 全托管-JIT利润率 */
     @Excel(name = "全托管-JIT利润率")
     private BigDecimal profitMarginAllJit;
 
-
-    /** 市场容量 */
+    /** 全托管-仓发实际利润 */
     @Excel(name = "全托管-仓发实际利润")
     private BigDecimal actualProfitAllWarehouse;
-    /** 市场容量 */
+
+    /** 全托管-仓发销售数量 */
     @Excel(name = "全托管-仓发销售数量")
-    private BigDecimal quantityAllWarehouse;
-    /** 市场容量 */
+    private Long quantityAllWarehouse;
+
+    /** 全托管-仓发销售金额 */
     @Excel(name = "全托管-仓发销售金额")
     private BigDecimal loanAmountAllWarehouse;
+
+    /** 全托管-仓发利润率 */
     @Excel(name = "全托管-仓发利润率")
     private BigDecimal profitMarginAllWarehouse;
 
-    public BigDecimal getProfitMarginPop() {
-        return profitMarginPop;
-    }
-
-    public void setProfitMarginPop(BigDecimal profitMarginPop) {
-        this.profitMarginPop = profitMarginPop;
-    }
-
-    public BigDecimal getProfitMarginJitHalf() {
-        return profitMarginJitHalf;
-    }
-
-    public void setProfitMarginJitHalf(BigDecimal profitMarginJitHalf) {
-        this.profitMarginJitHalf = profitMarginJitHalf;
-    }
-
-    public BigDecimal getProfitMarginWarehouseHalf() {
-        return profitMarginWarehouseHalf;
-    }
-
-    public void setProfitMarginWarehouseHalf(BigDecimal profitMarginWarehouseHalf) {
-        this.profitMarginWarehouseHalf = profitMarginWarehouseHalf;
-    }
-
-    public BigDecimal getProfitMarginAllJit() {
-        return profitMarginAllJit;
-    }
-
-    public void setProfitMarginAllJit(BigDecimal profitMarginAllJit) {
-        this.profitMarginAllJit = profitMarginAllJit;
-    }
-
-    public BigDecimal getProfitMarginAllWarehouse() {
-        return profitMarginAllWarehouse;
-    }
-
-    public void setProfitMarginAllWarehouse(BigDecimal profitMarginAllWarehouse) {
-        this.profitMarginAllWarehouse = profitMarginAllWarehouse;
-    }
-
-    public BigDecimal getActualProfitPop() {
-        return actualProfitPop;
-    }
-
-    public void setActualProfitPop(BigDecimal actualProfitPop) {
-        this.actualProfitPop = actualProfitPop;
-    }
-
-    public BigDecimal getQuantityPop() {
-        return quantityPop;
-    }
-
-    public void setQuantityPop(BigDecimal quantityPop) {
-        this.quantityPop = quantityPop;
-    }
-
-    public BigDecimal getLoanAmountPop() {
-        return loanAmountPop;
-    }
-
-    public void setLoanAmountPop(BigDecimal loanAmountPop) {
-        this.loanAmountPop = loanAmountPop;
-    }
-
-    public BigDecimal getActualProfitJitHalf() {
-        return actualProfitJitHalf;
-    }
-
-    public void setActualProfitJitHalf(BigDecimal actualProfitJitHalf) {
-        this.actualProfitJitHalf = actualProfitJitHalf;
-    }
-
-    public BigDecimal getQuantityJitHalf() {
-        return quantityJitHalf;
-    }
-
-    public void setQuantityJitHalf(BigDecimal quantityJitHalf) {
-        this.quantityJitHalf = quantityJitHalf;
-    }
-
-    public BigDecimal getLoanAmountJitHalf() {
-        return loanAmountJitHalf;
-    }
-
-    public void setLoanAmountJitHalf(BigDecimal loanAmountJitHalf) {
-        this.loanAmountJitHalf = loanAmountJitHalf;
-    }
-
-    public BigDecimal getActualProfitWarehouseHalf() {
-        return actualProfitWarehouseHalf;
-    }
-
-    public void setActualProfitWarehouseHalf(BigDecimal actualProfitWarehouseHalf) {
-        this.actualProfitWarehouseHalf = actualProfitWarehouseHalf;
-    }
-
-    public BigDecimal getQuantityWarehouseHalf() {
-        return quantityWarehouseHalf;
-    }
-
-    public void setQuantityWarehouseHalf(BigDecimal quantityWarehouseHalf) {
-        this.quantityWarehouseHalf = quantityWarehouseHalf;
-    }
-
-    public BigDecimal getLoanAmountWarehouseHalf() {
-        return loanAmountWarehouseHalf;
-    }
-
-    public void setLoanAmountWarehouseHalf(BigDecimal loanAmountWarehouseHalf) {
-        this.loanAmountWarehouseHalf = loanAmountWarehouseHalf;
-    }
-
-    public BigDecimal getActualProfitAllJit() {
-        return actualProfitAllJit;
-    }
-
-    public void setActualProfitAllJit(BigDecimal actualProfitAllJit) {
-        this.actualProfitAllJit = actualProfitAllJit;
-    }
-
-    public BigDecimal getQuantityAllJit() {
-        return quantityAllJit;
-    }
-
-    public void setQuantityAllJit(BigDecimal quantityAllJit) {
-        this.quantityAllJit = quantityAllJit;
-    }
-
-    public BigDecimal getLoanAmountAllJit() {
-        return loanAmountAllJit;
-    }
-
-    public void setLoanAmountAllJit(BigDecimal loanAmountAllJit) {
-        this.loanAmountAllJit = loanAmountAllJit;
-    }
-
-    public BigDecimal getActualProfitAllWarehouse() {
-        return actualProfitAllWarehouse;
-    }
-
-    public void setActualProfitAllWarehouse(BigDecimal actualProfitAllWarehouse) {
-        this.actualProfitAllWarehouse = actualProfitAllWarehouse;
-    }
-
-    public BigDecimal getQuantityAllWarehouse() {
-        return quantityAllWarehouse;
-    }
-
-    public void setQuantityAllWarehouse(BigDecimal quantityAllWarehouse) {
-        this.quantityAllWarehouse = quantityAllWarehouse;
-    }
-
-    public BigDecimal getLoanAmountAllWarehouse() {
-        return loanAmountAllWarehouse;
-    }
-
-    public void setLoanAmountAllWarehouse(BigDecimal loanAmountAllWarehouse) {
-        this.loanAmountAllWarehouse = loanAmountAllWarehouse;
-    }
-
-    public void setsId(Long sId)
+    public void setsId(Long sId) 
     {
         this.sId = sId;
     }
@@ -357,6 +217,15 @@ public class PofitOrderListWarehouseCategory extends BaseEntity
     public Long getMoon() 
     {
         return moon;
+    }
+    public void setStoreName(String storeName) 
+    {
+        this.storeName = storeName;
+    }
+
+    public String getStoreName() 
+    {
+        return storeName;
     }
     public void setSku(String sku) 
     {
@@ -538,6 +407,186 @@ public class PofitOrderListWarehouseCategory extends BaseEntity
     {
         return marketCapacity;
     }
+    public void setActualProfitPop(BigDecimal actualProfitPop) 
+    {
+        this.actualProfitPop = actualProfitPop;
+    }
+
+    public BigDecimal getActualProfitPop() 
+    {
+        return actualProfitPop;
+    }
+    public void setQuantityPop(Long quantityPop) 
+    {
+        this.quantityPop = quantityPop;
+    }
+
+    public Long getQuantityPop() 
+    {
+        return quantityPop;
+    }
+    public void setLoanAmountPop(BigDecimal loanAmountPop) 
+    {
+        this.loanAmountPop = loanAmountPop;
+    }
+
+    public BigDecimal getLoanAmountPop() 
+    {
+        return loanAmountPop;
+    }
+    public void setProfitMarginPop(BigDecimal profitMarginPop) 
+    {
+        this.profitMarginPop = profitMarginPop;
+    }
+
+    public BigDecimal getProfitMarginPop() 
+    {
+        return profitMarginPop;
+    }
+    public void setActualProfitJitHalf(BigDecimal actualProfitJitHalf) 
+    {
+        this.actualProfitJitHalf = actualProfitJitHalf;
+    }
+
+    public BigDecimal getActualProfitJitHalf() 
+    {
+        return actualProfitJitHalf;
+    }
+    public void setQuantityJitHalf(Long quantityJitHalf) 
+    {
+        this.quantityJitHalf = quantityJitHalf;
+    }
+
+    public Long getQuantityJitHalf() 
+    {
+        return quantityJitHalf;
+    }
+    public void setLoanAmountJitHalf(BigDecimal loanAmountJitHalf) 
+    {
+        this.loanAmountJitHalf = loanAmountJitHalf;
+    }
+
+    public BigDecimal getLoanAmountJitHalf() 
+    {
+        return loanAmountJitHalf;
+    }
+    public void setProfitMarginJitHalf(BigDecimal profitMarginJitHalf) 
+    {
+        this.profitMarginJitHalf = profitMarginJitHalf;
+    }
+
+    public BigDecimal getProfitMarginJitHalf() 
+    {
+        return profitMarginJitHalf;
+    }
+    public void setActualProfitWarehouseHalf(BigDecimal actualProfitWarehouseHalf) 
+    {
+        this.actualProfitWarehouseHalf = actualProfitWarehouseHalf;
+    }
+
+    public BigDecimal getActualProfitWarehouseHalf() 
+    {
+        return actualProfitWarehouseHalf;
+    }
+    public void setQuantityWarehouseHalf(Long quantityWarehouseHalf) 
+    {
+        this.quantityWarehouseHalf = quantityWarehouseHalf;
+    }
+
+    public Long getQuantityWarehouseHalf() 
+    {
+        return quantityWarehouseHalf;
+    }
+    public void setLoanAmountWarehouseHalf(BigDecimal loanAmountWarehouseHalf) 
+    {
+        this.loanAmountWarehouseHalf = loanAmountWarehouseHalf;
+    }
+
+    public BigDecimal getLoanAmountWarehouseHalf() 
+    {
+        return loanAmountWarehouseHalf;
+    }
+    public void setProfitMarginWarehouseHalf(BigDecimal profitMarginWarehouseHalf) 
+    {
+        this.profitMarginWarehouseHalf = profitMarginWarehouseHalf;
+    }
+
+    public BigDecimal getProfitMarginWarehouseHalf() 
+    {
+        return profitMarginWarehouseHalf;
+    }
+    public void setActualProfitAllJit(BigDecimal actualProfitAllJit) 
+    {
+        this.actualProfitAllJit = actualProfitAllJit;
+    }
+
+    public BigDecimal getActualProfitAllJit() 
+    {
+        return actualProfitAllJit;
+    }
+    public void setQuantityAllJit(Long quantityAllJit) 
+    {
+        this.quantityAllJit = quantityAllJit;
+    }
+
+    public Long getQuantityAllJit() 
+    {
+        return quantityAllJit;
+    }
+    public void setLoanAmountAllJit(BigDecimal loanAmountAllJit) 
+    {
+        this.loanAmountAllJit = loanAmountAllJit;
+    }
+
+    public BigDecimal getLoanAmountAllJit() 
+    {
+        return loanAmountAllJit;
+    }
+    public void setProfitMarginAllJit(BigDecimal profitMarginAllJit) 
+    {
+        this.profitMarginAllJit = profitMarginAllJit;
+    }
+
+    public BigDecimal getProfitMarginAllJit() 
+    {
+        return profitMarginAllJit;
+    }
+    public void setActualProfitAllWarehouse(BigDecimal actualProfitAllWarehouse) 
+    {
+        this.actualProfitAllWarehouse = actualProfitAllWarehouse;
+    }
+
+    public BigDecimal getActualProfitAllWarehouse() 
+    {
+        return actualProfitAllWarehouse;
+    }
+    public void setQuantityAllWarehouse(Long quantityAllWarehouse) 
+    {
+        this.quantityAllWarehouse = quantityAllWarehouse;
+    }
+
+    public Long getQuantityAllWarehouse() 
+    {
+        return quantityAllWarehouse;
+    }
+    public void setLoanAmountAllWarehouse(BigDecimal loanAmountAllWarehouse) 
+    {
+        this.loanAmountAllWarehouse = loanAmountAllWarehouse;
+    }
+
+    public BigDecimal getLoanAmountAllWarehouse() 
+    {
+        return loanAmountAllWarehouse;
+    }
+    public void setProfitMarginAllWarehouse(BigDecimal profitMarginAllWarehouse) 
+    {
+        this.profitMarginAllWarehouse = profitMarginAllWarehouse;
+    }
+
+    public BigDecimal getProfitMarginAllWarehouse() 
+    {
+        return profitMarginAllWarehouse;
+    }
 
     @Override
     public String toString() {
@@ -545,6 +594,7 @@ public class PofitOrderListWarehouseCategory extends BaseEntity
             .append("sId", getsId())
             .append("year", getYear())
             .append("moon", getMoon())
+            .append("storeName", getStoreName())
             .append("sku", getSku())
             .append("skuState", getSkuState())
             .append("category", getCategory())
@@ -565,6 +615,26 @@ public class PofitOrderListWarehouseCategory extends BaseEntity
             .append("inventoryTurns", getInventoryTurns())
             .append("returnRate", getReturnRate())
             .append("marketCapacity", getMarketCapacity())
+            .append("actualProfitPop", getActualProfitPop())
+            .append("quantityPop", getQuantityPop())
+            .append("loanAmountPop", getLoanAmountPop())
+            .append("profitMarginPop", getProfitMarginPop())
+            .append("actualProfitJitHalf", getActualProfitJitHalf())
+            .append("quantityJitHalf", getQuantityJitHalf())
+            .append("loanAmountJitHalf", getLoanAmountJitHalf())
+            .append("profitMarginJitHalf", getProfitMarginJitHalf())
+            .append("actualProfitWarehouseHalf", getActualProfitWarehouseHalf())
+            .append("quantityWarehouseHalf", getQuantityWarehouseHalf())
+            .append("loanAmountWarehouseHalf", getLoanAmountWarehouseHalf())
+            .append("profitMarginWarehouseHalf", getProfitMarginWarehouseHalf())
+            .append("actualProfitAllJit", getActualProfitAllJit())
+            .append("quantityAllJit", getQuantityAllJit())
+            .append("loanAmountAllJit", getLoanAmountAllJit())
+            .append("profitMarginAllJit", getProfitMarginAllJit())
+            .append("actualProfitAllWarehouse", getActualProfitAllWarehouse())
+            .append("quantityAllWarehouse", getQuantityAllWarehouse())
+            .append("loanAmountAllWarehouse", getLoanAmountAllWarehouse())
+            .append("profitMarginAllWarehouse", getProfitMarginAllWarehouse())
             .toString();
     }
 }

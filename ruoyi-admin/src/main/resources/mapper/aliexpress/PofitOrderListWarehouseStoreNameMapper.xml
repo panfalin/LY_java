@@ -2,12 +2,13 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ruoyi.aliexpress.mapper.PofitOrderListWarehouseCategoryMapper">
+<mapper namespace="com.ruoyi.aliexpress.mapper.PofitOrderListWarehouseStoreNameMapper">
     
-    <resultMap type="PofitOrderListWarehouseCategory" id="PofitOrderListWarehouseCategoryResult">
+    <resultMap type="PofitOrderListWarehouseStoreName" id="PofitOrderListWarehouseStoreNameResult">
         <result property="sId"    column="s_id"    />
         <result property="year"    column="year"    />
         <result property="moon"    column="moon"    />
+        <result property="storeName"    column="store_name"    />
         <result property="sku"    column="sku"    />
         <result property="skuState"    column="sku_state"    />
         <result property="category"    column="category"    />
@@ -50,60 +51,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="profitMarginAllWarehouse"    column="profit_margin_all_warehouse"    />
     </resultMap>
 
-    <sql id="selectPofitOrderListWarehouseCategoryVo">
-        SELECT
-            s_id,
-            year,
-            moon,
-            sku,
-            sku_state,
-            category,
-            quantity,
-            actual_profit,
-            transit_quantity,
-            stock_quantity,
-            bd_stock_quantity,
-            bc_stock_quantity,
-            unshipped_quantity,
-            inventory_cost,
-            daily_avg_sales,
-            loan_amount,
-            profit_margin,
-            cost_price,
-            sale_days,
-            monthly_return,
-            inventory_turns,
-            return_rate,
-            market_capacity,
-            actual_profit_pop,
-            quantity_pop,
-            loan_amount_pop,
-            profit_margin_pop,
-            actual_profit_jit_half,
-            quantity_jit_half,
-            loan_amount_jit_half,
-            profit_margin_jit_half,
-            actual_profit_warehouse_half,
-            quantity_warehouse_half,
-            loan_amount_warehouse_half,
-            profit_margin_warehouse_half,
-            actual_profit_all_jit,
-            quantity_all_jit,
-            loan_amount_all_jit,
-            profit_margin_all_jit,
-            actual_profit_all_warehouse,
-            quantity_all_warehouse,
-            loan_amount_all_warehouse,
-            profit_margin_all_warehouse
-        FROM
-            pofit_order_list_warehouse_category
+    <sql id="selectPofitOrderListWarehouseStoreNameVo">
+        select s_id, year, moon, store_name, sku, sku_state, category, quantity, actual_profit, transit_quantity, stock_quantity, bd_stock_quantity, bc_stock_quantity, unshipped_quantity, inventory_cost, daily_avg_sales, loan_amount, profit_margin, cost_price, sale_days, monthly_return, inventory_turns, return_rate, market_capacity, actual_profit_pop, quantity_pop, loan_amount_pop, profit_margin_pop, actual_profit_jit_half, quantity_jit_half, loan_amount_jit_half, profit_margin_jit_half, actual_profit_warehouse_half, quantity_warehouse_half, loan_amount_warehouse_half, profit_margin_warehouse_half, actual_profit_all_jit, quantity_all_jit, loan_amount_all_jit, profit_margin_all_jit, actual_profit_all_warehouse, quantity_all_warehouse, loan_amount_all_warehouse, profit_margin_all_warehouse from pofit_order_list_warehouse_store_name
     </sql>
 
-    <select id="selectPofitOrderListWarehouseCategoryList" parameterType="PofitOrderListWarehouseCategory" resultMap="PofitOrderListWarehouseCategoryResult">
-        <include refid="selectPofitOrderListWarehouseCategoryVo"/>
+    <select id="selectPofitOrderListWarehouseStoreNameList" parameterType="PofitOrderListWarehouseStoreName" resultMap="PofitOrderListWarehouseStoreNameResult">
+        <include refid="selectPofitOrderListWarehouseStoreNameVo"/>
         <where>  
             <if test="year != null "> and year = #{year}</if>
             <if test="moon != null "> and moon = #{moon}</if>
+            <if test="storeName != null  and storeName != ''"> and store_name like concat('%', #{storeName}, '%')</if>
             <if test="sku != null  and sku != ''"> and sku = #{sku}</if>
             <if test="skuState != null  and skuState != ''"> and sku_state = #{skuState}</if>
             <if test="category != null  and category != ''"> and category = #{category}</if>
@@ -124,19 +81,40 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="inventoryTurns != null "> and inventory_turns = #{inventoryTurns}</if>
             <if test="returnRate != null "> and return_rate = #{returnRate}</if>
             <if test="marketCapacity != null "> and market_capacity = #{marketCapacity}</if>
+            <if test="actualProfitPop != null "> and actual_profit_pop = #{actualProfitPop}</if>
+            <if test="quantityPop != null "> and quantity_pop = #{quantityPop}</if>
+            <if test="loanAmountPop != null "> and loan_amount_pop = #{loanAmountPop}</if>
+            <if test="profitMarginPop != null "> and profit_margin_pop = #{profitMarginPop}</if>
+            <if test="actualProfitJitHalf != null "> and actual_profit_jit_half = #{actualProfitJitHalf}</if>
+            <if test="quantityJitHalf != null "> and quantity_jit_half = #{quantityJitHalf}</if>
+            <if test="loanAmountJitHalf != null "> and loan_amount_jit_half = #{loanAmountJitHalf}</if>
+            <if test="profitMarginJitHalf != null "> and profit_margin_jit_half = #{profitMarginJitHalf}</if>
+            <if test="actualProfitWarehouseHalf != null "> and actual_profit_warehouse_half = #{actualProfitWarehouseHalf}</if>
+            <if test="quantityWarehouseHalf != null "> and quantity_warehouse_half = #{quantityWarehouseHalf}</if>
+            <if test="loanAmountWarehouseHalf != null "> and loan_amount_warehouse_half = #{loanAmountWarehouseHalf}</if>
+            <if test="profitMarginWarehouseHalf != null "> and profit_margin_warehouse_half = #{profitMarginWarehouseHalf}</if>
+            <if test="actualProfitAllJit != null "> and actual_profit_all_jit = #{actualProfitAllJit}</if>
+            <if test="quantityAllJit != null "> and quantity_all_jit = #{quantityAllJit}</if>
+            <if test="loanAmountAllJit != null "> and loan_amount_all_jit = #{loanAmountAllJit}</if>
+            <if test="profitMarginAllJit != null "> and profit_margin_all_jit = #{profitMarginAllJit}</if>
+            <if test="actualProfitAllWarehouse != null "> and actual_profit_all_warehouse = #{actualProfitAllWarehouse}</if>
+            <if test="quantityAllWarehouse != null "> and quantity_all_warehouse = #{quantityAllWarehouse}</if>
+            <if test="loanAmountAllWarehouse != null "> and loan_amount_all_warehouse = #{loanAmountAllWarehouse}</if>
+            <if test="profitMarginAllWarehouse != null "> and profit_margin_all_warehouse = #{profitMarginAllWarehouse}</if>
         </where>
     </select>
     
-    <select id="selectPofitOrderListWarehouseCategoryBySId" parameterType="Long" resultMap="PofitOrderListWarehouseCategoryResult">
-        <include refid="selectPofitOrderListWarehouseCategoryVo"/>
+    <select id="selectPofitOrderListWarehouseStoreNameBySId" parameterType="Long" resultMap="PofitOrderListWarehouseStoreNameResult">
+        <include refid="selectPofitOrderListWarehouseStoreNameVo"/>
         where s_id = #{sId}
     </select>
 
-    <insert id="insertPofitOrderListWarehouseCategory" parameterType="PofitOrderListWarehouseCategory" useGeneratedKeys="true" keyProperty="sId">
-        insert into pofit_order_list_warehouse_category
+    <insert id="insertPofitOrderListWarehouseStoreName" parameterType="PofitOrderListWarehouseStoreName" useGeneratedKeys="true" keyProperty="sId">
+        insert into pofit_order_list_warehouse_store_name
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="year != null">year,</if>
             <if test="moon != null">moon,</if>
+            <if test="storeName != null">store_name,</if>
             <if test="sku != null">sku,</if>
             <if test="skuState != null">sku_state,</if>
             <if test="category != null">category,</if>
@@ -157,10 +135,31 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="inventoryTurns != null">inventory_turns,</if>
             <if test="returnRate != null">return_rate,</if>
             <if test="marketCapacity != null">market_capacity,</if>
+            <if test="actualProfitPop != null">actual_profit_pop,</if>
+            <if test="quantityPop != null">quantity_pop,</if>
+            <if test="loanAmountPop != null">loan_amount_pop,</if>
+            <if test="profitMarginPop != null">profit_margin_pop,</if>
+            <if test="actualProfitJitHalf != null">actual_profit_jit_half,</if>
+            <if test="quantityJitHalf != null">quantity_jit_half,</if>
+            <if test="loanAmountJitHalf != null">loan_amount_jit_half,</if>
+            <if test="profitMarginJitHalf != null">profit_margin_jit_half,</if>
+            <if test="actualProfitWarehouseHalf != null">actual_profit_warehouse_half,</if>
+            <if test="quantityWarehouseHalf != null">quantity_warehouse_half,</if>
+            <if test="loanAmountWarehouseHalf != null">loan_amount_warehouse_half,</if>
+            <if test="profitMarginWarehouseHalf != null">profit_margin_warehouse_half,</if>
+            <if test="actualProfitAllJit != null">actual_profit_all_jit,</if>
+            <if test="quantityAllJit != null">quantity_all_jit,</if>
+            <if test="loanAmountAllJit != null">loan_amount_all_jit,</if>
+            <if test="profitMarginAllJit != null">profit_margin_all_jit,</if>
+            <if test="actualProfitAllWarehouse != null">actual_profit_all_warehouse,</if>
+            <if test="quantityAllWarehouse != null">quantity_all_warehouse,</if>
+            <if test="loanAmountAllWarehouse != null">loan_amount_all_warehouse,</if>
+            <if test="profitMarginAllWarehouse != null">profit_margin_all_warehouse,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="year != null">#{year},</if>
             <if test="moon != null">#{moon},</if>
+            <if test="storeName != null">#{storeName},</if>
             <if test="sku != null">#{sku},</if>
             <if test="skuState != null">#{skuState},</if>
             <if test="category != null">#{category},</if>
@@ -181,14 +180,35 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="inventoryTurns != null">#{inventoryTurns},</if>
             <if test="returnRate != null">#{returnRate},</if>
             <if test="marketCapacity != null">#{marketCapacity},</if>
+            <if test="actualProfitPop != null">#{actualProfitPop},</if>
+            <if test="quantityPop != null">#{quantityPop},</if>
+            <if test="loanAmountPop != null">#{loanAmountPop},</if>
+            <if test="profitMarginPop != null">#{profitMarginPop},</if>
+            <if test="actualProfitJitHalf != null">#{actualProfitJitHalf},</if>
+            <if test="quantityJitHalf != null">#{quantityJitHalf},</if>
+            <if test="loanAmountJitHalf != null">#{loanAmountJitHalf},</if>
+            <if test="profitMarginJitHalf != null">#{profitMarginJitHalf},</if>
+            <if test="actualProfitWarehouseHalf != null">#{actualProfitWarehouseHalf},</if>
+            <if test="quantityWarehouseHalf != null">#{quantityWarehouseHalf},</if>
+            <if test="loanAmountWarehouseHalf != null">#{loanAmountWarehouseHalf},</if>
+            <if test="profitMarginWarehouseHalf != null">#{profitMarginWarehouseHalf},</if>
+            <if test="actualProfitAllJit != null">#{actualProfitAllJit},</if>
+            <if test="quantityAllJit != null">#{quantityAllJit},</if>
+            <if test="loanAmountAllJit != null">#{loanAmountAllJit},</if>
+            <if test="profitMarginAllJit != null">#{profitMarginAllJit},</if>
+            <if test="actualProfitAllWarehouse != null">#{actualProfitAllWarehouse},</if>
+            <if test="quantityAllWarehouse != null">#{quantityAllWarehouse},</if>
+            <if test="loanAmountAllWarehouse != null">#{loanAmountAllWarehouse},</if>
+            <if test="profitMarginAllWarehouse != null">#{profitMarginAllWarehouse},</if>
          </trim>
     </insert>
 
-    <update id="updatePofitOrderListWarehouseCategory" parameterType="PofitOrderListWarehouseCategory">
-        update pofit_order_list_warehouse_category
+    <update id="updatePofitOrderListWarehouseStoreName" parameterType="PofitOrderListWarehouseStoreName">
+        update pofit_order_list_warehouse_store_name
         <trim prefix="SET" suffixOverrides=",">
             <if test="year != null">year = #{year},</if>
             <if test="moon != null">moon = #{moon},</if>
+            <if test="storeName != null">store_name = #{storeName},</if>
             <if test="sku != null">sku = #{sku},</if>
             <if test="skuState != null">sku_state = #{skuState},</if>
             <if test="category != null">category = #{category},</if>
@@ -209,16 +229,36 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="inventoryTurns != null">inventory_turns = #{inventoryTurns},</if>
             <if test="returnRate != null">return_rate = #{returnRate},</if>
             <if test="marketCapacity != null">market_capacity = #{marketCapacity},</if>
+            <if test="actualProfitPop != null">actual_profit_pop = #{actualProfitPop},</if>
+            <if test="quantityPop != null">quantity_pop = #{quantityPop},</if>
+            <if test="loanAmountPop != null">loan_amount_pop = #{loanAmountPop},</if>
+            <if test="profitMarginPop != null">profit_margin_pop = #{profitMarginPop},</if>
+            <if test="actualProfitJitHalf != null">actual_profit_jit_half = #{actualProfitJitHalf},</if>
+            <if test="quantityJitHalf != null">quantity_jit_half = #{quantityJitHalf},</if>
+            <if test="loanAmountJitHalf != null">loan_amount_jit_half = #{loanAmountJitHalf},</if>
+            <if test="profitMarginJitHalf != null">profit_margin_jit_half = #{profitMarginJitHalf},</if>
+            <if test="actualProfitWarehouseHalf != null">actual_profit_warehouse_half = #{actualProfitWarehouseHalf},</if>
+            <if test="quantityWarehouseHalf != null">quantity_warehouse_half = #{quantityWarehouseHalf},</if>
+            <if test="loanAmountWarehouseHalf != null">loan_amount_warehouse_half = #{loanAmountWarehouseHalf},</if>
+            <if test="profitMarginWarehouseHalf != null">profit_margin_warehouse_half = #{profitMarginWarehouseHalf},</if>
+            <if test="actualProfitAllJit != null">actual_profit_all_jit = #{actualProfitAllJit},</if>
+            <if test="quantityAllJit != null">quantity_all_jit = #{quantityAllJit},</if>
+            <if test="loanAmountAllJit != null">loan_amount_all_jit = #{loanAmountAllJit},</if>
+            <if test="profitMarginAllJit != null">profit_margin_all_jit = #{profitMarginAllJit},</if>
+            <if test="actualProfitAllWarehouse != null">actual_profit_all_warehouse = #{actualProfitAllWarehouse},</if>
+            <if test="quantityAllWarehouse != null">quantity_all_warehouse = #{quantityAllWarehouse},</if>
+            <if test="loanAmountAllWarehouse != null">loan_amount_all_warehouse = #{loanAmountAllWarehouse},</if>
+            <if test="profitMarginAllWarehouse != null">profit_margin_all_warehouse = #{profitMarginAllWarehouse},</if>
         </trim>
         where s_id = #{sId}
     </update>
 
-    <delete id="deletePofitOrderListWarehouseCategoryBySId" parameterType="Long">
-        delete from pofit_order_list_warehouse_category where s_id = #{sId}
+    <delete id="deletePofitOrderListWarehouseStoreNameBySId" parameterType="Long">
+        delete from pofit_order_list_warehouse_store_name where s_id = #{sId}
     </delete>
 
-    <delete id="deletePofitOrderListWarehouseCategoryBySIds" parameterType="String">
-        delete from pofit_order_list_warehouse_category where s_id in 
+    <delete id="deletePofitOrderListWarehouseStoreNameBySIds" parameterType="String">
+        delete from pofit_order_list_warehouse_store_name where s_id in 
         <foreach item="sId" collection="array" open="(" separator="," close=")">
             #{sId}
         </foreach>
