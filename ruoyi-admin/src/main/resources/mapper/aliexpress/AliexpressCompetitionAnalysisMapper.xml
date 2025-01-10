@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.aliexpress.mapper.AliexpressCompetitionAnalysisMapper">
+    
+    <resultMap type="AliexpressCompetitionAnalysis" id="AliexpressCompetitionAnalysisResult">
+        <result property="sId"    column="s_id"    />
+        <result property="sku"    column="sku"    />
+        <result property="publicationId"    column="publication_id"    />
+        <result property="link"    column="link"    />
+        <result property="crawlStatus"    column="crawl_status"    />
+        <result property="createTime"    column="create_time"    />
+    </resultMap>
+
+    <sql id="selectAliexpressCompetitionAnalysisVo">
+        select s_id, sku, publication_id, link, crawl_status, create_time from aliexpress_competition_analysis
+    </sql>
+
+    <select id="selectAliexpressCompetitionAnalysisList" parameterType="AliexpressCompetitionAnalysis" resultMap="AliexpressCompetitionAnalysisResult">
+        <include refid="selectAliexpressCompetitionAnalysisVo"/>
+        <where>  
+            <if test="sku != null  and sku != ''"> and sku = #{sku}</if>
+            <if test="publicationId != null  and publicationId != ''"> and publication_id = #{publicationId}</if>
+            <if test="link != null  and link != ''"> and link = #{link}</if>
+            <if test="crawlStatus != null  and crawlStatus != ''"> and crawl_status = #{crawlStatus}</if>
+        </where>
+    </select>
+    
+    <select id="selectAliexpressCompetitionAnalysisBySId" parameterType="Long" resultMap="AliexpressCompetitionAnalysisResult">
+        <include refid="selectAliexpressCompetitionAnalysisVo"/>
+        where s_id = #{sId}
+    </select>
+
+    <insert id="insertAliexpressCompetitionAnalysis" parameterType="AliexpressCompetitionAnalysis" useGeneratedKeys="true" keyProperty="sId">
+        insert into aliexpress_competition_analysis
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="sku != null">sku,</if>
+            <if test="publicationId != null">publication_id,</if>
+            <if test="link != null">link,</if>
+            <if test="crawlStatus != null">crawl_status,</if>
+            <if test="createTime != null">create_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="sku != null">#{sku},</if>
+            <if test="publicationId != null">#{publicationId},</if>
+            <if test="link != null">#{link},</if>
+            <if test="crawlStatus != null">#{crawlStatus},</if>
+            <if test="createTime != null">#{createTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateAliexpressCompetitionAnalysis" parameterType="AliexpressCompetitionAnalysis">
+        update aliexpress_competition_analysis
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="sku != null">sku = #{sku},</if>
+            <if test="publicationId != null">publication_id = #{publicationId},</if>
+            <if test="link != null">link = #{link},</if>
+            <if test="crawlStatus != null">crawl_status = #{crawlStatus},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+        </trim>
+        where s_id = #{sId}
+    </update>
+
+    <delete id="deleteAliexpressCompetitionAnalysisBySId" parameterType="Long">
+        delete from aliexpress_competition_analysis where s_id = #{sId}
+    </delete>
+
+    <delete id="deleteAliexpressCompetitionAnalysisBySIds" parameterType="String">
+        delete from aliexpress_competition_analysis where s_id in 
+        <foreach item="sId" collection="array" open="(" separator="," close=")">
+            #{sId}
+        </foreach>
+    </delete>
+</mapper>
