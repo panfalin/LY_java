@@ -31,6 +31,11 @@ public class PofitOrderListWarehouseStoreName extends BaseEntity
     @Excel(name = "店铺名称")
     private String storeName;
 
+    /** 店铺名称 */
+    @Excel(name = "店铺类型")
+    private String storeType;
+
+
     /** SKU */
     @Excel(name = "SKU")
     private String sku;
@@ -191,7 +196,15 @@ public class PofitOrderListWarehouseStoreName extends BaseEntity
     @Excel(name = "全托管-仓发利润率")
     private BigDecimal profitMarginAllWarehouse;
 
-    public void setsId(Long sId) 
+    public String getStoreType() {
+        return storeType;
+    }
+
+    public void setStoreType(String storeType) {
+        this.storeType = storeType;
+    }
+
+    public void setsId(Long sId)
     {
         this.sId = sId;
     }

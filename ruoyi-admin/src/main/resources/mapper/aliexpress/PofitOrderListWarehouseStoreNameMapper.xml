@@ -49,10 +49,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="quantityAllWarehouse"    column="quantity_all_warehouse"    />
         <result property="loanAmountAllWarehouse"    column="loan_amount_all_warehouse"    />
         <result property="profitMarginAllWarehouse"    column="profit_margin_all_warehouse"    />
+        <result property="storeType"    column="store_type"    />
     </resultMap>
 
     <sql id="selectPofitOrderListWarehouseStoreNameVo">
-        select s_id, year, moon, store_name, sku, sku_state, category, quantity, actual_profit, transit_quantity, stock_quantity, bd_stock_quantity, bc_stock_quantity, unshipped_quantity, inventory_cost, daily_avg_sales, loan_amount, profit_margin, cost_price, sale_days, monthly_return, inventory_turns, return_rate, market_capacity, actual_profit_pop, quantity_pop, loan_amount_pop, profit_margin_pop, actual_profit_jit_half, quantity_jit_half, loan_amount_jit_half, profit_margin_jit_half, actual_profit_warehouse_half, quantity_warehouse_half, loan_amount_warehouse_half, profit_margin_warehouse_half, actual_profit_all_jit, quantity_all_jit, loan_amount_all_jit, profit_margin_all_jit, actual_profit_all_warehouse, quantity_all_warehouse, loan_amount_all_warehouse, profit_margin_all_warehouse from pofit_order_list_warehouse_store_name
+        select s_id, year, moon, store_name, sku, sku_state, category, quantity, actual_profit, transit_quantity, stock_quantity, bd_stock_quantity, bc_stock_quantity, unshipped_quantity, inventory_cost, daily_avg_sales, loan_amount, profit_margin, cost_price, sale_days, monthly_return, inventory_turns, return_rate, market_capacity, actual_profit_pop, quantity_pop, loan_amount_pop, profit_margin_pop, actual_profit_jit_half, quantity_jit_half, loan_amount_jit_half, profit_margin_jit_half, actual_profit_warehouse_half, quantity_warehouse_half, loan_amount_warehouse_half, profit_margin_warehouse_half, actual_profit_all_jit, quantity_all_jit, loan_amount_all_jit, profit_margin_all_jit, actual_profit_all_warehouse, quantity_all_warehouse, loan_amount_all_warehouse, profit_margin_all_warehouse,store_type from pofit_order_list_warehouse_store_name
     </sql>
 
     <select id="selectPofitOrderListWarehouseStoreNameList" parameterType="PofitOrderListWarehouseStoreName" resultMap="PofitOrderListWarehouseStoreNameResult">
@@ -101,6 +102,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="quantityAllWarehouse != null "> and quantity_all_warehouse = #{quantityAllWarehouse}</if>
             <if test="loanAmountAllWarehouse != null "> and loan_amount_all_warehouse = #{loanAmountAllWarehouse}</if>
             <if test="profitMarginAllWarehouse != null "> and profit_margin_all_warehouse = #{profitMarginAllWarehouse}</if>
+            <if test="storeType != null "> and store_type = #{storeType}</if>
         </where>
     </select>
     

@@ -48,6 +48,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="quantityAllWarehouse"    column="quantity_all_warehouse"    />
         <result property="loanAmountAllWarehouse"    column="loan_amount_all_warehouse"    />
         <result property="profitMarginAllWarehouse"    column="profit_margin_all_warehouse"    />
+        <result property="personCharge"    column="person_charge"    />
     </resultMap>
 
     <sql id="selectPofitOrderListWarehouseCategoryVo">
@@ -94,7 +95,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             actual_profit_all_warehouse,
             quantity_all_warehouse,
             loan_amount_all_warehouse,
-            profit_margin_all_warehouse
+            profit_margin_all_warehouse,
+            person_charge
         FROM
             pofit_order_list_warehouse_category
     </sql>
@@ -124,6 +126,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="inventoryTurns != null "> and inventory_turns = #{inventoryTurns}</if>
             <if test="returnRate != null "> and return_rate = #{returnRate}</if>
             <if test="marketCapacity != null "> and market_capacity = #{marketCapacity}</if>
+            <if test="personCharge != null "> and person_charge = #{personCharge}</if>
         </where>
     </select>
     

@@ -31,6 +31,11 @@ public class PofitOrderListWarehouse extends BaseEntity
     @Excel(name = "SKU")
     private String sku;
 
+    /** SKU */
+    @Excel(name = "SKU负责人")
+    private String personCharge;
+
+
     /** 商品数量 */
     @Excel(name = "商品数量")
     private Long quantity;
@@ -110,6 +115,15 @@ public class PofitOrderListWarehouse extends BaseEntity
     /** 未发货数量 */
     @Excel(name = "订单分类")
     private String category;
+
+
+    public String getPersonCharge() {
+        return personCharge;
+    }
+
+    public void setPersonCharge(String personCharge) {
+        this.personCharge = personCharge;
+    }
 
     public String getCategory() {
         return category;

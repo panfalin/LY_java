@@ -35,6 +35,12 @@ public class PofitOrderListWarehouseCategory extends BaseEntity
     @Excel(name = "SKU状态")
     private String skuState;
 
+    /** SKU状态 */
+    @Excel(name = "SKU负责人")
+    private String personCharge;
+
+
+
     /** 订单分类 */
     @Excel(name = "订单分类")
     private String category;
@@ -170,6 +176,15 @@ public class PofitOrderListWarehouseCategory extends BaseEntity
     private BigDecimal loanAmountAllWarehouse;
     @Excel(name = "全托管-仓发利润率")
     private BigDecimal profitMarginAllWarehouse;
+
+
+    public String getPersonCharge() {
+        return personCharge;
+    }
+
+    public void setPersonCharge(String personCharge) {
+        this.personCharge = personCharge;
+    }
 
     public BigDecimal getProfitMarginPop() {
         return profitMarginPop;
