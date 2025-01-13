@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.aliexpress.mapper.PofitOrderListWarehouseDateMapper">
+    
+    <resultMap type="PofitOrderListWarehouseDate" id="PofitOrderListWarehouseDateResult">
+        <result property="sId"    column="s_id"    />
+        <result property="year"    column="year"    />
+        <result property="moon"    column="moon"    />
+        <result property="day"    column="day"    />
+        <result property="sku"    column="sku"    />
+        <result property="skuState"    column="sku_state"    />
+        <result property="category"    column="category"    />
+        <result property="quantity"    column="quantity"    />
+        <result property="actualProfit"    column="actual_profit"    />
+        <result property="transitQuantity"    column="transit_quantity"    />
+        <result property="stockQuantity"    column="stock_quantity"    />
+        <result property="bdStockQuantity"    column="bd_stock_quantity"    />
+        <result property="bcStockQuantity"    column="bc_stock_quantity"    />
+        <result property="unshippedQuantity"    column="unshipped_quantity"    />
+        <result property="inventoryCost"    column="inventory_cost"    />
+        <result property="dailyAvgSales"    column="daily_avg_sales"    />
+        <result property="loanAmount"    column="loan_amount"    />
+        <result property="profitMargin"    column="profit_margin"    />
+        <result property="costPrice"    column="cost_price"    />
+        <result property="saleDays"    column="sale_days"    />
+        <result property="monthlyReturn"    column="monthly_return"    />
+        <result property="inventoryTurns"    column="inventory_turns"    />
+        <result property="returnRate"    column="return_rate"    />
+        <result property="marketCapacity"    column="market_capacity"    />
+        <result property="actualProfitPop"    column="actual_profit_pop"    />
+        <result property="quantityPop"    column="quantity_pop"    />
+        <result property="loanAmountPop"    column="loan_amount_pop"    />
+        <result property="profitMarginPop"    column="profit_margin_pop"    />
+        <result property="actualProfitJitHalf"    column="actual_profit_jit_half"    />
+        <result property="quantityJitHalf"    column="quantity_jit_half"    />
+        <result property="loanAmountJitHalf"    column="loan_amount_jit_half"    />
+        <result property="profitMarginJitHalf"    column="profit_margin_jit_half"    />
+        <result property="actualProfitWarehouseHalf"    column="actual_profit_warehouse_half"    />
+        <result property="quantityWarehouseHalf"    column="quantity_warehouse_half"    />
+        <result property="loanAmountWarehouseHalf"    column="loan_amount_warehouse_half"    />
+        <result property="profitMarginWarehouseHalf"    column="profit_margin_warehouse_half"    />
+        <result property="actualProfitAllJit"    column="actual_profit_all_jit"    />
+        <result property="quantityAllJit"    column="quantity_all_jit"    />
+        <result property="loanAmountAllJit"    column="loan_amount_all_jit"    />
+        <result property="profitMarginAllJit"    column="profit_margin_all_jit"    />
+        <result property="actualProfitAllWarehouse"    column="actual_profit_all_warehouse"    />
+        <result property="quantityAllWarehouse"    column="quantity_all_warehouse"    />
+        <result property="loanAmountAllWarehouse"    column="loan_amount_all_warehouse"    />
+        <result property="profitMarginAllWarehouse"    column="profit_margin_all_warehouse"    />
+        <result property="personCharge"    column="person_charge"    />
+        <result property="storeName"    column="store_name"    />
+    </resultMap>
+
+    <sql id="selectPofitOrderListWarehouseDateVo">
+        select s_id, year, moon, day, store_name,sku, sku_state, category, quantity, actual_profit, transit_quantity, stock_quantity, bd_stock_quantity, bc_stock_quantity, unshipped_quantity, inventory_cost, daily_avg_sales, loan_amount, profit_margin, cost_price, sale_days, monthly_return, inventory_turns, return_rate, market_capacity, actual_profit_pop, quantity_pop, loan_amount_pop, profit_margin_pop, actual_profit_jit_half, quantity_jit_half, loan_amount_jit_half, profit_margin_jit_half, actual_profit_warehouse_half, quantity_warehouse_half, loan_amount_warehouse_half, profit_margin_warehouse_half, actual_profit_all_jit, quantity_all_jit, loan_amount_all_jit, profit_margin_all_jit, actual_profit_all_warehouse, quantity_all_warehouse, loan_amount_all_warehouse, profit_margin_all_warehouse, person_charge from pofit_order_list_warehouse_date
+    </sql>
+
+    <select id="selectPofitOrderListWarehouseDateList" parameterType="PofitOrderListWarehouseDate" resultMap="PofitOrderListWarehouseDateResult">
+        <include refid="selectPofitOrderListWarehouseDateVo"/>
+        <where>  
+            <if test="year != null "> and year = #{year}</if>
+            <if test="moon != null "> and moon = #{moon}</if>
+            <if test="day != null "> and day = #{day}</if>
+            <if test="sku != null  and sku != ''"> and sku = #{sku}</if>
+            <if test="skuState != null  and skuState != ''"> and sku_state = #{skuState}</if>
+            <if test="category != null  and category != ''"> and category = #{category}</if>
+            <if test="quantity != null "> and quantity = #{quantity}</if>
+            <if test="actualProfit != null "> and actual_profit = #{actualProfit}</if>
+            <if test="transitQuantity != null "> and transit_quantity = #{transitQuantity}</if>
+            <if test="stockQuantity != null "> and stock_quantity = #{stockQuantity}</if>
+            <if test="bdStockQuantity != null "> and bd_stock_quantity = #{bdStockQuantity}</if>
+            <if test="bcStockQuantity != null "> and bc_stock_quantity = #{bcStockQuantity}</if>
+            <if test="unshippedQuantity != null "> and unshipped_quantity = #{unshippedQuantity}</if>
+            <if test="inventoryCost != null "> and inventory_cost = #{inventoryCost}</if>
+            <if test="dailyAvgSales != null "> and daily_avg_sales = #{dailyAvgSales}</if>
+            <if test="loanAmount != null "> and loan_amount = #{loanAmount}</if>
+            <if test="profitMargin != null "> and profit_margin = #{profitMargin}</if>
+            <if test="costPrice != null "> and cost_price = #{costPrice}</if>
+            <if test="saleDays != null "> and sale_days = #{saleDays}</if>
+            <if test="monthlyReturn != null "> and monthly_return = #{monthlyReturn}</if>
+            <if test="inventoryTurns != null "> and inventory_turns = #{inventoryTurns}</if>
+            <if test="returnRate != null "> and return_rate = #{returnRate}</if>
+            <if test="marketCapacity != null "> and market_capacity = #{marketCapacity}</if>
+            <if test="actualProfitPop != null "> and actual_profit_pop = #{actualProfitPop}</if>
+            <if test="quantityPop != null "> and quantity_pop = #{quantityPop}</if>
+            <if test="loanAmountPop != null "> and loan_amount_pop = #{loanAmountPop}</if>
+            <if test="profitMarginPop != null "> and profit_margin_pop = #{profitMarginPop}</if>
+            <if test="actualProfitJitHalf != null "> and actual_profit_jit_half = #{actualProfitJitHalf}</if>
+            <if test="quantityJitHalf != null "> and quantity_jit_half = #{quantityJitHalf}</if>
+            <if test="loanAmountJitHalf != null "> and loan_amount_jit_half = #{loanAmountJitHalf}</if>
+            <if test="profitMarginJitHalf != null "> and profit_margin_jit_half = #{profitMarginJitHalf}</if>
+            <if test="actualProfitWarehouseHalf != null "> and actual_profit_warehouse_half = #{actualProfitWarehouseHalf}</if>
+            <if test="quantityWarehouseHalf != null "> and quantity_warehouse_half = #{quantityWarehouseHalf}</if>
+            <if test="loanAmountWarehouseHalf != null "> and loan_amount_warehouse_half = #{loanAmountWarehouseHalf}</if>
+            <if test="profitMarginWarehouseHalf != null "> and profit_margin_warehouse_half = #{profitMarginWarehouseHalf}</if>
+            <if test="actualProfitAllJit != null "> and actual_profit_all_jit = #{actualProfitAllJit}</if>
+            <if test="quantityAllJit != null "> and quantity_all_jit = #{quantityAllJit}</if>
+            <if test="loanAmountAllJit != null "> and loan_amount_all_jit = #{loanAmountAllJit}</if>
+            <if test="profitMarginAllJit != null "> and profit_margin_all_jit = #{profitMarginAllJit}</if>
+            <if test="actualProfitAllWarehouse != null "> and actual_profit_all_warehouse = #{actualProfitAllWarehouse}</if>
+            <if test="quantityAllWarehouse != null "> and quantity_all_warehouse = #{quantityAllWarehouse}</if>
+            <if test="loanAmountAllWarehouse != null "> and loan_amount_all_warehouse = #{loanAmountAllWarehouse}</if>
+            <if test="profitMarginAllWarehouse != null "> and profit_margin_all_warehouse = #{profitMarginAllWarehouse}</if>
+            <if test="personCharge != null  and personCharge != ''"> and person_charge = #{personCharge}</if>
+            <if test="storeName != null  and storeName != ''"> and store_name = #{storeName}</if>
+        </where>
+    </select>
+    
+    <select id="selectPofitOrderListWarehouseDateBySId" parameterType="Long" resultMap="PofitOrderListWarehouseDateResult">
+        <include refid="selectPofitOrderListWarehouseDateVo"/>
+        where s_id = #{sId}
+    </select>
+
+    <insert id="insertPofitOrderListWarehouseDate" parameterType="PofitOrderListWarehouseDate" useGeneratedKeys="true" keyProperty="sId">
+        insert into pofit_order_list_warehouse_date
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="year != null">year,</if>
+            <if test="moon != null">moon,</if>
+            <if test="day != null">day,</if>
+            <if test="sku != null">sku,</if>
+            <if test="skuState != null">sku_state,</if>
+            <if test="category != null">category,</if>
+            <if test="quantity != null">quantity,</if>
+            <if test="actualProfit != null">actual_profit,</if>
+            <if test="transitQuantity != null">transit_quantity,</if>
+            <if test="stockQuantity != null">stock_quantity,</if>
+            <if test="bdStockQuantity != null">bd_stock_quantity,</if>
+            <if test="bcStockQuantity != null">bc_stock_quantity,</if>
+            <if test="unshippedQuantity != null">unshipped_quantity,</if>
+            <if test="inventoryCost != null">inventory_cost,</if>
+            <if test="dailyAvgSales != null">daily_avg_sales,</if>
+            <if test="loanAmount != null">loan_amount,</if>
+            <if test="profitMargin != null">profit_margin,</if>
+            <if test="costPrice != null">cost_price,</if>
+            <if test="saleDays != null">sale_days,</if>
+            <if test="monthlyReturn != null">monthly_return,</if>
+            <if test="inventoryTurns != null">inventory_turns,</if>
+            <if test="returnRate != null">return_rate,</if>
+            <if test="marketCapacity != null">market_capacity,</if>
+            <if test="actualProfitPop != null">actual_profit_pop,</if>
+            <if test="quantityPop != null">quantity_pop,</if>
+            <if test="loanAmountPop != null">loan_amount_pop,</if>
+            <if test="profitMarginPop != null">profit_margin_pop,</if>
+            <if test="actualProfitJitHalf != null">actual_profit_jit_half,</if>
+            <if test="quantityJitHalf != null">quantity_jit_half,</if>
+            <if test="loanAmountJitHalf != null">loan_amount_jit_half,</if>
+            <if test="profitMarginJitHalf != null">profit_margin_jit_half,</if>
+            <if test="actualProfitWarehouseHalf != null">actual_profit_warehouse_half,</if>
+            <if test="quantityWarehouseHalf != null">quantity_warehouse_half,</if>
+            <if test="loanAmountWarehouseHalf != null">loan_amount_warehouse_half,</if>
+            <if test="profitMarginWarehouseHalf != null">profit_margin_warehouse_half,</if>
+            <if test="actualProfitAllJit != null">actual_profit_all_jit,</if>
+            <if test="quantityAllJit != null">quantity_all_jit,</if>
+            <if test="loanAmountAllJit != null">loan_amount_all_jit,</if>
+            <if test="profitMarginAllJit != null">profit_margin_all_jit,</if>
+            <if test="actualProfitAllWarehouse != null">actual_profit_all_warehouse,</if>
+            <if test="quantityAllWarehouse != null">quantity_all_warehouse,</if>
+            <if test="loanAmountAllWarehouse != null">loan_amount_all_warehouse,</if>
+            <if test="profitMarginAllWarehouse != null">profit_margin_all_warehouse,</if>
+            <if test="personCharge != null">person_charge,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="year != null">#{year},</if>
+            <if test="moon != null">#{moon},</if>
+            <if test="day != null">#{day},</if>
+            <if test="sku != null">#{sku},</if>
+            <if test="skuState != null">#{skuState},</if>
+            <if test="category != null">#{category},</if>
+            <if test="quantity != null">#{quantity},</if>
+            <if test="actualProfit != null">#{actualProfit},</if>
+            <if test="transitQuantity != null">#{transitQuantity},</if>
+            <if test="stockQuantity != null">#{stockQuantity},</if>
+            <if test="bdStockQuantity != null">#{bdStockQuantity},</if>
+            <if test="bcStockQuantity != null">#{bcStockQuantity},</if>
+            <if test="unshippedQuantity != null">#{unshippedQuantity},</if>
+            <if test="inventoryCost != null">#{inventoryCost},</if>
+            <if test="dailyAvgSales != null">#{dailyAvgSales},</if>
+            <if test="loanAmount != null">#{loanAmount},</if>
+            <if test="profitMargin != null">#{profitMargin},</if>
+            <if test="costPrice != null">#{costPrice},</if>
+            <if test="saleDays != null">#{saleDays},</if>
+            <if test="monthlyReturn != null">#{monthlyReturn},</if>
+            <if test="inventoryTurns != null">#{inventoryTurns},</if>
+            <if test="returnRate != null">#{returnRate},</if>
+            <if test="marketCapacity != null">#{marketCapacity},</if>
+            <if test="actualProfitPop != null">#{actualProfitPop},</if>
+            <if test="quantityPop != null">#{quantityPop},</if>
+            <if test="loanAmountPop != null">#{loanAmountPop},</if>
+            <if test="profitMarginPop != null">#{profitMarginPop},</if>
+            <if test="actualProfitJitHalf != null">#{actualProfitJitHalf},</if>
+            <if test="quantityJitHalf != null">#{quantityJitHalf},</if>
+            <if test="loanAmountJitHalf != null">#{loanAmountJitHalf},</if>
+            <if test="profitMarginJitHalf != null">#{profitMarginJitHalf},</if>
+            <if test="actualProfitWarehouseHalf != null">#{actualProfitWarehouseHalf},</if>
+            <if test="quantityWarehouseHalf != null">#{quantityWarehouseHalf},</if>
+            <if test="loanAmountWarehouseHalf != null">#{loanAmountWarehouseHalf},</if>
+            <if test="profitMarginWarehouseHalf != null">#{profitMarginWarehouseHalf},</if>
+            <if test="actualProfitAllJit != null">#{actualProfitAllJit},</if>
+            <if test="quantityAllJit != null">#{quantityAllJit},</if>
+            <if test="loanAmountAllJit != null">#{loanAmountAllJit},</if>
+            <if test="profitMarginAllJit != null">#{profitMarginAllJit},</if>
+            <if test="actualProfitAllWarehouse != null">#{actualProfitAllWarehouse},</if>
+            <if test="quantityAllWarehouse != null">#{quantityAllWarehouse},</if>
+            <if test="loanAmountAllWarehouse != null">#{loanAmountAllWarehouse},</if>
+            <if test="profitMarginAllWarehouse != null">#{profitMarginAllWarehouse},</if>
+            <if test="personCharge != null">#{personCharge},</if>
+         </trim>
+    </insert>
+
+    <update id="updatePofitOrderListWarehouseDate" parameterType="PofitOrderListWarehouseDate">
+        update pofit_order_list_warehouse_date
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="year != null">year = #{year},</if>
+            <if test="moon != null">moon = #{moon},</if>
+            <if test="day != null">day = #{day},</if>
+            <if test="sku != null">sku = #{sku},</if>
+            <if test="skuState != null">sku_state = #{skuState},</if>
+            <if test="category != null">category = #{category},</if>
+            <if test="quantity != null">quantity = #{quantity},</if>
+            <if test="actualProfit != null">actual_profit = #{actualProfit},</if>
+            <if test="transitQuantity != null">transit_quantity = #{transitQuantity},</if>
+            <if test="stockQuantity != null">stock_quantity = #{stockQuantity},</if>
+            <if test="bdStockQuantity != null">bd_stock_quantity = #{bdStockQuantity},</if>
+            <if test="bcStockQuantity != null">bc_stock_quantity = #{bcStockQuantity},</if>
+            <if test="unshippedQuantity != null">unshipped_quantity = #{unshippedQuantity},</if>
+            <if test="inventoryCost != null">inventory_cost = #{inventoryCost},</if>
+            <if test="dailyAvgSales != null">daily_avg_sales = #{dailyAvgSales},</if>
+            <if test="loanAmount != null">loan_amount = #{loanAmount},</if>
+            <if test="profitMargin != null">profit_margin = #{profitMargin},</if>
+            <if test="costPrice != null">cost_price = #{costPrice},</if>
+            <if test="saleDays != null">sale_days = #{saleDays},</if>
+            <if test="monthlyReturn != null">monthly_return = #{monthlyReturn},</if>
+            <if test="inventoryTurns != null">inventory_turns = #{inventoryTurns},</if>
+            <if test="returnRate != null">return_rate = #{returnRate},</if>
+            <if test="marketCapacity != null">market_capacity = #{marketCapacity},</if>
+            <if test="actualProfitPop != null">actual_profit_pop = #{actualProfitPop},</if>
+            <if test="quantityPop != null">quantity_pop = #{quantityPop},</if>
+            <if test="loanAmountPop != null">loan_amount_pop = #{loanAmountPop},</if>
+            <if test="profitMarginPop != null">profit_margin_pop = #{profitMarginPop},</if>
+            <if test="actualProfitJitHalf != null">actual_profit_jit_half = #{actualProfitJitHalf},</if>
+            <if test="quantityJitHalf != null">quantity_jit_half = #{quantityJitHalf},</if>
+            <if test="loanAmountJitHalf != null">loan_amount_jit_half = #{loanAmountJitHalf},</if>
+            <if test="profitMarginJitHalf != null">profit_margin_jit_half = #{profitMarginJitHalf},</if>
+            <if test="actualProfitWarehouseHalf != null">actual_profit_warehouse_half = #{actualProfitWarehouseHalf},</if>
+            <if test="quantityWarehouseHalf != null">quantity_warehouse_half = #{quantityWarehouseHalf},</if>
+            <if test="loanAmountWarehouseHalf != null">loan_amount_warehouse_half = #{loanAmountWarehouseHalf},</if>
+            <if test="profitMarginWarehouseHalf != null">profit_margin_warehouse_half = #{profitMarginWarehouseHalf},</if>
+            <if test="actualProfitAllJit != null">actual_profit_all_jit = #{actualProfitAllJit},</if>
+            <if test="quantityAllJit != null">quantity_all_jit = #{quantityAllJit},</if>
+            <if test="loanAmountAllJit != null">loan_amount_all_jit = #{loanAmountAllJit},</if>
+            <if test="profitMarginAllJit != null">profit_margin_all_jit = #{profitMarginAllJit},</if>
+            <if test="actualProfitAllWarehouse != null">actual_profit_all_warehouse = #{actualProfitAllWarehouse},</if>
+            <if test="quantityAllWarehouse != null">quantity_all_warehouse = #{quantityAllWarehouse},</if>
+            <if test="loanAmountAllWarehouse != null">loan_amount_all_warehouse = #{loanAmountAllWarehouse},</if>
+            <if test="profitMarginAllWarehouse != null">profit_margin_all_warehouse = #{profitMarginAllWarehouse},</if>
+            <if test="personCharge != null">person_charge = #{personCharge},</if>
+        </trim>
+        where s_id = #{sId}
+    </update>
+
+    <delete id="deletePofitOrderListWarehouseDateBySId" parameterType="Long">
+        delete from pofit_order_list_warehouse_date where s_id = #{sId}
+    </delete>
+
+    <delete id="deletePofitOrderListWarehouseDateBySIds" parameterType="String">
+        delete from pofit_order_list_warehouse_date where s_id in 
+        <foreach item="sId" collection="array" open="(" separator="," close=")">
+            #{sId}
+        </foreach>
+    </delete>
+</mapper>

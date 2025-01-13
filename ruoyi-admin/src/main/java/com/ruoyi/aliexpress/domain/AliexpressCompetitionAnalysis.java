@@ -26,6 +26,14 @@ public class AliexpressCompetitionAnalysis extends BaseEntity
     @Excel(name = "刊登ID")
     private String publicationId;
 
+    /** 刊登ID */
+    @Excel(name = "sku负责人")
+    private String skuPerson;
+
+    /** 刊登ID */
+    @Excel(name = "订单类型")
+    private String orderType;
+
     /** 下载链接 */
     @Excel(name = "下载链接")
     private String link;
@@ -34,12 +42,64 @@ public class AliexpressCompetitionAnalysis extends BaseEntity
     @Excel(name = "爬取状态")
     private String crawlStatus;
 
-    public void setsId(Long sId) 
+    /** 刊登ID */
+    @Excel(name = "订单类型")
+    private String publicationIdPop;
+
+    /** 刊登ID */
+    @Excel(name = "订单类型")
+    private String publicationIdAll;
+
+    /** 刊登ID */
+    @Excel(name = "订单类型")
+    private String publicationIdHalf;
+
+    public String getPublicationIdPop() {
+        return publicationIdPop;
+    }
+
+    public void setPublicationIdPop(String publicationIdPop) {
+        this.publicationIdPop = publicationIdPop;
+    }
+
+    public String getPublicationIdAll() {
+        return publicationIdAll;
+    }
+
+    public void setPublicationIdAll(String publicationIdAll) {
+        this.publicationIdAll = publicationIdAll;
+    }
+
+    public String getPublicationIdHalf() {
+        return publicationIdHalf;
+    }
+
+    public void setPublicationIdHalf(String publicationIdHalf) {
+        this.publicationIdHalf = publicationIdHalf;
+    }
+
+    public void setsId(Long sId)
     {
         this.sId = sId;
     }
 
-    public Long getsId() 
+    public String getSkuPerson() {
+        return skuPerson;
+    }
+
+    public void setSkuPerson(String skuPerson) {
+        this.skuPerson = skuPerson;
+    }
+
+    public String getOrderType() {
+        return orderType;
+    }
+
+    public void setOrderType(String orderType) {
+        this.orderType = orderType;
+    }
+
+    public Long getsId()
     {
         return sId;
     }

@@ -7,21 +7,31 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <resultMap type="AliexpressCompetitionAnalysis" id="AliexpressCompetitionAnalysisResult">
         <result property="sId"    column="s_id"    />
         <result property="sku"    column="sku"    />
-        <result property="publicationId"    column="publication_id"    />
+        <result property="skuPerson"    column="sku_person"    />
+<!--        <result property="orderType"    column="order_type"    />-->
+<!--        <result property="publicationId"    column="publication_id"    />-->
+        <result property="publicationIdPop"    column="publication_id_pop"    />
+        <result property="publicationIdAll"    column="publication_id_all"    />
+        <result property="publicationIdHalf"    column="publication_id_half"    />
         <result property="link"    column="link"    />
         <result property="crawlStatus"    column="crawl_status"    />
         <result property="createTime"    column="create_time"    />
     </resultMap>
 
     <sql id="selectAliexpressCompetitionAnalysisVo">
-        select s_id, sku, publication_id, link, crawl_status, create_time from aliexpress_competition_analysis
+        select s_id, sku,sku_person,publication_id_all,publication_id_pop,publication_id_half, link, crawl_status, create_time from aliexpress_competition_analysis
     </sql>
 
     <select id="selectAliexpressCompetitionAnalysisList" parameterType="AliexpressCompetitionAnalysis" resultMap="AliexpressCompetitionAnalysisResult">
         <include refid="selectAliexpressCompetitionAnalysisVo"/>
         <where>  
             <if test="sku != null  and sku != ''"> and sku = #{sku}</if>
-            <if test="publicationId != null  and publicationId != ''"> and publication_id = #{publicationId}</if>
+<!--            <if test="publicationId != null  and publicationId != ''"> and publication_id = #{publicationId}</if>-->
+<!--            <if test="orderType != null  and orderType != ''"> and order_type = #{orderType}</if>-->
+            <if test="skuPerson != null  and skuPerson != ''"> and sku_person = #{skuPerson}</if>
+            <if test="publicationIdPop != null  and publicationIdPop != ''"> and publication_id_pop = #{publicationIdPop}</if>
+            <if test="publicationIdAll != null  and publicationIdAll != ''"> and publication_id_all = #{publicationIdAll}</if>
+            <if test="publicationIdHalf != null  and publicationIdHalf != ''"> and publication_id_half = #{publicationIdHalf}</if>
             <if test="link != null  and link != ''"> and link = #{link}</if>
             <if test="crawlStatus != null  and crawlStatus != ''"> and crawl_status = #{crawlStatus}</if>
         </where>
@@ -36,14 +46,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         insert into aliexpress_competition_analysis
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="sku != null">sku,</if>
-            <if test="publicationId != null">publication_id,</if>
+<!--            <if test="publicationId != null">publication_id,</if>-->
+<!--            <if test="orderType != null">order_type,</if>-->
+            <if test="skuPerson != null">sku_person,</if>
+            <if test="publicationIdPop != null">publication_id_pop,</if>
+            <if test="publicationIdAll != null">publication_id_all,</if>
+            <if test="publicationIdHalf != null">publication_id_half,</if>
             <if test="link != null">link,</if>
             <if test="crawlStatus != null">crawl_status,</if>
             <if test="createTime != null">create_time,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="sku != null">#{sku},</if>
-            <if test="publicationId != null">#{publicationId},</if>
+<!--            <if test="publicationId != null">#{publicationId},</if>-->
+<!--            <if test="orderType != null">#{orderType},</if>-->
+            <if test="skuPerson != null">#{skuPerson},</if>
+            <if test="publicationIdPop != null">#{publicationIdPop},</if>
+            <if test="publicationIdAll != null">#{publicationIdAll},</if>
+            <if test="publicationIdHalf != null">#{publicationIdHalf},</if>
             <if test="link != null">#{link},</if>
             <if test="crawlStatus != null">#{crawlStatus},</if>
             <if test="createTime != null">#{createTime},</if>
@@ -54,7 +74,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         update aliexpress_competition_analysis
         <trim prefix="SET" suffixOverrides=",">
             <if test="sku != null">sku = #{sku},</if>
-            <if test="publicationId != null">publication_id = #{publicationId},</if>
+<!--            <if test="publicationId != null">publication_id = #{publicationId},</if>-->
+<!--            <if test="orderType != null">order_type = #{orderType},</if>-->
+            <if test="skuPerson != null">sku_person = #{skuPerson},</if>
+            <if test="publicationIdPop != null">publication_id_pop = #{publicationIdPop},</if>
+            <if test="publicationIdAll != null">publication_id_all = #{publicationIdAll},</if>
+            <if test="publicationIdHalf != null">publication_id_half = #{publicationIdHalf},</if>
+
             <if test="link != null">link = #{link},</if>
             <if test="crawlStatus != null">crawl_status = #{crawlStatus},</if>
             <if test="createTime != null">create_time = #{createTime},</if>

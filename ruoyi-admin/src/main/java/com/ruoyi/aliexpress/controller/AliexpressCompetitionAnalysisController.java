@@ -2,6 +2,9 @@ package com.ruoyi.aliexpress.controller;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
+import com.ruoyi.common.core.domain.entity.SysUser;
+import com.ruoyi.common.utils.SecurityUtils;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -77,6 +80,10 @@ public class AliexpressCompetitionAnalysisController extends BaseController
     @PostMapping
     public AjaxResult add(@RequestBody AliexpressCompetitionAnalysis aliexpressCompetitionAnalysis)
     {
+        SysUser user = SecurityUtils.getLoginUser().getUser();
+        String userUserName = user.getUserName();
+        aliexpressCompetitionAnalysis.setSkuPerson(userUserName);
+
         return toAjax(aliexpressCompetitionAnalysisService.insertAliexpressCompetitionAnalysis(aliexpressCompetitionAnalysis));
     }
 
@@ -88,6 +95,9 @@ public class AliexpressCompetitionAnalysisController extends BaseController
     @PutMapping
     public AjaxResult edit(@RequestBody AliexpressCompetitionAnalysis aliexpressCompetitionAnalysis)
     {
+        SysUser user = SecurityUtils.getLoginUser().getUser();
+        String userUserName = user.getUserName();
+        aliexpressCompetitionAnalysis.setSkuPerson(userUserName);
         return toAjax(aliexpressCompetitionAnalysisService.updateAliexpressCompetitionAnalysis(aliexpressCompetitionAnalysis));
     }
 
