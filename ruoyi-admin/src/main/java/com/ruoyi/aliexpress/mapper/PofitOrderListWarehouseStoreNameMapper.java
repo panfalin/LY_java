@@ -21,11 +21,20 @@ public interface PofitOrderListWarehouseStoreNameMapper
 
     /**
      * 查询马帮后台导出金额订单数据列表
-     * 
+     *
      * @param pofitOrderListWarehouseStoreName 马帮后台导出金额订单数据
      * @return 马帮后台导出金额订单数据集合
      */
     public List<PofitOrderListWarehouseStoreName> selectPofitOrderListWarehouseStoreNameList(PofitOrderListWarehouseStoreName pofitOrderListWarehouseStoreName);
+
+
+    /**
+     * 查询马帮后台导出金额订单数据列表
+     *
+     * @param pofitOrderListWarehouseStoreName 马帮后台导出金额订单数据
+     * @return 马帮后台导出金额订单数据集合
+     */
+    public List<PofitOrderListWarehouseStoreName> selectPofitOrderListWarehouseTotalList(PofitOrderListWarehouseStoreName pofitOrderListWarehouseStoreName);
 
     /**
      * 新增马帮后台导出金额订单数据

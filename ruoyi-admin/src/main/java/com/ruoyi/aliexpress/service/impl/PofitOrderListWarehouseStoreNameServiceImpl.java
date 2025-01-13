@@ -44,6 +44,21 @@ public class PofitOrderListWarehouseStoreNameServiceImpl implements IPofitOrderL
     }
 
     /**
+     * 查询马帮后台导出金额订单数据列表
+     *
+     * @param pofitOrderListWarehouseStoreName 马帮后台导出金额订单数据
+     * @return 马帮后台导出金额订单数据
+     */
+    @Override
+    public List<PofitOrderListWarehouseStoreName> selectPofitOrderListWarehouseTotalList(PofitOrderListWarehouseStoreName pofitOrderListWarehouseStoreName)
+    {
+        return pofitOrderListWarehouseStoreNameMapper.selectPofitOrderListWarehouseTotalList(pofitOrderListWarehouseStoreName);
+    }
+
+
+
+
+    /**
      * 新增马帮后台导出金额订单数据
      * 
      * @param pofitOrderListWarehouseStoreName 马帮后台导出金额订单数据

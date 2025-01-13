@@ -111,6 +111,34 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where s_id = #{sId}
     </select>
 
+    <select id="selectPofitOrderListWarehouseTotalList" parameterType="PofitOrderListWarehouseStoreName" resultMap="PofitOrderListWarehouseStoreNameResult">
+        SELECT
+        amol.category,
+        -- 总利润
+        SUM(COALESCE(amol.actual_profit,0)) AS actual_profit,
+        -- 销售数量
+        SUM(COALESCE(amol.quantity,0)) AS quantity,
+        -- 销售金额
+        SUM(COALESCE(amol.loan_amount,0)) AS loan_amount,
+        -- 利润率
+        SUM(COALESCE(amol.actual_profit,0))/ SUM(COALESCE(amol.loan_amount,0))*100 AS profit_margin
+        FROM
+        aliexpress_mabang_order_list AS amol
+        LEFT JOIN stores AS s ON amol.store = s.store_name
+        <where>
+            <if test="year != null ">  AND YEAR(amol.payment_time) = #{year}</if>
+            <if test="moon != null ">  AND MONTH(amol.payment_time) = #{moon}</if>
+            <if test="storeName != null "> AND amol.store = #{storeName}</if>
+            <if test="storeType != null"> AND s.store_type = #{storeType}</if>
+        </where>
+        GROUP BY
+        amol.category
+    </select>
+
+
+
+
+
     <insert id="insertPofitOrderListWarehouseStoreName" parameterType="PofitOrderListWarehouseStoreName" useGeneratedKeys="true" keyProperty="sId">
         insert into pofit_order_list_warehouse_store_name
         <trim prefix="(" suffix=")" suffixOverrides=",">

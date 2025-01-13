@@ -28,6 +28,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="skuState"    column="sku_state"    />
         <result property="marketCapacity"    column="market_capacity"    />
         <result property="category"    column="category"    />
+
         <result property="personCharge"    column="person_charge"    />
     </resultMap>
 
@@ -60,6 +61,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="category != null "> and category = #{category}</if>
             <if test="personCharge != null "> and person_charge = #{personCharge}</if>
         </where>
+    </select>
+
+    <select id="selectPofitOrderListWarehouseTotalList" parameterType="PofitOrderListWarehouse" resultMap="PofitOrderListWarehouseResult">
+        SELECT
+            amol.category,
+            -- 总利润
+            SUM(COALESCE(amol.actual_profit,0)) AS actual_profit,
+            -- 销售数量
+            SUM(COALESCE(amol.quantity,0)) AS quantity,
+            -- 销售金额
+            SUM(COALESCE(amol.loan_amount,0)) AS loan_amount,
+            -- 利润率
+            SUM(COALESCE(amol.actual_profit,0))/ SUM(COALESCE(amol.loan_amount,0))*100 AS profit_margin
+        FROM
+        pofit_order_list_warehouse AS amol
+        <where>
+        <if test="year != null "> and year = #{year}</if>
+        <if test="moon != null "> and moon = #{moon}</if>
+        <if test="sku != null  and sku != ''"> and sku like concat('%', #{sku}, '%')</if>
+        <if test="category != null "> and category = #{category}</if>
+        </where>
+        GROUP BY
+            amol.category
     </select>
     
     <select id="selectPofitOrderListWarehouseBySId" parameterType="Long" resultMap="PofitOrderListWarehouseResult">

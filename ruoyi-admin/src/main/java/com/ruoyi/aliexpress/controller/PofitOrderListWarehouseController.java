@@ -47,6 +47,19 @@ public class PofitOrderListWarehouseController extends BaseController
     }
 
     /**
+     * 查询马帮后台导出金额订单数据列表
+     */
+    @PreAuthorize("@ss.hasPermi('statistics:statistics:list')")
+    @GetMapping("/listToal")
+    public TableDataInfo listTotal(PofitOrderListWarehouse pofitOrderListWarehouse)
+    {
+        List<PofitOrderListWarehouse> list = pofitOrderListWarehouseService.selectPofitOrderListWarehouseTotalList(pofitOrderListWarehouse);
+        return getDataTable(list);
+    }
+
+
+
+    /**
      * 导出马帮后台导出金额订单数据列表
      */
     @PreAuthorize("@ss.hasPermi('statistics:statistics:export')")

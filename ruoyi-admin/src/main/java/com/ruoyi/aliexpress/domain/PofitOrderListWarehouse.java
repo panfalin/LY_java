@@ -117,6 +117,8 @@ public class PofitOrderListWarehouse extends BaseEntity
     private String category;
 
 
+
+
     public String getPersonCharge() {
         return personCharge;
     }
