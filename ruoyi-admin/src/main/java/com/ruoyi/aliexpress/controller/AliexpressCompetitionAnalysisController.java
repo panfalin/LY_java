@@ -96,8 +96,22 @@ public class AliexpressCompetitionAnalysisController extends BaseController
     public AjaxResult edit(@RequestBody AliexpressCompetitionAnalysis aliexpressCompetitionAnalysis)
     {
         SysUser user = SecurityUtils.getLoginUser().getUser();
-        String userUserName = user.getNickName();
-        aliexpressCompetitionAnalysis.setSkuPerson(userUserName);
+        String loggedInUserName  = user.getNickName();   // 登录人
+        String currentSkuPerson  = aliexpressCompetitionAnalysis.getSkuPerson();    // sku负责人
+
+        // 如果是管理员，允许设置指定负责人
+        if (user.isAdmin()) {
+            aliexpressCompetitionAnalysis.setSkuPerson(currentSkuPerson);
+        } else {
+            // 非管理员逻辑处理
+            if (currentSkuPerson == null) {
+                // 如果 SKU 负责人为空，分配给当前登录人
+                aliexpressCompetitionAnalysis.setSkuPerson(loggedInUserName);
+            } else if (!currentSkuPerson.equals(loggedInUserName)) {
+                // 如果负责人不是当前登录人，说明是修改负责人
+                aliexpressCompetitionAnalysis.setSkuPerson(currentSkuPerson);
+            }
+        }
         return toAjax(aliexpressCompetitionAnalysisService.updateAliexpressCompetitionAnalysis(aliexpressCompetitionAnalysis));
     }
 
