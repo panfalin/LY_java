@@ -81,7 +81,7 @@ public class AliexpressCompetitionAnalysisController extends BaseController
     public AjaxResult add(@RequestBody AliexpressCompetitionAnalysis aliexpressCompetitionAnalysis)
     {
         SysUser user = SecurityUtils.getLoginUser().getUser();
-        String userUserName = user.getUserName();
+        String userUserName = user.getNickName();
         aliexpressCompetitionAnalysis.setSkuPerson(userUserName);
 
         return toAjax(aliexpressCompetitionAnalysisService.insertAliexpressCompetitionAnalysis(aliexpressCompetitionAnalysis));
@@ -96,7 +96,7 @@ public class AliexpressCompetitionAnalysisController extends BaseController
     public AjaxResult edit(@RequestBody AliexpressCompetitionAnalysis aliexpressCompetitionAnalysis)
     {
         SysUser user = SecurityUtils.getLoginUser().getUser();
-        String userUserName = user.getUserName();
+        String userUserName = user.getNickName();
         aliexpressCompetitionAnalysis.setSkuPerson(userUserName);
         return toAjax(aliexpressCompetitionAnalysisService.updateAliexpressCompetitionAnalysis(aliexpressCompetitionAnalysis));
     }
