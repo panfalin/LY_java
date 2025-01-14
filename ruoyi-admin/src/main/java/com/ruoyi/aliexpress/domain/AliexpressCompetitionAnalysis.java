@@ -1,13 +1,16 @@
 package com.ruoyi.aliexpress.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import com.ruoyi.common.annotation.Excel;
 import com.ruoyi.common.core.domain.BaseEntity;
 
+import java.util.Date;
+
 /**
  * 竞对SKU对象 aliexpress_competition_analysis
- * 
+ *
  * @author ruoyi
  * @date 2025-01-10
  */
@@ -17,6 +20,12 @@ public class AliexpressCompetitionAnalysis extends BaseEntity
 
     /** $column.columnComment */
     private Long sId;
+
+    /** sku */
+    @Excel(name = "图片")
+    private String picture;
+
+
 
     /** sku */
     @Excel(name = "sku")
@@ -53,6 +62,28 @@ public class AliexpressCompetitionAnalysis extends BaseEntity
     /** 刊登ID */
     @Excel(name = "订单类型")
     private String publicationIdHalf;
+
+
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Excel(name = "任务时间")
+    private String taskTime;
+
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
+    public String getTaskTime() {
+        return taskTime;
+    }
+
+    public void setTaskTime(String taskTime) {
+        this.taskTime = taskTime;
+    }
 
     public String getPublicationIdPop() {
         return publicationIdPop;
@@ -103,39 +134,39 @@ public class AliexpressCompetitionAnalysis extends BaseEntity
     {
         return sId;
     }
-    public void setSku(String sku) 
+    public void setSku(String sku)
     {
         this.sku = sku;
     }
 
-    public String getSku() 
+    public String getSku()
     {
         return sku;
     }
-    public void setPublicationId(String publicationId) 
+    public void setPublicationId(String publicationId)
     {
         this.publicationId = publicationId;
     }
 
-    public String getPublicationId() 
+    public String getPublicationId()
     {
         return publicationId;
     }
-    public void setLink(String link) 
+    public void setLink(String link)
     {
         this.link = link;
     }
 
-    public String getLink() 
+    public String getLink()
     {
         return link;
     }
-    public void setCrawlStatus(String crawlStatus) 
+    public void setCrawlStatus(String crawlStatus)
     {
         this.crawlStatus = crawlStatus;
     }
 
-    public String getCrawlStatus() 
+    public String getCrawlStatus()
     {
         return crawlStatus;
     }

@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
+import com.ruoyi.aliexpress.mapper.AliexpressCompetitionAnalysisMapper;
 import com.ruoyi.aliexpress.util.EmailUtils;
 import com.ruoyi.aliexpress.util.ExcelExporterTask;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +28,8 @@ public class DailyTaskServiceImpl implements IDailyTaskService
 {
     @Autowired
     private DailyTaskMapper dailyTaskMapper;
-
+    @Autowired
+    private AliexpressCompetitionAnalysisMapper aliexpressCompetitionAnalysisMapper;
     /**
      * 查询速卖通分析-任务清单
      * 
@@ -87,20 +89,20 @@ public class DailyTaskServiceImpl implements IDailyTaskService
     @Override
     public ResponseEntity<Map<String, Object>> updateDailyTaskUnfinished(DailyTask dailyTask) {
         Map<String,String> sendto=new HashMap<>();
-//        sendto.put("夏慧颖","857240603@qq.com");
-//        sendto.put("赵世杰","2885072146@qq.com");
-//        sendto.put("沈娟","2885072146@qq.com");
-//        sendto.put("陈雪芳","2885072146@qq.com");
-//        sendto.put("voice","857240603@qq.com");
-//        sendto.put("未分配","857240603@qq.com");
+        sendto.put("夏慧颖","857240603@qq.com");
+        sendto.put("赵世杰","2885072146@qq.com");
+        sendto.put("沈娟","2885072146@qq.com");
+        sendto.put("陈雪芳","2885072146@qq.com");
+        sendto.put("voice","857240603@qq.com");
+        sendto.put("未分配","857240603@qq.com");
 
 
-        sendto.put("夏慧颖","2355799969@qq.com");
-        sendto.put("赵世杰","3003669197@qq.com");
-        sendto.put("沈娟","2881970600@qq.com");
-        sendto.put("陈雪芳","2850511085@qq.com");
-        sendto.put("voice","3004275997@qq.com");
-        sendto.put("未分配","2885072146@qq.com");
+//        sendto.put("夏慧颖","2355799969@qq.com");
+//        sendto.put("赵世杰","3003669197@qq.com");
+//        sendto.put("沈娟","2881970600@qq.com");
+//        sendto.put("陈雪芳","2850511085@qq.com");
+//        sendto.put("voice","3004275997@qq.com");
+//        sendto.put("未分配","2885072146@qq.com");
 
 
         // 创建一个返回的 Map 对象
@@ -200,14 +202,25 @@ public class DailyTaskServiceImpl implements IDailyTaskService
 
                // 获取任务ID
                List<Long> taskIds = new ArrayList<>();
+                List<String> skus = new ArrayList<>();
                for (DailyTask selectedTask : selectedTasks) {
                    taskIds.add(selectedTask.getsId());
+                   skus.add(selectedTask.getSku());
                }
                // 使用 Map 传递参数给 MyBatis
                Map<String, Object> params = new HashMap<>();
                params.put("taskTime", taskTime);
                params.put("responsiblePerson", responsiblePerson);
                params.put("taskIds", taskIds);
+
+
+                // 使用 Map 传递参数给 MyBatis
+                Map<String, Object> paramsSku = new HashMap<>();
+                paramsSku.put("taskTime", taskTime);
+                paramsSku.put("responsiblePerson", responsiblePerson);
+                paramsSku.put("skus", skus);
+
+
 
                // 生成 Excel 文件
                String filePath = "tasks_" + responsiblePerson + "_" + taskTime + ".xlsx";
@@ -218,6 +231,10 @@ public class DailyTaskServiceImpl implements IDailyTaskService
                EmailUtils.sendEmailWithAttachment(sendto.get(responsiblePerson), subject, body, filePath);
                // 更新任务的任务时间和责任人
                int updatedCount = dailyTaskMapper.updateDailyTaskUnfinished(params);
+
+               //更新竞对sku任务时间和负责人
+               int updatedSkuCount=aliexpressCompetitionAnalysisMapper.updateSkuDailyTaskUnfinished(paramsSku);
+
                // 累计更新的任务数量
                totalUpdatedTasks += updatedCount;
            }

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.aliexpress.mapper.PofitWarehouseUnsalableStatisticsMapper">
+    
+    <resultMap type="PofitWarehouseUnsalableStatistics" id="PofitWarehouseUnsalableStatisticsResult">
+        <result property="year"    column="year"    />
+        <result property="moon"    column="moon"    />
+        <result property="sku"    column="sku"    />
+        <result property="transitQuantity"    column="transit_quantity"    />
+        <result property="stockQuantity"    column="stock_quantity"    />
+        <result property="unshippedQuantity"    column="unshipped_quantity"    />
+        <result property="storeName"    column="store_name"    />
+        <result property="costPrice"    column="cost_price"    />
+        <result property="inventoryCost"    column="inventory_cost"    />
+    </resultMap>
+
+    <sql id="selectPofitWarehouseUnsalableStatisticsVo">
+        select year, moon, sku, transit_quantity, stock_quantity, unshipped_quantity, store_name, cost_price, inventory_cost from pofit_warehouse_unsalable_statistics
+    </sql>
+
+    <select id="selectPofitWarehouseUnsalableStatisticsList" parameterType="PofitWarehouseUnsalableStatistics" resultMap="PofitWarehouseUnsalableStatisticsResult">
+        <include refid="selectPofitWarehouseUnsalableStatisticsVo"/>
+        <where>  
+            <if test="year != null "> and year = #{year}</if>
+            <if test="moon != null "> and moon = #{moon}</if>
+            <if test="sku != null  and sku != ''"> and sku = #{sku}</if>
+            <if test="transitQuantity != null "> and transit_quantity = #{transitQuantity}</if>
+            <if test="stockQuantity != null "> and stock_quantity = #{stockQuantity}</if>
+            <if test="unshippedQuantity != null "> and unshipped_quantity = #{unshippedQuantity}</if>
+            <if test="storeName != null  and storeName != ''"> and store_name like concat('%', #{storeName}, '%')</if>
+            <if test="costPrice != null "> and cost_price = #{costPrice}</if>
+            <if test="inventoryCost != null "> and inventory_cost = #{inventoryCost}</if>
+        </where>
+    </select>
+    
+    <select id="selectPofitWarehouseUnsalableStatisticsByYear" parameterType="Long" resultMap="PofitWarehouseUnsalableStatisticsResult">
+        <include refid="selectPofitWarehouseUnsalableStatisticsVo"/>
+        where year = #{year}
+    </select>
+
+    <insert id="insertPofitWarehouseUnsalableStatistics" parameterType="PofitWarehouseUnsalableStatistics">
+        insert into pofit_warehouse_unsalable_statistics
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="year != null">year,</if>
+            <if test="moon != null">moon,</if>
+            <if test="sku != null">sku,</if>
+            <if test="transitQuantity != null">transit_quantity,</if>
+            <if test="stockQuantity != null">stock_quantity,</if>
+            <if test="unshippedQuantity != null">unshipped_quantity,</if>
+            <if test="storeName != null">store_name,</if>
+            <if test="costPrice != null">cost_price,</if>
+            <if test="inventoryCost != null">inventory_cost,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="year != null">#{year},</if>
+            <if test="moon != null">#{moon},</if>
+            <if test="sku != null">#{sku},</if>
+            <if test="transitQuantity != null">#{transitQuantity},</if>
+            <if test="stockQuantity != null">#{stockQuantity},</if>
+            <if test="unshippedQuantity != null">#{unshippedQuantity},</if>
+            <if test="storeName != null">#{storeName},</if>
+            <if test="costPrice != null">#{costPrice},</if>
+            <if test="inventoryCost != null">#{inventoryCost},</if>
+         </trim>
+    </insert>
+
+    <update id="updatePofitWarehouseUnsalableStatistics" parameterType="PofitWarehouseUnsalableStatistics">
+        update pofit_warehouse_unsalable_statistics
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="moon != null">moon = #{moon},</if>
+            <if test="sku != null">sku = #{sku},</if>
+            <if test="transitQuantity != null">transit_quantity = #{transitQuantity},</if>
+            <if test="stockQuantity != null">stock_quantity = #{stockQuantity},</if>
+            <if test="unshippedQuantity != null">unshipped_quantity = #{unshippedQuantity},</if>
+            <if test="storeName != null">store_name = #{storeName},</if>
+            <if test="costPrice != null">cost_price = #{costPrice},</if>
+            <if test="inventoryCost != null">inventory_cost = #{inventoryCost},</if>
+        </trim>
+        where year = #{year}
+    </update>
+
+    <delete id="deletePofitWarehouseUnsalableStatisticsByYear" parameterType="Long">
+        delete from pofit_warehouse_unsalable_statistics where year = #{year}
+    </delete>
+
+    <delete id="deletePofitWarehouseUnsalableStatisticsByYears" parameterType="String">
+        delete from pofit_warehouse_unsalable_statistics where year in 
+        <foreach item="year" collection="array" open="(" separator="," close=")">
+            #{year}
+        </foreach>
+    </delete>
+</mapper>

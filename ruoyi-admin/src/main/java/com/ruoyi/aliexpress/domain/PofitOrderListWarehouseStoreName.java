@@ -196,6 +196,19 @@ public class PofitOrderListWarehouseStoreName extends BaseEntity
     @Excel(name = "全托管-仓发利润率")
     private BigDecimal profitMarginAllWarehouse;
 
+
+    /** 全托管-仓发利润率 */
+    @Excel(name = "国家")
+    private String countries;
+
+    public String getCountries() {
+        return countries;
+    }
+
+    public void setCountries(String countries) {
+        this.countries = countries;
+    }
+
     public String getStoreType() {
         return storeType;
     }

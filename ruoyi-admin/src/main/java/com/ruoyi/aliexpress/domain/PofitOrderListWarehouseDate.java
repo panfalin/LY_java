@@ -200,6 +200,20 @@ public class PofitOrderListWarehouseDate extends BaseEntity
     @Excel(name = "SKU负责人")
     private String personCharge;
 
+
+    /** SKU负责人 */
+    @Excel(name = "国家")
+    private String countries;
+
+
+    public String getCountries() {
+        return countries;
+    }
+
+    public void setCountries(String countries) {
+        this.countries = countries;
+    }
+
     public String getStoreName() {
         return storeName;
     }

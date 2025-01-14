@@ -13,13 +13,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="publicationIdPop"    column="publication_id_pop"    />
         <result property="publicationIdAll"    column="publication_id_all"    />
         <result property="publicationIdHalf"    column="publication_id_half"    />
+        <result property="taskTime"    column="task_time"    />
         <result property="link"    column="link"    />
         <result property="crawlStatus"    column="crawl_status"    />
         <result property="createTime"    column="create_time"    />
+        <result property="picture"    column="picture"    />
     </resultMap>
 
     <sql id="selectAliexpressCompetitionAnalysisVo">
-        select s_id, sku,sku_person,publication_id_all,publication_id_pop,publication_id_half, link, crawl_status, create_time from aliexpress_competition_analysis
+        select s_id, sku,sku_person,publication_id_all,publication_id_pop,publication_id_half,task_time,link, crawl_status, create_time,picture from aliexpress_competition_analysis
     </sql>
 
     <select id="selectAliexpressCompetitionAnalysisList" parameterType="AliexpressCompetitionAnalysis" resultMap="AliexpressCompetitionAnalysisResult">
@@ -34,6 +36,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="publicationIdHalf != null  and publicationIdHalf != ''"> and publication_id_half = #{publicationIdHalf}</if>
             <if test="link != null  and link != ''"> and link = #{link}</if>
             <if test="crawlStatus != null  and crawlStatus != ''"> and crawl_status = #{crawlStatus}</if>
+            <if test="taskTime != null  and taskTime != ''"> and task_time = #{taskTime}</if>
+
         </where>
     </select>
     
@@ -87,6 +91,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         </trim>
         where s_id = #{sId}
     </update>
+    <update id="updateSkuDailyTaskUnfinished" parameterType="map">
+        UPDATE aliexpress_competition_analysis
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="taskTime != null">task_time = #{taskTime},</if>
+            <if test="responsiblePerson != null">sku_person = #{responsiblePerson},</if>
+        </trim>
+        WHERE sku IN
+        <foreach item="sku" index="index" collection="skus" open="(" separator="," close=")">
+            #{sku}
+        </foreach>
+    </update>
+
+
 
     <delete id="deleteAliexpressCompetitionAnalysisBySId" parameterType="Long">
         delete from aliexpress_competition_analysis where s_id = #{sId}

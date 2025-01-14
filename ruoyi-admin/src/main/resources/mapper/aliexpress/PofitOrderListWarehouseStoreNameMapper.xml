@@ -50,6 +50,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="loanAmountAllWarehouse"    column="loan_amount_all_warehouse"    />
         <result property="profitMarginAllWarehouse"    column="profit_margin_all_warehouse"    />
         <result property="storeType"    column="store_type"    />
+        <result property="countries"    column="country"    />
     </resultMap>
 
     <sql id="selectPofitOrderListWarehouseStoreNameVo">
@@ -130,6 +131,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="moon != null ">  AND MONTH(amol.payment_time) = #{moon}</if>
             <if test="storeName != null "> AND amol.store = #{storeName}</if>
             <if test="storeType != null"> AND s.store_type = #{storeType}</if>
+            <if test="countries != null"> AND amol.country = #{countries}</if>
+
         </where>
         GROUP BY
         amol.category

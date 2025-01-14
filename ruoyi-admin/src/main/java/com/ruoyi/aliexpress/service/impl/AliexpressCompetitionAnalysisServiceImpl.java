@@ -1,5 +1,7 @@
 package com.ruoyi.aliexpress.service.impl;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import com.ruoyi.common.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +43,8 @@ public class AliexpressCompetitionAnalysisServiceImpl implements IAliexpressComp
     @Override
     public List<AliexpressCompetitionAnalysis> selectAliexpressCompetitionAnalysisList(AliexpressCompetitionAnalysis aliexpressCompetitionAnalysis)
     {
+        String taskTime = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        aliexpressCompetitionAnalysis.setTaskTime(taskTime);
         return aliexpressCompetitionAnalysisMapper.selectAliexpressCompetitionAnalysisList(aliexpressCompetitionAnalysis);
     }
 

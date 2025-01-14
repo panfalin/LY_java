@@ -1,6 +1,8 @@
 package com.ruoyi.aliexpress.mapper;
 
 import java.util.List;
+import java.util.Map;
+
 import com.ruoyi.aliexpress.domain.AliexpressCompetitionAnalysis;
 
 /**
@@ -42,6 +44,9 @@ public interface AliexpressCompetitionAnalysisMapper
      * @return 结果
      */
     public int updateAliexpressCompetitionAnalysis(AliexpressCompetitionAnalysis aliexpressCompetitionAnalysis);
+
+
+    public int updateSkuDailyTaskUnfinished(Map<String,Object> paramsSku);
 
     /**
      * 删除竞对SKU

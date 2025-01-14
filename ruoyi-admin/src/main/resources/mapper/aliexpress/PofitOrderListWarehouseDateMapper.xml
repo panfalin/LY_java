@@ -51,14 +51,80 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="profitMarginAllWarehouse"    column="profit_margin_all_warehouse"    />
         <result property="personCharge"    column="person_charge"    />
         <result property="storeName"    column="store_name"    />
+        <result property="countries"    column="countries"    />
     </resultMap>
 
     <sql id="selectPofitOrderListWarehouseDateVo">
         select s_id, year, moon, day, store_name,sku, sku_state, category, quantity, actual_profit, transit_quantity, stock_quantity, bd_stock_quantity, bc_stock_quantity, unshipped_quantity, inventory_cost, daily_avg_sales, loan_amount, profit_margin, cost_price, sale_days, monthly_return, inventory_turns, return_rate, market_capacity, actual_profit_pop, quantity_pop, loan_amount_pop, profit_margin_pop, actual_profit_jit_half, quantity_jit_half, loan_amount_jit_half, profit_margin_jit_half, actual_profit_warehouse_half, quantity_warehouse_half, loan_amount_warehouse_half, profit_margin_warehouse_half, actual_profit_all_jit, quantity_all_jit, loan_amount_all_jit, profit_margin_all_jit, actual_profit_all_warehouse, quantity_all_warehouse, loan_amount_all_warehouse, profit_margin_all_warehouse, person_charge from pofit_order_list_warehouse_date
     </sql>
 
+    <sql id="selectPofitOrderListWarehouseDateVoGroup">
+        SELECT
+            year,
+            moon,
+            day,
+            store_name,
+
+            SUM(COALESCE(quantity, 0)) AS quantity,
+            SUM(COALESCE(actual_profit, 0)) AS actual_profit,
+            SUM(COALESCE(loan_amount, 0)) AS loan_amount,
+            -- 利润率计算
+            CASE
+            WHEN SUM(COALESCE(loan_amount, 0)) != 0 THEN (SUM(COALESCE(actual_profit, 0)) / SUM(COALESCE(loan_amount, 0)))*100
+            ELSE 0
+        END AS profit_margin,
+
+        SUM(COALESCE(actual_profit_pop, 0)) AS actual_profit_pop,
+        SUM(COALESCE(quantity_pop, 0)) AS quantity_pop,
+        SUM(COALESCE(loan_amount_pop, 0)) AS loan_amount_pop,
+        -- 利润率计算
+        CASE
+            WHEN SUM(COALESCE(loan_amount_pop, 0)) != 0 THEN (SUM(COALESCE(actual_profit_pop, 0)) / SUM(COALESCE(loan_amount_pop, 0)))*100
+            ELSE 0
+        END AS profit_margin_pop,
+
+        SUM(COALESCE(actual_profit_jit_half, 0)) AS actual_profit_jit_half,
+        SUM(COALESCE(quantity_jit_half, 0)) AS quantity_jit_half,
+        SUM(COALESCE(loan_amount_jit_half, 0)) AS loan_amount_jit_half,
+        -- 利润率计算
+        CASE
+            WHEN SUM(COALESCE(loan_amount_jit_half, 0)) != 0 THEN (SUM(COALESCE(actual_profit_jit_half, 0)) / SUM(COALESCE(loan_amount_jit_half, 0)))*100
+            ELSE 0
+        END AS profit_margin_jit_half,
+
+        SUM(COALESCE(actual_profit_warehouse_half, 0)) AS actual_profit_warehouse_half,
+        SUM(COALESCE(quantity_warehouse_half, 0)) AS quantity_warehouse_half,
+        SUM(COALESCE(loan_amount_warehouse_half, 0)) AS loan_amount_warehouse_half,
+        -- 利润率计算
+        CASE
+            WHEN SUM(COALESCE(loan_amount_warehouse_half, 0)) != 0 THEN (SUM(COALESCE(actual_profit_warehouse_half, 0)) / SUM(COALESCE(loan_amount_warehouse_half, 0)))*100
+            ELSE 0
+        END AS profit_margin_warehouse_half,
+
+        SUM(COALESCE(actual_profit_all_jit, 0)) AS actual_profit_all_jit,
+        SUM(COALESCE(quantity_all_jit, 0)) AS quantity_all_jit,
+        SUM(COALESCE(loan_amount_all_jit, 0)) AS loan_amount_all_jit,
+        -- 利润率计算
+        CASE
+            WHEN SUM(COALESCE(loan_amount_all_jit, 0)) != 0 THEN (SUM(COALESCE(actual_profit_all_jit, 0)) / SUM(COALESCE(loan_amount_all_jit, 0)))*100
+            ELSE 0
+        END AS profit_margin_all_jit,
+
+        SUM(COALESCE(actual_profit_all_warehouse, 0)) AS actual_profit_all_warehouse,
+        SUM(COALESCE(quantity_all_warehouse, 0)) AS quantity_all_warehouse,
+        SUM(COALESCE(loan_amount_all_warehouse, 0)) AS loan_amount_all_warehouse,
+        -- 利润率计算
+        CASE
+            WHEN SUM(COALESCE(loan_amount_all_warehouse, 0)) != 0 THEN (SUM(COALESCE(actual_profit_all_warehouse, 0)) / SUM(COALESCE(loan_amount_all_warehouse, 0)))*100
+            ELSE 0
+        END AS profit_margin_all_warehouse
+    FROM
+        pofit_order_list_warehouse_date
+    </sql>
+
+
     <select id="selectPofitOrderListWarehouseDateList" parameterType="PofitOrderListWarehouseDate" resultMap="PofitOrderListWarehouseDateResult">
-        <include refid="selectPofitOrderListWarehouseDateVo"/>
+        <include refid="selectPofitOrderListWarehouseDateVoGroup"/>
         <where>  
             <if test="year != null "> and year = #{year}</if>
             <if test="moon != null "> and moon = #{moon}</if>
@@ -105,7 +171,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="profitMarginAllWarehouse != null "> and profit_margin_all_warehouse = #{profitMarginAllWarehouse}</if>
             <if test="personCharge != null  and personCharge != ''"> and person_charge = #{personCharge}</if>
             <if test="storeName != null  and storeName != ''"> and store_name = #{storeName}</if>
+            <if test="countries != null  and countries != ''"> and countries = #{countries}</if>
         </where>
+        GROUP BY
+        year, moon,day,store_name
+
     </select>
     
     <select id="selectPofitOrderListWarehouseDateBySId" parameterType="Long" resultMap="PofitOrderListWarehouseDateResult">
