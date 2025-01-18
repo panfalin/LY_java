@@ -18,10 +18,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="crawlStatus"    column="crawl_status"    />
         <result property="createTime"    column="create_time"    />
         <result property="picture"    column="picture"    />
+        <result property="skuStatus"    column="sku_status"    />
     </resultMap>
 
     <sql id="selectAliexpressCompetitionAnalysisVo">
-        select s_id, sku,sku_person,publication_id_all,publication_id_pop,publication_id_half,task_time,link, crawl_status, create_time,picture from aliexpress_competition_analysis
+        select s_id, sku,sku_person,publication_id_all,publication_id_pop,publication_id_half,task_time,link, crawl_status, create_time,picture,sku_status from aliexpress_competition_analysis
     </sql>
 
     <select id="selectAliexpressCompetitionAnalysisList" parameterType="AliexpressCompetitionAnalysis" resultMap="AliexpressCompetitionAnalysisResult">

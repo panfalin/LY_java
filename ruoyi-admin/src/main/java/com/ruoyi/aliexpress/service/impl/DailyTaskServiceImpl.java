@@ -112,7 +112,6 @@ public class DailyTaskServiceImpl implements IDailyTaskService
            String taskTime = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
            // 查询所有未分配的任务
            List<DailyTask> allTasks = dailyTaskMapper.selectDailyTaskUnfinishedList();
-
            // 按照负责人分组任务
            Map<String, List<DailyTask>> tasksByResponsiblePerson = new HashMap<>();
            for (DailyTask task : allTasks) {
@@ -129,11 +128,9 @@ public class DailyTaskServiceImpl implements IDailyTaskService
             for (Map.Entry<String, List<DailyTask>> entry : tasksByResponsiblePerson.entrySet()) {
                 String responsiblePerson = entry.getKey();
                 List<DailyTask> tasks = entry.getValue();
-
                 // 创建两个列表来分别存储上架任务和下架任务
                 List<DailyTask> shelveTasks = new ArrayList<>();
                 List<DailyTask> unshelveTasks = new ArrayList<>();
-
                 // 将任务按类型分类
                 for (DailyTask task : tasks) {
                     if (task.getSuggestions().equals("上架")) {

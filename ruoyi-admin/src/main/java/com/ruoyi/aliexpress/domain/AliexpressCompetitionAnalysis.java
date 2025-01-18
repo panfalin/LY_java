@@ -67,7 +67,17 @@ public class AliexpressCompetitionAnalysis extends BaseEntity
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Excel(name = "任务时间")
     private String taskTime;
+    /** 刊登ID */
+    @Excel(name = "订单类型")
+    private String skuStatus;
 
+    public String getSkuStatus() {
+        return skuStatus;
+    }
+
+    public void setSkuStatus(String skuStatus) {
+        this.skuStatus = skuStatus;
+    }
 
     public String getPicture() {
         return picture;

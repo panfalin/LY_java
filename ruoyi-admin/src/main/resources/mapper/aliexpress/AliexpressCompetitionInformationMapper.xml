@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.aliexpress.mapper.AliexpressCompetitionInformationMapper">
+    
+    <resultMap type="AliexpressCompetitionInformation" id="AliexpressCompetitionInformationResult">
+        <result property="sku"    column="sku"    />
+        <result property="orderType"    column="order_type"    />
+        <result property="publicationId"    column="publication_id"    />
+        <result property="shops"    column="shops"    />
+        <result property="shopsType"    column="shops_type"    />
+        <result property="linkType"    column="link_type"    />
+        <result property="averageDailyOrder7"    column="average_daily_order_7"    />
+        <result property="score"    column="score"    />
+        <result property="orderNumber180"    column="order_number_180"    />
+        <result property="firstDiscoveryTime"    column="first_discovery_time"    />
+        <result property="packageWeight"    column="package_weight"    />
+        <result property="hotCountries"    column="hot_countries"    />
+        <result property="packageSize"    column="package_size"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="attribute"    column="attribute"    />
+        <result property="price"    column="price"    />
+        <result property="freight"    column="freight"    />
+        <result property="monetaryType"    column="monetary_type"    />
+        <result property="countries"    column="countries"    />
+        <result property="picture"    column="picture"    />
+        <result property="skuPerson"    column="sku_person"    />
+        <result property="marketCapacity"    column="market_capacity"    />
+        <result property="selfPublicationId"    column="self_publication_id"    />
+        <result property="selfPrice"    column="self_price"    />
+        <result property="selfFreight"    column="self_freight"    />
+    </resultMap>
+
+    <sql id="selectAliexpressCompetitionInformationVo">
+        select self_freight, sku, order_type, publication_id, shops, shops_type, link_type, average_daily_order_7, score, order_number_180, first_discovery_time, package_weight, hot_countries, package_size, create_time, if_update from aliexpress_competition_information
+    </sql>
+    <sql id="selectAliexpressCompetitionInformationVoJOIN">
+        SELECT
+            aci.self_publication_id,
+            aci.self_price,
+            aci.self_freight,
+            aci.picture,
+            aci.sku,
+            aci.sku_person,
+            aci.order_type,
+            aci.publication_id,
+            aci.shops,
+            aci.shops_type,
+            aci.link_type,
+            aci.average_daily_order_7,
+            aci.score,
+            aci.order_number_180,
+            aci.first_discovery_time,
+            aci.package_weight,
+            aci.hot_countries,
+            aci.package_size,
+            aci.create_time,
+            aci.if_update,
+            aci.market_capacity,
+            acia.attribute,
+            acia.price,
+            acia.freight,
+            acia.monetary_type,
+            acia.countries
+        FROM
+            aliexpress_competition_information AS aci
+                LEFT JOIN
+            aliexpress_competition_information_attribute AS acia
+            ON (aci.sku=acia.sku AND aci.publication_id=acia.publication_id)
+    </sql>
+
+    <select id="selectAliexpressCompetitionInformationList" parameterType="AliexpressCompetitionInformation" resultMap="AliexpressCompetitionInformationResult">
+        <include refid="selectAliexpressCompetitionInformationVoJOIN"/>
+        <where>  
+            <if test="sku != null  and sku != ''"> and aci.sku like concat('%', #{sku}, '%')</if>
+            <if test="skuPerson != null  and skuPerson != ''"> and aci.sku_person like concat('%', #{skuPerson}, '%')</if>
+            <if test="orderType != null  and orderType != ''"> and aci.order_type = #{orderType}</if>
+            <if test="publicationId != null  and publicationId != ''"> and aci.publication_id = #{publicationId}</if>
+            <if test="shops != null  and shops != ''"> and aci.shops = #{shops}</if>
+            <if test="shopsType != null  and shopsType != ''"> and aci.shops_type = #{shopsType}</if>
+            <if test="linkType != null  and linkType != ''"> and aci.link_type = #{linkType}</if>
+            <if test="averageDailyOrder7 != null "> and aci.average_daily_order_7 = #{averageDailyOrder7}</if>
+            <if test="score != null  and score != ''"> and aci.score = #{score}</if>
+            <if test="orderNumber180 != null  and orderNumber180 != ''"> and aci.order_number_180 = #{orderNumber180}</if>
+            <if test="firstDiscoveryTime != null  and firstDiscoveryTime != ''"> and aci.first_discovery_time = #{firstDiscoveryTime}</if>
+            <if test="packageWeight != null  and packageWeight != ''"> and aci.package_weight = #{packageWeight}</if>
+            <if test="hotCountries != null  and hotCountries != ''"> and aci.hot_countries = #{hotCountries}</if>
+            <if test="packageSize != null  and packageSize != ''"> and aci.package_size = #{packageSize}</if>
+        </where>
+        order by
+        aci.sku,aci.order_type, aci.publication_id, acia.countries
+    </select>
+    
+    <select id="selectAliexpressCompetitionInformationBySku" parameterType="String" resultMap="AliexpressCompetitionInformationResult">
+        <include refid="selectAliexpressCompetitionInformationVo"/>
+        where sku = #{sku}
+    </select>
+
+    <insert id="insertAliexpressCompetitionInformation" parameterType="AliexpressCompetitionInformation">
+        insert into aliexpress_competition_information
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="sku != null">sku,</if>
+            <if test="orderType != null">order_type,</if>
+            <if test="publicationId != null">publication_id,</if>
+            <if test="shops != null">shops,</if>
+            <if test="shopsType != null">shops_type,</if>
+            <if test="linkType != null">link_type,</if>
+            <if test="averageDailyOrder7 != null">average_daily_order_7,</if>
+            <if test="score != null">score,</if>
+            <if test="orderNumber180 != null">order_number_180,</if>
+            <if test="firstDiscoveryTime != null">first_discovery_time,</if>
+            <if test="packageWeight != null">package_weight,</if>
+            <if test="hotCountries != null">hot_countries,</if>
+            <if test="packageSize != null">package_size,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="ifUpdate != null">if_update,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="sku != null">#{sku},</if>
+            <if test="orderType != null">#{orderType},</if>
+            <if test="publicationId != null">#{publicationId},</if>
+            <if test="shops != null">#{shops},</if>
+            <if test="shopsType != null">#{shopsType},</if>
+            <if test="linkType != null">#{linkType},</if>
+            <if test="averageDailyOrder7 != null">#{averageDailyOrder7},</if>
+            <if test="score != null">#{score},</if>
+            <if test="orderNumber180 != null">#{orderNumber180},</if>
+            <if test="firstDiscoveryTime != null">#{firstDiscoveryTime},</if>
+            <if test="packageWeight != null">#{packageWeight},</if>
+            <if test="hotCountries != null">#{hotCountries},</if>
+            <if test="packageSize != null">#{packageSize},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="ifUpdate != null">#{ifUpdate},</if>
+         </trim>
+    </insert>
+
+    <update id="updateAliexpressCompetitionInformation" parameterType="AliexpressCompetitionInformation">
+        update aliexpress_competition_information
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="orderType != null">order_type = #{orderType},</if>
+            <if test="publicationId != null">publication_id = #{publicationId},</if>
+            <if test="shops != null">shops = #{shops},</if>
+            <if test="shopsType != null">shops_type = #{shopsType},</if>
+            <if test="linkType != null">link_type = #{linkType},</if>
+            <if test="averageDailyOrder7 != null">average_daily_order_7 = #{averageDailyOrder7},</if>
+            <if test="score != null">score = #{score},</if>
+            <if test="orderNumber180 != null">order_number_180 = #{orderNumber180},</if>
+            <if test="firstDiscoveryTime != null">first_discovery_time = #{firstDiscoveryTime},</if>
+            <if test="packageWeight != null">package_weight = #{packageWeight},</if>
+            <if test="hotCountries != null">hot_countries = #{hotCountries},</if>
+            <if test="packageSize != null">package_size = #{packageSize},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="ifUpdate != null">if_update = #{ifUpdate},</if>
+        </trim>
+        where sku = #{sku}
+    </update>
+
+    <delete id="deleteAliexpressCompetitionInformationBySku" parameterType="String">
+        delete from aliexpress_competition_information where sku = #{sku}
+    </delete>
+
+    <delete id="deleteAliexpressCompetitionInformationBySkus" parameterType="String">
+        delete from aliexpress_competition_information where sku in 
+        <foreach item="sku" collection="array" open="(" separator="," close=")">
+            #{sku}
+        </foreach>
+    </delete>
+</mapper>
