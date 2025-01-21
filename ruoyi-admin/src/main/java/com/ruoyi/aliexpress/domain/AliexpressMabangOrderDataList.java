@@ -2,6 +2,8 @@ package com.ruoyi.aliexpress.domain;
 
 import java.math.BigDecimal;
 import java.util.Date;
+
+import com.alibaba.fastjson.JSON;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -24,6 +26,9 @@ public class AliexpressMabangOrderDataList extends BaseEntity
     /** 订单编号 */
     @Excel(name = "订单编号")
     private String orderId;
+    /** 订单编号 */
+    @Excel(name = "交易编号")
+    private String transactionId;
 
     /** 类别（POP、半托管、全托管） */
     @Excel(name = "类别", readConverterExp = "P=OP、半托管、全托管")
@@ -100,7 +105,7 @@ public class AliexpressMabangOrderDataList extends BaseEntity
 
     /** 清仓补助 */
     @Excel(name = "清仓补助")
-    private String clearanceSubsidy;
+    private BigDecimal clearanceSubsidy;
 
     /** 订单利润 */
     @Excel(name = "订单利润")
@@ -118,7 +123,26 @@ public class AliexpressMabangOrderDataList extends BaseEntity
     @Excel(name = "实际利润率")
     private BigDecimal actualProfitRate;
 
-    public void setsId(Long sId) 
+    /** SKU明细 */
+    private String skuInfo;
+
+    public String getSkuInfo() {
+        return skuInfo;
+    }
+
+    public void setSkuInfo(String skuInfo) {
+        this.skuInfo = skuInfo;
+    }
+
+    public String getTransactionId() {
+        return transactionId;
+    }
+
+    public void setTransactionId(String transactionId) {
+        this.transactionId = transactionId;
+    }
+
+    public void setsId(Long sId)
     {
         this.sId = sId;
     }
@@ -298,12 +322,12 @@ public class AliexpressMabangOrderDataList extends BaseEntity
     {
         return actualRefund;
     }
-    public void setClearanceSubsidy(String clearanceSubsidy) 
+    public void setClearanceSubsidy(BigDecimal clearanceSubsidy)
     {
         this.clearanceSubsidy = clearanceSubsidy;
     }
 
-    public String getClearanceSubsidy() 
+    public BigDecimal getClearanceSubsidy()
     {
         return clearanceSubsidy;
     }

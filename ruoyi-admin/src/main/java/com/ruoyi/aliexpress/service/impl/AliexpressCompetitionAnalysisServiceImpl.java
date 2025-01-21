@@ -43,8 +43,8 @@ public class AliexpressCompetitionAnalysisServiceImpl implements IAliexpressComp
     @Override
     public List<AliexpressCompetitionAnalysis> selectAliexpressCompetitionAnalysisList(AliexpressCompetitionAnalysis aliexpressCompetitionAnalysis)
     {
-        String taskTime = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        aliexpressCompetitionAnalysis.setTaskTime(taskTime);
+//        String taskTime = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+//        aliexpressCompetitionAnalysis.setTaskTime(taskTime);
         return aliexpressCompetitionAnalysisMapper.selectAliexpressCompetitionAnalysisList(aliexpressCompetitionAnalysis);
     }
 

@@ -1,6 +1,9 @@
 package com.ruoyi.aliexpress.mapper;
 
+import java.math.BigDecimal;
 import java.util.List;
+
+import com.ruoyi.aliexpress.domain.AliexpressFinancialRecord;
 import com.ruoyi.aliexpress.domain.AliexpressMabangOrderDataList;
 
 /**
@@ -58,4 +61,37 @@ public interface AliexpressMabangOrderDataListMapper
      * @return 结果
      */
     public int deleteAliexpressMabangOrderDataListBySIds(Long[] sIds);
+
+        /**
+         * 根据订单号获取所有相关账务记录的物流赔付总和
+         *
+         * @param orderId 订单号
+         * @return 物流赔付总和
+         */
+    public List<AliexpressFinancialRecord> getTotalLogisticsCompensation(String orderId);
+
+    /**
+     * 根据订单号获取所有相关账务记录的物流赔付总和
+     *
+     * @param orderId 订单号
+     * @return 物流赔付总和
+     */
+    public BigDecimal getTotalRefundAmountByOrderId(String orderId);
+
+
+
+    /**
+     * 查询马帮订单数据列表
+     *
+     * @param transactionId 马帮订单数据
+     * @return 马帮订单数据集合
+     */
+    public List<AliexpressFinancialRecord> getRecordsByTransactionId(String transactionId);
+
+
+    public int countBySku(String sku);
+
+
+
+
 }

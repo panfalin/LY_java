@@ -29,10 +29,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="orderProfitRate"    column="order_profit_rate"    />
         <result property="actualProfit"    column="actual_profit"    />
         <result property="actualProfitRate"    column="actual_profit_rate"    />
+        <result property="transactionId"    column="transaction_id"    />
+        <result property="skuInfo"    column="sku_info"    />
     </resultMap>
 
+
+
+    <resultMap type="AliexpressFinancialRecord" id="AliexpressFinancialRecord">
+        <result property="store"    column="store"    />
+        <result property="tradeOrderId"    column="trade_order_id"    />
+        <result property="amount"    column="amount"    />
+        <result property="feeItem"    column="fee_item"    />
+        <result property="remark"    column="remark"    />
+        <result property="expenseAccount"    column="expense_account"    />
+        <result property="incomeAccount"    column="income_account"    />
+        <result property="platformTransactionId"    column="platform_transaction_id"    />
+    </resultMap>
+
+
+
+
     <sql id="selectAliexpressMabangOrderDataListVo">
-        select s_id, order_id, category, payment_time, store, country, weight, sku_details, sku_quantity, total_product_weight, total_order_amount, actual_shipping, shipping_revenue, ad_cost_rmb, platform_fee_rmb, vat_fee_rmb, logistics_compensation, semi_managed_compensation, actual_refund, clearance_subsidy, order_profit, order_profit_rate, actual_profit, actual_profit_rate from aliexpress_mabang_order_data_list
+        select s_id,transaction_id,sku_info, order_id, category, payment_time, store, country, weight, sku_details, sku_quantity, total_product_weight, total_order_amount, actual_shipping, shipping_revenue, ad_cost_rmb, platform_fee_rmb, vat_fee_rmb, logistics_compensation, semi_managed_compensation, actual_refund, clearance_subsidy, order_profit, order_profit_rate, actual_profit, actual_profit_rate from aliexpress_mabang_order_data_list
     </sql>
 
     <select id="selectAliexpressMabangOrderDataListList" parameterType="AliexpressMabangOrderDataList" resultMap="AliexpressMabangOrderDataListResult">
@@ -163,4 +181,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{sId}
         </foreach>
     </delete>
+
+    <select id="getTotalLogisticsCompensation" resultType="AliexpressFinancialRecord">
+        SELECT amount
+        FROM aliexpress_logistics_compensation
+        WHERE tran_order_ids = #{orderId}
+
+    </select>
+
+
+    <select id="getRecordsByTransactionId" parameterType="String"  resultType="AliexpressFinancialRecord">
+        SELECT amount
+        FROM aliexpress_income_expense_records
+        WHERE trade_order_id = #{transactionId} and fee_item='Semi Choice compensation';
+    </select>
+
+    <select id="getTotalRefundAmountByOrderId" resultType="java.math.BigDecimal">
+        SELECT SUM(amount) FROM aliexpress_order_recharge_records WHERE order_no =#{order}  and refund_from='After sale'
+    </select>
+
+    <select id="countBySku" resultType="int">
+        SELECT COUNT(1) FROM aliexpress_clearance_list WHERE sku = #{sku}
+    </select>
+
 </mapper>
