@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.aliexpress.mapper.AliexpressSkuAnalysisMapper">
+
+    <resultMap type="AliexpressSkuAnalysis" id="AliexpressSkuAnalysisResult">
+        <result property="id" column="id"/>
+        <result property="sku" column="sku"/>
+        <result property="totalStock" column="total_stock"/>
+        <result property="localInTransitQuantity" column="local_in_transit_quantity"/>
+        <result property="localAvailableQuantity" column="local_available_quantity"/>
+        <result property="backupInTransitQuantity" column="backup_in_transit_quantity"/>
+        <result property="halfManagementBackupAvailableQuantity" column="half_management_backup_available_quantity"/>
+        <result property="fullManagementBackupAvailableQuantity" column="full_management_backup_available_quantity"/>
+        <result property="sales7Days" column="sales_last_7_days"/>
+        <result property="sales28Days" column="sales_last_28_days"/>
+        <result property="sales42Days" column="sales_last_42_days"/>
+        <result property="popDailyMarketCapacity" column="pop_daily_market_capacity"/>
+        <result property="fullManagementDailyMarketCapacity" column="full_management_daily_market_capacity"/>
+        <result property="halfManagementDailyMarketCapacity" column="half_management_daily_market_capacity"/>
+        <result property="competitorHotSalesCountries" column="competitor_hot_sales_countries"/>
+        <result property="competitorHotSalesPrice" column="competitor_hot_sales_price"/>
+        <result property="marketAveragePrice" column="market_average_price"/>
+        <result property="priceComparison" column="price_comparison"/>
+        <result property="popOnlineListings" column="pop_online_listings"/>
+        <result property="fullManagementOnlineListings" column="full_management_online_listings"/>
+        <result property="halfManagementOnlineListings" column="half_management_online_listings"/>
+        <result property="recommendedAction" column="recommended_action"/>
+        <result property="status" column="status"/>
+        <result property="completedAt" column="completed_at"/>
+        <result property="operationLog" column="operation_log"/>
+        <result property="createdBy" column="created_by"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="updatedBy" column="updated_by"/>
+        <result property="updatedAt" column="updated_at"/>
+    </resultMap>
+
+    <sql id="selectAliexpressSkuAnalysisVo">
+        select id,
+               sku,
+               total_stock,
+               local_in_transit_quantity,
+               local_available_quantity,
+               backup_in_transit_quantity,
+               half_management_backup_available_quantity,
+               full_management_backup_available_quantity,
+               sales_last_7_days,
+               sales_last_28_days,
+               sales_last_42_days,
+               pop_daily_market_capacity,
+               full_management_daily_market_capacity,
+               half_management_daily_market_capacity,
+               competitor_hot_sales_countries,
+               competitor_hot_sales_price,
+               market_average_price,
+               price_comparison,
+               pop_online_listings,
+               full_management_online_listings,
+               half_management_online_listings,
+               recommended_action,
+               status,
+               completed_at,
+               operation_log,
+               created_by,
+               created_at,
+               updated_by,
+               updated_at
+        from aliexpress_sku_analysis
+    </sql>
+
+    <select id="selectAliexpressSkuAnalysisList" parameterType="AliexpressSkuAnalysis"
+            resultMap="AliexpressSkuAnalysisResult">
+        <include refid="selectAliexpressSkuAnalysisVo"/>
+        <where>
+            sales_last_28_days = 0
+            <if test="sku != null  and sku != ''">and sku like concat('%', #{sku}, '%')</if>
+            <if test="sales28Days != null  and sales28Days != ''">and sales_last_28_days = #{sales28Days})</if>
+            <if test="params.beginAvailableStock != null and params.beginAvailableStock != '' and params.endAvailableStock != null and params.endAvailableStock != ''">
+                and available_stock between #{params.beginAvailableStock} and #{params.endAvailableStock}
+            </if>
+            <if test="params.beginPopDailyMarketCapacity != null and params.beginPopDailyMarketCapacity != '' and params.endPopDailyMarketCapacity != null and params.endPopDailyMarketCapacity != ''">
+                and pop_daily_market_capacity between #{params.beginPopDailyMarketCapacity} and
+                #{params.endPopDailyMarketCapacity}
+            </if>
+            <if test="params.beginFullManagementDailyMarketCapacity != null and params.beginFullManagementDailyMarketCapacity != '' and params.endFullManagementDailyMarketCapacity != null and params.endFullManagementDailyMarketCapacity != ''">
+                and full_management_daily_market_capacity between #{params.beginFullManagementDailyMarketCapacity} and
+                #{params.endFullManagementDailyMarketCapacity}
+            </if>
+            <if test="params.beginHalfManagementDailyMarketCapacity != null and params.beginHalfManagementDailyMarketCapacity != '' and params.endHalfManagementDailyMarketCapacity != null and params.endHalfManagementDailyMarketCapacity != ''">
+                and half_management_daily_market_capacity between #{params.beginHalfManagementDailyMarketCapacity} and
+                #{params.endHalfManagementDailyMarketCapacity}
+            </if>
+            <if test="competitorHotSalesCountries != null  and competitorHotSalesCountries != ''">and
+                competitor_hot_sales_countries like concat('%', #{competitorHotSalesCountries}, '%')
+            </if>
+            <if test="params.beginCompetitorHotSalesPrice != null and params.beginCompetitorHotSalesPrice != '' and params.endCompetitorHotSalesPrice != null and params.endCompetitorHotSalesPrice != ''">
+                and competitor_hot_sales_price between #{params.beginCompetitorHotSalesPrice} and
+                #{params.endCompetitorHotSalesPrice}
+            </if>
+            <if test="params.beginMarketAveragePrice != null and params.beginMarketAveragePrice != '' and params.endMarketAveragePrice != null and params.endMarketAveragePrice != ''">
+                and market_average_price between #{params.beginMarketAveragePrice} and #{params.endMarketAveragePrice}
+            </if>
+            <if test="priceComparison != null  and priceComparison != ''">and price_comparison like concat('%',
+                #{priceComparison}, '%')
+            </if>
+            <if test="params.beginPopOnlineListings != null and params.beginPopOnlineListings != '' and params.endPopOnlineListings != null and params.endPopOnlineListings != ''">
+                and pop_online_listings between #{params.beginPopOnlineListings} and #{params.endPopOnlineListings}
+            </if>
+            <if test="params.beginFullManagementOnlineListings != null and params.beginFullManagementOnlineListings != '' and params.endFullManagementOnlineListings != null and params.endFullManagementOnlineListings != ''">
+                and full_management_online_listings between #{params.beginFullManagementOnlineListings} and
+                #{params.endFullManagementOnlineListings}
+            </if>
+            <if test="params.beginHalfManagementOnlineListings != null and params.beginHalfManagementOnlineListings != '' and params.endHalfManagementOnlineListings != null and params.endHalfManagementOnlineListings != ''">
+                and half_management_online_listings between #{params.beginHalfManagementOnlineListings} and
+                #{params.endHalfManagementOnlineListings}
+            </if>
+            <if test="recommendedAction != null  and recommendedAction != ''">and recommended_action like concat('%',
+                #{recommendedAction}, '%')
+            </if>
+            <if test="status != null  and status != ''">and status like concat('%', #{status}, '%')</if>
+            <if test="params.beginCompletedAt != null and params.beginCompletedAt != '' and params.endCompletedAt != null and params.endCompletedAt != ''">
+                and completed_at between #{params.beginCompletedAt} and #{params.endCompletedAt}
+            </if>
+            <if test="operationLog != null  and operationLog != ''">and operation_log like concat('%', #{operationLog},
+                '%')
+            </if>
+        </where>
+    </select>
+
+    <select id="selectAliexpressSkuAnalysisById" parameterType="Long" resultMap="AliexpressSkuAnalysisResult">
+        <include refid="selectAliexpressSkuAnalysisVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertAliexpressSkuAnalysis" parameterType="AliexpressSkuAnalysis" useGeneratedKeys="true"
+            keyProperty="id">
+        insert into aliexpress_sku_analysis
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="sku != null and sku != ''">sku,</if>
+            <if test="availableStock != null">available_stock,</if>
+            <if test="popDailyMarketCapacity != null">pop_daily_market_capacity,</if>
+            <if test="fullManagementDailyMarketCapacity != null">full_management_daily_market_capacity,</if>
+            <if test="halfManagementDailyMarketCapacity != null">half_management_daily_market_capacity,</if>
+            <if test="competitorHotSalesCountries != null">competitor_hot_sales_countries,</if>
+            <if test="competitorHotSalesPrice != null">competitor_hot_sales_price,</if>
+            <if test="marketAveragePrice != null">market_average_price,</if>
+            <if test="priceComparison != null">price_comparison,</if>
+            <if test="popOnlineListings != null">pop_online_listings,</if>
+            <if test="fullManagementOnlineListings != null">full_management_online_listings,</if>
+            <if test="halfManagementOnlineListings != null">half_management_online_listings,</if>
+            <if test="recommendedAction != null">recommended_action,</if>
+            <if test="status != null">status,</if>
+            <if test="completedAt != null">completed_at,</if>
+            <if test="operationLog != null">operation_log,</if>
+            <if test="createdBy != null">created_by,</if>
+            <if test="createdAt != null">created_at,</if>
+            <if test="updatedBy != null">updated_by,</if>
+            <if test="updatedAt != null">updated_at,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="sku != null and sku != ''">#{sku},</if>
+            <if test="availableStock != null">#{availableStock},</if>
+            <if test="popDailyMarketCapacity != null">#{popDailyMarketCapacity},</if>
+            <if test="fullManagementDailyMarketCapacity != null">#{fullManagementDailyMarketCapacity},</if>
+            <if test="halfManagementDailyMarketCapacity != null">#{halfManagementDailyMarketCapacity},</if>
+            <if test="competitorHotSalesCountries != null">#{competitorHotSalesCountries},</if>
+            <if test="competitorHotSalesPrice != null">#{competitorHotSalesPrice},</if>
+            <if test="marketAveragePrice != null">#{marketAveragePrice},</if>
+            <if test="priceComparison != null">#{priceComparison},</if>
+            <if test="popOnlineListings != null">#{popOnlineListings},</if>
+            <if test="fullManagementOnlineListings != null">#{fullManagementOnlineListings},</if>
+            <if test="halfManagementOnlineListings != null">#{halfManagementOnlineListings},</if>
+            <if test="recommendedAction != null">#{recommendedAction},</if>
+            <if test="status != null">#{status},</if>
+            <if test="completedAt != null">#{completedAt},</if>
+            <if test="operationLog != null">#{operationLog},</if>
+            <if test="createdBy != null">#{createdBy},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+            <if test="updatedBy != null">#{updatedBy},</if>
+            <if test="updatedAt != null">#{updatedAt},</if>
+        </trim>
+    </insert>
+
+    <update id="updateAliexpressSkuAnalysis" parameterType="AliexpressSkuAnalysis">
+        update aliexpress_sku_analysis
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="sku != null and sku != ''">sku = #{sku},</if>
+            <if test="availableStock != null">available_stock = #{availableStock},</if>
+            <if test="popDailyMarketCapacity != null">pop_daily_market_capacity = #{popDailyMarketCapacity},</if>
+            <if test="fullManagementDailyMarketCapacity != null">full_management_daily_market_capacity =
+                #{fullManagementDailyMarketCapacity},
+            </if>
+            <if test="halfManagementDailyMarketCapacity != null">half_management_daily_market_capacity =
+                #{halfManagementDailyMarketCapacity},
+            </if>
+            <if test="competitorHotSalesCountries != null">competitor_hot_sales_countries =
+                #{competitorHotSalesCountries},
+            </if>
+            <if test="competitorHotSalesPrice != null">competitor_hot_sales_price = #{competitorHotSalesPrice},</if>
+            <if test="marketAveragePrice != null">market_average_price = #{marketAveragePrice},</if>
+            <if test="priceComparison != null">price_comparison = #{priceComparison},</if>
+            <if test="popOnlineListings != null">pop_online_listings = #{popOnlineListings},</if>
+            <if test="fullManagementOnlineListings != null">full_management_online_listings =
+                #{fullManagementOnlineListings},
+            </if>
+            <if test="halfManagementOnlineListings != null">half_management_online_listings =
+                #{halfManagementOnlineListings},
+            </if>
+            <if test="recommendedAction != null">recommended_action = #{recommendedAction},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="completedAt != null">completed_at = #{completedAt},</if>
+            <if test="operationLog != null">operation_log = #{operationLog},</if>
+            <if test="createdBy != null">created_by = #{createdBy},</if>
+            <if test="createdAt != null">created_at = #{createdAt},</if>
+            <if test="updatedBy != null">updated_by = #{updatedBy},</if>
+            <if test="updatedAt != null">updated_at = #{updatedAt},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteAliexpressSkuAnalysisById" parameterType="Long">
+        delete
+        from aliexpress_sku_analysis
+        where id = #{id}
+    </delete>
+
+    <delete id="deleteAliexpressSkuAnalysisByIds" parameterType="String">
+        delete from aliexpress_sku_analysis where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
