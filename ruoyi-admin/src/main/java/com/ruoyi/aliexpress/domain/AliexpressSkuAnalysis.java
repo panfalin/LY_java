@@ -28,6 +28,12 @@ public class AliexpressSkuAnalysis extends BaseEntity {
      */
     @Excel(name = "滞销SKU")
     private String sku;
+    @Excel(name = "成本价格")
+    private String warehouseCost;
+    @Excel(name = "成本总价")
+    private String totalWarehouseCost;
+
+
 
     /**
      * 总库存
@@ -68,19 +74,19 @@ public class AliexpressSkuAnalysis extends BaseEntity {
     /**
      * 七天销量
      */
-    @Excel(name = "七天销量")
+
     private Long sales7Days;
 
     /**
      * 七天销量
      */
-    @Excel(name = "二十八天销量")
+
     private Long sales28Days;
 
     /**
      * 七天销量
      */
-    @Excel(name = "四十二天销量")
+
     private Long sales42Days;
 
     /**
@@ -111,13 +117,13 @@ public class AliexpressSkuAnalysis extends BaseEntity {
      * 竞对热销价格
      */
     @Excel(name = "竞对热销价格")
-    private BigDecimal competitorHotSalesPrice;
+    private String competitorHotSalesPrice;
 
     /**
      * 市场平均售价
      */
     @Excel(name = "市场平均售价")
-    private BigDecimal marketAveragePrice;
+    private String marketAveragePrice;
 
     /**
      * 对比我们刊登的价格
@@ -188,6 +194,22 @@ public class AliexpressSkuAnalysis extends BaseEntity {
      */
     private Date updatedAt;
 
+    public String getWarehouseCost() {
+        return warehouseCost;
+    }
+
+    public void setWarehouseCost(String warehouseCost) {
+        this.warehouseCost = warehouseCost;
+    }
+
+    public String gettotalWarehouseCost() {
+        return totalWarehouseCost;
+    }
+
+    public void settotalWarehouseCost(String totalWarehouseCost) {
+        this.totalWarehouseCost = totalWarehouseCost;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -244,19 +266,19 @@ public class AliexpressSkuAnalysis extends BaseEntity {
         return competitorHotSalesCountries;
     }
 
-    public void setCompetitorHotSalesPrice(BigDecimal competitorHotSalesPrice) {
+    public void setCompetitorHotSalesPrice(String competitorHotSalesPrice) {
         this.competitorHotSalesPrice = competitorHotSalesPrice;
     }
 
-    public BigDecimal getCompetitorHotSalesPrice() {
+    public String getCompetitorHotSalesPrice() {
         return competitorHotSalesPrice;
     }
 
-    public void setMarketAveragePrice(BigDecimal marketAveragePrice) {
+    public void setMarketAveragePrice(String marketAveragePrice) {
         this.marketAveragePrice = marketAveragePrice;
     }
 
-    public BigDecimal getMarketAveragePrice() {
+    public String getMarketAveragePrice() {
         return marketAveragePrice;
     }
 

@@ -2,6 +2,7 @@ package com.ruoyi.aliexpress.service;
 
 import java.util.List;
 import com.ruoyi.aliexpress.domain.AliexpressSkuAnalysis;
+import com.ruoyi.aliexpress.domain.AliexpressSkuStatistics;
 
 /**
  * 速卖通滞销SKU分析Service接口
@@ -26,6 +27,10 @@ public interface IAliexpressSkuAnalysisService
      * @return 速卖通滞销SKU分析集合
      */
     public List<AliexpressSkuAnalysis> selectAliexpressSkuAnalysisList(AliexpressSkuAnalysis aliexpressSkuAnalysis);
+
+    public List<AliexpressSkuStatistics> selectAliexpressSkuStatistics(AliexpressSkuAnalysis aliexpressSkuAnalysis);
+
+
 
     /**
      * 新增速卖通滞销SKU分析

@@ -2,6 +2,8 @@ package com.ruoyi.aliexpress.mapper;
 
 import java.util.List;
 import com.ruoyi.aliexpress.domain.AliexpressSkuAnalysis;
+import com.ruoyi.aliexpress.domain.AliexpressSkuAnalysisAttribute;
+import com.ruoyi.aliexpress.domain.AliexpressSkuStatistics;
 
 /**
  * 速卖通滞销SKU分析Mapper接口
@@ -26,6 +28,11 @@ public interface AliexpressSkuAnalysisMapper
      * @return 速卖通滞销SKU分析集合
      */
     public List<AliexpressSkuAnalysis> selectAliexpressSkuAnalysisList(AliexpressSkuAnalysis aliexpressSkuAnalysis);
+
+
+    public List<AliexpressSkuAnalysisAttribute> selectAliexpressSkuAnalysisAttributeList(AliexpressSkuAnalysisAttribute aliexpressSkuAnalysis);
+
+    public List<AliexpressSkuStatistics> selectAliexpressSkuStatistics(AliexpressSkuAnalysis aliexpressSkuAnalysis);
 
     /**
      * 新增速卖通滞销SKU分析

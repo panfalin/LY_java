@@ -7,6 +7,8 @@
     <resultMap type="AliexpressSkuAnalysis" id="AliexpressSkuAnalysisResult">
         <result property="id" column="id"/>
         <result property="sku" column="sku"/>
+        <result property="warehouseCost" column="warehouse_cost"/>
+        <result property="totalWarehouseCost" column="total_warehouse_cost"/>
         <result property="totalStock" column="total_stock"/>
         <result property="localInTransitQuantity" column="local_in_transit_quantity"/>
         <result property="localAvailableQuantity" column="local_available_quantity"/>
@@ -35,6 +37,39 @@
         <result property="updatedBy" column="updated_by"/>
         <result property="updatedAt" column="updated_at"/>
     </resultMap>
+
+
+    <resultMap type="AliexpressSkuAnalysisAttribute" id="AliexpressSkuAnalysisAttributeResult">
+        <result property="sku" column="sku"/>
+        <result property="publicationId" column="publication_id"/>
+        <result property="attribute" column="attribute"/>
+        <result property="price" column="price"/>
+        <result property="freight" column="freight"/>
+        <result property="monetaryType" column="monetary_type"/>
+        <result property="countries" column="countries"/>
+    </resultMap>
+
+
+
+    <resultMap type="AliexpressSkuStatistics" id="AliexpressSkuStatisticsResult">
+        <result property="skuTotal" column="sku_total"/>
+        <result property="totalWarehouse" column="total_warehouse"/>
+        <result property="totalWarehouseCost" column="total_warehouse_cost"/>
+    </resultMap>
+
+
+
+    <sql id="selectAliexpressSkuAnalysisAttributeVo">
+        select sku,
+               publication_id,
+               attribute,
+               price,
+               freight,
+               monetary_type,
+               countries
+        from aliexpress_competition_information_attribute
+    </sql>
+
 
     <sql id="selectAliexpressSkuAnalysisVo">
         select id,
@@ -69,12 +104,107 @@
         from aliexpress_sku_analysis
     </sql>
 
+    <sql id="selectAliexpressSkuAnalysisVoJOIN">
+        select asa.id,
+               asa.sku,
+               asa.total_stock,
+               ROUND(asa.warehouse_cost,2) as warehouse_cost,
+               ROUND((COALESCE(asa.total_stock, 0) +
+                      COALESCE(asa.local_in_transit_quantity, 0) +
+                      COALESCE(pwts.bc_semi_inventory_quantity, 0) +
+                      COALESCE(pwts.bc_auto_inventory_quantity, 0) +
+                      COALESCE(pwts.bc_transit_quantity, 0))*
+                     COALESCE(asa.warehouse_cost, 0),2) AS total_warehouse_cost,
+               asa.local_in_transit_quantity,
+               asa.local_available_quantity,
+               asa.pop_daily_market_capacity,
+               asa.half_management_daily_market_capacity,
+               asa.full_management_daily_market_capacity,
+               asa.competitor_hot_sales_countries,
+               asa.competitor_hot_sales_price,
+               asa.price_comparison,
+               asa.pop_online_listings,
+               asa.full_management_online_listings,
+               asa.half_management_online_listings,
+               pwts.bc_transit_quantity  as backup_in_transit_quantity,
+               pwts.bc_semi_inventory_quantity  as half_management_backup_available_quantity,
+               pwts.bc_auto_inventory_quantity  as full_management_backup_available_quantity
+        from aliexpress_sku_analysis as asa
+        JOIN pofit_warehouse_total_statistics pwts ON asa.sku=pwts.sku
+    </sql>
+
+    <select id="selectAliexpressSkuAnalysisAttributeList" parameterType="AliexpressSkuAnalysisAttribute" resultMap="AliexpressSkuAnalysisAttributeResult">
+        <include refid="selectAliexpressSkuAnalysisAttributeVo"/>
+        <where>
+        <if test="sku != null  and sku != ''">and sku= #{sku}</if>
+        <if test="countries != null  and countries != ''">and countries = #{countries}</if>
+        </where>
+    </select>
+
+
+
+    <select id="selectAliexpressSkuStatistics" parameterType="AliexpressSkuStatistics" resultMap="AliexpressSkuStatisticsResult">
+        select
+        COUNT(*) AS sku_total,
+        SUM(
+        ROUND(
+        COALESCE(asa.total_stock, 0) +
+        COALESCE(asa.local_in_transit_quantity, 0) +
+        COALESCE(pwts.bc_semi_inventory_quantity, 0) +
+        COALESCE(pwts.bc_auto_inventory_quantity, 0) +
+        COALESCE(pwts.bc_transit_quantity, 0),
+        2
+        )
+        ) AS total_warehouse,  -- 计算滞销商品个数
+        SUM(
+        ROUND(
+        (COALESCE(asa.total_stock, 0) +
+        COALESCE(asa.local_in_transit_quantity, 0) +
+        COALESCE(pwts.bc_semi_inventory_quantity, 0) +
+        COALESCE(pwts.bc_auto_inventory_quantity, 0) +
+        COALESCE(pwts.bc_transit_quantity, 0)) *
+        COALESCE(asa.warehouse_cost, 0),
+        2
+        )
+        ) AS total_warehouse_cost  -- 计算总仓库成本
+
+        from aliexpress_sku_analysis as asa
+        JOIN pofit_warehouse_total_statistics pwts ON asa.sku=pwts.sku
+        <where>
+        DATE(created_at) = (
+        SELECT MAX(DATE(created_at)) FROM aliexpress_sku_analysis
+        )
+        AND sales_last_28_days = 0
+        AND NOT EXISTS (
+        SELECT 1
+        FROM aliexpress_mabang_order_list aml
+        WHERE aml.sku = asa.sku
+        AND aml.payment_time >= CURDATE() - INTERVAL 60 DAY
+        )
+        <if test="sku != null  and sku != ''">and asa.sku = #{sku}</if>
+        </where>
+    </select>
+
+
+
+
+
     <select id="selectAliexpressSkuAnalysisList" parameterType="AliexpressSkuAnalysis"
             resultMap="AliexpressSkuAnalysisResult">
-        <include refid="selectAliexpressSkuAnalysisVo"/>
+        <include refid="selectAliexpressSkuAnalysisVoJOIN"/>
+
         <where>
-            sales_last_28_days = 0
-            <if test="sku != null  and sku != ''">and sku like concat('%', #{sku}, '%')</if>
+            DATE(created_at) = (
+            SELECT MAX(DATE(created_at)) FROM aliexpress_sku_analysis
+            )
+            AND sales_last_28_days = 0
+            AND NOT EXISTS (
+            SELECT 1
+            FROM aliexpress_mabang_order_list aml
+            WHERE aml.sku = asa.sku
+            AND aml.payment_time >= CURDATE() - INTERVAL 60 DAY
+            )
+            <if test="sku != null  and sku != ''">and asa.sku like concat('%', #{sku}, '%')</if>
             <if test="sales28Days != null  and sales28Days != ''">and sales_last_28_days = #{sales28Days})</if>
             <if test="params.beginAvailableStock != null and params.beginAvailableStock != '' and params.endAvailableStock != null and params.endAvailableStock != ''">
                 and available_stock between #{params.beginAvailableStock} and #{params.endAvailableStock}

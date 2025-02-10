@@ -27,6 +27,10 @@ public class PofitOrderListWarehouseStoreName extends BaseEntity
     @Excel(name = "月份")
     private Long moon;
 
+    /** 年份 */
+    @Excel(name = "日期")
+    private Long day;
+
     /** 店铺名称 */
     @Excel(name = "店铺名称")
     private String storeName;
@@ -200,6 +204,15 @@ public class PofitOrderListWarehouseStoreName extends BaseEntity
     /** 全托管-仓发利润率 */
     @Excel(name = "国家")
     private String countries;
+
+
+    public Long getDay() {
+        return day;
+    }
+
+    public void setDay(Long day) {
+        this.day = day;
+    }
 
     public String getCountries() {
         return countries;

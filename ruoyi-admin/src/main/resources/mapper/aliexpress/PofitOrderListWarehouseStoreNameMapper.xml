@@ -8,6 +8,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="sId"    column="s_id"    />
         <result property="year"    column="year"    />
         <result property="moon"    column="moon"    />
+        <result property="day"    column="day"    />
         <result property="storeName"    column="store_name"    />
         <result property="sku"    column="sku"    />
         <result property="skuState"    column="sku_state"    />
@@ -115,13 +116,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="selectPofitOrderListWarehouseTotalList" parameterType="PofitOrderListWarehouseStoreName" resultMap="PofitOrderListWarehouseStoreNameResult">
         SELECT
         amol.category,
-        -- 总利润
         SUM(COALESCE(amol.actual_profit,0)) AS actual_profit,
-        -- 销售数量
         SUM(COALESCE(amol.quantity,0)) AS quantity,
-        -- 销售金额
         SUM(COALESCE(amol.loan_amount,0)) AS loan_amount,
-        -- 利润率
         SUM(COALESCE(amol.actual_profit,0))/ SUM(COALESCE(amol.loan_amount,0))*100 AS profit_margin
         FROM
         aliexpress_mabang_order_list AS amol
@@ -129,6 +126,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <where>
             <if test="year != null ">  AND YEAR(amol.payment_time) = #{year}</if>
             <if test="moon != null ">  AND MONTH(amol.payment_time) = #{moon}</if>
+            <if test="day != null ">  AND DAY(amol.payment_time) = #{day}</if>
             <if test="storeName != null "> AND amol.store = #{storeName}</if>
             <if test="storeType != null"> AND s.store_type = #{storeType}</if>
             <if test="countries != null"> AND amol.country = #{countries}</if>

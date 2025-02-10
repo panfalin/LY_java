@@ -2,6 +2,8 @@ package com.ruoyi.aliexpress.controller;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
+import com.ruoyi.aliexpress.domain.AliexpressSkuStatistics;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,6 +47,16 @@ public class AliexpressSkuAnalysisController extends BaseController
         List<AliexpressSkuAnalysis> list = aliexpressSkuAnalysisService.selectAliexpressSkuAnalysisList(aliexpressSkuAnalysis);
         return getDataTable(list);
     }
+
+    @PreAuthorize("@ss.hasPermi('aliexpress:slowMovingInventory:list')")
+    @GetMapping("/listTotal")
+    public TableDataInfo listTotal(AliexpressSkuAnalysis aliexpressSkuAnalysis)
+    {
+        List<AliexpressSkuStatistics> list = aliexpressSkuAnalysisService.selectAliexpressSkuStatistics(aliexpressSkuAnalysis);
+        return getDataTable(list);
+    }
+
+
 
     /**
      * 导出速卖通滞销SKU分析列表
