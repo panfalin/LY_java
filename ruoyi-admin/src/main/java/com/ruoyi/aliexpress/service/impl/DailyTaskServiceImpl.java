@@ -93,7 +93,7 @@ public class DailyTaskServiceImpl implements IDailyTaskService
         sendto.put("赵世杰","2885072146@qq.com");
         sendto.put("沈娟","2885072146@qq.com");
         sendto.put("陈雪芳","2885072146@qq.com");
-        sendto.put("voice","857240603@qq.com");
+        sendto.put("蔡晓纯","857240603@qq.com");
         sendto.put("未分配","857240603@qq.com");
 
 
@@ -101,7 +101,7 @@ public class DailyTaskServiceImpl implements IDailyTaskService
 //        sendto.put("赵世杰","3003669197@qq.com");
 //        sendto.put("沈娟","2881970600@qq.com");
 //        sendto.put("陈雪芳","2850511085@qq.com");
-//        sendto.put("voice","3004275997@qq.com");
+//        sendto.put("蔡晓纯","3004275997@qq.com");
 //        sendto.put("未分配","2885072146@qq.com");
 
 

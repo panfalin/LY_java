@@ -28,6 +28,13 @@ public class AliexpressSkuAnalysis extends BaseEntity {
      */
     @Excel(name = "滞销SKU")
     private String sku;
+
+    @Excel(name = "滞销商品名称")
+    private String skuName;
+    @Excel(name = "重量")
+    private String weight;
+
+
     @Excel(name = "成本价格")
     private String warehouseCost;
     @Excel(name = "成本总价")
@@ -161,6 +168,7 @@ public class AliexpressSkuAnalysis extends BaseEntity {
     @Excel(name = "操作状态", readConverterExp = "如=：pending、completed")
     private String status;
 
+    private String stockImageUrl;
     /**
      * 操作完成时间
      */
@@ -193,6 +201,30 @@ public class AliexpressSkuAnalysis extends BaseEntity {
      * 更新时间
      */
     private Date updatedAt;
+
+    public String getSkuName() {
+        return skuName;
+    }
+
+    public void setSkuName(String skuName) {
+        this.skuName = skuName;
+    }
+
+    public String getWeight() {
+        return weight;
+    }
+
+    public void setWeight(String weight) {
+        this.weight = weight;
+    }
+
+    public String getStockImageUrl() {
+        return stockImageUrl;
+    }
+
+    public void setStockImageUrl(String stockImageUrl) {
+        this.stockImageUrl = stockImageUrl;
+    }
 
     public String getWarehouseCost() {
         return warehouseCost;

@@ -27,8 +27,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <select id="selectAliexpressCompetitionAnalysisList" parameterType="AliexpressCompetitionAnalysis" resultMap="AliexpressCompetitionAnalysisResult">
         <include refid="selectAliexpressCompetitionAnalysisVo"/>
-        <where>  
-            <if test="sku != null  and sku != ''"> and sku = #{sku}</if>
+        <where>
+            <if test="sku != null and sku != ''">
+                and sku like concat('%', #{sku}, '%')
+            </if>
 <!--            <if test="publicationId != null  and publicationId != ''"> and publication_id = #{publicationId}</if>-->
 <!--            <if test="orderType != null  and orderType != ''"> and order_type = #{orderType}</if>-->
             <if test="skuPerson != null  and skuPerson != ''"> and sku_person = #{skuPerson}</if>

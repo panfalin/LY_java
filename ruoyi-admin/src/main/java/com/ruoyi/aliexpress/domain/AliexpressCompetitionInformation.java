@@ -96,15 +96,18 @@ public class AliexpressCompetitionInformation extends BaseEntity
     private String picture;
 
     /** sku负责人 */
+    @Excel(name = "负责人")
     private String skuPerson;
 
-    /** sku负责人 */
+    /** 市场容量 */
+    @Excel(name = "市场容量")
     private String marketCapacity;
 
-    /** sku负责人 */
+    @Excel(name = "我们刊登ID")
     private String selfPublicationId;
 
     /** sku负责人 */
+    @Excel(name = "我们价格")
     private String selfPrice;
     /** sku负责人 */
     private String selfFreight;

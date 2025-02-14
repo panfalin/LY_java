@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ruoyi.aliexpress.mapper.AliexpressSkuAnalysisMapper">
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.aliexpress.mapper.AliexpressSkuAnalysisClearanceMapper">
 
     <resultMap type="AliexpressSkuAnalysis" id="AliexpressSkuAnalysisResult">
         <result property="id" column="id"/>
         <result property="sku" column="sku"/>
-        <result property="skuName" column="sku_name"/>
-        <result property="weight" column="weight"/>
         <result property="warehouseCost" column="warehouse_cost"/>
+        <result property="weigth" column="weigth"/>
+        <result property="skuName" column="sku_name"/>
         <result property="totalWarehouseCost" column="total_warehouse_cost"/>
         <result property="totalStock" column="total_stock"/>
         <result property="localInTransitQuantity" column="local_in_transit_quantity"/>
@@ -131,87 +131,23 @@
                asa.half_management_online_listings,
                asa.recommended_action,
                asa.stock_image_url,
-               asa.sku_name,
                asa.weight,
+               asa.sku_name,
                pwts.bc_transit_quantity  as backup_in_transit_quantity,
                pwts.bc_semi_inventory_quantity  as half_management_backup_available_quantity,
                pwts.bc_auto_inventory_quantity  as full_management_backup_available_quantity
         from aliexpress_sku_analysis as asa
-        JOIN pofit_warehouse_total_statistics pwts ON asa.sku=pwts.sku
+        LEFT JOIN pofit_warehouse_total_statistics pwts ON asa.sku=pwts.sku
     </sql>
 
-    <select id="selectAliexpressSkuAnalysisAttributeList" parameterType="AliexpressSkuAnalysisAttribute" resultMap="AliexpressSkuAnalysisAttributeResult">
-        <include refid="selectAliexpressSkuAnalysisAttributeVo"/>
-        <where>
-        <if test="sku != null  and sku != ''">and sku= #{sku}</if>
-        <if test="countries != null  and countries != ''">and countries = #{countries}</if>
-        </where>
-    </select>
 
-
-
-    <select id="selectAliexpressSkuStatistics" parameterType="AliexpressSkuStatistics" resultMap="AliexpressSkuStatisticsResult">
-        select
-        COUNT(*) AS sku_total,
-        SUM(
-        ROUND(
-        COALESCE(asa.total_stock, 0) +
-        COALESCE(asa.local_in_transit_quantity, 0) +
-        COALESCE(pwts.bc_semi_inventory_quantity, 0) +
-        COALESCE(pwts.bc_auto_inventory_quantity, 0) +
-        COALESCE(pwts.bc_transit_quantity, 0),
-        2
-        )
-        ) AS total_warehouse,  -- 计算滞销商品个数
-        SUM(
-        ROUND(
-        (COALESCE(asa.total_stock, 0) +
-        COALESCE(asa.local_in_transit_quantity, 0) +
-        COALESCE(pwts.bc_semi_inventory_quantity, 0) +
-        COALESCE(pwts.bc_auto_inventory_quantity, 0) +
-        COALESCE(pwts.bc_transit_quantity, 0)) *
-        COALESCE(asa.warehouse_cost, 0),
-        2
-        )
-        ) AS total_warehouse_cost  -- 计算总仓库成本
-
-        from aliexpress_sku_analysis as asa
-        JOIN pofit_warehouse_total_statistics pwts ON asa.sku=pwts.sku
-        <where>
-        DATE(created_at) = (
-        SELECT MAX(DATE(created_at)) FROM aliexpress_sku_analysis
-        )
-        AND sku_status='正常销售'
-        AND sales_last_28_days = 0
-        AND NOT EXISTS (
-        SELECT 1
-        FROM aliexpress_mabang_order_list aml
-        WHERE aml.sku = asa.sku
-        AND aml.payment_time >= CURDATE() - INTERVAL 60 DAY
-        )
-        <if test="sku != null  and sku != ''">and asa.sku = #{sku}</if>
-        </where>
-    </select>
-
-
-
-
-
-    <select id="selectAliexpressSkuAnalysisList" parameterType="AliexpressSkuAnalysis"
-            resultMap="AliexpressSkuAnalysisResult">
+    <select id="selectAliexpressSkuAnalysisClearanceList" parameterType="AliexpressSkuAnalysis" resultMap="AliexpressSkuAnalysisResult">
         <include refid="selectAliexpressSkuAnalysisVoJOIN"/>
-
         <where>
             DATE(created_at) = (
             SELECT MAX(DATE(created_at)) FROM aliexpress_sku_analysis
             )
-            AND sales_last_28_days = 0
-            AND NOT EXISTS (
-            SELECT 1
-            FROM aliexpress_mabang_order_list aml
-            WHERE aml.sku = asa.sku
-            AND aml.payment_time >= CURDATE() - INTERVAL 30 DAY
-            )
+            AND status='商品清仓'
             <if test="sku != null  and sku != ''">and asa.sku= #{sku}</if>
             <if test="sales28Days != null  and sales28Days != ''">and sales_last_28_days = #{sales28Days})</if>
             <if test="params.beginAvailableStock != null and params.beginAvailableStock != '' and params.endAvailableStock != null and params.endAvailableStock != ''">
@@ -266,17 +202,77 @@
         </where>
     </select>
 
-    <select id="selectAliexpressSkuAnalysisById" parameterType="Long" resultMap="AliexpressSkuAnalysisResult">
+    <select id="selectAliexpressSkuAnalysisAttributeList" parameterType="AliexpressSkuAnalysisAttribute" resultMap="AliexpressSkuAnalysisAttributeResult">
+        <include refid="selectAliexpressSkuAnalysisAttributeVo"/>
+        <where>
+            <if test="sku != null  and sku != ''">and sku= #{sku}</if>
+        </where>
+    </select>
+
+    <select id="selectAliexpressSkuStatistics" parameterType="AliexpressSkuStatistics" resultMap="AliexpressSkuStatisticsResult">
+        select
+        COUNT(*) AS sku_total,
+        SUM(
+        ROUND(
+        COALESCE(asa.total_stock, 0) +
+        COALESCE(asa.local_in_transit_quantity, 0) +
+        COALESCE(pwts.bc_semi_inventory_quantity, 0) +
+        COALESCE(pwts.bc_auto_inventory_quantity, 0) +
+        COALESCE(pwts.bc_transit_quantity, 0),
+        2
+        )
+        ) AS total_warehouse,  -- 计算滞销商品个数
+        SUM(
+        ROUND(
+        (COALESCE(asa.total_stock, 0) +
+        COALESCE(asa.local_in_transit_quantity, 0) +
+        COALESCE(pwts.bc_semi_inventory_quantity, 0) +
+        COALESCE(pwts.bc_auto_inventory_quantity, 0) +
+        COALESCE(pwts.bc_transit_quantity, 0)) *
+        COALESCE(asa.warehouse_cost, 0),
+        2
+        )
+        ) AS total_warehouse_cost  -- 计算总仓库成本
+
+        from aliexpress_sku_analysis as asa
+        LEFT JOIN pofit_warehouse_total_statistics pwts ON asa.sku=pwts.sku
+        <where>
+            DATE(created_at) = (
+            SELECT MAX(DATE(created_at)) FROM aliexpress_sku_analysis
+            )
+            AND status='商品清仓'
+            <if test="sku != null  and sku != ''">and asa.sku = #{sku}</if>
+        </where>
+    </select>
+
+
+
+
+
+    <select id="selectAliexpressSkuAnalysisClearanceById" parameterType="Long" resultMap="AliexpressSkuAnalysisResult">
         <include refid="selectAliexpressSkuAnalysisVo"/>
         where id = #{id}
     </select>
 
-    <insert id="insertAliexpressSkuAnalysis" parameterType="AliexpressSkuAnalysis" useGeneratedKeys="true"
-            keyProperty="id">
-        insert into aliexpress_sku_analysis
+    <insert id="insertAliexpressSkuAnalysisClearance" parameterType="AliexpressSkuAnalysis" useGeneratedKeys="true" keyProperty="id">
+        insert into aliexpress_sku_analysis_clearance
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="sku != null and sku != ''">sku,</if>
-            <if test="availableStock != null">available_stock,</if>
+            <if test="skuName != null">sku_name,</if>
+            <if test="weight != null">weight,</if>
+            <if test="skuStatus != null">sku_status,</if>
+            <if test="stockImageUrl != null">stock_image_url,</if>
+            <if test="totalStock != null">total_stock,</if>
+            <if test="localInTransitQuantity != null">local_in_transit_quantity,</if>
+            <if test="localAvailableQuantity != null">local_available_quantity,</if>
+            <if test="backupInTransitQuantity != null">backup_in_transit_quantity,</if>
+            <if test="halfManagementBackupAvailableQuantity != null">half_management_backup_available_quantity,</if>
+            <if test="fullManagementBackupAvailableQuantity != null">full_management_backup_available_quantity,</if>
+            <if test="warehouseCost != null">warehouse_cost,</if>
+            <if test="totalWarehouseCost != null">total_warehouse_cost,</if>
+            <if test="salesLast7Days != null">sales_last_7_days,</if>
+            <if test="salesLast28Days != null">sales_last_28_days,</if>
+            <if test="salesLast42Days != null">sales_last_42_days,</if>
             <if test="popDailyMarketCapacity != null">pop_daily_market_capacity,</if>
             <if test="fullManagementDailyMarketCapacity != null">full_management_daily_market_capacity,</if>
             <if test="halfManagementDailyMarketCapacity != null">half_management_daily_market_capacity,</if>
@@ -295,10 +291,24 @@
             <if test="createdAt != null">created_at,</if>
             <if test="updatedBy != null">updated_by,</if>
             <if test="updatedAt != null">updated_at,</if>
-        </trim>
+         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="sku != null and sku != ''">#{sku},</if>
-            <if test="availableStock != null">#{availableStock},</if>
+            <if test="skuName != null">#{skuName},</if>
+            <if test="weight != null">#{weight},</if>
+            <if test="skuStatus != null">#{skuStatus},</if>
+            <if test="stockImageUrl != null">#{stockImageUrl},</if>
+            <if test="totalStock != null">#{totalStock},</if>
+            <if test="localInTransitQuantity != null">#{localInTransitQuantity},</if>
+            <if test="localAvailableQuantity != null">#{localAvailableQuantity},</if>
+            <if test="backupInTransitQuantity != null">#{backupInTransitQuantity},</if>
+            <if test="halfManagementBackupAvailableQuantity != null">#{halfManagementBackupAvailableQuantity},</if>
+            <if test="fullManagementBackupAvailableQuantity != null">#{fullManagementBackupAvailableQuantity},</if>
+            <if test="warehouseCost != null">#{warehouseCost},</if>
+            <if test="totalWarehouseCost != null">#{totalWarehouseCost},</if>
+            <if test="salesLast7Days != null">#{salesLast7Days},</if>
+            <if test="salesLast28Days != null">#{salesLast28Days},</if>
+            <if test="salesLast42Days != null">#{salesLast42Days},</if>
             <if test="popDailyMarketCapacity != null">#{popDailyMarketCapacity},</if>
             <if test="fullManagementDailyMarketCapacity != null">#{fullManagementDailyMarketCapacity},</if>
             <if test="halfManagementDailyMarketCapacity != null">#{halfManagementDailyMarketCapacity},</if>
@@ -317,34 +327,38 @@
             <if test="createdAt != null">#{createdAt},</if>
             <if test="updatedBy != null">#{updatedBy},</if>
             <if test="updatedAt != null">#{updatedAt},</if>
-        </trim>
+         </trim>
     </insert>
 
-    <update id="updateAliexpressSkuAnalysis" parameterType="AliexpressSkuAnalysis">
-        update aliexpress_sku_analysis
+    <update id="updateAliexpressSkuAnalysisClearance" parameterType="AliexpressSkuAnalysis">
+        update aliexpress_sku_analysis_clearance
         <trim prefix="SET" suffixOverrides=",">
             <if test="sku != null and sku != ''">sku = #{sku},</if>
-            <if test="availableStock != null">available_stock = #{availableStock},</if>
+            <if test="skuName != null">sku_name = #{skuName},</if>
+            <if test="weight != null">weight = #{weight},</if>
+            <if test="skuStatus != null">sku_status = #{skuStatus},</if>
+            <if test="stockImageUrl != null">stock_image_url = #{stockImageUrl},</if>
+            <if test="totalStock != null">total_stock = #{totalStock},</if>
+            <if test="localInTransitQuantity != null">local_in_transit_quantity = #{localInTransitQuantity},</if>
+            <if test="localAvailableQuantity != null">local_available_quantity = #{localAvailableQuantity},</if>
+            <if test="backupInTransitQuantity != null">backup_in_transit_quantity = #{backupInTransitQuantity},</if>
+            <if test="halfManagementBackupAvailableQuantity != null">half_management_backup_available_quantity = #{halfManagementBackupAvailableQuantity},</if>
+            <if test="fullManagementBackupAvailableQuantity != null">full_management_backup_available_quantity = #{fullManagementBackupAvailableQuantity},</if>
+            <if test="warehouseCost != null">warehouse_cost = #{warehouseCost},</if>
+            <if test="totalWarehouseCost != null">total_warehouse_cost = #{totalWarehouseCost},</if>
+            <if test="salesLast7Days != null">sales_last_7_days = #{salesLast7Days},</if>
+            <if test="salesLast28Days != null">sales_last_28_days = #{salesLast28Days},</if>
+            <if test="salesLast42Days != null">sales_last_42_days = #{salesLast42Days},</if>
             <if test="popDailyMarketCapacity != null">pop_daily_market_capacity = #{popDailyMarketCapacity},</if>
-            <if test="fullManagementDailyMarketCapacity != null">full_management_daily_market_capacity =
-                #{fullManagementDailyMarketCapacity},
-            </if>
-            <if test="halfManagementDailyMarketCapacity != null">half_management_daily_market_capacity =
-                #{halfManagementDailyMarketCapacity},
-            </if>
-            <if test="competitorHotSalesCountries != null">competitor_hot_sales_countries =
-                #{competitorHotSalesCountries},
-            </if>
+            <if test="fullManagementDailyMarketCapacity != null">full_management_daily_market_capacity = #{fullManagementDailyMarketCapacity},</if>
+            <if test="halfManagementDailyMarketCapacity != null">half_management_daily_market_capacity = #{halfManagementDailyMarketCapacity},</if>
+            <if test="competitorHotSalesCountries != null">competitor_hot_sales_countries = #{competitorHotSalesCountries},</if>
             <if test="competitorHotSalesPrice != null">competitor_hot_sales_price = #{competitorHotSalesPrice},</if>
             <if test="marketAveragePrice != null">market_average_price = #{marketAveragePrice},</if>
             <if test="priceComparison != null">price_comparison = #{priceComparison},</if>
             <if test="popOnlineListings != null">pop_online_listings = #{popOnlineListings},</if>
-            <if test="fullManagementOnlineListings != null">full_management_online_listings =
-                #{fullManagementOnlineListings},
-            </if>
-            <if test="halfManagementOnlineListings != null">half_management_online_listings =
-                #{halfManagementOnlineListings},
-            </if>
+            <if test="fullManagementOnlineListings != null">full_management_online_listings = #{fullManagementOnlineListings},</if>
+            <if test="halfManagementOnlineListings != null">half_management_online_listings = #{halfManagementOnlineListings},</if>
             <if test="recommendedAction != null">recommended_action = #{recommendedAction},</if>
             <if test="status != null">status = #{status},</if>
             <if test="completedAt != null">completed_at = #{completedAt},</if>
@@ -357,14 +371,12 @@
         where id = #{id}
     </update>
 
-    <delete id="deleteAliexpressSkuAnalysisById" parameterType="Long">
-        delete
-        from aliexpress_sku_analysis
-        where id = #{id}
+    <delete id="deleteAliexpressSkuAnalysisClearanceById" parameterType="Long">
+        delete from aliexpress_sku_analysis_clearance where id = #{id}
     </delete>
 
-    <delete id="deleteAliexpressSkuAnalysisByIds" parameterType="String">
-        delete from aliexpress_sku_analysis where id in
+    <delete id="deleteAliexpressSkuAnalysisClearanceByIds" parameterType="String">
+        delete from aliexpress_sku_analysis_clearance where id in 
         <foreach item="id" collection="array" open="(" separator="," close=")">
             #{id}
         </foreach>

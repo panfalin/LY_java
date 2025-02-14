@@ -4,65 +4,61 @@ import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.*;
 
+import com.ruoyi.aliexpress.domain.AliexpressSkuAnalysis;
 import com.ruoyi.aliexpress.domain.AliexpressSkuAnalysisAttribute;
 import com.ruoyi.aliexpress.domain.AliexpressSkuStatistics;
-import com.ruoyi.aliexpress.domain.DailyTask;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.ruoyi.aliexpress.mapper.AliexpressSkuAnalysisMapper;
-import com.ruoyi.aliexpress.domain.AliexpressSkuAnalysis;
-import com.ruoyi.aliexpress.service.IAliexpressSkuAnalysisService;
-
-import javax.annotation.Resource;
+import com.ruoyi.aliexpress.mapper.AliexpressSkuAnalysisClearanceMapper;
+import com.ruoyi.aliexpress.domain.AliexpressSkuAnalysisClearance;
+import com.ruoyi.aliexpress.service.IAliexpressSkuAnalysisClearanceService;
 
 /**
- * 速卖通滞销SKU分析Service业务层处理
+ * 清仓库存Service业务层处理
  * 
  * @author ruoyi
- * @date 2025-01-21
+ * @date 2025-02-11
  */
 @Service
-public class AliexpressSkuAnalysisServiceImpl implements IAliexpressSkuAnalysisService 
+public class AliexpressSkuAnalysisClearanceServiceImpl implements IAliexpressSkuAnalysisClearanceService 
 {
-
-
-
-    @Resource
-    private AliexpressSkuAnalysisMapper aliexpressSkuAnalysisMapper;
+    @Autowired
+    private AliexpressSkuAnalysisClearanceMapper aliexpressSkuAnalysisClearanceMapper;
 
     /**
-     * 查询速卖通滞销SKU分析
+     * 查询清仓库存
      * 
-     * @param id 速卖通滞销SKU分析主键
-     * @return 速卖通滞销SKU分析
+     * @param id 清仓库存主键
+     * @return 清仓库存
      */
     @Override
-    public AliexpressSkuAnalysis selectAliexpressSkuAnalysisById(Long id)
+    public AliexpressSkuAnalysis selectAliexpressSkuAnalysisClearanceById(Long id)
     {
-        return aliexpressSkuAnalysisMapper.selectAliexpressSkuAnalysisById(id);
+        return aliexpressSkuAnalysisClearanceMapper.selectAliexpressSkuAnalysisClearanceById(id);
     }
 
     /**
-     * 查询速卖通滞销SKU分析列表
+     * 查询清仓库存列表
      * 
-     * @param aliexpressSkuAnalysis 速卖通滞销SKU分析
-     * @return 速卖通滞销SKU分析
+     * @param aliexpressSkuAnalysis 清仓库存
+     * @return 清仓库存
      */
     @Override
-    public List<AliexpressSkuAnalysis> selectAliexpressSkuAnalysisList(AliexpressSkuAnalysis aliexpressSkuAnalysis)
+    public List<AliexpressSkuAnalysis> selectAliexpressSkuAnalysisClearanceList(AliexpressSkuAnalysis aliexpressSkuAnalysis)
     {
         aliexpressSkuAnalysis.setSales28Days(0L);
-        List<AliexpressSkuAnalysis> aliexpressSkuAnalyses = aliexpressSkuAnalysisMapper.selectAliexpressSkuAnalysisList(aliexpressSkuAnalysis);
+        List<AliexpressSkuAnalysis> aliexpressSkuAnalyses = aliexpressSkuAnalysisClearanceMapper.selectAliexpressSkuAnalysisClearanceList(aliexpressSkuAnalysis);
         //获取sku 国家 查询aliexpress_competition_information_attribute表中的价格和货币类型
         for (AliexpressSkuAnalysis aliexpressSkuAnalyse : aliexpressSkuAnalyses) {
             StringBuilder resultMarket = new StringBuilder();  // 用于拼接最终结果
+            StringBuilder resultPrice = new StringBuilder();  // 用于拼接最终结果
             List<Double> usdPricesMarket = new ArrayList<>();
             String hotCountries=aliexpressSkuAnalyse.getCompetitorHotSalesCountries();
             String sku=aliexpressSkuAnalyse.getSku();
             //计算市场平均售价
             AliexpressSkuAnalysisAttribute AliexpressSkuAnalysiMarketPrice=new AliexpressSkuAnalysisAttribute();
             AliexpressSkuAnalysiMarketPrice.setSku(sku);
-            List<AliexpressSkuAnalysisAttribute> aliexpressSkuAnalysisAttributesMarketPrice =aliexpressSkuAnalysisMapper.selectAliexpressSkuAnalysisAttributeList(AliexpressSkuAnalysiMarketPrice);
+            List<AliexpressSkuAnalysisAttribute> aliexpressSkuAnalysisAttributesMarketPrice =aliexpressSkuAnalysisClearanceMapper.selectAliexpressSkuAnalysisAttributeList(AliexpressSkuAnalysiMarketPrice);
             for ( AliexpressSkuAnalysisAttribute aliexpressSkuAnalysisAttribute : aliexpressSkuAnalysisAttributesMarketPrice) {
                 String priceStr = aliexpressSkuAnalysisAttribute.getPrice();
                 String currencyType = aliexpressSkuAnalysisAttribute.getMonetaryType();
@@ -73,18 +69,20 @@ public class AliexpressSkuAnalysisServiceImpl implements IAliexpressSkuAnalysisS
                 double usdPrice = price * exchangeRate;
                 usdPricesMarket.add(usdPrice);
             }
-            // 计算平均值
-            double averagePriceMarket = usdPricesMarket.stream().mapToDouble(Double::doubleValue).average().orElse(0.0);
+            // 计算最小值
+            double averagePriceMarket = usdPricesMarket.stream().mapToDouble(Double::doubleValue).min().orElse(0.0);
             if (averagePriceMarket==0.0){
                 resultMarket.append("");
+                resultPrice.append("");
             }else {
                 resultMarket.append("$").append(String.format("%.2f", averagePriceMarket));
+                resultPrice.append("$").append(String.format("%.2f", averagePriceMarket*0.8));
             }
 
 
 
             aliexpressSkuAnalyse.setMarketAveragePrice(resultMarket.toString());
-
+            aliexpressSkuAnalyse.setPriceComparison(resultPrice.toString());
 
             //计算热销国家平均售价
             if (hotCountries!=null&&hotCountries!=""){
@@ -101,7 +99,7 @@ public class AliexpressSkuAnalysisServiceImpl implements IAliexpressSkuAnalysisS
                     AliexpressSkuAnalysisAttribute AliexpressSkuAnalysi=new AliexpressSkuAnalysisAttribute();
                     AliexpressSkuAnalysi.setSku(sku);
                     AliexpressSkuAnalysi.setCountries(country);
-                    List<AliexpressSkuAnalysisAttribute> aliexpressSkuAnalysisAttributes =aliexpressSkuAnalysisMapper.selectAliexpressSkuAnalysisAttributeList(AliexpressSkuAnalysi);
+                    List<AliexpressSkuAnalysisAttribute> aliexpressSkuAnalysisAttributes =aliexpressSkuAnalysisClearanceMapper.selectAliexpressSkuAnalysisAttributeList(AliexpressSkuAnalysi);
                     for ( AliexpressSkuAnalysisAttribute aliexpressSkuAnalysisAttribute : aliexpressSkuAnalysisAttributes) {
                         String priceStr = aliexpressSkuAnalysisAttribute.getPrice();
                         String currencyType = aliexpressSkuAnalysisAttribute.getMonetaryType();
@@ -136,9 +134,8 @@ public class AliexpressSkuAnalysisServiceImpl implements IAliexpressSkuAnalysisS
 
     @Override
     public List<AliexpressSkuStatistics> selectAliexpressSkuStatistics(AliexpressSkuAnalysis aliexpressSkuAnalysis) {
-        return aliexpressSkuAnalysisMapper.selectAliexpressSkuStatistics(aliexpressSkuAnalysis);
+        return aliexpressSkuAnalysisClearanceMapper.selectAliexpressSkuStatistics(aliexpressSkuAnalysis);
     }
-
 
     public static double extractPrice(String priceStr) {
         if (priceStr == null || priceStr.isEmpty()) {
@@ -194,7 +191,6 @@ public class AliexpressSkuAnalysisServiceImpl implements IAliexpressSkuAnalysisS
             return 0.0;
         }
     }
-    // 获取汇率（此处为示例，实际应用中应通过API获取实时汇率）
     // 获取汇率（此处为示例，实际应用中应通过API获取实时汇率）
     private static double getExchangeRate(String currencyType) {
         Map<String, Double> exchangeRates = new HashMap<>();
@@ -268,50 +264,50 @@ public class AliexpressSkuAnalysisServiceImpl implements IAliexpressSkuAnalysisS
 
 
     /**
-     * 新增速卖通滞销SKU分析
+     * 新增清仓库存
      * 
-     * @param aliexpressSkuAnalysis 速卖通滞销SKU分析
+     * @param aliexpressSkuAnalysisClearance 清仓库存
      * @return 结果
      */
     @Override
-    public int insertAliexpressSkuAnalysis(AliexpressSkuAnalysis aliexpressSkuAnalysis)
+    public int insertAliexpressSkuAnalysisClearance(AliexpressSkuAnalysis aliexpressSkuAnalysisClearance)
     {
-        return aliexpressSkuAnalysisMapper.insertAliexpressSkuAnalysis(aliexpressSkuAnalysis);
+        return aliexpressSkuAnalysisClearanceMapper.insertAliexpressSkuAnalysisClearance(aliexpressSkuAnalysisClearance);
     }
 
     /**
-     * 修改速卖通滞销SKU分析
+     * 修改清仓库存
      * 
-     * @param aliexpressSkuAnalysis 速卖通滞销SKU分析
+     * @param aliexpressSkuAnalysisClearance 清仓库存
      * @return 结果
      */
     @Override
-    public int updateAliexpressSkuAnalysis(AliexpressSkuAnalysis aliexpressSkuAnalysis)
+    public int updateAliexpressSkuAnalysisClearance(AliexpressSkuAnalysis aliexpressSkuAnalysisClearance)
     {
-        return aliexpressSkuAnalysisMapper.updateAliexpressSkuAnalysis(aliexpressSkuAnalysis);
+        return aliexpressSkuAnalysisClearanceMapper.updateAliexpressSkuAnalysisClearance(aliexpressSkuAnalysisClearance);
     }
 
     /**
-     * 批量删除速卖通滞销SKU分析
+     * 批量删除清仓库存
      * 
-     * @param ids 需要删除的速卖通滞销SKU分析主键
+     * @param ids 需要删除的清仓库存主键
      * @return 结果
      */
     @Override
-    public int deleteAliexpressSkuAnalysisByIds(Long[] ids)
+    public int deleteAliexpressSkuAnalysisClearanceByIds(Long[] ids)
     {
-        return aliexpressSkuAnalysisMapper.deleteAliexpressSkuAnalysisByIds(ids);
+        return aliexpressSkuAnalysisClearanceMapper.deleteAliexpressSkuAnalysisClearanceByIds(ids);
     }
 
     /**
-     * 删除速卖通滞销SKU分析信息
+     * 删除清仓库存信息
      * 
-     * @param id 速卖通滞销SKU分析主键
+     * @param id 清仓库存主键
      * @return 结果
      */
     @Override
-    public int deleteAliexpressSkuAnalysisById(Long id)
+    public int deleteAliexpressSkuAnalysisClearanceById(Long id)
     {
-        return aliexpressSkuAnalysisMapper.deleteAliexpressSkuAnalysisById(id);
+        return aliexpressSkuAnalysisClearanceMapper.deleteAliexpressSkuAnalysisClearanceById(id);
     }
 }
