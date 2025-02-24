@@ -1,0 +1,725 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.amazon.mapper.AmzDataAnalysisTurnoverMskulistMapper">
+
+    <resultMap type="AmzDataAnalysisTurnoverMskulist" id="AmzDataAnalysisTurnoverMskulistResult">
+        <result property="id"    column="id"    />
+        <result property="storeName"    column="store_name"    />
+        <result property="msku"    column="msku"    />
+        <result property="categoryLevelOne"    column="category_level_1"    />
+        <result property="categoryLevelTwo"    column="category_level_2"    />
+        <result property="fnsku"    column="fnsku"    />
+        <result property="localSku"    column="local_sku"    />
+        <result property="mainSku"    column="main_sku"    />
+        <result property="productName"    column="product_name"    />
+        <result property="asin"    column="asin"    />
+        <result property="stockStatus"    column="stock_status"    />
+        <result property="sales7Days"    column="sales_7_days"    />
+        <result property="sales14Days"    column="sales_14_days"    />
+        <result property="sales30Days"    column="sales_30_days"    />
+        <result property="sales90Days"    column="sales_90_days"    />
+        <result property="avgDailySales"    column="avg_daily_sales"    />
+        <result property="procurementInTransit"    column="procurement_in_transit"    />
+        <result property="localInventory"    column="local_inventory"    />
+        <result property="available"    column="available"    />
+        <result property="awaitingStock"    column="awaiting_stock"    />
+        <result property="sku"    column="sku"    />
+        <result property="warehouseName"    column="warehouse_name"    />
+        <result property="stockWarningDays"    column="stock_warning_days"    />
+        <result property="amSeasonalProductOffseason"    column="am_seasonal_product_offseason"    />
+        <result property="amSeasonalProductPeakIncreaseRatio"    column="am_seasonal_product_peak_increase_ratio"    />
+        <result property="inTransit"    column="in_transit"    />
+        <result property="availableDays"    column="available_days"    />
+        <result property="procurementDays"    column="procurement_days"    />
+        <result property="remarks"    column="remarks"    />
+        <result property="reserved"    column="reserved"    />
+        <result property="plannedStockIn"    column="planned_stock_in"    />
+        <result property="salesPerson"    column="sales_person"    />
+        <result property="developer"    column="developer"    />
+        <result property="amSeasonalProductPeak"    column="am_seasonal_product_peak"    />
+        <result property="amCompetitorSales"    column="am_competitor_sales"    />
+        <result property="amMarketCapacity"    column="am_market_capacity"    />
+        <result property="amProductLifecycleStatus"    column="am_product_lifecycle_status"    />
+        <result property="amSeasonalProductOffseasonDecline"    column="am_seasonal_product_offseason_decline"    />
+        <result property="supplierName"    column="supplier_name"    />
+        <result property="latestPurchasePrice"    column="latest_purchase_price"    />
+        <result property="weight"    column="weight"    />
+        <result property="volumeCm3"    column="volume_cm3"    />
+        <result property="minPurchaseQuantity"    column="min_purchase_quantity"    />
+        <result property="amzInventoryShelfTime"    column="amz_inventory_shelf_time"    />
+        <result property="reshaper"    column="reshaper"    />
+        <result property="reshaping"    column="reshaping"    />
+        <result property="listingDate"    column="listing_date"    />
+        <result property="sales"    column="sales"    />
+        <result property="salesAmount"    column="sales_amount"    />
+        <result property="grossProfit"    column="gross_profit"    />
+        <result property="isDelete"    column="is_delete"    />
+        <result property="createdAt"    column="created_at"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="version"    column="version"    />
+        <result property="totalLocalInventoryValue"    column="total_local_inventory_value"    />
+        <result property="totalFbaInventoryValue"    column="total_fba_inventory_value"    />
+        <result property="totalInventoryValue"    column="total_inventory_value"    />
+        <result property="turnoverDays"    column="turnover_days"    />
+        <result property="fbaTurnoverDays"    column="fba_turnover_days"    />
+        <result property="totalInventoryCount"    column="total_inventory_count"    />
+    </resultMap>
+
+    <resultMap id="AmzDataAnalysisTurnoverMskulistDTO" type="com.ruoyi.amazon.dto.AmzDataAnalysisTurnoverDTO">
+        <result property="listedSkuCount" column="listed_sku_count"/>
+        <result property="totalInventoryCount" column="total_inventory_count"/>
+        <result property="totalInventoryValue" column="total_inventory_value"/>
+        <result property="totalSales" column="total_sales"/>
+        <result property="totalProcurementInventory" column="total_procurement_inventory"/>
+        <result property="totalLocalInventory" column="total_local_inventory"/>
+        <result property="totalFbaInTransit" column="total_fba_in_tiransit"/>
+        <result property="totalFbaAvailable" column="total_fba_available"/>
+        <result property="totalRevenue" column="total_revenue"/>
+        <result property="totalProfit" column="total_profit"/>
+        <result property="avgSalesLast7Days" column="avgSalesLast7Days"/>
+    </resultMap>
+
+    <sql id="selectAmzDataAnalysisTurnoverMskulistDTO">
+        SELECT COUNT(1)                                                                  as listed_sku_count,
+               SUM(total_inventory_count)                                                as total_inventory_count,
+               SUM(total_inventory_value)                                                as total_inventory_value,
+               SUM(IFNULL(procurement_in_transit, 0) * IFNULL(latest_purchase_price, 0)) as total_procurement_inventory,
+               SUM(total_local_inventory_value)                                          as total_local_inventory,
+               SUM(IFNULL(awaiting_stock, 0) * IFNULL(latest_purchase_price, 0))         as total_fba_in_transit,
+               SUM(IFNULL(available, 0) * IFNULL(latest_purchase_price, 0))              as total_fba_available,
+               SUM(sales_7_days) / 7                                                     as avg_sales_last_7days,
+            /* 修改销售成本计算方式 */
+               SUM(IFNULL(sales_7_days, 0) * IFNULL(latest_purchase_price, 0)) / 7       as avg_sales_cost_last_7days,
+            /* 修改周转天数计算方式 */
+               CASE
+                   WHEN SUM(IFNULL(sales_7_days, 0)) > 0
+                       THEN SUM(total_inventory_value) /
+                            (SUM(IFNULL(sales_7_days, 0) * IFNULL(latest_purchase_price, 0)) / 7)
+                   ELSE 0
+                   END                                                                   as avg_turnover_days_last_7days,
+               SUM(CAST(NULLIF(sales_amount, '') AS DECIMAL(10, 2)))                     as total_revenue,
+               SUM(CAST(NULLIF(gross_profit, '') AS DECIMAL(10, 2)))                     as total_profit
+        FROM amz_data_analysis_turnover_mskulist
+    </sql>
+
+    <!-- 周转天数统计查询 -->
+    <select id="selectTurnoverStats" resultType="com.ruoyi.amazon.dto.TurnoverStatsDTO">
+        WITH stats AS (
+        SELECT
+        CASE
+        WHEN turnover_days > 360 THEN 'over360'
+        WHEN turnover_days BETWEEN 270 AND 360 THEN 'd270_360'
+        WHEN turnover_days BETWEEN 210 AND 270 THEN 'd210_270'
+        WHEN turnover_days BETWEEN 150 AND 210 THEN 'd150_210'
+        WHEN turnover_days BETWEEN 120 AND 150 THEN 'd120_150'
+        WHEN turnover_days BETWEEN 60 AND 120 THEN 'd60_120'
+        ELSE 'under60'
+        END as turnover_range,
+        COUNT(*) as skuCount,
+        SUM(total_inventory_value) as inventoryValue,
+        SUM(CAST(NULLIF(sales_amount, '') AS DECIMAL(10,2))) as revenue,
+        SUM(CAST(NULLIF(gross_profit, '') AS DECIMAL(10,2))) as profit
+        FROM amz_data_analysis_turnover_mskulist
+        <where>
+            <if test="storeName != null  and storeName != ''">and store_name like concat('%', #{storeName}, '%')</if>
+            <if test="msku != null  and msku != ''">and msku like concat('%', #{msku}, '%')</if>
+            <if test="categoryLevelOne != null  and categoryLevelOne != ''">and category_level_1 like concat('%',
+                #{categoryLevelOne}, '%')
+            </if>
+            <if test="categoryLevelTwo != null  and categoryLevelTwo != ''">and category_level_2 like concat('%',
+                #{categoryLevelTwo}, '%')
+            </if>
+            <if test="fnsku != null  and fnsku != ''">and fnsku = #{fnsku}</if>
+            <if test="localSku != null  and localSku != ''">and local_sku = #{localSku}</if>
+            <if test="mainSku != null  and mainSku != ''">and main_sku = #{mainSku}</if>
+            <if test="productName != null  and productName != ''">and product_name like concat('%', #{productName},
+                '%')
+            </if>
+            <if test="asin != null  and asin != ''">and asin = #{asin}</if>
+            <if test="stockStatus != null  and stockStatus != ''">and stock_status = #{stockStatus}</if>
+            <if test="params.beginSales7Days != null and params.beginSales7Days != '' and params.endSales7Days != null and params.endSales7Days != ''">
+                and sales_7_days between #{params.beginSales7Days} and #{params.endSales7Days}
+            </if>
+            <if test="params.beginSales14Days != null and params.beginSales14Days != '' and params.endSales14Days != null and params.endSales14Days != ''">
+                and sales_14_days between #{params.beginSales14Days} and #{params.endSales14Days}
+            </if>
+            <if test="params.beginSales30Days != null and params.beginSales30Days != '' and params.endSales30Days != null and params.endSales30Days != ''">
+                and sales_30_days between #{params.beginSales30Days} and #{params.endSales30Days}
+            </if>
+            <if test="params.beginSales90Days != null and params.beginSales90Days != '' and params.endSales90Days != null and params.endSales90Days != ''">
+                and sales_90_days between #{params.beginSales90Days} and #{params.endSales90Days}
+            </if>
+            <if test="params.beginAvgDailySales != null and params.beginAvgDailySales != '' and params.endAvgDailySales != null and params.endAvgDailySales != ''">
+                and avg_daily_sales between #{params.beginAvgDailySales} and #{params.endAvgDailySales}
+            </if>
+            <if test="procurementInTransit != null ">and procurement_in_transit = #{procurementInTransit}</if>
+            <if test="params.beginLocalInventory != null and params.beginLocalInventory != '' and params.endLocalInventory != null and params.endLocalInventory != ''">
+                and local_inventory between #{params.beginLocalInventory} and #{params.endLocalInventory}
+            </if>
+            <if test="params.beginAvailable != null and params.beginAvailable != '' and params.endAvailable != null and params.endAvailable != ''">
+                and available between #{params.beginAvailable} and #{params.endAvailable}
+            </if>
+            <if test="params.beginAwaitingStock != null and params.beginAwaitingStock != '' and params.endAwaitingStock != null and params.endAwaitingStock != ''">
+                and awaiting_stock between #{params.beginAwaitingStock} and #{params.endAwaitingStock}
+            </if>
+            <if test="sku != null  and sku != ''">and sku = #{sku}</if>
+            <if test="warehouseName != null  and warehouseName != ''">and warehouse_name like concat('%',
+                #{warehouseName}, '%')
+            </if>
+            <if test="stockWarningDays != null ">and stock_warning_days = #{stockWarningDays}</if>
+            <if test="amSeasonalProductOffseason != null  and amSeasonalProductOffseason != ''">and
+                am_seasonal_product_offseason = #{amSeasonalProductOffseason}
+            </if>
+            <if test="amSeasonalProductPeakIncreaseRatio != null  and amSeasonalProductPeakIncreaseRatio != ''">and
+                am_seasonal_product_peak_increase_ratio = #{amSeasonalProductPeakIncreaseRatio}
+            </if>
+            <if test="amSeasonalProductPeak != null  and amSeasonalProductPeak != ''">and am_seasonal_product_peak =
+                #{amSeasonalProductPeak}
+            </if>
+            <if test="amCompetitorSales != null  and amCompetitorSales != ''">and am_competitor_sales =
+                #{amCompetitorSales}
+            </if>
+            <if test="amMarketCapacity != null  and amMarketCapacity != ''">and am_market_capacity =
+                #{amMarketCapacity}
+            </if>
+            <if test="amProductLifecycleStatus != null  and amProductLifecycleStatus != ''">and
+                am_product_lifecycle_status = #{amProductLifecycleStatus}
+            </if>
+            <if test="amSeasonalProductOffseasonDecline != null  and amSeasonalProductOffseasonDecline != ''">and
+                am_seasonal_product_offseason_decline = #{amSeasonalProductOffseasonDecline}
+            </if>
+            <if test="supplierName != null  and supplierName != ''">and supplier_name like concat('%', #{supplierName},
+                '%')
+            </if>
+            <if test="latestPurchasePrice != null ">and latest_purchase_price = #{latestPurchasePrice}</if>
+            <if test="weight != null ">and weight = #{weight}</if>
+            <if test="volumeCm3 != null ">and volume_cm3 = #{volumeCm3}</if>
+            <if test="minPurchaseQuantity != null ">and min_purchase_quantity = #{minPurchaseQuantity}</if>
+            <if test="amzInventoryShelfTime != null  and amzInventoryShelfTime != ''">and amz_inventory_shelf_time =
+                #{amzInventoryShelfTime}
+            </if>
+            <if test="reshaper != null  and reshaper != ''">and reshaper = #{reshaper}</if>
+            <if test="reshaping != null  and reshaping != ''">and reshaping = #{reshaping}</if>
+            <if test="inTransit != null ">and in_transit = #{inTransit}</if>
+            <if test="availableDays != null ">and available_days = #{availableDays}</if>
+            <if test="procurementDays != null ">and procurement_days = #{procurementDays}</if>
+            <if test="remarks != null  and remarks != ''">and remarks = #{remarks}</if>
+            <if test="reserved != null ">and reserved = #{reserved}</if>
+            <if test="plannedStockIn != null ">and planned_stock_in = #{plannedStockIn}</if>
+            <if test="salesPerson != null  and salesPerson != ''">and sales_person = #{salesPerson}</if>
+            <if test="developer != null  and developer != ''">and developer = #{developer}</if>
+            <if test="listingDate != null  and listingDate != ''">and listing_date = #{listingDate}</if>
+            <if test="isDelete != null ">and is_delete = #{isDelete}</if>
+            <if test="createdAt != null ">and created_at = #{createdAt}</if>
+            <if test="version != null ">and version = #{version}</if>
+            and is_delete = 0
+            and DATE(created_at) = CURDATE()
+        </where>
+        GROUP BY turnover_range
+        ),
+        totals AS (
+        SELECT
+        COUNT(*) as total_count,
+        SUM(total_inventory_value) as total_value,
+        SUM(CAST(NULLIF(sales_amount, '') AS DECIMAL(10,2))) as total_revenue,
+        SUM(CAST(NULLIF(gross_profit, '') AS DECIMAL(10,2))) as total_profit
+        FROM amz_data_analysis_turnover_mskulist
+        <where>
+            <if test="storeName != null  and storeName != ''">and store_name like concat('%', #{storeName}, '%')</if>
+            <!-- ... 复制相同的条件 ... -->
+            and is_delete = 0
+            and DATE(created_at) = CURDATE()
+        </where>
+        )
+        SELECT
+        s.turnover_range,
+        s.skuCount,
+        s.skuCount / t.total_count * 100 as skuRatio,
+        s.inventoryValue,
+        s.inventoryValue / t.total_value * 100 as inventoryRatio,
+        s.revenue,
+        CASE WHEN t.total_revenue > 0 THEN s.revenue / t.total_revenue * 100 ELSE 0 END as revenueRatio,
+        s.profit,
+        CASE WHEN t.total_profit > 0 THEN s.profit / t.total_profit * 100 ELSE 0 END as profitRatio,
+        CASE WHEN s.revenue > 0 THEN s.profit / s.revenue * 100 ELSE 0 END as profitMargin
+        FROM stats s, totals t
+        ORDER BY
+        CASE s.turnover_range
+        WHEN 'over360' THEN 1
+        WHEN 'd270_360' THEN 2
+        WHEN 'd210_270' THEN 3
+        WHEN 'd150_210' THEN 4
+        WHEN 'd120_150' THEN 5
+        WHEN 'd60_120' THEN 6
+        ELSE 7
+        END
+    </select>
+
+    <select id="selectAmzDataAnalysisTurnoverMskulistSummary" parameterType="AmzDataAnalysisTurnoverMskulist"
+            resultMap="AmzDataAnalysisTurnoverMskulistDTO">
+        <include refid="selectAmzDataAnalysisTurnoverMskulistDTO"/>
+        <where>
+            <if test="storeName != null  and storeName != ''">and store_name like concat('%', #{storeName}, '%')</if>
+            <if test="msku != null  and msku != ''">and msku like concat('%', #{msku}, '%')</if>
+            <if test="categoryLevelOne != null  and categoryLevelOne != ''">and category_level_1 like concat('%',
+                #{categoryLevelOne}, '%')
+            </if>
+            <if test="categoryLevelTwo != null  and categoryLevelTwo != ''">and category_level_2 like concat('%',
+                #{categoryLevelTwo}, '%')
+            </if>
+            <if test="fnsku != null  and fnsku != ''">and fnsku = #{fnsku}</if>
+            <if test="localSku != null  and localSku != ''">and local_sku = #{localSku}</if>
+            <if test="mainSku != null  and mainSku != ''">and main_sku = #{mainSku}</if>
+            <if test="productName != null  and productName != ''">and product_name like concat('%', #{productName},
+                '%')
+            </if>
+            <if test="asin != null  and asin != ''">and asin = #{asin}</if>
+            <if test="stockStatus != null  and stockStatus != ''">and stock_status = #{stockStatus}</if>
+            <if test="params.beginSales7Days != null and params.beginSales7Days != '' and params.endSales7Days != null and params.endSales7Days != ''">
+                and sales_7_days between #{params.beginSales7Days} and #{params.endSales7Days}
+            </if>
+            <if test="params.beginSales14Days != null and params.beginSales14Days != '' and params.endSales14Days != null and params.endSales14Days != ''">
+                and sales_14_days between #{params.beginSales14Days} and #{params.endSales14Days}
+            </if>
+            <if test="params.beginSales30Days != null and params.beginSales30Days != '' and params.endSales30Days != null and params.endSales30Days != ''">
+                and sales_30_days between #{params.beginSales30Days} and #{params.endSales30Days}
+            </if>
+            <if test="params.beginSales90Days != null and params.beginSales90Days != '' and params.endSales90Days != null and params.endSales90Days != ''">
+                and sales_90_days between #{params.beginSales90Days} and #{params.endSales90Days}
+            </if>
+            <if test="params.beginAvgDailySales != null and params.beginAvgDailySales != '' and params.endAvgDailySales != null and params.endAvgDailySales != ''">
+                and avg_daily_sales between #{params.beginAvgDailySales} and #{params.endAvgDailySales}
+            </if>
+            <if test="procurementInTransit != null ">and procurement_in_transit = #{procurementInTransit}</if>
+            <if test="params.beginLocalInventory != null and params.beginLocalInventory != '' and params.endLocalInventory != null and params.endLocalInventory != ''">
+                and local_inventory between #{params.beginLocalInventory} and #{params.endLocalInventory}
+            </if>
+            <if test="params.beginAvailable != null and params.beginAvailable != '' and params.endAvailable != null and params.endAvailable != ''">
+                and available between #{params.beginAvailable} and #{params.endAvailable}
+            </if>
+            <if test="params.beginAwaitingStock != null and params.beginAwaitingStock != '' and params.endAwaitingStock != null and params.endAwaitingStock != ''">
+                and awaiting_stock between #{params.beginAwaitingStock} and #{params.endAwaitingStock}
+            </if>
+            <if test="sku != null  and sku != ''">and sku = #{sku}</if>
+            <if test="warehouseName != null  and warehouseName != ''">and warehouse_name like concat('%',
+                #{warehouseName}, '%')
+            </if>
+            <if test="stockWarningDays != null ">and stock_warning_days = #{stockWarningDays}</if>
+            <if test="amSeasonalProductOffseason != null  and amSeasonalProductOffseason != ''">and
+                am_seasonal_product_offseason = #{amSeasonalProductOffseason}
+            </if>
+            <if test="amSeasonalProductPeakIncreaseRatio != null  and amSeasonalProductPeakIncreaseRatio != ''">and
+                am_seasonal_product_peak_increase_ratio = #{amSeasonalProductPeakIncreaseRatio}
+            </if>
+            <if test="amSeasonalProductPeak != null  and amSeasonalProductPeak != ''">and am_seasonal_product_peak =
+                #{amSeasonalProductPeak}
+            </if>
+            <if test="amCompetitorSales != null  and amCompetitorSales != ''">and am_competitor_sales =
+                #{amCompetitorSales}
+            </if>
+            <if test="amMarketCapacity != null  and amMarketCapacity != ''">and am_market_capacity =
+                #{amMarketCapacity}
+            </if>
+            <if test="amProductLifecycleStatus != null  and amProductLifecycleStatus != ''">and
+                am_product_lifecycle_status = #{amProductLifecycleStatus}
+            </if>
+            <if test="amSeasonalProductOffseasonDecline != null  and amSeasonalProductOffseasonDecline != ''">and
+                am_seasonal_product_offseason_decline = #{amSeasonalProductOffseasonDecline}
+            </if>
+            <if test="supplierName != null  and supplierName != ''">and supplier_name like concat('%', #{supplierName},
+                '%')
+            </if>
+            <if test="latestPurchasePrice != null ">and latest_purchase_price = #{latestPurchasePrice}</if>
+            <if test="weight != null ">and weight = #{weight}</if>
+            <if test="volumeCm3 != null ">and volume_cm3 = #{volumeCm3}</if>
+            <if test="minPurchaseQuantity != null ">and min_purchase_quantity = #{minPurchaseQuantity}</if>
+            <if test="amzInventoryShelfTime != null  and amzInventoryShelfTime != ''">and amz_inventory_shelf_time =
+                #{amzInventoryShelfTime}
+            </if>
+            <if test="reshaper != null  and reshaper != ''">and reshaper = #{reshaper}</if>
+            <if test="reshaping != null  and reshaping != ''">and reshaping = #{reshaping}</if>
+            <if test="inTransit != null ">and in_transit = #{inTransit}</if>
+            <if test="availableDays != null ">and available_days = #{availableDays}</if>
+            <if test="procurementDays != null ">and procurement_days = #{procurementDays}</if>
+            <if test="remarks != null  and remarks != ''">and remarks = #{remarks}</if>
+            <if test="reserved != null ">and reserved = #{reserved}</if>
+            <if test="plannedStockIn != null ">and planned_stock_in = #{plannedStockIn}</if>
+            <if test="salesPerson != null  and salesPerson != ''">and sales_person = #{salesPerson}</if>
+            <if test="developer != null  and developer != ''">and developer = #{developer}</if>
+            <if test="listingDate != null  and listingDate != ''">and listing_date = #{listingDate}</if>
+            <if test="isDelete != null ">and is_delete = #{isDelete}</if>
+            <if test="createdAt != null ">and created_at = #{createdAt}</if>
+            <if test="version != null ">and version = #{version}</if>
+            <!-- 新增的条件 -->
+            and is_delete = 0
+            and DATE(created_at) = CURDATE()
+        </where>
+    </select>
+    <sql id="selectAmzDataAnalysisTurnoverMskulistVo">
+        select id,
+               store_name,
+               msku,
+               category_level_1,
+               category_level_2,
+               fnsku,
+               local_sku,
+               main_sku,
+               product_name,
+               asin,
+               stock_status,
+               sales_7_days,
+               sales_14_days,
+               sales_30_days,
+               sales_90_days,
+               avg_daily_sales,
+               procurement_in_transit,
+               local_inventory,
+               available,
+               awaiting_stock,
+               sku,
+               warehouse_name,
+               stock_warning_days,
+               am_seasonal_product_offseason,
+               am_seasonal_product_peak_increase_ratio,
+               in_transit,
+               available_days,
+               procurement_days,
+               remarks,
+               reserved,
+               planned_stock_in,
+               sales_person,
+               developer,
+               am_seasonal_product_peak,
+               am_competitor_sales,
+               am_market_capacity,
+               am_product_lifecycle_status,
+               am_seasonal_product_offseason_decline,
+               supplier_name,
+               latest_purchase_price,
+               weight,
+               volume_cm3,
+               min_purchase_quantity,
+               amz_inventory_shelf_time,
+               reshaper,
+               reshaping,
+               listing_date,
+               sales,
+               sales_amount,
+               gross_profit,
+               is_delete,
+               created_at,
+               update_time,
+               create_by,
+               update_by,
+               version,
+               total_local_inventory_value,
+               total_fba_inventory_value,
+               total_inventory_value,
+               turnover_days,
+               fba_turnover_days,
+               total_inventory_count
+        from amz_data_analysis_turnover_mskulist
+    </sql>
+
+    <select id="selectAmzDataAnalysisTurnoverMskulistList" parameterType="AmzDataAnalysisTurnoverMskulist"
+            resultMap="AmzDataAnalysisTurnoverMskulistResult">
+        <include refid="selectAmzDataAnalysisTurnoverMskulistVo"/>
+        <where>
+            <if test="storeName != null  and storeName != ''">and store_name like concat('%', #{storeName}, '%')</if>
+            <if test="msku != null  and msku != ''">and msku like concat('%', #{msku}, '%')</if>
+            <if test="categoryLevelOne != null  and categoryLevelOne != ''">and category_level_1 like concat('%',
+                #{categoryLevelOne}, '%')
+            </if>
+            <if test="categoryLevelTwo != null  and categoryLevelTwo != ''">and category_level_2 like concat('%',
+                #{categoryLevelTwo}, '%')
+            </if>
+            <if test="fnsku != null  and fnsku != ''">and fnsku = #{fnsku}</if>
+            <if test="localSku != null  and localSku != ''">and local_sku = #{localSku}</if>
+            <if test="mainSku != null  and mainSku != ''">and main_sku = #{mainSku}</if>
+            <if test="productName != null  and productName != ''">and product_name like concat('%', #{productName},
+                '%')
+            </if>
+            <if test="asin != null  and asin != ''">and asin = #{asin}</if>
+            <if test="stockStatus != null  and stockStatus != ''">and stock_status = #{stockStatus}</if>
+            <if test="params.beginSales7Days != null and params.beginSales7Days != '' and params.endSales7Days != null and params.endSales7Days != ''">
+                and sales_7_days between #{params.beginSales7Days} and #{params.endSales7Days}
+            </if>
+            <if test="params.beginSales14Days != null and params.beginSales14Days != '' and params.endSales14Days != null and params.endSales14Days != ''">
+                and sales_14_days between #{params.beginSales14Days} and #{params.endSales14Days}
+            </if>
+            <if test="params.beginSales30Days != null and params.beginSales30Days != '' and params.endSales30Days != null and params.endSales30Days != ''">
+                and sales_30_days between #{params.beginSales30Days} and #{params.endSales30Days}
+            </if>
+            <if test="params.beginSales90Days != null and params.beginSales90Days != '' and params.endSales90Days != null and params.endSales90Days != ''">
+                and sales_90_days between #{params.beginSales90Days} and #{params.endSales90Days}
+            </if>
+            <if test="params.beginAvgDailySales != null and params.beginAvgDailySales != '' and params.endAvgDailySales != null and params.endAvgDailySales != ''">
+                and avg_daily_sales between #{params.beginAvgDailySales} and #{params.endAvgDailySales}
+            </if>
+            <if test="procurementInTransit != null ">and procurement_in_transit = #{procurementInTransit}</if>
+            <if test="params.beginLocalInventory != null and params.beginLocalInventory != '' and params.endLocalInventory != null and params.endLocalInventory != ''">
+                and local_inventory between #{params.beginLocalInventory} and #{params.endLocalInventory}
+            </if>
+            <if test="params.beginAvailable != null and params.beginAvailable != '' and params.endAvailable != null and params.endAvailable != ''">
+                and available between #{params.beginAvailable} and #{params.endAvailable}
+            </if>
+            <if test="params.beginAwaitingStock != null and params.beginAwaitingStock != '' and params.endAwaitingStock != null and params.endAwaitingStock != ''">
+                and awaiting_stock between #{params.beginAwaitingStock} and #{params.endAwaitingStock}
+            </if>
+            <if test="sku != null  and sku != ''">and sku = #{sku}</if>
+            <if test="warehouseName != null  and warehouseName != ''">and warehouse_name like concat('%',
+                #{warehouseName}, '%')
+            </if>
+            <if test="stockWarningDays != null ">and stock_warning_days = #{stockWarningDays}</if>
+            <if test="amSeasonalProductOffseason != null  and amSeasonalProductOffseason != ''">and
+                am_seasonal_product_offseason = #{amSeasonalProductOffseason}
+            </if>
+            <if test="amSeasonalProductPeakIncreaseRatio != null  and amSeasonalProductPeakIncreaseRatio != ''">and
+                am_seasonal_product_peak_increase_ratio = #{amSeasonalProductPeakIncreaseRatio}
+            </if>
+            <if test="amSeasonalProductPeak != null  and amSeasonalProductPeak != ''">and am_seasonal_product_peak =
+                #{amSeasonalProductPeak}
+            </if>
+            <if test="amCompetitorSales != null  and amCompetitorSales != ''">and am_competitor_sales =
+                #{amCompetitorSales}
+            </if>
+            <if test="amMarketCapacity != null  and amMarketCapacity != ''">and am_market_capacity =
+                #{amMarketCapacity}
+            </if>
+            <if test="amProductLifecycleStatus != null  and amProductLifecycleStatus != ''">and
+                am_product_lifecycle_status = #{amProductLifecycleStatus}
+            </if>
+            <if test="amSeasonalProductOffseasonDecline != null  and amSeasonalProductOffseasonDecline != ''">and
+                am_seasonal_product_offseason_decline = #{amSeasonalProductOffseasonDecline}
+            </if>
+            <if test="supplierName != null  and supplierName != ''">and supplier_name like concat('%', #{supplierName},
+                '%')
+            </if>
+            <if test="latestPurchasePrice != null ">and latest_purchase_price = #{latestPurchasePrice}</if>
+            <if test="weight != null ">and weight = #{weight}</if>
+            <if test="volumeCm3 != null ">and volume_cm3 = #{volumeCm3}</if>
+            <if test="minPurchaseQuantity != null ">and min_purchase_quantity = #{minPurchaseQuantity}</if>
+            <if test="amzInventoryShelfTime != null  and amzInventoryShelfTime != ''">and amz_inventory_shelf_time =
+                #{amzInventoryShelfTime}
+            </if>
+            <if test="reshaper != null  and reshaper != ''">and reshaper = #{reshaper}</if>
+            <if test="reshaping != null  and reshaping != ''">and reshaping = #{reshaping}</if>
+            <if test="inTransit != null ">and in_transit = #{inTransit}</if>
+            <if test="availableDays != null ">and available_days = #{availableDays}</if>
+            <if test="procurementDays != null ">and procurement_days = #{procurementDays}</if>
+            <if test="remarks != null  and remarks != ''">and remarks = #{remarks}</if>
+            <if test="reserved != null ">and reserved = #{reserved}</if>
+            <if test="plannedStockIn != null ">and planned_stock_in = #{plannedStockIn}</if>
+            <if test="salesPerson != null  and salesPerson != ''">and sales_person = #{salesPerson}</if>
+            <if test="developer != null  and developer != ''">and developer = #{developer}</if>
+            <if test="listingDate != null  and listingDate != ''">and listing_date = #{listingDate}</if>
+            <if test="isDelete != null ">and is_delete = #{isDelete}</if>
+            <if test="createdAt != null ">and created_at = #{createdAt}</if>
+            <if test="version != null ">and version = #{version}</if>
+            <!-- 新增的条件 -->
+            and is_delete = 0
+            and DATE(created_at) = CURDATE()
+        </where>
+    </select>
+
+    <select id="selectAmzDataAnalysisTurnoverMskulistById" parameterType="Long"
+            resultMap="AmzDataAnalysisTurnoverMskulistResult">
+        <include refid="selectAmzDataAnalysisTurnoverMskulistVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertAmzDataAnalysisTurnoverMskulist" parameterType="AmzDataAnalysisTurnoverMskulist"
+            useGeneratedKeys="true" keyProperty="id">
+        insert into amz_data_analysis_turnover_mskulist
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="storeName != null">store_name,</if>
+            <if test="msku != null">msku,</if>
+            <if test="categoryLevelOne != null">category_level_1,</if>
+            <if test="categoryLevelTwo != null">category_level_2,</if>
+            <if test="fnsku != null">fnsku,</if>
+            <if test="localSku != null">local_sku,</if>
+            <if test="mainSku != null">main_sku,</if>
+            <if test="productName != null">product_name,</if>
+            <if test="asin != null">asin,</if>
+            <if test="stockStatus != null">stock_status,</if>
+            <if test="sales7Days != null">sales_7_days,</if>
+            <if test="sales14Days != null">sales_14_days,</if>
+            <if test="sales30Days != null">sales_30_days,</if>
+            <if test="sales90Days != null">sales_90_days,</if>
+            <if test="avgDailySales != null">avg_daily_sales,</if>
+            <if test="procurementInTransit != null">procurement_in_transit,</if>
+            <if test="localInventory != null">local_inventory,</if>
+            <if test="available != null">available,</if>
+            <if test="awaitingStock != null">awaiting_stock,</if>
+            <if test="sku != null and sku != ''">sku,</if>
+            <if test="warehouseName != null">warehouse_name,</if>
+            <if test="stockWarningDays != null">stock_warning_days,</if>
+            <if test="amSeasonalProductOffseason != null">am_seasonal_product_offseason,</if>
+            <if test="amSeasonalProductPeakIncreaseRatio != null">am_seasonal_product_peak_increase_ratio,</if>
+            <if test="amSeasonalProductPeak != null">am_seasonal_product_peak,</if>
+            <if test="amCompetitorSales != null">am_competitor_sales,</if>
+            <if test="amMarketCapacity != null">am_market_capacity,</if>
+            <if test="amProductLifecycleStatus != null">am_product_lifecycle_status,</if>
+            <if test="amSeasonalProductOffseasonDecline != null">am_seasonal_product_offseason_decline,</if>
+            <if test="supplierName != null">supplier_name,</if>
+            <if test="latestPurchasePrice != null">latest_purchase_price,</if>
+            <if test="weight != null">weight,</if>
+            <if test="volumeCm3 != null">volume_cm3,</if>
+            <if test="minPurchaseQuantity != null">min_purchase_quantity,</if>
+            <if test="amzInventoryShelfTime != null">amz_inventory_shelf_time,</if>
+            <if test="reshaper != null">reshaper,</if>
+            <if test="reshaping != null">reshaping,</if>
+            <if test="inTransit != null">in_transit,</if>
+            <if test="availableDays != null">available_days,</if>
+            <if test="procurementDays != null">procurement_days,</if>
+            <if test="remarks != null">remarks,</if>
+            <if test="reserved != null">reserved,</if>
+            <if test="plannedStockIn != null">planned_stock_in,</if>
+            <if test="salesPerson != null">sales_person,</if>
+            <if test="developer != null">developer,</if>
+            <if test="listingDate != null">listing_date,</if>
+            <if test="isDelete != null">is_delete,</if>
+            <if test="createdAt != null">created_at,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="version != null">version,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="storeName != null">#{storeName},</if>
+            <if test="msku != null">#{msku},</if>
+            <if test="categoryLevelOne != null">#{categoryLevelOne},</if>
+            <if test="categoryLevelTwo != null">#{categoryLevelTwo},</if>
+            <if test="fnsku != null">#{fnsku},</if>
+            <if test="localSku != null">#{localSku},</if>
+            <if test="mainSku != null">#{mainSku},</if>
+            <if test="productName != null">#{productName},</if>
+            <if test="asin != null">#{asin},</if>
+            <if test="stockStatus != null">#{stockStatus},</if>
+            <if test="sales7Days != null">#{sales7Days},</if>
+            <if test="sales14Days != null">#{sales14Days},</if>
+            <if test="sales30Days != null">#{sales30Days},</if>
+            <if test="sales90Days != null">#{sales90Days},</if>
+            <if test="avgDailySales != null">#{avgDailySales},</if>
+            <if test="procurementInTransit != null">#{procurementInTransit},</if>
+            <if test="localInventory != null">#{localInventory},</if>
+            <if test="available != null">#{available},</if>
+            <if test="awaitingStock != null">#{awaitingStock},</if>
+            <if test="sku != null and sku != ''">#{sku},</if>
+            <if test="warehouseName != null">#{warehouseName},</if>
+            <if test="stockWarningDays != null">#{stockWarningDays},</if>
+            <if test="amSeasonalProductOffseason != null">#{amSeasonalProductOffseason},</if>
+            <if test="amSeasonalProductPeakIncreaseRatio != null">#{amSeasonalProductPeakIncreaseRatio},</if>
+            <if test="amSeasonalProductPeak != null">#{amSeasonalProductPeak},</if>
+            <if test="amCompetitorSales != null">#{amCompetitorSales},</if>
+            <if test="amMarketCapacity != null">#{amMarketCapacity},</if>
+            <if test="amProductLifecycleStatus != null">#{amProductLifecycleStatus},</if>
+            <if test="amSeasonalProductOffseasonDecline != null">#{amSeasonalProductOffseasonDecline},</if>
+            <if test="supplierName != null">#{supplierName},</if>
+            <if test="latestPurchasePrice != null">#{latestPurchasePrice},</if>
+            <if test="weight != null">#{weight},</if>
+            <if test="volumeCm3 != null">#{volumeCm3},</if>
+            <if test="minPurchaseQuantity != null">#{minPurchaseQuantity},</if>
+            <if test="amzInventoryShelfTime != null">#{amzInventoryShelfTime},</if>
+            <if test="reshaper != null">#{reshaper},</if>
+            <if test="reshaping != null">#{reshaping},</if>
+            <if test="inTransit != null">#{inTransit},</if>
+            <if test="availableDays != null">#{availableDays},</if>
+            <if test="procurementDays != null">#{procurementDays},</if>
+            <if test="remarks != null">#{remarks},</if>
+            <if test="reserved != null">#{reserved},</if>
+            <if test="plannedStockIn != null">#{plannedStockIn},</if>
+            <if test="salesPerson != null">#{salesPerson},</if>
+            <if test="developer != null">#{developer},</if>
+            <if test="listingDate != null">#{listingDate},</if>
+            <if test="isDelete != null">#{isDelete},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="version != null">#{version},</if>
+        </trim>
+    </insert>
+
+    <update id="updateAmzDataAnalysisTurnoverMskulist" parameterType="AmzDataAnalysisTurnoverMskulist">
+        update amz_data_analysis_turnover_mskulist
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="storeName != null">store_name = #{storeName},</if>
+            <if test="msku != null">msku = #{msku},</if>
+            <if test="categoryLevelOne != null">category_level_1 = #{categoryLevelOne},</if>
+            <if test="categoryLevelTwo != null">category_level_2 = #{categoryLevelTwo},</if>
+            <if test="fnsku != null">fnsku = #{fnsku},</if>
+            <if test="localSku != null">local_sku = #{localSku},</if>
+            <if test="mainSku != null">main_sku = #{mainSku},</if>
+            <if test="productName != null">product_name = #{productName},</if>
+            <if test="asin != null">asin = #{asin},</if>
+            <if test="stockStatus != null">stock_status = #{stockStatus},</if>
+            <if test="sales7Days != null">sales_7_days = #{sales7Days},</if>
+            <if test="sales14Days != null">sales_14_days = #{sales14Days},</if>
+            <if test="sales30Days != null">sales_30_days = #{sales30Days},</if>
+            <if test="sales90Days != null">sales_90_days = #{sales90Days},</if>
+            <if test="avgDailySales != null">avg_daily_sales = #{avgDailySales},</if>
+            <if test="procurementInTransit != null">procurement_in_transit = #{procurementInTransit},</if>
+            <if test="localInventory != null">local_inventory = #{localInventory},</if>
+            <if test="available != null">available = #{available},</if>
+            <if test="awaitingStock != null">awaiting_stock = #{awaitingStock},</if>
+            <if test="sku != null and sku != ''">sku = #{sku},</if>
+            <if test="warehouseName != null">warehouse_name = #{warehouseName},</if>
+            <if test="stockWarningDays != null">stock_warning_days = #{stockWarningDays},</if>
+            <if test="amSeasonalProductOffseason != null">am_seasonal_product_offseason =
+                #{amSeasonalProductOffseason},
+            </if>
+            <if test="amSeasonalProductPeakIncreaseRatio != null">am_seasonal_product_peak_increase_ratio =
+                #{amSeasonalProductPeakIncreaseRatio},
+            </if>
+            <if test="amSeasonalProductPeak != null">am_seasonal_product_peak = #{amSeasonalProductPeak},</if>
+            <if test="amCompetitorSales != null">am_competitor_sales = #{amCompetitorSales},</if>
+            <if test="amMarketCapacity != null">am_market_capacity = #{amMarketCapacity},</if>
+            <if test="amProductLifecycleStatus != null">am_product_lifecycle_status = #{amProductLifecycleStatus},</if>
+            <if test="amSeasonalProductOffseasonDecline != null">am_seasonal_product_offseason_decline =
+                #{amSeasonalProductOffseasonDecline},
+            </if>
+            <if test="supplierName != null">supplier_name = #{supplierName},</if>
+            <if test="latestPurchasePrice != null">latest_purchase_price = #{latestPurchasePrice},</if>
+            <if test="weight != null">weight = #{weight},</if>
+            <if test="volumeCm3 != null">volume_cm3 = #{volumeCm3},</if>
+            <if test="minPurchaseQuantity != null">min_purchase_quantity = #{minPurchaseQuantity},</if>
+            <if test="amzInventoryShelfTime != null">amz_inventory_shelf_time = #{amzInventoryShelfTime},</if>
+            <if test="reshaper != null">reshaper = #{reshaper},</if>
+            <if test="reshaping != null">reshaping = #{reshaping},</if>
+            <if test="inTransit != null">in_transit = #{inTransit},</if>
+            <if test="availableDays != null">available_days = #{availableDays},</if>
+            <if test="procurementDays != null">procurement_days = #{procurementDays},</if>
+            <if test="remarks != null">remarks = #{remarks},</if>
+            <if test="reserved != null">reserved = #{reserved},</if>
+            <if test="plannedStockIn != null">planned_stock_in = #{plannedStockIn},</if>
+            <if test="salesPerson != null">sales_person = #{salesPerson},</if>
+            <if test="developer != null">developer = #{developer},</if>
+            <if test="listingDate != null">listing_date = #{listingDate},</if>
+            <if test="isDelete != null">is_delete = #{isDelete},</if>
+            <if test="createdAt != null">created_at = #{createdAt},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="version != null">version = #{version},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteAmzDataAnalysisTurnoverMskulistById" parameterType="Long">
+        delete
+        from amz_data_analysis_turnover_mskulist
+        where id = #{id}
+    </delete>
+
+    <delete id="deleteAmzDataAnalysisTurnoverMskulistByIds" parameterType="String">
+        delete from amz_data_analysis_turnover_mskulist where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
