@@ -70,4 +70,8 @@ public interface IAmzDataAnalysisTurnoverMskulistService
      * @return 结果
      */
     public AmzDataAnalysisTurnoverDTO getAmzDataAnalysisTurnoverMskulistAll(Map<String, Object> map);
+
+    public List<String> selectDistinctStoreNames();
+    public List<String> selectDistinctSalesPersons();
+    public List<String> selectDistinctDevelopers();
 }

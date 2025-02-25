@@ -56,6 +56,10 @@ public class AmzDataAnalysisTurnoverDTO extends BaseEntity {
     @Excel(name = "周转天数（近7天数据平均）")
     private Double avgTurnoverDaysLast7Days;
 
+    /** FBA周转天数（近7天数据平均） */
+    @Excel(name = "FBA周转天数（近7天数据平均）")
+    private Double avgFbaTurnoverDaysLast7Days;
+
     /** 总营业额 */
     @Excel(name = "总营业额")
     private Double totalRevenue;
@@ -65,5 +69,7 @@ public class AmzDataAnalysisTurnoverDTO extends BaseEntity {
     private Double totalProfit;
 
     private List<TurnoverStatsDTO> turnoverStats;  // 不同周转天数区间的统计数据
+
+    private List<TurnoverStatsDTO> fbaTurnoverStats;  // 不同周转天数区间的统计数据
 
 }

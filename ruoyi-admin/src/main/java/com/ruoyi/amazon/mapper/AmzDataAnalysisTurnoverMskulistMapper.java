@@ -71,4 +71,9 @@ public interface AmzDataAnalysisTurnoverMskulistMapper
 
 
     public List<TurnoverStatsDTO> selectTurnoverStats(AmzDataAnalysisTurnoverMskulist amzDataAnalysisTurnoverMskulist);
+
+    public List<TurnoverStatsDTO> selectFbaTurnoverStats(AmzDataAnalysisTurnoverMskulist amzDataAnalysisTurnoverMskulist);
+    public List<String> selectDistinctStoreNames();
+    public List<String> selectDistinctSalesPersons();
+    public List<String> selectDistinctDevelopers();
 }

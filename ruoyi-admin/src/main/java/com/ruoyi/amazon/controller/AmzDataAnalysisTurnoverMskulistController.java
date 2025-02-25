@@ -56,6 +56,24 @@ public class AmzDataAnalysisTurnoverMskulistController extends BaseController
         return AjaxResult.success(amzDataAnalysisTurnoverSummary);
     }
 
+    @GetMapping("/getStoreList")
+    public AjaxResult getStoreList() {
+        List<String> storeList = amzDataAnalysisTurnoverMskulistService.selectDistinctStoreNames();
+        return success(storeList);
+    }
+
+    @GetMapping("/getSalesPersonList")
+    public AjaxResult getSalesPersonList() {
+        List<String> salesPersonList = amzDataAnalysisTurnoverMskulistService.selectDistinctSalesPersons();
+        return success(salesPersonList);
+    }
+
+    @GetMapping("/getDeveloperList")
+    public AjaxResult getDeveloperList() {
+        List<String> developerList = amzDataAnalysisTurnoverMskulistService.selectDistinctDevelopers();
+        return success(developerList);
+    }
+
     /**
      * 导出亚马逊数据分析，周转率，mskulist，这个是基础信息列表
      */
