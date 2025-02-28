@@ -54,6 +54,15 @@ public class AliexpressSkuAnalysis extends BaseEntity {
     @Excel(name = "本地在途数量")
     private Long localInTransitQuantity;
 
+
+
+    /**
+     * 本地在途数量
+     */
+    @Excel(name = "本地在途数量")
+    private int totalPublications;
+
+
     /**
      * 本地可用数量
      */
@@ -82,19 +91,19 @@ public class AliexpressSkuAnalysis extends BaseEntity {
      * 七天销量
      */
 
-    private Long sales7Days;
+    private Long salesLast7Days;
 
     /**
      * 七天销量
      */
 
-    private Long sales28Days;
+    private Long salesLast28Days;
 
     /**
      * 七天销量
      */
 
-    private Long sales42Days;
+    private Long salesLast42Days;
 
     /**
      * pop日均市场容量
@@ -201,6 +210,15 @@ public class AliexpressSkuAnalysis extends BaseEntity {
      * 更新时间
      */
     private Date updatedAt;
+
+
+    public int getTotalPublications() {
+        return totalPublications;
+    }
+
+    public void setTotalPublications(int totalPublications) {
+        this.totalPublications = totalPublications;
+    }
 
     public String getSkuName() {
         return skuName;
@@ -450,28 +468,28 @@ public class AliexpressSkuAnalysis extends BaseEntity {
         this.fullManagementBackupAvailableQuantity = fullManagementBackupAvailableQuantity;
     }
 
-    public Long getSales7Days() {
-        return sales7Days;
+    public Long getSalesLast7Days() {
+        return salesLast7Days;
     }
 
-    public void setSales7Days(Long sales7Days) {
-        this.sales7Days = sales7Days;
+    public void setSalesLast7Days(Long salesLast7Days) {
+        this.salesLast7Days = salesLast7Days;
     }
 
-    public Long getSales28Days() {
-        return sales28Days;
+    public Long getSalesLast28Days() {
+        return salesLast28Days;
     }
 
-    public void setSales28Days(Long sales28Days) {
-        this.sales28Days = sales28Days;
+    public void setSalesLast28Days(Long salesLast28Days) {
+        this.salesLast28Days = salesLast28Days;
     }
 
-    public Long getSales42Days() {
-        return sales42Days;
+    public Long getSalesLast42Days() {
+        return salesLast42Days;
     }
 
-    public void setSales42Days(Long sales42Days) {
-        this.sales42Days = sales42Days;
+    public void setSalesLast42Days(Long salesLast42Days) {
+        this.salesLast42Days = salesLast42Days;
     }
 
     @Override

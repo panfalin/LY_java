@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.aliexpress.mapper.AliexpressToolIndicatorsAutoMapper">
+    
+    <resultMap type="AliexpressToolIndicatorsAuto" id="AliexpressToolIndicatorsAutoResult">
+        <result property="shopName"    column="shop_name"    />
+        <result property="shopPerson"    column="shop_person"    />
+        <result property="contraryOrderNum"    column="contrary_order_num"    />
+        <result property="illegalInfringement"    column="illegal_infringement"    />
+        <result property="warehousTimeoutJit"    column="warehous_timeout_jit"    />
+        <result property="tallyReportDisputes"    column="tally_report_disputes"    />
+        <result property="heavyRulerDispute"    column="heavy_ruler_dispute"    />
+        <result property="unshippedOrders24"    column="unshipped_orders_24"    />
+        <result property="orderExceptionJit"    column="order_exception_jit"    />
+        <result property="sId"    column="s_id"    />
+        <result property="createTime"    column="create_time"    />
+    </resultMap>
+
+    <sql id="selectAliexpressToolIndicatorsAutoVo">
+        select shop_name, shop_person, contrary_order_num, illegal_infringement, warehous_timeout_jit, tally_report_disputes, heavy_ruler_dispute, unshipped_orders_24, order_exception_jit, s_id, create_time from aliexpress_tool_indicators_auto
+    </sql>
+
+    <select id="selectAliexpressToolIndicatorsAutoList" parameterType="AliexpressToolIndicatorsAuto" resultMap="AliexpressToolIndicatorsAutoResult">
+        <include refid="selectAliexpressToolIndicatorsAutoVo"/>
+        <where>  
+            <if test="shopName != null  and shopName != ''"> and shop_name like concat('%', #{shopName}, '%')</if>
+            <if test="shopPerson != null  and shopPerson != ''"> and shop_person = #{shopPerson}</if>
+            <if test="contraryOrderNum != null  and contraryOrderNum != ''"> and contrary_order_num = #{contraryOrderNum}</if>
+            <if test="illegalInfringement != null  and illegalInfringement != ''"> and illegal_infringement = #{illegalInfringement}</if>
+            <if test="warehousTimeoutJit != null  and warehousTimeoutJit != ''"> and warehous_timeout_jit = #{warehousTimeoutJit}</if>
+            <if test="tallyReportDisputes != null  and tallyReportDisputes != ''"> and tally_report_disputes = #{tallyReportDisputes}</if>
+            <if test="heavyRulerDispute != null  and heavyRulerDispute != ''"> and heavy_ruler_dispute = #{heavyRulerDispute}</if>
+            <if test="unshippedOrders24 != null  and unshippedOrders24 != ''"> and unshipped_orders_24 = #{unshippedOrders24}</if>
+            <if test="orderExceptionJit != null  and orderExceptionJit != ''"> and order_exception_jit = #{orderExceptionJit}</if>
+        </where>
+    </select>
+    
+    <select id="selectAliexpressToolIndicatorsAutoBySId" parameterType="Long" resultMap="AliexpressToolIndicatorsAutoResult">
+        <include refid="selectAliexpressToolIndicatorsAutoVo"/>
+        where s_id = #{sId}
+    </select>
+
+    <insert id="insertAliexpressToolIndicatorsAuto" parameterType="AliexpressToolIndicatorsAuto" useGeneratedKeys="true" keyProperty="sId">
+        insert into aliexpress_tool_indicators_auto
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="shopName != null">shop_name,</if>
+            <if test="shopPerson != null">shop_person,</if>
+            <if test="contraryOrderNum != null">contrary_order_num,</if>
+            <if test="illegalInfringement != null">illegal_infringement,</if>
+            <if test="warehousTimeoutJit != null">warehous_timeout_jit,</if>
+            <if test="tallyReportDisputes != null">tally_report_disputes,</if>
+            <if test="heavyRulerDispute != null">heavy_ruler_dispute,</if>
+            <if test="unshippedOrders24 != null">unshipped_orders_24,</if>
+            <if test="orderExceptionJit != null">order_exception_jit,</if>
+            <if test="createTime != null">create_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="shopName != null">#{shopName},</if>
+            <if test="shopPerson != null">#{shopPerson},</if>
+            <if test="contraryOrderNum != null">#{contraryOrderNum},</if>
+            <if test="illegalInfringement != null">#{illegalInfringement},</if>
+            <if test="warehousTimeoutJit != null">#{warehousTimeoutJit},</if>
+            <if test="tallyReportDisputes != null">#{tallyReportDisputes},</if>
+            <if test="heavyRulerDispute != null">#{heavyRulerDispute},</if>
+            <if test="unshippedOrders24 != null">#{unshippedOrders24},</if>
+            <if test="orderExceptionJit != null">#{orderExceptionJit},</if>
+            <if test="createTime != null">#{createTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateAliexpressToolIndicatorsAuto" parameterType="AliexpressToolIndicatorsAuto">
+        update aliexpress_tool_indicators_auto
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="shopName != null">shop_name = #{shopName},</if>
+            <if test="shopPerson != null">shop_person = #{shopPerson},</if>
+            <if test="contraryOrderNum != null">contrary_order_num = #{contraryOrderNum},</if>
+            <if test="illegalInfringement != null">illegal_infringement = #{illegalInfringement},</if>
+            <if test="warehousTimeoutJit != null">warehous_timeout_jit = #{warehousTimeoutJit},</if>
+            <if test="tallyReportDisputes != null">tally_report_disputes = #{tallyReportDisputes},</if>
+            <if test="heavyRulerDispute != null">heavy_ruler_dispute = #{heavyRulerDispute},</if>
+            <if test="unshippedOrders24 != null">unshipped_orders_24 = #{unshippedOrders24},</if>
+            <if test="orderExceptionJit != null">order_exception_jit = #{orderExceptionJit},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+        </trim>
+        where s_id = #{sId}
+    </update>
+
+    <delete id="deleteAliexpressToolIndicatorsAutoBySId" parameterType="Long">
+        delete from aliexpress_tool_indicators_auto where s_id = #{sId}
+    </delete>
+
+    <delete id="deleteAliexpressToolIndicatorsAutoBySIds" parameterType="String">
+        delete from aliexpress_tool_indicators_auto where s_id in 
+        <foreach item="sId" collection="array" open="(" separator="," close=")">
+            #{sId}
+        </foreach>
+    </delete>
+</mapper>

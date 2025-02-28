@@ -31,6 +31,14 @@ public interface PofitOrderListWarehouseMapper
 
     public List<PofitOrderListWarehouse> selectPofitOrderListWarehouseTotalList(PofitOrderListWarehouse pofitOrderListWarehouse);
 
+    public List<PofitOrderListWarehouse> selectPofitOrderListWarehouseListAll(PofitOrderListWarehouse pofitOrderListWarehouse);
+
+
+
+    public List<PofitOrderListWarehouse> selectPofitOrderListWarehouseTotalListAll(PofitOrderListWarehouse pofitOrderListWarehouse);
+
+
+
     /**
      * 新增马帮后台导出金额订单数据
      * 

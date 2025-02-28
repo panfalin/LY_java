@@ -38,6 +38,26 @@ public interface IPofitOrderListWarehouseService
     public List<PofitOrderListWarehouse> selectPofitOrderListWarehouseTotalList(PofitOrderListWarehouse pofitOrderListWarehouse);
 
 
+    /**
+     * 查询马帮后台导出金额订单数据列表
+     *
+     * @param pofitOrderListWarehouse 马帮后台导出金额订单数据
+     * @return 马帮后台导出金额订单数据集合
+     */
+    public List<PofitOrderListWarehouse> selectPofitOrderListWarehouseListAll(PofitOrderListWarehouse pofitOrderListWarehouse);
+
+
+    /**
+     * 查询马帮后台导出金额订单数据列表
+     *
+     * @param pofitOrderListWarehouse 马帮后台导出金额订单数据
+     * @return 马帮后台导出金额订单数据集合
+     */
+    public List<PofitOrderListWarehouse> selectPofitOrderListWarehouseTotalListAll(PofitOrderListWarehouse pofitOrderListWarehouse);
+
+
+
+
 
     /**
      * 新增马帮后台导出金额订单数据

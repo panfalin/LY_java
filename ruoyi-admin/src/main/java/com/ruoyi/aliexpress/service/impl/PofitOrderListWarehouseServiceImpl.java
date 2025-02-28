@@ -49,7 +49,16 @@ public class PofitOrderListWarehouseServiceImpl implements IPofitOrderListWareho
     }
 
 
+    @Override
+    public List<PofitOrderListWarehouse> selectPofitOrderListWarehouseListAll(PofitOrderListWarehouse pofitOrderListWarehouse)
+    {
+        return pofitOrderListWarehouseMapper.selectPofitOrderListWarehouseListAll(pofitOrderListWarehouse);
+    }
 
+    @Override
+    public List<PofitOrderListWarehouse> selectPofitOrderListWarehouseTotalListAll(PofitOrderListWarehouse pofitOrderListWarehouse) {
+        return pofitOrderListWarehouseMapper.selectPofitOrderListWarehouseTotalListAll(pofitOrderListWarehouse);
+    }
 
     /**
      * 新增马帮后台导出金额订单数据

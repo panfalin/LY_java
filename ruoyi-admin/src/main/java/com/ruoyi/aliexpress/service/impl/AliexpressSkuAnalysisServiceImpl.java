@@ -51,7 +51,7 @@ public class AliexpressSkuAnalysisServiceImpl implements IAliexpressSkuAnalysisS
     @Override
     public List<AliexpressSkuAnalysis> selectAliexpressSkuAnalysisList(AliexpressSkuAnalysis aliexpressSkuAnalysis)
     {
-        aliexpressSkuAnalysis.setSales28Days(0L);
+        aliexpressSkuAnalysis.setSalesLast28Days(0L);
         List<AliexpressSkuAnalysis> aliexpressSkuAnalyses = aliexpressSkuAnalysisMapper.selectAliexpressSkuAnalysisList(aliexpressSkuAnalysis);
         //获取sku 国家 查询aliexpress_competition_information_attribute表中的价格和货币类型
         for (AliexpressSkuAnalysis aliexpressSkuAnalyse : aliexpressSkuAnalyses) {

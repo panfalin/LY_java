@@ -22,7 +22,7 @@ public class EmailUtils {
         // 获取 Session 对象
         Session session = Session.getDefaultInstance(properties, new javax.mail.Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("3004188570@qq.com", "hjbquepbsvecdchi");  // 使用你的邮箱和密码
+                return new PasswordAuthentication("3004188570@qq.com", "odwrbqabjrevdfia");  // 使用你的邮箱和密码
             }
         });
 

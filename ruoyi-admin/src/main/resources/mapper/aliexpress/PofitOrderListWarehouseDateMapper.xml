@@ -64,7 +64,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             moon,
             day,
             store_name,
-
             SUM(COALESCE(quantity, 0)) AS quantity,
             SUM(COALESCE(actual_profit, 0)) AS actual_profit,
             SUM(COALESCE(loan_amount, 0)) AS loan_amount,

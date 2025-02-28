@@ -8,6 +8,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="sku"    column="sku"    />
         <result property="orderType"    column="order_type"    />
         <result property="publicationId"    column="publication_id"    />
+        <result property="publicTitle"    column="public_title"    />
         <result property="shops"    column="shops"    />
         <result property="shopsType"    column="shops_type"    />
         <result property="linkType"    column="link_type"    />
@@ -37,6 +38,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </sql>
     <sql id="selectAliexpressCompetitionInformationVoJOIN">
         SELECT
+            aci.public_title,
             aci.self_publication_id,
             aci.self_price,
             aci.self_freight,
@@ -65,7 +67,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             acia.countries
         FROM
             aliexpress_competition_information AS aci
-                LEFT JOIN
+        LEFT JOIN
             aliexpress_competition_information_attribute AS acia
             ON (aci.sku=acia.sku AND aci.publication_id=acia.publication_id)
     </sql>

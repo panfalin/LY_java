@@ -112,6 +112,17 @@ public class AliexpressCompetitionInformation extends BaseEntity
     /** sku负责人 */
     private String selfFreight;
 
+    /** sku负责人 */
+    private String publicTitle;
+
+    public String getPublicTitle() {
+        return publicTitle;
+    }
+
+    public void setPublicTitle(String publicTitle) {
+        this.publicTitle = publicTitle;
+    }
+
     public String getSelfFreight() {
         return selfFreight;
     }

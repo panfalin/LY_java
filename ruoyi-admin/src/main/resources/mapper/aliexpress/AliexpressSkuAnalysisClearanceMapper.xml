@@ -9,6 +9,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="sku" column="sku"/>
         <result property="warehouseCost" column="warehouse_cost"/>
         <result property="weigth" column="weigth"/>
+        <result property="totalPublications" column="total_publications"/>
         <result property="skuName" column="sku_name"/>
         <result property="totalWarehouseCost" column="total_warehouse_cost"/>
         <result property="totalStock" column="total_stock"/>
@@ -17,9 +18,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="backupInTransitQuantity" column="backup_in_transit_quantity"/>
         <result property="halfManagementBackupAvailableQuantity" column="half_management_backup_available_quantity"/>
         <result property="fullManagementBackupAvailableQuantity" column="full_management_backup_available_quantity"/>
-        <result property="sales7Days" column="sales_last_7_days"/>
-        <result property="sales28Days" column="sales_last_28_days"/>
-        <result property="sales42Days" column="sales_last_42_days"/>
+        <result property="salesLast7Days" column="sales_last7_days"/>
+        <result property="salesLast28Days" column="sales_last28_days"/>
+        <result property="salesLast42Days" column="sales_last42_days"/>
         <result property="popDailyMarketCapacity" column="pop_daily_market_capacity"/>
         <result property="fullManagementDailyMarketCapacity" column="full_management_daily_market_capacity"/>
         <result property="halfManagementDailyMarketCapacity" column="half_management_daily_market_capacity"/>
@@ -78,14 +79,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         select id,
                sku,
                total_stock,
+               total_publications,
                local_in_transit_quantity,
                local_available_quantity,
                backup_in_transit_quantity,
                half_management_backup_available_quantity,
                full_management_backup_available_quantity,
-               sales_last_7_days,
-               sales_last_28_days,
-               sales_last_42_days,
+               sales_last7_days,
+               sales_last28_days,
+               sales_last42_days,
                pop_daily_market_capacity,
                full_management_daily_market_capacity,
                half_management_daily_market_capacity,
@@ -110,7 +112,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <sql id="selectAliexpressSkuAnalysisVoJOIN">
         select asa.id,
                asa.sku,
+               asa.total_publications,
                asa.total_stock,
+               asa.sales_last7_days,
+               asa.sales_last28_days,
                ROUND(asa.warehouse_cost,2) as warehouse_cost,
                ROUND((COALESCE(asa.total_stock, 0) +
                       COALESCE(asa.local_in_transit_quantity, 0) +
@@ -148,8 +153,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             SELECT MAX(DATE(created_at)) FROM aliexpress_sku_analysis
             )
             AND status='商品清仓'
-            <if test="sku != null  and sku != ''">and asa.sku= #{sku}</if>
-            <if test="sales28Days != null  and sales28Days != ''">and sales_last_28_days = #{sales28Days})</if>
+            <if test="sku != null and sku != ''">
+                and asa.sku like concat('%', #{sku}, '%')
+            </if>
+            <if test="totalWarehouseCost != null and totalWarehouseCost != ''">
+                and asa.total_warehouse_cost > #{totalWarehouseCost}
+            </if>
+
+            <if test="salesLast28Days != null  and salesLast28Days != ''">and sales_last28_days = #{salesLast28Days})</if>
             <if test="params.beginAvailableStock != null and params.beginAvailableStock != '' and params.endAvailableStock != null and params.endAvailableStock != ''">
                 and available_stock between #{params.beginAvailableStock} and #{params.endAvailableStock}
             </if>
@@ -241,7 +252,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             SELECT MAX(DATE(created_at)) FROM aliexpress_sku_analysis
             )
             AND status='商品清仓'
-            <if test="sku != null  and sku != ''">and asa.sku = #{sku}</if>
+            <if test="sku != null and sku != ''">
+                and asa.sku like concat('%', #{sku}, '%')
+            </if>
+            <if test="totalWarehouseCost != null and totalWarehouseCost != ''">
+                and asa.total_warehouse_cost > #{totalWarehouseCost}
+            </if>
+
         </where>
     </select>
 
@@ -270,9 +287,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="fullManagementBackupAvailableQuantity != null">full_management_backup_available_quantity,</if>
             <if test="warehouseCost != null">warehouse_cost,</if>
             <if test="totalWarehouseCost != null">total_warehouse_cost,</if>
-            <if test="salesLast7Days != null">sales_last_7_days,</if>
-            <if test="salesLast28Days != null">sales_last_28_days,</if>
-            <if test="salesLast42Days != null">sales_last_42_days,</if>
+            <if test="salesLast7Days != null">sales_last7_days,</if>
+            <if test="salesLast28Days != null">sales_last28_days,</if>
+            <if test="salesLast42Days != null">sales_last42_days,</if>
             <if test="popDailyMarketCapacity != null">pop_daily_market_capacity,</if>
             <if test="fullManagementDailyMarketCapacity != null">full_management_daily_market_capacity,</if>
             <if test="halfManagementDailyMarketCapacity != null">half_management_daily_market_capacity,</if>
@@ -346,9 +363,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="fullManagementBackupAvailableQuantity != null">full_management_backup_available_quantity = #{fullManagementBackupAvailableQuantity},</if>
             <if test="warehouseCost != null">warehouse_cost = #{warehouseCost},</if>
             <if test="totalWarehouseCost != null">total_warehouse_cost = #{totalWarehouseCost},</if>
-            <if test="salesLast7Days != null">sales_last_7_days = #{salesLast7Days},</if>
-            <if test="salesLast28Days != null">sales_last_28_days = #{salesLast28Days},</if>
-            <if test="salesLast42Days != null">sales_last_42_days = #{salesLast42Days},</if>
+            <if test="salesLast7Days != null">sales_last7_days = #{salesLast7Days},</if>
+            <if test="salesLast28Days != null">sales_last28_days = #{salesLast28Days},</if>
+            <if test="salesLast42Days != null">sales_last42_days = #{salesLast42Days},</if>
             <if test="popDailyMarketCapacity != null">pop_daily_market_capacity = #{popDailyMarketCapacity},</if>
             <if test="fullManagementDailyMarketCapacity != null">full_management_daily_market_capacity = #{fullManagementDailyMarketCapacity},</if>
             <if test="halfManagementDailyMarketCapacity != null">half_management_daily_market_capacity = #{halfManagementDailyMarketCapacity},</if>

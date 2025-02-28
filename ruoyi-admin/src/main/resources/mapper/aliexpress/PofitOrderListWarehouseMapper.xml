@@ -33,15 +33,75 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectPofitOrderListWarehouseVo">
-        select s_id, year, moon, sku, quantity, actual_profit, transit_quantity, stock_quantity,bd_stock_quantity,bc_stock_quantity, unshipped_quantity,inventory_cost,daily_avg_sales,loan_amount,profit_margin,cost_price,monthly_return,inventory_turns,return_rate,sale_days,sku_state,market_capacity,category,person_charge from pofit_order_list_warehouse
+        SELECT
+            s_id,
+            YEAR,
+            moon,
+            apat.sku,
+            quantity,
+            actual_profit,
+            transit_quantity,
+            stock_quantity,
+            bd_stock_quantity,
+            bc_stock_quantity,
+            unshipped_quantity,
+            inventory_cost,
+            daily_avg_sales,
+            loan_amount,
+            profit_margin,
+            cost_price,
+            monthly_return,
+            inventory_turns,
+            return_rate,
+            sale_days,
+            sku_state,
+            market_capacity,
+            category,
+            person_charge
+        FROM
+            pofit_order_list_warehouse AS polw
+            JOIN aliexpress_profit_analysis_table AS apat ON polw.sku=apat.sku
     </sql>
+
+
+    <sql id="selectPofitOrderListWarehouseVoAll">
+        SELECT
+            s_id,
+            YEAR,
+            moon,
+            sku,
+            quantity,
+            actual_profit,
+            transit_quantity,
+            stock_quantity,
+            bd_stock_quantity,
+            bc_stock_quantity,
+            unshipped_quantity,
+            inventory_cost,
+            daily_avg_sales,
+            loan_amount,
+            profit_margin,
+            cost_price,
+            monthly_return,
+            inventory_turns,
+            return_rate,
+            sale_days,
+            sku_state,
+            market_capacity,
+            category,
+            person_charge
+        FROM
+            pofit_order_list_warehouse
+    </sql>
+
+
 
     <select id="selectPofitOrderListWarehouseList" parameterType="PofitOrderListWarehouse" resultMap="PofitOrderListWarehouseResult">
         <include refid="selectPofitOrderListWarehouseVo"/>
         <where>  
             <if test="year != null "> and year = #{year}</if>
             <if test="moon != null "> and moon = #{moon}</if>
-            <if test="sku != null  and sku != ''"> and sku like concat('%', #{sku}, '%')</if>
+            <if test="sku != null  and sku != ''"> and apat.sku like concat('%', #{sku}, '%')</if>
             <if test="quantity != null "> and quantity = #{quantity}</if>
             <if test="actualProfit != null "> and actual_profit = #{actualProfit}</if>
             <if test="transitQuantity != null "> and transit_quantity = #{transitQuantity}</if>
@@ -76,15 +136,70 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             SUM(COALESCE(amol.actual_profit,0))/ SUM(COALESCE(amol.loan_amount,0))*100 AS profit_margin
         FROM
         pofit_order_list_warehouse AS amol
+        JOIN aliexpress_profit_analysis_table AS apat ON amol.sku=apat.sku
         <where>
         <if test="year != null "> and year = #{year}</if>
         <if test="moon != null "> and moon = #{moon}</if>
-        <if test="sku != null  and sku != ''"> and sku like concat('%', #{sku}, '%')</if>
+        <if test="sku != null  and sku != ''"> and apat.sku like concat('%', #{sku}, '%')</if>
         <if test="category != null "> and category = #{category}</if>
         </where>
         GROUP BY
             amol.category
     </select>
+
+
+    <select id="selectPofitOrderListWarehouseListAll" parameterType="PofitOrderListWarehouse" resultMap="PofitOrderListWarehouseResult">
+        <include refid="selectPofitOrderListWarehouseVoAll"/>
+        <where>
+            <if test="year != null "> and year = #{year}</if>
+            <if test="moon != null "> and moon = #{moon}</if>
+            <if test="sku != null  and sku != ''"> and sku like concat('%', #{sku}, '%')</if>
+            <if test="quantity != null "> and quantity = #{quantity}</if>
+            <if test="actualProfit != null "> and actual_profit = #{actualProfit}</if>
+            <if test="transitQuantity != null "> and transit_quantity = #{transitQuantity}</if>
+            <if test="stockQuantity != null "> and stock_quantity = #{stockQuantity}</if>
+            <if test="unshippedQuantity != null "> and unshipped_quantity = #{unshippedQuantity}</if>
+            <if test="inventoryCost != null "> and inventory_cost = #{inventoryCost}</if>
+            <if test="dailyAvgSales != null "> and daily_avg_sales = #{dailyAvgSales}</if>
+            <if test="loanAmount != null "> and loan_amount = #{loanAmount}</if>
+            <if test="profitMargin != null "> and profit_margin = #{profitMargin}</if>
+            <if test="costPrice != null "> and cost_price = #{costPrice}</if>
+            <if test="monthlyReturn != null "> and monthly_return = #{monthlyReturn}</if>
+            <if test="inventoryTurns != null "> and inventory_turns = #{inventoryTurns}</if>
+            <if test="returnRate != null "> and return_rate = #{returnRate}</if>
+            <if test="saleDays != null "> and sale_days >= #{saleDays}</if>
+            <if test="skuState != null "> and sku_state = #{skuState}</if>
+            <if test="marketCapacity != null "> and market_capacity = #{marketCapacity}</if>
+            <if test="category != null "> and category = #{category}</if>
+            <if test="personCharge != null "> and person_charge = #{personCharge}</if>
+        </where>
+    </select>
+
+    <select id="selectPofitOrderListWarehouseTotalListAll" parameterType="PofitOrderListWarehouse" resultMap="PofitOrderListWarehouseResult">
+        SELECT
+        category,
+        -- 总利润
+        SUM(COALESCE(amol.actual_profit,0)) AS actual_profit,
+        -- 销售数量
+        SUM(COALESCE(amol.quantity,0)) AS quantity,
+        -- 销售金额
+        SUM(COALESCE(amol.loan_amount,0)) AS loan_amount,
+        -- 利润率
+        SUM(COALESCE(amol.actual_profit,0))/ SUM(COALESCE(amol.loan_amount,0))*100 AS profit_margin
+        FROM
+        pofit_order_list_warehouse as amol
+        <where>
+            <if test="year != null "> and year = #{year}</if>
+            <if test="moon != null "> and moon = #{moon}</if>
+            <if test="sku != null  and sku != ''"> and sku like concat('%', #{sku}, '%')</if>
+            <if test="category != null "> and category = #{category}</if>
+        </where>
+        GROUP BY
+        amol.category
+    </select>
+
+
+
     
     <select id="selectPofitOrderListWarehouseBySId" parameterType="Long" resultMap="PofitOrderListWarehouseResult">
         <include refid="selectPofitOrderListWarehouseVo"/>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.aliexpress.mapper.AliexpressStoreRankingsMapper">
+    
+    <resultMap type="AliexpressStoreRankings" id="AliexpressStoreRankingsResult">
+        <result property="shops"    column="shops"    />
+        <result property="personName"    column="person_name"    />
+        <result property="shopDate"    column="shop_date"    />
+        <result property="mainCategory"    column="main_category"    />
+        <result property="level"    column="level"    />
+        <result property="ranking"    column="ranking"    />
+        <result property="amountPaid"    column="amount_paid"    />
+        <result property="visitors"    column="visitors"    />
+    </resultMap>
+
+    <sql id="selectAliexpressStoreRankingsVo">
+        select shops, person_name, shop_date, main_category, level,amount_paid,visitors,ranking from aliexpress_store_rankings
+    </sql>
+
+    <select id="selectAliexpressStoreRankingsList" parameterType="AliexpressStoreRankings" resultMap="AliexpressStoreRankingsResult">
+        <include refid="selectAliexpressStoreRankingsVo"/>
+        <where>
+            <!-- 添加 beginTime 和 endTime 的条件判断 -->
+            <if test="beginTime != null and endTime != null">
+                and shop_date between #{beginTime} and #{endTime}
+            </if>
+            <if test="shops != null  and shops != ''"> and shops = #{shops}</if>
+            <if test="personName != null  and personName != ''"> and person_name like concat('%', #{personName}, '%')</if>
+            <if test="mainCategory != null  and mainCategory != ''"> and main_category = #{mainCategory}</if>
+            <if test="level != null  and level != ''"> and level = #{level}</if>
+            <if test="ranking != null  and ranking != ''"> and ranking = #{ranking}</if>
+        </where>
+    </select>
+    
+    <select id="selectAliexpressStoreRankingsByShops" parameterType="String" resultMap="AliexpressStoreRankingsResult">
+        <include refid="selectAliexpressStoreRankingsVo"/>
+        where shops = #{shops}
+    </select>
+
+    <insert id="insertAliexpressStoreRankings" parameterType="AliexpressStoreRankings">
+        insert into aliexpress_store_rankings
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="shops != null">shops,</if>
+            <if test="personName != null">person_name,</if>
+            <if test="shopDate != null">shop_date,</if>
+            <if test="mainCategory != null">main_category,</if>
+            <if test="level != null">level,</if>
+            <if test="ranking != null">ranking,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="shops != null">#{shops},</if>
+            <if test="personName != null">#{personName},</if>
+            <if test="shopDate != null">#{shopDate},</if>
+            <if test="mainCategory != null">#{mainCategory},</if>
+            <if test="level != null">#{level},</if>
+            <if test="ranking != null">#{ranking},</if>
+         </trim>
+    </insert>
+
+    <update id="updateAliexpressStoreRankings" parameterType="AliexpressStoreRankings">
+        update aliexpress_store_rankings
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="personName != null">person_name = #{personName},</if>
+            <if test="shopDate != null">shop_date = #{shopDate},</if>
+            <if test="mainCategory != null">main_category = #{mainCategory},</if>
+            <if test="level != null">level = #{level},</if>
+            <if test="ranking != null">ranking = #{ranking},</if>
+        </trim>
+        where shops = #{shops}
+    </update>
+
+    <delete id="deleteAliexpressStoreRankingsByShops" parameterType="String">
+        delete from aliexpress_store_rankings where shops = #{shops}
+    </delete>
+
+    <delete id="deleteAliexpressStoreRankingsByShopss" parameterType="String">
+        delete from aliexpress_store_rankings where shops in 
+        <foreach item="shops" collection="array" open="(" separator="," close=")">
+            #{shops}
+        </foreach>
+    </delete>
+</mapper>
