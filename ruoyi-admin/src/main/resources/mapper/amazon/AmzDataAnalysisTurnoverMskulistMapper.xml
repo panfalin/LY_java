@@ -87,7 +87,7 @@
     </resultMap>
 
     <sql id="selectAmzDataAnalysisTurnoverMskulistDTO">
-        SELECT COUNT(distinct asin)                                                                  as listed_sku_count,
+        SELECT COUNT(distinct asin)                                                      as listed_sku_count,
                SUM(total_inventory_count)                                                as total_inventory_count,
                SUM(total_inventory_value)                                                as total_inventory_value,
                SUM(IFNULL(procurement_in_transit, 0) * IFNULL(latest_purchase_price, 0)) as total_procurement_inventory,
@@ -193,7 +193,7 @@
                     #{dev}
                 </foreach>
             </if>
-            <if test="storeName != null  and storeName != ''"> and store_name like concat('%', #{storeName}, '%')</if>
+            <if test="storeName != null  and storeName != ''">and store_name like concat('%', #{storeName}, '%')</if>
             <if test="msku != null">and msku = #{msku}</if>
             <if test="categoryLevelOne != null">and category_level_1 = #{categoryLevelOne}</if>
             <if test="categoryLevelTwo != null">and category_level_2 = #{categoryLevelTwo}</if>
@@ -243,8 +243,8 @@
             <if test="remarks != null">and remarks = #{remarks}</if>
             <if test="reserved != null">and reserved = #{reserved}</if>
             <if test="plannedStockIn != null">and planned_stock_in = #{plannedStockIn}</if>
-            <if test="salesPerson != null  and salesPerson != ''"> and sales_person = #{salesPerson}</if>
-            <if test="developer != null  and developer != ''"> and developer = #{developer}</if>
+            <if test="salesPerson != null  and salesPerson != ''">and sales_person = #{salesPerson}</if>
+            <if test="developer != null  and developer != ''">and developer = #{developer}</if>
             <if test="listingDate != null">and listing_date = #{listingDate}</if>
             <if test="isDelete != null">and is_delete = #{isDelete}</if>
             <if test="createdAt != null">and created_at = #{createdAt}</if>
@@ -305,7 +305,7 @@
                     #{dev}
                 </foreach>
             </if>
-            <if test="storeName != null  and storeName != ''"> and store_name like concat('%', #{storeName}, '%')</if>
+            <if test="storeName != null  and storeName != ''">and store_name like concat('%', #{storeName}, '%')</if>
             <if test="msku != null">and msku = #{msku}</if>
             <if test="categoryLevelOne != null">and category_level_1 = #{categoryLevelOne}</if>
             <if test="categoryLevelTwo != null">and category_level_2 = #{categoryLevelTwo}</if>
@@ -355,8 +355,8 @@
             <if test="remarks != null">and remarks = #{remarks}</if>
             <if test="reserved != null">and reserved = #{reserved}</if>
             <if test="plannedStockIn != null">and planned_stock_in = #{plannedStockIn}</if>
-            <if test="salesPerson != null  and salesPerson != ''"> and sales_person = #{salesPerson}</if>
-            <if test="developer != null  and developer != ''"> and developer = #{developer}</if>
+            <if test="salesPerson != null  and salesPerson != ''">and sales_person = #{salesPerson}</if>
+            <if test="developer != null  and developer != ''">and developer = #{developer}</if>
             <if test="listingDate != null">and listing_date = #{listingDate}</if>
             <if test="isDelete != null">and is_delete = #{isDelete}</if>
             <if test="createdAt != null">and created_at = #{createdAt}</if>
@@ -450,7 +450,7 @@
                     #{dev}
                 </foreach>
             </if>
-            <if test="storeName != null  and storeName != ''"> and store_name like concat('%', #{storeName}, '%')</if>
+            <if test="storeName != null  and storeName != ''">and store_name like concat('%', #{storeName}, '%')</if>
             <if test="msku != null">and msku = #{msku}</if>
             <if test="categoryLevelOne != null">and category_level_1 = #{categoryLevelOne}</if>
             <if test="categoryLevelTwo != null">and category_level_2 = #{categoryLevelTwo}</if>
@@ -500,8 +500,8 @@
             <if test="remarks != null">and remarks = #{remarks}</if>
             <if test="reserved != null">and reserved = #{reserved}</if>
             <if test="plannedStockIn != null">and planned_stock_in = #{plannedStockIn}</if>
-            <if test="salesPerson != null  and salesPerson != ''"> and sales_person = #{salesPerson}</if>
-            <if test="developer != null  and developer != ''"> and developer = #{developer}</if>
+            <if test="salesPerson != null  and salesPerson != ''">and sales_person = #{salesPerson}</if>
+            <if test="developer != null  and developer != ''">and developer = #{developer}</if>
             <if test="listingDate != null">and listing_date = #{listingDate}</if>
             <if test="isDelete != null">and is_delete = #{isDelete}</if>
             <if test="createdAt != null">and created_at = #{createdAt}</if>
@@ -562,7 +562,7 @@
                     #{dev}
                 </foreach>
             </if>
-            <if test="storeName != null  and storeName != ''"> and store_name like concat('%', #{storeName}, '%')</if>
+            <if test="storeName != null  and storeName != ''">and store_name like concat('%', #{storeName}, '%')</if>
             <if test="msku != null">and msku = #{msku}</if>
             <if test="categoryLevelOne != null">and category_level_1 = #{categoryLevelOne}</if>
             <if test="categoryLevelTwo != null">and category_level_2 = #{categoryLevelTwo}</if>
@@ -612,8 +612,8 @@
             <if test="remarks != null">and remarks = #{remarks}</if>
             <if test="reserved != null">and reserved = #{reserved}</if>
             <if test="plannedStockIn != null">and planned_stock_in = #{plannedStockIn}</if>
-            <if test="salesPerson != null  and salesPerson != ''"> and sales_person = #{salesPerson}</if>
-            <if test="developer != null  and developer != ''"> and developer = #{developer}</if>
+            <if test="salesPerson != null  and salesPerson != ''">and sales_person = #{salesPerson}</if>
+            <if test="developer != null  and developer != ''">and developer = #{developer}</if>
             <if test="listingDate != null">and listing_date = #{listingDate}</if>
             <if test="isDelete != null">and is_delete = #{isDelete}</if>
             <if test="createdAt != null">and created_at = #{createdAt}</if>
@@ -673,7 +673,7 @@
                     #{dev}
                 </foreach>
             </if>
-            <if test="storeName != null  and storeName != ''"> and store_name like concat('%', #{storeName}, '%')</if>
+            <if test="storeName != null  and storeName != ''">and store_name like concat('%', #{storeName}, '%')</if>
             <if test="msku != null">and msku = #{msku}</if>
             <if test="categoryLevelOne != null">and category_level_1 = #{categoryLevelOne}</if>
             <if test="categoryLevelTwo != null">and category_level_2 = #{categoryLevelTwo}</if>
@@ -723,8 +723,8 @@
             <if test="remarks != null">and remarks = #{remarks}</if>
             <if test="reserved != null">and reserved = #{reserved}</if>
             <if test="plannedStockIn != null">and planned_stock_in = #{plannedStockIn}</if>
-            <if test="salesPerson != null  and salesPerson != ''"> and sales_person = #{salesPerson}</if>
-            <if test="developer != null  and developer != ''"> and developer = #{developer}</if>
+            <if test="salesPerson != null  and salesPerson != ''">and sales_person = #{salesPerson}</if>
+            <if test="developer != null  and developer != ''">and developer = #{developer}</if>
             <if test="listingDate != null">and listing_date = #{listingDate}</if>
             <if test="isDelete != null">and is_delete = #{isDelete}</if>
             <if test="createdAt != null">and created_at = #{createdAt}</if>
@@ -732,8 +732,12 @@
             <if test="createBy != null">and create_by = #{createBy}</if>
             <if test="updateBy != null">and update_by = #{updateBy}</if>
             <if test="version != null">and version = #{version}</if>
-            <if test="turnoverDaysMin != null">and turnover_days ge #{turnoverDaysMin}</if>
-            <if test="turnoverDaysMax != null">and turnover_days le #{turnoverDaysMax}</if>
+            <!-- <if test="turnoverDaysMin != null"> -->
+            <!--     AND turnover_days >= #{turnoverDaysMin} -->
+            <!-- </if> -->
+            <!-- <if test="turnoverDaysMax != null"> -->
+            <!--     AND turnover_days <= #{turnoverDaysMax} -->
+            <!-- </if> -->
             <!-- 新增的条件 -->
             and is_delete = 0
             and DATE(created_at) = CURDATE()
@@ -827,7 +831,7 @@
                     #{dev}
                 </foreach>
             </if>
-            <if test="storeName != null  and storeName != ''"> and store_name like concat('%', #{storeName}, '%')</if>
+            <if test="storeName != null  and storeName != ''">and store_name like concat('%', #{storeName}, '%')</if>
             <if test="msku != null">and msku = #{msku}</if>
             <if test="categoryLevelOne != null">and category_level_1 = #{categoryLevelOne}</if>
             <if test="categoryLevelTwo != null">and category_level_2 = #{categoryLevelTwo}</if>
@@ -877,8 +881,8 @@
             <if test="remarks != null">and remarks = #{remarks}</if>
             <if test="reserved != null">and reserved = #{reserved}</if>
             <if test="plannedStockIn != null">and planned_stock_in = #{plannedStockIn}</if>
-            <if test="salesPerson != null  and salesPerson != ''"> and sales_person = #{salesPerson}</if>
-            <if test="developer != null  and developer != ''"> and developer = #{developer}</if>
+            <if test="salesPerson != null  and salesPerson != ''">and sales_person = #{salesPerson}</if>
+            <if test="developer != null  and developer != ''">and developer = #{developer}</if>
             <if test="listingDate != null">and listing_date = #{listingDate}</if>
             <if test="isDelete != null">and is_delete = #{isDelete}</if>
             <if test="createdAt != null">and created_at = #{createdAt}</if>
@@ -886,8 +890,8 @@
             <if test="createBy != null">and create_by = #{createBy}</if>
             <if test="updateBy != null">and update_by = #{updateBy}</if>
             <if test="version != null">and version = #{version}</if>
-            <if test="turnoverDaysMin != null">and turnover_days ge #{turnoverDaysMin}</if>
-            <if test="turnoverDaysMax != null">and turnover_days le #{turnoverDaysMax}</if>
+            <if test="turnoverDaysMin != null">and turnover_days &lt;= #{turnoverDaysMin}</if>
+            <if test="turnoverDaysMax != null">and turnover_days &gt;= #{turnoverDaysMax}</if>
             <!-- 新增的条件 -->
             and is_delete = 0
             and DATE(created_at) = CURDATE()

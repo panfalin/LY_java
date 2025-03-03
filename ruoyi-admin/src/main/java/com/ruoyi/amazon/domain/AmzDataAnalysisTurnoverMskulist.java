@@ -212,32 +212,32 @@ public class AmzDataAnalysisTurnoverMskulist extends BaseEntity
     private String listingDate;
 
     /** 是否删除 */
-    @Excel(name = "是否删除")
+    // @Excel(name = "是否删除")
     private Integer isDelete;
 
     /** 创建时间 */
     @JsonFormat(pattern = "yyyy-MM-dd")
-    @Excel(name = "创建时间", width = 30, dateFormat = "yyyy-MM-dd")
+    // @Excel(name = "创建时间", width = 30, dateFormat = "yyyy-MM-dd")
     private Date createdAt;
 
     /** 记录当天有没有新增过记录 */
-    @Excel(name = "记录当天有没有新增过记录")
+    // @Excel(name = "记录当天有没有新增过记录")
     private Long version;
 
     /** （计算字段）本地库存总额 */
-    @Excel(name = "", readConverterExp = "计=算字段")
+    @Excel(name = "本地库存总额")
     private BigDecimal totalLocalInventoryValue;
 
     /** （计算字段）FBA库存总额 */
-    @Excel(name = "", readConverterExp = "计=算字段")
+    @Excel(name = "FBA库存总额")
     private BigDecimal totalFbaInventoryValue;
 
     /** （计算字段）库存金额总计 */
-    @Excel(name = "", readConverterExp = "计=算字段")
+    @Excel(name = "库存金额总计", readConverterExp = "计=算字段")
     private BigDecimal totalInventoryValue;
 
     /** （计算字段）周转天数 */
-    @Excel(name = "", readConverterExp = "计=算字段")
+    @Excel(name = "周转天数", readConverterExp = "计=算字段")
     private BigDecimal turnoverDays;
 
     // TODO 这里还需要确认数据库连接
@@ -245,23 +245,23 @@ public class AmzDataAnalysisTurnoverMskulist extends BaseEntity
     private BigDecimal turnoverDaysMax; // 最大周转天数
 
     /** （计算字段）FBA周转天数 */
-    @Excel(name = "", readConverterExp = "计=算字段")
+    @Excel(name = "FBA周转天数", readConverterExp = "计=算字段")
     private BigDecimal fbaTurnoverDays;
 
     /** （计算字段）库存个数总计 */
-    @Excel(name = "", readConverterExp = "计=算字段")
+    @Excel(name = "库存个数总计", readConverterExp = "计=算字段")
     private Long totalInventoryCount;
 
     /** （运营分析表）销量 */
-    @Excel(name = "", readConverterExp = "运=营分析表")
+    @Excel(name = "船长销量", readConverterExp = "运=营分析表")
     private String sales;
 
     /** （运营分析表）销售额 */
-    @Excel(name = "", readConverterExp = "运=营分析表")
+    @Excel(name = "船长销售额", readConverterExp = "运=营分析表")
     private String salesAmount;
 
     /** （运营分析表）毛利润 */
-    @Excel(name = "", readConverterExp = "运=营分析表")
+    @Excel(name = "船长毛利润", readConverterExp = "运=营分析表")
     private String grossProfit;
 
     /** 店铺名称数组 */

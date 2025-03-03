@@ -1,5 +1,6 @@
 package com.ruoyi.amazon.service.impl;
 
+import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -109,6 +110,8 @@ public class AmzDataAnalysisTurnoverMskulistServiceImpl implements IAmzDataAnaly
         String categoryLevelOne = (String) map.get("categoryLevelOne");
         String categoryLevelTwo = (String) map.get("categoryLevelTwo");
         String developer = (String) map.get("developer");
+        BigDecimal turnoverDaysMin = (BigDecimal) map.get("turnoverDaysMin");
+        BigDecimal turnoverDaysMax = (BigDecimal) map.get("turnoverDaysMax");
 
         // 如果 store_name 不为空，则设置到对象中
         if (storeName != null && !storeName.trim().isEmpty()) {
@@ -125,6 +128,12 @@ public class AmzDataAnalysisTurnoverMskulistServiceImpl implements IAmzDataAnaly
         }
         if (developer != null && !developer.trim().isEmpty()) {
             amzDataAnalysisTurnoverMskulist.setDeveloper(developer);
+        }
+        if (turnoverDaysMin != null) {
+            amzDataAnalysisTurnoverMskulist.setTurnoverDaysMin(turnoverDaysMin);
+        }
+        if (turnoverDaysMax != null) {
+            amzDataAnalysisTurnoverMskulist.setTurnoverDaysMax(turnoverDaysMax);
         }
         // 获取基础汇总数据
         AmzDataAnalysisTurnoverDTO summary = amzDataAnalysisTurnoverMskulistMapper

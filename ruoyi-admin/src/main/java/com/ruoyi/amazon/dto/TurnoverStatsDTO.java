@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 public class TurnoverStatsDTO {
+    private String turnover_range;          // 行类型
     private Integer skuCount;              // SKU数量
     private BigDecimal skuRatio;          // SKU数量占比
     private BigDecimal inventoryValue;     // 库存金额
