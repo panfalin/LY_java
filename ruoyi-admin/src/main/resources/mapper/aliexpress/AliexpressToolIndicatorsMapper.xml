@@ -39,7 +39,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
     <select id="selectAliexpressToolIndicatorsListShop" parameterType="AliexpressToolIndicators" resultMap="AliexpressToolIndicatorsResult">
-        select DISTINCT store_name as shop_name FROM stores_notescrow where  type='POP'
+        select DISTINCT store_name as shop_name FROM stores_notescrow
     </select>
 
 

@@ -53,7 +53,6 @@ public class AliexpressToolIndicatorsController extends BaseController
     @GetMapping("/listShop")
     public TableDataInfo listShop(AliexpressToolIndicators aliexpressToolIndicators)
     {
-        startPage();
         List<AliexpressToolIndicators> list = aliexpressToolIndicatorsService.selectAliexpressToolIndicatorsListShop(aliexpressToolIndicators);
         return getDataTable(list);
     }
@@ -62,7 +61,6 @@ public class AliexpressToolIndicatorsController extends BaseController
     @GetMapping("/listShopName")
     public TableDataInfo listShopName(AliexpressToolIndicators aliexpressToolIndicators)
     {
-        startPage();
         List<AliexpressToolIndicators> list = aliexpressToolIndicatorsService.selectAliexpressToolIndicatorsListShopName(aliexpressToolIndicators);
         return getDataTable(list);
     }
