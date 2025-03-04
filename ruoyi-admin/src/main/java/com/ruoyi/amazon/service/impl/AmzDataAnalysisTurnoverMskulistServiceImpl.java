@@ -1,6 +1,8 @@
 package com.ruoyi.amazon.service.impl;
 
 import java.math.BigDecimal;
+import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -46,6 +48,46 @@ public class AmzDataAnalysisTurnoverMskulistServiceImpl implements IAmzDataAnaly
      */
     @Override
     public List<AmzDataAnalysisTurnoverMskulist> selectAmzDataAnalysisTurnoverMskulistList(AmzDataAnalysisTurnoverMskulist amzDataAnalysisTurnoverMskulist) {
+        String turnoverRange = amzDataAnalysisTurnoverMskulist.getTurnoverRange();
+        // 根据 turnoverRange 设置最小和最大周转天数
+        if (turnoverRange != null) {
+            switch (turnoverRange) {
+                case "over360":
+                    amzDataAnalysisTurnoverMskulist.setTurnoverDaysMin(BigDecimal.valueOf(360));
+                    amzDataAnalysisTurnoverMskulist.setTurnoverDaysMax(null); // 不限制最大值
+                    break;
+                case "d270_360":
+                    amzDataAnalysisTurnoverMskulist.setTurnoverDaysMin(BigDecimal.valueOf(270));
+                    amzDataAnalysisTurnoverMskulist.setTurnoverDaysMax(BigDecimal.valueOf(360));
+                    break;
+                case "d210_270":
+                    amzDataAnalysisTurnoverMskulist.setTurnoverDaysMin(BigDecimal.valueOf(210));
+                    amzDataAnalysisTurnoverMskulist.setTurnoverDaysMax(BigDecimal.valueOf(270));
+                    break;
+                case "d150_210":
+                    amzDataAnalysisTurnoverMskulist.setTurnoverDaysMin(BigDecimal.valueOf(150));
+                    amzDataAnalysisTurnoverMskulist.setTurnoverDaysMax(BigDecimal.valueOf(210));
+                    break;
+                case "d120_150":
+                    amzDataAnalysisTurnoverMskulist.setTurnoverDaysMin(BigDecimal.valueOf(120));
+                    amzDataAnalysisTurnoverMskulist.setTurnoverDaysMax(BigDecimal.valueOf(150));
+                    break;
+                case "d60_120":
+                    amzDataAnalysisTurnoverMskulist.setTurnoverDaysMin(BigDecimal.valueOf(60));
+                    amzDataAnalysisTurnoverMskulist.setTurnoverDaysMax(BigDecimal.valueOf(120));
+                    break;
+                case "under60":
+                    amzDataAnalysisTurnoverMskulist.setTurnoverDaysMin(null); // 不限制最小值
+                    amzDataAnalysisTurnoverMskulist.setTurnoverDaysMax(BigDecimal.valueOf(60));
+                    break;
+                default:
+                    // 如果 turnoverRange 不在预定义范围内，可以选择抛出异常或设置默认值
+                    amzDataAnalysisTurnoverMskulist.setTurnoverDaysMin(null);
+                    amzDataAnalysisTurnoverMskulist.setTurnoverDaysMax(null);
+                    break;
+            }
+        }
+
         return amzDataAnalysisTurnoverMskulistMapper.selectAmzDataAnalysisTurnoverMskulistList(amzDataAnalysisTurnoverMskulist);
     }
 
@@ -112,6 +154,36 @@ public class AmzDataAnalysisTurnoverMskulistServiceImpl implements IAmzDataAnaly
         String developer = (String) map.get("developer");
         BigDecimal turnoverDaysMin = (BigDecimal) map.get("turnoverDaysMin");
         BigDecimal turnoverDaysMax = (BigDecimal) map.get("turnoverDaysMax");
+        // TODO 这里还缺快捷搜索
+        String quickFilter = (String) map.get("quickFilter");
+
+
+        if (quickFilter != null) {
+            switch (quickFilter) {
+                case "after2024":
+                    amzDataAnalysisTurnoverMskulist.setBeginTime(Date.valueOf("2024-01-01"));
+                    amzDataAnalysisTurnoverMskulist.setEndTime(null);
+                    break;
+                case "before2024":
+                    amzDataAnalysisTurnoverMskulist.setBeginTime(null); // 不限制开始时间
+                    amzDataAnalysisTurnoverMskulist.setEndTime(Date.valueOf("2023-12-31")); // 设置结束时间为2023年12月31日a
+                default:
+                    amzDataAnalysisTurnoverMskulist.setBeginTime(null);
+                    amzDataAnalysisTurnoverMskulist.setEndTime(null);
+            }
+        }
+
+        List<String> shelfTimeArray = (List<String>) map.get("inventoryShelfTimeRange"); // 确保类型是List<String>
+        if (shelfTimeArray != null && shelfTimeArray.size() > 1) {
+            try {
+                Date beginTime = Date.valueOf(shelfTimeArray.get(0)); // 需要是 "yyyy-MM-dd" 格式
+                Date endTime = Date.valueOf(shelfTimeArray.get(1));
+                amzDataAnalysisTurnoverMskulist.setBeginTime(beginTime);
+                amzDataAnalysisTurnoverMskulist.setEndTime(endTime);
+            } catch (IllegalArgumentException e) {
+                System.out.println("日期格式错误: " + e.getMessage());
+            }
+        }
 
         // 如果 store_name 不为空，则设置到对象中
         if (storeName != null && !storeName.trim().isEmpty()) {

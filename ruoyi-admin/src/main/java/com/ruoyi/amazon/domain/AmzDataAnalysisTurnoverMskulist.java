@@ -2,13 +2,10 @@ package com.ruoyi.amazon.domain;
 
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
 import com.ruoyi.common.annotation.Excel;
 import com.ruoyi.common.core.domain.BaseEntity;
 
@@ -165,7 +162,9 @@ public class AmzDataAnalysisTurnoverMskulist extends BaseEntity
 
     /** AMZ-库存上架时间【扩展属性】 */
     @Excel(name = "AMZ-库存上架时间【扩展属性】")
-    private String amzInventoryShelfTime;
+    private Date amzInventoryShelfTime;
+    private Date beginTime; // 新增开始时间
+    private Date endTime;   // 新增结束时间
 
     /** 重塑人【扩展属性】 */
     @Excel(name = "重塑人【扩展属性】")
@@ -243,6 +242,7 @@ public class AmzDataAnalysisTurnoverMskulist extends BaseEntity
     // TODO 这里还需要确认数据库连接
     private BigDecimal turnoverDaysMin; // 最小周转天数
     private BigDecimal turnoverDaysMax; // 最大周转天数
+    private String turnoverRange; // 最大周转天数
 
     /** （计算字段）FBA周转天数 */
     @Excel(name = "FBA周转天数", readConverterExp = "计=算字段")

@@ -1,10 +1,16 @@
 package com.ruoyi.amazon.controller;
 
-import java.util.List;
-import java.util.Map;
+import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ruoyi.amazon.domain.AmzDataAnalysisTurnoverOperationalAnalysis;
+import com.ruoyi.amazon.domain.AmzDataAnalysisTurnoverSkuInfoTemplate;
 import com.ruoyi.amazon.dto.AmzDataAnalysisTurnoverDTO;
+import com.ruoyi.amazon.service.IAmzDataAnalysisTurnoverOperationalAnalysisService;
+import com.ruoyi.amazon.service.IAmzDataAnalysisTurnoverSkuInfoTemplateService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,6 +42,12 @@ public class AmzDataAnalysisTurnoverMskulistController extends BaseController
 {
     @Autowired
     private IAmzDataAnalysisTurnoverMskulistService amzDataAnalysisTurnoverMskulistService;
+
+    @Autowired
+    private IAmzDataAnalysisTurnoverOperationalAnalysisService amzDataAnalysisTurnoverOperationalAnalysisService;
+
+    @Autowired
+    private IAmzDataAnalysisTurnoverSkuInfoTemplateService amzDataAnalysisTurnoverSkuInfoTemplateService;
 
     /**
      * 查询亚马逊数据分析，周转率，mskulist，这个是基础信息列表
@@ -80,11 +92,43 @@ public class AmzDataAnalysisTurnoverMskulistController extends BaseController
     @PreAuthorize("@ss.hasPermi('amazon:amzTurnover:export')")
     @Log(title = "亚马逊数据分析，周转率，mskulist，这个是基础信息", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
-    public void export(HttpServletResponse response, AmzDataAnalysisTurnoverMskulist amzDataAnalysisTurnoverMskulist)
-    {
-        List<AmzDataAnalysisTurnoverMskulist> list = amzDataAnalysisTurnoverMskulistService.selectAmzDataAnalysisTurnoverMskulistList(amzDataAnalysisTurnoverMskulist);
-        ExcelUtil<AmzDataAnalysisTurnoverMskulist> util = new ExcelUtil<AmzDataAnalysisTurnoverMskulist>(AmzDataAnalysisTurnoverMskulist.class);
-        util.exportExcel(response, list, "亚马逊数据分析，周转率，mskulist，这个是基础信息数据");
+    public void export(HttpServletResponse response, AmzDataAnalysisTurnoverMskulist amzDataAnalysisTurnoverMskulist) {
+        try {
+            // 1. 复制查询条件到其他两个对象
+            AmzDataAnalysisTurnoverOperationalAnalysis operationalAnalysis = new AmzDataAnalysisTurnoverOperationalAnalysis();
+            AmzDataAnalysisTurnoverSkuInfoTemplate skuInfoTemplate = new AmzDataAnalysisTurnoverSkuInfoTemplate();
+
+            // 复制共同的查询条件
+            BeanUtils.copyProperties(amzDataAnalysisTurnoverMskulist, operationalAnalysis);
+            BeanUtils.copyProperties(amzDataAnalysisTurnoverMskulist, skuInfoTemplate);
+
+            // 2. 查询数据（使用相同的查询条件）
+            List<AmzDataAnalysisTurnoverMskulist> list1 =
+                    amzDataAnalysisTurnoverMskulistService.selectAmzDataAnalysisTurnoverMskulistList(amzDataAnalysisTurnoverMskulist);
+
+            List<AmzDataAnalysisTurnoverOperationalAnalysis> list2 =
+                    amzDataAnalysisTurnoverOperationalAnalysisService.selectAmzDataAnalysisTurnoverOperationalAnalysisList(operationalAnalysis);
+
+            List<AmzDataAnalysisTurnoverSkuInfoTemplate> list3 =
+                    amzDataAnalysisTurnoverSkuInfoTemplateService.selectAmzDataAnalysisTurnoverSkuInfoTemplateList(skuInfoTemplate);
+
+            // 3. 构造导出数据
+            Map<String, List<Object>> sheetDataMap = new LinkedHashMap<>();
+            sheetDataMap.put("SKU基础信息", new ArrayList<>(list1));
+            sheetDataMap.put("运营分析", new ArrayList<>(list2));
+            sheetDataMap.put("SKU信息模板", new ArrayList<>(list3));
+
+            // 4. 设置文件名
+            String fileName = URLEncoder.encode("库存分析_" + new SimpleDateFormat("yyyyMMdd").format(new Date()), "UTF-8");
+            response.setHeader("Content-disposition", "attachment; filename=" + fileName + ".xlsx");
+
+            // 5. 导出
+            ExcelUtil<AmzDataAnalysisTurnoverMskulist> util = new ExcelUtil<>(AmzDataAnalysisTurnoverMskulist.class);
+            util.exportMultipleSheets(response, sheetDataMap, "库存分析");
+
+        } catch (Exception e) {
+            throw new RuntimeException("导出Excel失败: " + e.getMessage());
+        }
     }
 
     /**

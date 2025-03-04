@@ -235,6 +235,9 @@
             <if test="volumeCm3 != null">and volume_cm3 = #{volumeCm3}</if>
             <if test="minPurchaseQuantity != null">and min_purchase_quantity = #{minPurchaseQuantity}</if>
             <if test="amzInventoryShelfTime != null">and amz_inventory_shelf_time = #{amzInventoryShelfTime}</if>
+            <if test="beginTime != null and endTime != null">
+                and amz_inventory_shelf_time between #{beginTime} and #{endTime}
+            </if>
             <if test="reshaper != null">and reshaper = #{reshaper}</if>
             <if test="reshaping != null">and reshaping = #{reshaping}</if>
             <if test="inTransit != null">and in_transit = #{inTransit}</if>
@@ -347,6 +350,9 @@
             <if test="volumeCm3 != null">and volume_cm3 = #{volumeCm3}</if>
             <if test="minPurchaseQuantity != null">and min_purchase_quantity = #{minPurchaseQuantity}</if>
             <if test="amzInventoryShelfTime != null">and amz_inventory_shelf_time = #{amzInventoryShelfTime}</if>
+            <if test="beginTime != null and endTime != null">
+                and amz_inventory_shelf_time between #{beginTime} and #{endTime}
+            </if>
             <if test="reshaper != null">and reshaper = #{reshaper}</if>
             <if test="reshaping != null">and reshaping = #{reshaping}</if>
             <if test="inTransit != null">and in_transit = #{inTransit}</if>
@@ -492,6 +498,9 @@
             <if test="volumeCm3 != null">and volume_cm3 = #{volumeCm3}</if>
             <if test="minPurchaseQuantity != null">and min_purchase_quantity = #{minPurchaseQuantity}</if>
             <if test="amzInventoryShelfTime != null">and amz_inventory_shelf_time = #{amzInventoryShelfTime}</if>
+            <if test="beginTime != null and endTime != null">
+                and amz_inventory_shelf_time between #{beginTime} and #{endTime}
+            </if>
             <if test="reshaper != null">and reshaper = #{reshaper}</if>
             <if test="reshaping != null">and reshaping = #{reshaping}</if>
             <if test="inTransit != null">and in_transit = #{inTransit}</if>
@@ -604,6 +613,9 @@
             <if test="volumeCm3 != null">and volume_cm3 = #{volumeCm3}</if>
             <if test="minPurchaseQuantity != null">and min_purchase_quantity = #{minPurchaseQuantity}</if>
             <if test="amzInventoryShelfTime != null">and amz_inventory_shelf_time = #{amzInventoryShelfTime}</if>
+            <if test="beginTime != null and endTime != null">
+                and amz_inventory_shelf_time between #{beginTime} and #{endTime}
+            </if>
             <if test="reshaper != null">and reshaper = #{reshaper}</if>
             <if test="reshaping != null">and reshaping = #{reshaping}</if>
             <if test="inTransit != null">and in_transit = #{inTransit}</if>
@@ -715,6 +727,9 @@
             <if test="volumeCm3 != null">and volume_cm3 = #{volumeCm3}</if>
             <if test="minPurchaseQuantity != null">and min_purchase_quantity = #{minPurchaseQuantity}</if>
             <if test="amzInventoryShelfTime != null">and amz_inventory_shelf_time = #{amzInventoryShelfTime}</if>
+            <if test="beginTime != null and endTime != null">
+                and amz_inventory_shelf_time between #{beginTime} and #{endTime}
+            </if>
             <if test="reshaper != null">and reshaper = #{reshaper}</if>
             <if test="reshaping != null">and reshaping = #{reshaping}</if>
             <if test="inTransit != null">and in_transit = #{inTransit}</if>
@@ -873,6 +888,9 @@
             <if test="volumeCm3 != null">and volume_cm3 = #{volumeCm3}</if>
             <if test="minPurchaseQuantity != null">and min_purchase_quantity = #{minPurchaseQuantity}</if>
             <if test="amzInventoryShelfTime != null">and amz_inventory_shelf_time = #{amzInventoryShelfTime}</if>
+            <if test="beginTime != null and endTime != null">
+                and amz_inventory_shelf_time between #{beginTime} and #{endTime}
+            </if>
             <if test="reshaper != null">and reshaper = #{reshaper}</if>
             <if test="reshaping != null">and reshaping = #{reshaping}</if>
             <if test="inTransit != null">and in_transit = #{inTransit}</if>
@@ -890,8 +908,8 @@
             <if test="createBy != null">and create_by = #{createBy}</if>
             <if test="updateBy != null">and update_by = #{updateBy}</if>
             <if test="version != null">and version = #{version}</if>
-            <if test="turnoverDaysMin != null">and turnover_days &lt;= #{turnoverDaysMin}</if>
-            <if test="turnoverDaysMax != null">and turnover_days &gt;= #{turnoverDaysMax}</if>
+            <if test="turnoverDaysMin != null">and turnover_days &gt; #{turnoverDaysMin}</if>
+            <if test="turnoverDaysMax != null">and turnover_days &lt;= #{turnoverDaysMax}</if>
             <!-- 新增的条件 -->
             and is_delete = 0
             and DATE(created_at) = CURDATE()
