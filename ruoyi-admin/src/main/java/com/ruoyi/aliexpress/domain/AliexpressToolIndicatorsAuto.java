@@ -24,37 +24,103 @@ public class AliexpressToolIndicatorsAuto extends BaseEntity
     private String shopPerson;
 
     /** 违背发货承诺订单数 */
-    @Excel(name = "违背发货承诺订单数")
-    private String contraryOrderNum;
+    @Excel(name = "质量纠纷")
+    private String qualityDisputes;
 
     /** 违规侵权 */
-    @Excel(name = "违规侵权")
-    private String illegalInfringement;
+    @Excel(name = "3PL物流纠纷")
+    private String PLLogistics;
 
     /** jit入库超时 */
-    @Excel(name = "jit入库超时")
-    private String warehousTimeoutJit;
+    @Excel(name = "待响应JIT入库超时纠纷")
+    private String JITWarehousingTimeout;
 
     /** 理货报告纠纷 */
-    @Excel(name = "理货报告纠纷")
-    private String tallyReportDisputes;
+    @Excel(name = "待响应备货入仓处罚纠纷")
+    private String warehouseOverPenalty;
 
     /** 件重尺纠纷 */
-    @Excel(name = "件重尺纠纷")
-    private String heavyRulerDispute;
+    @Excel(name = "待申述处罚")
+    private String pendingAppeal;
 
     /** 超过24小时未发货订单数 */
-    @Excel(name = "超过24小时未发货订单数")
-    private String unshippedOrders24;
+    @Excel(name = "已断货")
+    private String outStock;
 
     /** jit订单异常 */
-    @Excel(name = "jit订单异常")
-    private String orderExceptionJit;
+    @Excel(name = "已断码")
+    private String brokenSize;
+
+    private String ifUpdate;
 
     /** $column.columnComment */
     private Long sId;
 
-    public void setShopName(String shopName) 
+    public String getPLLogistics() {
+        return PLLogistics;
+    }
+
+    public void setPLLogistics(String PLLogistics) {
+        this.PLLogistics = PLLogistics;
+    }
+
+    public String getJITWarehousingTimeout() {
+        return JITWarehousingTimeout;
+    }
+
+    public void setJITWarehousingTimeout(String JITWarehousingTimeout) {
+        this.JITWarehousingTimeout = JITWarehousingTimeout;
+    }
+
+    public String getQualityDisputes() {
+        return qualityDisputes;
+    }
+
+    public void setQualityDisputes(String qualityDisputes) {
+        this.qualityDisputes = qualityDisputes;
+    }
+
+    public String getWarehouseOverPenalty() {
+        return warehouseOverPenalty;
+    }
+
+    public void setWarehouseOverPenalty(String warehouseOverPenalty) {
+        this.warehouseOverPenalty = warehouseOverPenalty;
+    }
+
+    public String getPendingAppeal() {
+        return pendingAppeal;
+    }
+
+    public void setPendingAppeal(String pendingAppeal) {
+        this.pendingAppeal = pendingAppeal;
+    }
+
+    public String getOutStock() {
+        return outStock;
+    }
+
+    public void setOutStock(String outStock) {
+        this.outStock = outStock;
+    }
+
+    public String getBrokenSize() {
+        return brokenSize;
+    }
+
+    public void setBrokenSize(String brokenSize) {
+        this.brokenSize = brokenSize;
+    }
+
+    public String getIfUpdate() {
+        return ifUpdate;
+    }
+
+    public void setIfUpdate(String ifUpdate) {
+        this.ifUpdate = ifUpdate;
+    }
+
+    public void setShopName(String shopName)
     {
         this.shopName = shopName;
     }
@@ -72,93 +138,16 @@ public class AliexpressToolIndicatorsAuto extends BaseEntity
     {
         return shopPerson;
     }
-    public void setContraryOrderNum(String contraryOrderNum) 
-    {
-        this.contraryOrderNum = contraryOrderNum;
-    }
 
-    public String getContraryOrderNum() 
-    {
-        return contraryOrderNum;
-    }
-    public void setIllegalInfringement(String illegalInfringement) 
-    {
-        this.illegalInfringement = illegalInfringement;
-    }
-
-    public String getIllegalInfringement() 
-    {
-        return illegalInfringement;
-    }
-    public void setWarehousTimeoutJit(String warehousTimeoutJit) 
-    {
-        this.warehousTimeoutJit = warehousTimeoutJit;
-    }
-
-    public String getWarehousTimeoutJit() 
-    {
-        return warehousTimeoutJit;
-    }
-    public void setTallyReportDisputes(String tallyReportDisputes) 
-    {
-        this.tallyReportDisputes = tallyReportDisputes;
-    }
-
-    public String getTallyReportDisputes() 
-    {
-        return tallyReportDisputes;
-    }
-    public void setHeavyRulerDispute(String heavyRulerDispute) 
-    {
-        this.heavyRulerDispute = heavyRulerDispute;
-    }
-
-    public String getHeavyRulerDispute() 
-    {
-        return heavyRulerDispute;
-    }
-    public void setUnshippedOrders24(String unshippedOrders24) 
-    {
-        this.unshippedOrders24 = unshippedOrders24;
-    }
-
-    public String getUnshippedOrders24() 
-    {
-        return unshippedOrders24;
-    }
-    public void setOrderExceptionJit(String orderExceptionJit) 
-    {
-        this.orderExceptionJit = orderExceptionJit;
-    }
-
-    public String getOrderExceptionJit() 
-    {
-        return orderExceptionJit;
-    }
-    public void setsId(Long sId) 
+    public void setsId(Long sId)
     {
         this.sId = sId;
     }
 
-    public Long getsId() 
+    public Long getsId()
     {
         return sId;
     }
 
-    @Override
-    public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("shopName", getShopName())
-            .append("shopPerson", getShopPerson())
-            .append("contraryOrderNum", getContraryOrderNum())
-            .append("illegalInfringement", getIllegalInfringement())
-            .append("warehousTimeoutJit", getWarehousTimeoutJit())
-            .append("tallyReportDisputes", getTallyReportDisputes())
-            .append("heavyRulerDispute", getHeavyRulerDispute())
-            .append("unshippedOrders24", getUnshippedOrders24())
-            .append("orderExceptionJit", getOrderExceptionJit())
-            .append("sId", getsId())
-            .append("createTime", getCreateTime())
-            .toString();
-    }
+
 }

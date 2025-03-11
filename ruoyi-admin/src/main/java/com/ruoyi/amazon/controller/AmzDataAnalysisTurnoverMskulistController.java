@@ -124,7 +124,7 @@ public class AmzDataAnalysisTurnoverMskulistController extends BaseController
 
             // 5. 导出
             ExcelUtil<AmzDataAnalysisTurnoverMskulist> util = new ExcelUtil<>(AmzDataAnalysisTurnoverMskulist.class);
-            util.exportMultipleSheets(response, sheetDataMap, "库存分析");
+//            util.exportMultipleSheets(response, sheetDataMap, "库存分析");
 
         } catch (Exception e) {
             throw new RuntimeException("导出Excel失败: " + e.getMessage());

@@ -51,6 +51,19 @@ public class AliexpressToolIndicators extends BaseEntity
     @Excel(name = "售罄刊登数")
     private String soldOut;
 
+
+    /** jit订单异常 */
+
+    private String type;
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     public String getSoldOut() {
         return soldOut;
     }

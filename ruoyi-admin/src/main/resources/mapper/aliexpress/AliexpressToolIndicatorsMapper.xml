@@ -14,7 +14,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="unshippedOrders24"    column="unshipped_orders_24"    />
         <result property="orderExceptionJit"    column="order_exception_jit"    />
         <result property="soldOut"    column="sold_out"    />
-
+        <result property="type"    column="type"    />
         <result property="sId"    column="s_id"    />
         <result property="createTime"    column="create_time"    />
     </resultMap>
@@ -40,6 +40,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <select id="selectAliexpressToolIndicatorsListShop" parameterType="AliexpressToolIndicators" resultMap="AliexpressToolIndicatorsResult">
         select DISTINCT store_name as shop_name FROM stores_notescrow
+        <where>
+            <if test="shopPerson != null  and shopPerson != ''"> and store_manager = #{shopPerson}</if>
+            <if test="type!=null  and type!= ''"> and type= #{type}</if>
+        </where>
     </select>
 
 
