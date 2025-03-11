@@ -13,10 +13,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="ranking"    column="ranking"    />
         <result property="amountPaid"    column="amount_paid"    />
         <result property="visitors"    column="visitors"    />
+        <result property="storesPublished"    column="stores_published"    />
     </resultMap>
 
     <sql id="selectAliexpressStoreRankingsVo">
-        select shops, person_name, shop_date, main_category, level,amount_paid,visitors,ranking from aliexpress_store_rankings
+        select shops, person_name, shop_date, main_category, level,amount_paid,visitors,ranking,stores_published from aliexpress_store_rankings
     </sql>
 
     <select id="selectAliexpressStoreRankingsList" parameterType="AliexpressStoreRankings" resultMap="AliexpressStoreRankingsResult">

@@ -52,11 +52,23 @@ public class AliexpressStoreRankings extends BaseEntity
     @Excel(name = "访客")
     private int visitors;
 
+
+    @Excel(name = "店铺刊登数量")
+    private int storesPublished;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate beginTime;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate endTime;
+
+    public int getStoresPublished() {
+        return storesPublished;
+    }
+
+    public void setStoresPublished(int storesPublished) {
+        this.storesPublished = storesPublished;
+    }
 
     public LocalDate getBeginTime() {
         return beginTime;
