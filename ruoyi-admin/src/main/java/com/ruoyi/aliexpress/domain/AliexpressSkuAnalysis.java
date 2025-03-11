@@ -40,6 +40,9 @@ public class AliexpressSkuAnalysis extends BaseEntity {
     @Excel(name = "成本总价")
     private String totalWarehouseCost;
 
+    @Excel(name = "包裹尺寸")
+    private String packageSize;
+
 
 
     /**
@@ -211,6 +214,13 @@ public class AliexpressSkuAnalysis extends BaseEntity {
      */
     private Date updatedAt;
 
+    public String getPackageSize() {
+        return packageSize;
+    }
+
+    public void setPackageSize(String packageSize) {
+        this.packageSize = packageSize;
+    }
 
     public int getTotalPublications() {
         return totalPublications;

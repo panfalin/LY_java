@@ -9,6 +9,7 @@
         <result property="sku" column="sku"/>
         <result property="skuName" column="sku_name"/>
         <result property="weight" column="weight"/>
+        <result property="packageSize" column="package_size"/>
         <result property="totalPublications" column="total_publications"/>
         <result property="warehouseCost" column="warehouse_cost"/>
         <result property="totalWarehouseCost" column="total_warehouse_cost"/>
@@ -135,6 +136,7 @@
                asa.stock_image_url,
                asa.sku_name,
                asa.weight,
+               asa.package_size,
                pwts.bc_transit_quantity  as backup_in_transit_quantity,
                pwts.bc_semi_inventory_quantity  as half_management_backup_available_quantity,
                pwts.bc_auto_inventory_quantity  as full_management_backup_available_quantity
@@ -186,15 +188,15 @@
         AND status='正常销售'
         AND sales_last28_days = 0
         AND (
-            pwts.bc_semi_inventory_quantity != 0
-            OR pwts.bc_auto_inventory_quantity  != 0
-            OR total_stock != 0
+            pwts.bc_semi_inventory_quantity > 0
+            OR pwts.bc_auto_inventory_quantity  > 0
+            OR total_stock > 0
             )
         AND NOT EXISTS (
         SELECT 1
         FROM aliexpress_mabang_order_list aml
         WHERE aml.sku = asa.sku
-        AND aml.payment_time >= CURDATE() - INTERVAL 48 DAY
+        AND aml.payment_time >= CURDATE() - INTERVAL 45 DAY
         )
         AND sku_create_time &lt;= CURDATE() - INTERVAL 30 DAY
         <if test="sku != null and sku != ''">
@@ -224,15 +226,15 @@
             AND status='正常销售'
             AND sales_last28_days = 0
             AND (
-            pwts.bc_semi_inventory_quantity != 0
-            OR pwts.bc_auto_inventory_quantity  != 0
-            OR total_stock != 0
+            pwts.bc_semi_inventory_quantity > 0
+            OR pwts.bc_auto_inventory_quantity  > 0
+            OR total_stock > 0
             )
             AND NOT EXISTS (
             SELECT 1
             FROM aliexpress_mabang_order_list aml
             WHERE aml.sku = asa.sku
-            AND aml.payment_time >= CURDATE() - INTERVAL 48 DAY
+            AND aml.payment_time >= CURDATE() - INTERVAL 45 DAY
             )
             AND sku_create_time &lt;= CURDATE() - INTERVAL 30 DAY
             <if test="sku != null and sku != ''">
