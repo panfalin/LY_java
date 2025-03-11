@@ -1,0 +1,61 @@
+package com.ruoyi.aliexpress.mapper;
+
+import java.util.List;
+import com.ruoyi.aliexpress.domain.AliexpressPublishedData;
+
+/**
+ * 速卖通刊登数据Mapper接口
+ * 
+ * @author ruoyi
+ * @date 2025-03-11
+ */
+public interface AliexpressPublishedDataMapper 
+{
+    /**
+     * 查询速卖通刊登数据
+     * 
+     * @param commodityId 速卖通刊登数据主键
+     * @return 速卖通刊登数据
+     */
+    public AliexpressPublishedData selectAliexpressPublishedDataByCommodityId(String commodityId);
+
+    /**
+     * 查询速卖通刊登数据列表
+     * 
+     * @param aliexpressPublishedData 速卖通刊登数据
+     * @return 速卖通刊登数据集合
+     */
+    public List<AliexpressPublishedData> selectAliexpressPublishedDataList(AliexpressPublishedData aliexpressPublishedData);
+
+    /**
+     * 新增速卖通刊登数据
+     * 
+     * @param aliexpressPublishedData 速卖通刊登数据
+     * @return 结果
+     */
+    public int insertAliexpressPublishedData(AliexpressPublishedData aliexpressPublishedData);
+
+    /**
+     * 修改速卖通刊登数据
+     * 
+     * @param aliexpressPublishedData 速卖通刊登数据
+     * @return 结果
+     */
+    public int updateAliexpressPublishedData(AliexpressPublishedData aliexpressPublishedData);
+
+    /**
+     * 删除速卖通刊登数据
+     * 
+     * @param commodityId 速卖通刊登数据主键
+     * @return 结果
+     */
+    public int deleteAliexpressPublishedDataByCommodityId(String commodityId);
+
+    /**
+     * 批量删除速卖通刊登数据
+     * 
+     * @param commodityIds 需要删除的数据主键集合
+     * @return 结果
+     */
+    public int deleteAliexpressPublishedDataByCommodityIds(String[] commodityIds);
+}
