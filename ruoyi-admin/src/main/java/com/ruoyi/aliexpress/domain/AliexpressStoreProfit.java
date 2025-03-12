@@ -95,11 +95,11 @@ public class AliexpressStoreProfit extends BaseEntity
     private BigDecimal grossProfit;
 
     /** 实际退款USD */
-    @Excel(name = "实际退款USD")
+    @Excel(name = "实际退款（以店铺币种为准)")
     private BigDecimal actualRefundUsd;
 
     /** 直通车 */
-    @Excel(name = "直通车")
+    @Excel(name = "直通车充值")
     private BigDecimal directCar;
 
     /** 物流赔付 */
@@ -119,15 +119,15 @@ public class AliexpressStoreProfit extends BaseEntity
     private BigDecimal directCarCost;
 
     /** 海外仓头程运费 */
-    @Excel(name = "海外仓头程运费")
+    @Excel(name = "半托管赔付")
     private BigDecimal overseasFirstShipping;
 
     /** 海外仓尾程运费 */
-    @Excel(name = "海外仓尾程运费")
+    // @Excel(name = "全托管-仓发/SKU销量")
     private BigDecimal overseasLastShipping;
 
     /** 操作费 */
-    @Excel(name = "操作费")
+    // @Excel(name = "全托管-仓发/供货价金额")
     private BigDecimal operationFee;
 
     /** 退货成本 */
@@ -159,43 +159,43 @@ public class AliexpressStoreProfit extends BaseEntity
     private BigDecimal orderActualProfitRate;
 
     /** 半托管营业额 */
-    @Excel(name = "半托管营业额")
+    // @Excel(name = "半托管营业额")
     private BigDecimal half托管Revenue;
 
     /** 半托管利润 */
-    @Excel(name = "半托管利润")
+    // @Excel(name = "半托管利润")
     private BigDecimal half托管Profit;
 
     /** 自营+半托管营业额 */
-    @Excel(name = "自营+半托管营业额")
+    // @Excel(name = "自营+半托管营业额")
     private BigDecimal selfHalf托管Revenue;
 
     /** 自营+半托管利润 */
-    @Excel(name = "自营+半托管利润")
+    // @Excel(name = "自营+半托管利润")
     private BigDecimal selfHalf托管Profit;
 
     /** 利润率 */
-    @Excel(name = "利润率")
+    // @Excel(name = "利润率")
     private BigDecimal profitRate;
 
     /** 9月营业额 */
-    @Excel(name = "9月营业额")
+    // @Excel(name = "当月揽收费用")
     private BigDecimal septemberRevenue;
 
     /** 9月利润 */
-    @Excel(name = "9月利润")
+    // @Excel(name = "全托管-仓发/利润")
     private BigDecimal septemberProfit;
 
     /** 9月利润率 */
-    @Excel(name = "9月利润率")
+    // @Excel(name = "9月利润率")
     private BigDecimal septemberProfitRate;
 
     /** 对比营业额 */
-    @Excel(name = "对比营业额")
+    // @Excel(name = "上月活动差价")
     private BigDecimal compareRevenue;
 
     /** 对比利润率 */
-    @Excel(name = "对比利润率")
+    // @Excel(name = "当月产生罚款")
     private BigDecimal compareProfitRate;
 
     public void setId(Long id)

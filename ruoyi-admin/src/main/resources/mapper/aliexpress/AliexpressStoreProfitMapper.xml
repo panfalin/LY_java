@@ -62,7 +62,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <!-- 添加 store_manager 不为空的过滤条件 -->
             store_manager IS NOT NULL
             <if test="storeName != null  and storeName != ''"> and store_name like concat('%', #{storeName}, '%')</if>
+            /*
+                这里将mouth改为时间范围查询
+            */
             <if test="mouth != null  and mouth != ''"> and mouth like concat('%', #{mouth}, '%')</if>
+            <if test="params.beginTime != null and params.beginTime != ''"><!-- 开始时间检索 -->
+                and date_format(mouth,'%Y%m') &gt;= mouth(#{params.beginTime},'%Y%m')
+            </if>
+            <if test="params.endTime != null and params.endTime != ''"><!-- 结束时间检索 -->
+                and date_format(mouth,'%Y%m') &lt;= mouth(#{params.endTime},'%Y%m')
+            </if>
             <if test="moneyType != null  and moneyType != ''"> and money_type like concat('%', #{moneyType}, '%')</if>
             <if test="category != null and category != ''">
                 and category like concat('%', #{category}, '%')
@@ -75,7 +84,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                 </foreach>
             </if>
             <if test="storeManager != null  and storeManager != ''"> and store_manager = #{storeManager}</if>
-            <if test="orderAmount != null  and orderAmount != ''"> and order_amount = #{orderAmount}</if>
+            <if test="orderAmount != null  and orderAmount !=  ''"> and order_amount = #{orderAmount}</if>
             <if test="shippingFee != null  and shippingFee != ''"> and shipping_fee = #{shippingFee}</if>
             <if test="otherIncome != null  and otherIncome != ''"> and other_income = #{otherIncome}</if>
             <if test="subsidyAmount != null  and subsidyAmount != ''"> and subsidy_amount = #{subsidyAmount}</if>

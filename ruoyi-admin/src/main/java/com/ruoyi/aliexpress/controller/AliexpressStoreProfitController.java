@@ -1,7 +1,11 @@
 package com.ruoyi.aliexpress.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
+import com.ruoyi.aliexpress.domain.AliexpressStoreAutoProfit;
+import com.ruoyi.common.utils.bean.BeanUtils;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -56,7 +60,25 @@ public class AliexpressStoreProfitController extends BaseController
     {
         List<AliexpressStoreProfit> list = aliexpressStoreProfitService.selectAliexpressStoreProfitList(aliexpressStoreProfit);
         ExcelUtil<AliexpressStoreProfit> util = new ExcelUtil<AliexpressStoreProfit>(AliexpressStoreProfit.class);
-        util.exportExcel(response, list, "店铺利润汇总数据");
+        util.exportExcel(response, list, "POP店铺利润汇总数据");
+    }
+
+    @PreAuthorize("@ss.hasPermi('profit:profit:export')")
+    @Log(title = "店铺利润汇总", businessType = BusinessType.EXPORT)
+    @PostMapping("/exportAuto")
+    public void exportAuto(HttpServletResponse response, AliexpressStoreProfit aliexpressStoreProfit) {
+        // 获取原始数据
+        List<AliexpressStoreProfit> originList = aliexpressStoreProfitService.selectAliexpressStoreProfitList(aliexpressStoreProfit);
+        List<AliexpressStoreAutoProfit> list = new ArrayList<>();
+
+        // 遍历 originList，逐个复制属性到 AliexpressStoreAutoProfit 对象
+        for (AliexpressStoreProfit origin : originList) {
+            AliexpressStoreAutoProfit target = new AliexpressStoreAutoProfit();
+            BeanUtils.copyProperties(origin, target); // 复制属性
+            list.add(target); // 添加到目标列表
+        }
+        ExcelUtil<AliexpressStoreAutoProfit> util = new ExcelUtil<>(AliexpressStoreAutoProfit.class);
+        util.exportExcel(response, list, "全托管店铺利润汇总数据");
     }
 
     /**
