@@ -19,6 +19,9 @@ public interface AliexpressPublishedDataMapper
      */
     public AliexpressPublishedData selectAliexpressPublishedDataByCommodityId(String commodityId);
 
+
+
+
     /**
      * 查询速卖通刊登数据列表
      * 
@@ -26,6 +29,17 @@ public interface AliexpressPublishedDataMapper
      * @return 速卖通刊登数据集合
      */
     public List<AliexpressPublishedData> selectAliexpressPublishedDataList(AliexpressPublishedData aliexpressPublishedData);
+
+
+    /**
+     * 查询速卖通刊登数据统计列表
+     *
+     * @param aliexpressPublishedData 速卖通刊登数据
+     * @return 速卖通刊登数据集合
+     */
+    public List<AliexpressPublishedData> selectAliexpressPublishedDataStatisticsList(AliexpressPublishedData aliexpressPublishedData);
+
+
 
     /**
      * 新增速卖通刊登数据

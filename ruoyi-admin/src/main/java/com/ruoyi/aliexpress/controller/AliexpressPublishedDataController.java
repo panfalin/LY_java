@@ -2,6 +2,7 @@ package com.ruoyi.aliexpress.controller;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,14 +24,13 @@ import com.ruoyi.common.core.page.TableDataInfo;
 
 /**
  * 速卖通刊登数据Controller
- * 
+ *
  * @author ruoyi
  * @date 2025-03-11
  */
 @RestController
 @RequestMapping("/aliexpress/aliexpressPublishedData")
-public class AliexpressPublishedDataController extends BaseController
-{
+public class AliexpressPublishedDataController extends BaseController {
     @Autowired
     private IAliexpressPublishedDataService aliexpressPublishedDataService;
 
@@ -39,10 +39,19 @@ public class AliexpressPublishedDataController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('aliexpress:aliexpressPublishedData:list')")
     @GetMapping("/list")
-    public TableDataInfo list(AliexpressPublishedData aliexpressPublishedData)
-    {
+    public TableDataInfo list(AliexpressPublishedData aliexpressPublishedData) {
         startPage();
         List<AliexpressPublishedData> list = aliexpressPublishedDataService.selectAliexpressPublishedDataList(aliexpressPublishedData);
+        return getDataTable(list);
+    }
+
+    /**
+     * 查询速卖通刊登数据统计列表
+     */
+    @PreAuthorize("@ss.hasPermi('aliexpress:aliexpressPublishedData:list')")
+    @GetMapping("/listTotal")
+    public TableDataInfo listTotal(AliexpressPublishedData aliexpressPublishedData) {
+        List<AliexpressPublishedData> list = aliexpressPublishedDataService.selectAliexpressPublishedDataStatisticsList(aliexpressPublishedData);
         return getDataTable(list);
     }
 
@@ -52,8 +61,7 @@ public class AliexpressPublishedDataController extends BaseController
     @PreAuthorize("@ss.hasPermi('aliexpress:aliexpressPublishedData:export')")
     @Log(title = "速卖通刊登数据", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
-    public void export(HttpServletResponse response, AliexpressPublishedData aliexpressPublishedData)
-    {
+    public void export(HttpServletResponse response, AliexpressPublishedData aliexpressPublishedData) {
         List<AliexpressPublishedData> list = aliexpressPublishedDataService.selectAliexpressPublishedDataList(aliexpressPublishedData);
         ExcelUtil<AliexpressPublishedData> util = new ExcelUtil<AliexpressPublishedData>(AliexpressPublishedData.class);
         util.exportExcel(response, list, "速卖通刊登数据数据");
@@ -64,8 +72,7 @@ public class AliexpressPublishedDataController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('aliexpress:aliexpressPublishedData:query')")
     @GetMapping(value = "/{commodityId}")
-    public AjaxResult getInfo(@PathVariable("commodityId") String commodityId)
-    {
+    public AjaxResult getInfo(@PathVariable("commodityId") String commodityId) {
         return success(aliexpressPublishedDataService.selectAliexpressPublishedDataByCommodityId(commodityId));
     }
 
@@ -75,8 +82,7 @@ public class AliexpressPublishedDataController extends BaseController
     @PreAuthorize("@ss.hasPermi('aliexpress:aliexpressPublishedData:add')")
     @Log(title = "速卖通刊登数据", businessType = BusinessType.INSERT)
     @PostMapping
-    public AjaxResult add(@RequestBody AliexpressPublishedData aliexpressPublishedData)
-    {
+    public AjaxResult add(@RequestBody AliexpressPublishedData aliexpressPublishedData) {
         return toAjax(aliexpressPublishedDataService.insertAliexpressPublishedData(aliexpressPublishedData));
     }
 
@@ -86,8 +92,7 @@ public class AliexpressPublishedDataController extends BaseController
     @PreAuthorize("@ss.hasPermi('aliexpress:aliexpressPublishedData:edit')")
     @Log(title = "速卖通刊登数据", businessType = BusinessType.UPDATE)
     @PutMapping
-    public AjaxResult edit(@RequestBody AliexpressPublishedData aliexpressPublishedData)
-    {
+    public AjaxResult edit(@RequestBody AliexpressPublishedData aliexpressPublishedData) {
         return toAjax(aliexpressPublishedDataService.updateAliexpressPublishedData(aliexpressPublishedData));
     }
 
@@ -96,9 +101,8 @@ public class AliexpressPublishedDataController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('aliexpress:aliexpressPublishedData:remove')")
     @Log(title = "速卖通刊登数据", businessType = BusinessType.DELETE)
-	@DeleteMapping("/{commodityIds}")
-    public AjaxResult remove(@PathVariable String[] commodityIds)
-    {
+    @DeleteMapping("/{commodityIds}")
+    public AjaxResult remove(@PathVariable String[] commodityIds) {
         return toAjax(aliexpressPublishedDataService.deleteAliexpressPublishedDataByCommodityIds(commodityIds));
     }
 }

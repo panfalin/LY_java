@@ -1,50 +1,207 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ruoyi.aliexpress.mapper.AliexpressPublishedDataMapper">
-    
     <resultMap type="AliexpressPublishedData" id="AliexpressPublishedDataResult">
-        <result property="commodityId"    column="commodity_id"    />
-        <result property="shopName"    column="shop_name"    />
-        <result property="statisticalTime"    column="statistical_time"    />
-        <result property="paymentConversion"    column="payment_conversion"    />
-        <result property="searchExposure"    column="search_exposure"    />
-        <result property="successfulRefund"    column="successful_refund"    />
-        <result property="visitors"    column="visitors"    />
-        <result property="goodsAdditional"    column="goods_additional"    />
-        <result property="goodsCollection"    column="goods_collection"    />
-        <result property="searchClicks"    column="search_clicks"    />
-        <result property="transactionAmount"    column="transaction_amount"    />
-        <result property="pricePay"    column="price_pay"    />
+        <result property="commodityId" column="commodity_id"/>
+        <result property="shopName" column="shop_name"/>
+        <result property="personName" column="person_name"/>
+        <result property="statisticalTime" column="statistical_time"/>
+        <result property="paymentConversion" column="payment_conversion"/>
+        <result property="paymentConversionContrast" column="payment_conversion_contrast"/>
+        <result property="searchExposure" column="search_exposure"/>
+        <result property="searchExposureContrast" column="search_exposure_contrast"/>
+        <result property="successfulRefund" column="successful_refund"/>
+        <result property="successfulRefundContrast" column="successful_refund_contrast"/>
+        <result property="visitors" column="visitors"/>
+        <result property="visitorsContrast" column="visitors_contrast"/>
+        <result property="goodsAdditional" column="goods_additional"/>
+        <result property="goodsAdditionalContrast" column="goods_additional_contrast"/>
+        <result property="goodsCollection" column="goods_collection"/>
+        <result property="goodsCollectionContrast" column="goods_collection_contrast"/>
+        <result property="searchClicks" column="search_clicks"/>
+        <result property="searchClicksContrast" column="search_clicks_contrast"/>
+        <result property="transactionAmount" column="transaction_amount"/>
+        <result property="transactionAmountContrast" column="transaction_amount_contrast"/>
+        <result property="pricePay" column="price_pay"/>
+        <result property="pricePayContrast" column="price_pay_contrast"/>
+        <result property="mainOrdersPaid" column="main_orders_paid"/>
+        <result property="mainOrdersPaidContrast" column="main_orders_paid_contrast"/>
+        <result property="views" column="views"/>
+        <result property="viewsContrast" column="views_contrast"/>
     </resultMap>
 
-    <sql id="selectAliexpressPublishedDataVo">
-        select shop_name,commodity_id, statistical_time, payment_conversion, search_exposure, successful_refund, visitors, goods_additional, goods_collection, search_clicks, transaction_amount, price_pay from aliexpress_published_data
+    <resultMap type="AliexpressPublishedDataStatistics" id="AliexpressPublishedDataStatisticsResult">
+        <result property="totalSearchExposure" column="total_search_exposure"/>
+        <result property="avgSearchExposure" column="avg_search_exposure"/>
+        <result property="totalSuccessfulRefund" column="total_successful_refund"/>
+        <result property="avgSuccessfulRefund" column="avg_successful_refund"/>
+        <result property="totalVisitors" column="total_visitors"/>
+        <result property="avgVisitors" column="avg_visitors"/>
+        <result property="totalGoodsAdditional" column="total_goods_additional"/>
+        <result property="avgGoodsAdditional" column="avg_goods_additional"/>
+        <result property="totalGoodsCollection" column="total_goods_collection"/>
+        <result property="avgGoodsCollection" column="avg_goods_collection"/>
+        <result property="totalTransactionAmount" column="total_transaction_amount"/>
+        <result property="avgTransactionAmount" column="avg_transaction_amount"/>
+        <result property="totalMainOrdersPaid" column="total_main_orders_paid"/>
+        <result property="avgMainOrdersPaid" column="avg_main_orders_paid"/>
+        <result property="totalViews" column="total_views"/>
+        <result property="avgViews" column="avg_views"/>
+    </resultMap>
+
+
+<!--    <sql id="selectAliexpressPublishedDataVo">-->
+<!--        SELECT d1.shop_name,-->
+<!--               d1.commodity_id,-->
+<!--               d1.statistical_time,-->
+<!--               d1.payment_conversion,-->
+<!--               d1.search_exposure,-->
+<!--               d1.successful_refund,-->
+<!--               d1.visitors,-->
+<!--               d1.goods_additional,-->
+<!--               d1.goods_collection,-->
+<!--               d1.search_clicks,-->
+<!--               d1.transaction_amount,-->
+<!--               d1.price_pay,-->
+<!--               d1.views,-->
+<!--               d1.main_orders_paid,-->
+<!--               d1.person_name,-->
+<!--               &#45;&#45; 计算当前天与前一天的差值（若前一天数据不存在，则默认为0）-->
+<!--               (d1.payment_conversion - IFNULL(d2.payment_conversion, 0)) AS payment_conversion_contrast,-->
+<!--               (d1.search_exposure - IFNULL(d2.search_exposure, 0))       AS search_exposure_contrast,-->
+<!--               (d1.successful_refund - IFNULL(d2.successful_refund, 0))   AS successful_refund_contrast,-->
+<!--               (d1.visitors - IFNULL(d2.visitors, 0))                     AS visitors_contrast,-->
+<!--               (d1.goods_additional - IFNULL(d2.goods_additional, 0))     AS goods_additional_contrast,-->
+<!--               (d1.goods_collection - IFNULL(d2.goods_collection, 0))     AS goods_collection_contrast,-->
+<!--               (d1.search_clicks - IFNULL(d2.search_clicks, 0))           AS search_clicks_contrast,-->
+<!--               (d1.transaction_amount - IFNULL(d2.transaction_amount, 0)) AS transaction_amount_contrast,-->
+<!--               (d1.price_pay - IFNULL(d2.price_pay, 0))                   AS price_pay_contrast,-->
+<!--               (d1.views - IFNULL(d2.views, 0))                           AS views_contrast,-->
+<!--               (d1.main_orders_paid - IFNULL(d2.main_orders_paid, 0))     AS main_orders_paid_contrast-->
+<!--        FROM aliexpress_published_data d1-->
+<!--        LEFT JOIN aliexpress_published_data d2-->
+<!--        ON d1.statistical_time = DATE_ADD(d2.statistical_time, INTERVAL 1 DAY) and-->
+<!--        d1.commodity_id = d2.commodity_id-->
+<!--    </sql>-->
+
+
+
+
+
+
+
+
+    <sql id="selectAliexpressPublishedDataStatisticsVo">
+        SELECT SUM(search_exposure)    AS total_search_exposure,
+               AVG(search_exposure)    AS avg_search_exposure,
+               SUM(successful_refund)  AS total_successful_refund,
+               AVG(successful_refund)  AS avg_successful_refund,
+               SUM(visitors)           AS total_visitors,
+               AVG(visitors)           AS avg_visitors,
+               SUM(goods_additional)   AS total_goods_additional,
+               AVG(goods_additional)   AS avg_goods_additional,
+               SUM(goods_collection)   AS total_goods_collection,
+               AVG(goods_collection)   AS avg_goods_collection,
+               SUM(transaction_amount) AS total_transaction_amount,
+               AVG(transaction_amount) AS avg_transaction_amount,
+               SUM(main_orders_paid)   AS total_main_orders_paid,
+               AVG(main_orders_paid)   AS avg_main_orders_paid,
+               SUM(views)              AS total_views,
+               AVG(views)              AS avg_views
+        FROM `aliexpress_published_data`
     </sql>
 
-    <select id="selectAliexpressPublishedDataList" parameterType="AliexpressPublishedData" resultMap="AliexpressPublishedDataResult">
+    <sql id="selectAliexpressPublishedDataVo">
+        WITH avg_data AS (
+            -- 计算给定时间范围（beginTime ~ endTime）内的平均值
+            SELECT
+                commodity_id,
+                AVG(payment_conversion) AS avg_payment_conversion,
+                AVG(search_exposure) AS avg_search_exposure,
+                AVG(successful_refund) AS avg_successful_refund,
+                AVG(visitors) AS avg_visitors,
+                AVG(goods_additional) AS avg_goods_additional,
+                AVG(goods_collection) AS avg_goods_collection,
+                AVG(search_clicks) AS avg_search_clicks,
+                AVG(transaction_amount) AS avg_transaction_amount,
+                AVG(price_pay) AS avg_price_pay,
+                AVG(views) AS avg_views,
+                AVG(main_orders_paid) AS avg_main_orders_paid
+            FROM aliexpress_published_data
+            <where>
+            <if test="conBeginTime != null and conEndTime != null">
+            AND statistical_time BETWEEN #{conBeginTime} AND #{conEndTime}
+            </if>
+            </where>
+            GROUP BY commodity_id
+        )
+        SELECT
+            d1.shop_name,
+            d1.commodity_id,
+            d1.statistical_time,
+            d1.payment_conversion,
+            d1.search_exposure,
+            d1.successful_refund,
+            d1.visitors,
+            d1.goods_additional,
+            d1.goods_collection,
+            d1.search_clicks,
+            d1.transaction_amount,
+            d1.price_pay,
+            d1.views,
+            d1.main_orders_paid,
+            d1.person_name,
+            -- 计算当前数据与时间范围平均值的差值（如果时间范围无数据，则默认为0）
+            (d1.payment_conversion - IFNULL(avg_data.avg_payment_conversion, 0)) AS payment_conversion_contrast,
+            (d1.search_exposure - IFNULL(avg_data.avg_search_exposure, 0)) AS search_exposure_contrast,
+            (d1.successful_refund - IFNULL(avg_data.avg_successful_refund, 0)) AS successful_refund_contrast,
+            (d1.visitors - IFNULL(avg_data.avg_visitors, 0)) AS visitors_contrast,
+            (d1.goods_additional - IFNULL(avg_data.avg_goods_additional, 0)) AS goods_additional_contrast,
+            (d1.goods_collection - IFNULL(avg_data.avg_goods_collection, 0)) AS goods_collection_contrast,
+            (d1.search_clicks - IFNULL(avg_data.avg_search_clicks, 0)) AS search_clicks_contrast,
+            (d1.transaction_amount - IFNULL(avg_data.avg_transaction_amount, 0)) AS transaction_amount_contrast,
+            (d1.price_pay - IFNULL(avg_data.avg_price_pay, 0)) AS price_pay_contrast,
+            (d1.views - IFNULL(avg_data.avg_views, 0)) AS views_contrast,
+            (d1.main_orders_paid - IFNULL(avg_data.avg_main_orders_paid, 0)) AS main_orders_paid_contrast
+        FROM aliexpress_published_data d1
+                 LEFT JOIN avg_data
+                           ON d1.commodity_id = avg_data.commodity_id
+    </sql>
+
+    <select id="selectAliexpressPublishedDataList" parameterType="AliexpressPublishedData"
+            resultMap="AliexpressPublishedDataResult">
         <include refid="selectAliexpressPublishedDataVo"/>
+        <where>
+            <if test="beginTime != null and endTime != null">
+                and d1.statistical_time between #{beginTime} and #{endTime}
+            </if>
+            <if test="commodityId != null  and commodityId != ''">and d1.commodity_id = #{commodityId}</if>
+            <if test="personName != null  and personName != ''">and d1.person_name = #{personName}</if>
+            <if test="shopName != null  and shopName != ''">and d1.shop_name = #{shopName}</if>
+        </where>
+    </select>
+
+
+    <select id="selectAliexpressPublishedDataStatisticsList" parameterType="AliexpressPublishedData"
+            resultMap="AliexpressPublishedDataStatisticsResult">
+        <include refid="selectAliexpressPublishedDataStatisticsVo"/>
         <where>
             <if test="beginTime != null and endTime != null">
                 and statistical_time between #{beginTime} and #{endTime}
             </if>
-            <if test="commodityId != null  and commodityId != ''"> and commodity_id = #{commodityId}</if>
-            <if test="shopName != null  and shopName != ''"> and shop_name = #{shopName}</if>
-            <if test="statisticalTime != null "> and statistical_time = #{statisticalTime}</if>
-            <if test="paymentConversion != null "> and payment_conversion = #{paymentConversion}</if>
-            <if test="searchExposure != null  and searchExposure != ''"> and search_exposure = #{searchExposure}</if>
-            <if test="successfulRefund != null "> and successful_refund = #{successfulRefund}</if>
-            <if test="visitors != null  and visitors != ''"> and visitors = #{visitors}</if>
-            <if test="goodsAdditional != null  and goodsAdditional != ''"> and goods_additional = #{goodsAdditional}</if>
-            <if test="goodsCollection != null  and goodsCollection != ''"> and goods_collection = #{goodsCollection}</if>
-            <if test="searchClicks != null "> and search_clicks = #{searchClicks}</if>
-            <if test="transactionAmount != null "> and transaction_amount = #{transactionAmount}</if>
-            <if test="pricePay != null "> and price_pay = #{pricePay}</if>
+            <if test="commodityId != null  and commodityId != ''">and commodity_id = #{commodityId}</if>
+            <if test="personName != null  and personName != ''">and person_name = #{personName}</if>
+            <if test="shopName != null  and shopName != ''">and shop_name = #{shopName}</if>
         </where>
     </select>
-    
-    <select id="selectAliexpressPublishedDataByCommodityId" parameterType="String" resultMap="AliexpressPublishedDataResult">
+
+
+
+
+    <select id="selectAliexpressPublishedDataByCommodityId" parameterType="String"
+            resultMap="AliexpressPublishedDataResult">
         <include refid="selectAliexpressPublishedDataVo"/>
         where commodity_id = #{commodityId}
     </select>
@@ -63,7 +220,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="searchClicks != null">search_clicks,</if>
             <if test="transactionAmount != null">transaction_amount,</if>
             <if test="pricePay != null">price_pay,</if>
-         </trim>
+        </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="commodityId != null">#{commodityId},</if>
             <if test="statisticalTime != null">#{statisticalTime},</if>
@@ -76,7 +233,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="searchClicks != null">#{searchClicks},</if>
             <if test="transactionAmount != null">#{transactionAmount},</if>
             <if test="pricePay != null">#{pricePay},</if>
-         </trim>
+        </trim>
     </insert>
 
     <update id="updateAliexpressPublishedData" parameterType="AliexpressPublishedData">
@@ -97,13 +254,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </update>
 
     <delete id="deleteAliexpressPublishedDataByCommodityId" parameterType="String">
-        delete from aliexpress_published_data where commodity_id = #{commodityId}
+        delete
+        from aliexpress_published_data
+        where commodity_id = #{commodityId}
     </delete>
 
     <delete id="deleteAliexpressPublishedDataByCommodityIds" parameterType="String">
-        delete from aliexpress_published_data where commodity_id in 
+        delete from aliexpress_published_data where commodity_id in
         <foreach item="commodityId" collection="array" open="(" separator="," close=")">
             #{commodityId}
         </foreach>
     </delete>
+
 </mapper>
