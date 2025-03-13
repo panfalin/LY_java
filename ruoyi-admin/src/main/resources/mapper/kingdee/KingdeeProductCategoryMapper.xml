@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.kingdee.mapper.KingdeeProductCategoryMapper">
+    
+    <resultMap type="KingdeeProductCategory" id="KingdeeProductCategoryResult">
+        <result property="rk"    column="rk"    />
+        <result property="fseq"    column="fseq"    />
+        <result property="number"    column="number"    />
+        <result property="name"    column="name"    />
+        <result property="parentNumber"    column="parent_number"    />
+        <result property="parentName"    column="parent_name"    />
+        <result property="brandidName"    column="brandid_name"    />
+        <result property="enable"    column="enable"    />
+        <result property="checktype"    column="checktype"    />
+        <result property="isassembly"    column="isassembly"    />
+        <result property="isbatch"    column="isbatch"    />
+        <result property="isserial"    column="isserial"    />
+        <result property="isoutsource"    column="isoutsource"    />
+        <result property="ispurchase"    column="ispurchase"    />
+        <result property="issale"    column="issale"    />
+        <result property="isselfrestraint"    column="isselfrestraint"    />
+        <result property="isweight"    column="isweight"    />
+        <result property="isbackflushed"    column="isbackflushed"    />
+        <result property="isopendefault"    column="isopendefault"    />
+        <result property="iskfperiod"    column="iskfperiod"    />
+        <result property="kfperiod"    column="kfperiod"    />
+        <result property="kfperiodtype"    column="kfperiodtype"    />
+        <result property="intaxrate"    column="intaxrate"    />
+        <result property="taxrate"    column="taxrate"    />
+        <result property="spaceidName"    column="spaceid_name"    />
+        <result property="stockidName"    column="stockid_name"    />
+        <result property="producingdepartmentName"    column="producingdepartment_name"    />
+        <result property="disablerName"    column="disabler_name"    />
+        <result property="disabledate"    column="disabledate"    />
+        <result property="cprop"    column="cprop"    />
+        <result property="mullabelName"    column="mullabel_name"    />
+        <result property="s"    column="s"    />
+        <result property="createdAt"    column="created_at"    />
+    </resultMap>
+
+    <sql id="selectKingdeeProductCategoryVo">
+        select rk, fseq, number, name, parent_number, parent_name, brandid_name, enable, checktype, isassembly, isbatch, isserial, isoutsource, ispurchase, issale, isselfrestraint, isweight, isbackflushed, isopendefault, iskfperiod, kfperiod, kfperiodtype, intaxrate, taxrate, spaceid_name, stockid_name, producingdepartment_name, disabler_name, disabledate, cprop, mullabel_name, s, created_at from kingdee_product_category
+    </sql>
+
+    <select id="selectKingdeeProductCategoryList" parameterType="KingdeeProductCategory" resultMap="KingdeeProductCategoryResult">
+        <include refid="selectKingdeeProductCategoryVo"/>
+        <where>  
+            <if test="fseq != null "> and fseq = #{fseq}</if>
+            <if test="number != null  and number != ''"> and number = #{number}</if>
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="parentNumber != null  and parentNumber != ''"> and parent_number = #{parentNumber}</if>
+            <if test="parentName != null  and parentName != ''"> and parent_name like concat('%', #{parentName}, '%')</if>
+        </where>
+    </select>
+    
+    <select id="selectKingdeeProductCategoryByRk" parameterType="Long" resultMap="KingdeeProductCategoryResult">
+        <include refid="selectKingdeeProductCategoryVo"/>
+        where rk = #{rk}
+    </select>
+
+    <insert id="insertKingdeeProductCategory" parameterType="KingdeeProductCategory">
+        insert into kingdee_product_category
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="rk != null">rk,</if>
+            <if test="fseq != null">fseq,</if>
+            <if test="number != null">number,</if>
+            <if test="name != null">name,</if>
+            <if test="parentNumber != null">parent_number,</if>
+            <if test="parentName != null">parent_name,</if>
+            <if test="brandidName != null">brandid_name,</if>
+            <if test="enable != null">enable,</if>
+            <if test="checktype != null">checktype,</if>
+            <if test="isassembly != null">isassembly,</if>
+            <if test="isbatch != null">isbatch,</if>
+            <if test="isserial != null">isserial,</if>
+            <if test="isoutsource != null">isoutsource,</if>
+            <if test="ispurchase != null">ispurchase,</if>
+            <if test="issale != null">issale,</if>
+            <if test="isselfrestraint != null">isselfrestraint,</if>
+            <if test="isweight != null">isweight,</if>
+            <if test="isbackflushed != null">isbackflushed,</if>
+            <if test="isopendefault != null">isopendefault,</if>
+            <if test="iskfperiod != null">iskfperiod,</if>
+            <if test="kfperiod != null">kfperiod,</if>
+            <if test="kfperiodtype != null">kfperiodtype,</if>
+            <if test="intaxrate != null">intaxrate,</if>
+            <if test="taxrate != null">taxrate,</if>
+            <if test="spaceidName != null">spaceid_name,</if>
+            <if test="stockidName != null">stockid_name,</if>
+            <if test="producingdepartmentName != null">producingdepartment_name,</if>
+            <if test="disablerName != null">disabler_name,</if>
+            <if test="disabledate != null">disabledate,</if>
+            <if test="cprop != null">cprop,</if>
+            <if test="mullabelName != null">mullabel_name,</if>
+            <if test="s != null">s,</if>
+            <if test="createdAt != null">created_at,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="rk != null">#{rk},</if>
+            <if test="fseq != null">#{fseq},</if>
+            <if test="number != null">#{number},</if>
+            <if test="name != null">#{name},</if>
+            <if test="parentNumber != null">#{parentNumber},</if>
+            <if test="parentName != null">#{parentName},</if>
+            <if test="brandidName != null">#{brandidName},</if>
+            <if test="enable != null">#{enable},</if>
+            <if test="checktype != null">#{checktype},</if>
+            <if test="isassembly != null">#{isassembly},</if>
+            <if test="isbatch != null">#{isbatch},</if>
+            <if test="isserial != null">#{isserial},</if>
+            <if test="isoutsource != null">#{isoutsource},</if>
+            <if test="ispurchase != null">#{ispurchase},</if>
+            <if test="issale != null">#{issale},</if>
+            <if test="isselfrestraint != null">#{isselfrestraint},</if>
+            <if test="isweight != null">#{isweight},</if>
+            <if test="isbackflushed != null">#{isbackflushed},</if>
+            <if test="isopendefault != null">#{isopendefault},</if>
+            <if test="iskfperiod != null">#{iskfperiod},</if>
+            <if test="kfperiod != null">#{kfperiod},</if>
+            <if test="kfperiodtype != null">#{kfperiodtype},</if>
+            <if test="intaxrate != null">#{intaxrate},</if>
+            <if test="taxrate != null">#{taxrate},</if>
+            <if test="spaceidName != null">#{spaceidName},</if>
+            <if test="stockidName != null">#{stockidName},</if>
+            <if test="producingdepartmentName != null">#{producingdepartmentName},</if>
+            <if test="disablerName != null">#{disablerName},</if>
+            <if test="disabledate != null">#{disabledate},</if>
+            <if test="cprop != null">#{cprop},</if>
+            <if test="mullabelName != null">#{mullabelName},</if>
+            <if test="s != null">#{s},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+         </trim>
+    </insert>
+
+    <update id="updateKingdeeProductCategory" parameterType="KingdeeProductCategory">
+        update kingdee_product_category
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="fseq != null">fseq = #{fseq},</if>
+            <if test="number != null">number = #{number},</if>
+            <if test="name != null">name = #{name},</if>
+            <if test="parentNumber != null">parent_number = #{parentNumber},</if>
+            <if test="parentName != null">parent_name = #{parentName},</if>
+            <if test="brandidName != null">brandid_name = #{brandidName},</if>
+            <if test="enable != null">enable = #{enable},</if>
+            <if test="checktype != null">checktype = #{checktype},</if>
+            <if test="isassembly != null">isassembly = #{isassembly},</if>
+            <if test="isbatch != null">isbatch = #{isbatch},</if>
+            <if test="isserial != null">isserial = #{isserial},</if>
+            <if test="isoutsource != null">isoutsource = #{isoutsource},</if>
+            <if test="ispurchase != null">ispurchase = #{ispurchase},</if>
+            <if test="issale != null">issale = #{issale},</if>
+            <if test="isselfrestraint != null">isselfrestraint = #{isselfrestraint},</if>
+            <if test="isweight != null">isweight = #{isweight},</if>
+            <if test="isbackflushed != null">isbackflushed = #{isbackflushed},</if>
+            <if test="isopendefault != null">isopendefault = #{isopendefault},</if>
+            <if test="iskfperiod != null">iskfperiod = #{iskfperiod},</if>
+            <if test="kfperiod != null">kfperiod = #{kfperiod},</if>
+            <if test="kfperiodtype != null">kfperiodtype = #{kfperiodtype},</if>
+            <if test="intaxrate != null">intaxrate = #{intaxrate},</if>
+            <if test="taxrate != null">taxrate = #{taxrate},</if>
+            <if test="spaceidName != null">spaceid_name = #{spaceidName},</if>
+            <if test="stockidName != null">stockid_name = #{stockidName},</if>
+            <if test="producingdepartmentName != null">producingdepartment_name = #{producingdepartmentName},</if>
+            <if test="disablerName != null">disabler_name = #{disablerName},</if>
+            <if test="disabledate != null">disabledate = #{disabledate},</if>
+            <if test="cprop != null">cprop = #{cprop},</if>
+            <if test="mullabelName != null">mullabel_name = #{mullabelName},</if>
+            <if test="s != null">s = #{s},</if>
+            <if test="createdAt != null">created_at = #{createdAt},</if>
+        </trim>
+        where rk = #{rk}
+    </update>
+
+    <delete id="deleteKingdeeProductCategoryByRk" parameterType="Long">
+        delete from kingdee_product_category where rk = #{rk}
+    </delete>
+
+    <delete id="deleteKingdeeProductCategoryByRks" parameterType="String">
+        delete from kingdee_product_category where rk in 
+        <foreach item="rk" collection="array" open="(" separator="," close=")">
+            #{rk}
+        </foreach>
+    </delete>
+</mapper>
