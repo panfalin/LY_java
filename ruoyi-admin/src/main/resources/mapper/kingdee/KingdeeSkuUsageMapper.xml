@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.kingdee.mapper.KingdeeSkuUsageMapper">
+    
+    <resultMap type="KingdeeSkuUsage" id="KingdeeSkuUsageResult">
+        <result property="skuCode"    column="sku_code"    />
+        <result property="usageDate"    column="usage_date"    />
+        <result property="billno"    column="billno"    />
+        <result property="bomIdNumber"    column="bom_id_number"    />
+        <result property="usageAmount"    column="usage_amount"    />
+        <result property="status"    column="status"    />
+        <result property="createdAt"    column="created_at"    />
+    </resultMap>
+
+    <sql id="selectKingdeeSkuUsageVo">
+        select sku_code, usage_date, billno, bom_id_number, usage_amount, status, created_at from kingdee_sku_usage
+    </sql>
+
+    <select id="selectKingdeeSkuUsageList" parameterType="KingdeeSkuUsage" resultMap="KingdeeSkuUsageResult">
+        <include refid="selectKingdeeSkuUsageVo"/>
+        <where>  
+            <if test="skuCode != null  and skuCode != ''"> and sku_code = #{skuCode}</if>
+            <if test="usageDate != null "> and usage_date = #{usageDate}</if>
+            <if test="billno != null  and billno != ''"> and billno = #{billno}</if>
+            <if test="bomIdNumber != null  and bomIdNumber != ''"> and bom_id_number = #{bomIdNumber}</if>
+            <if test="usageAmount != null "> and usage_amount = #{usageAmount}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+            <if test="createdAt != null "> and created_at = #{createdAt}</if>
+        </where>
+    </select>
+    
+    <select id="selectKingdeeSkuUsageBySkuCode" parameterType="String" resultMap="KingdeeSkuUsageResult">
+        <include refid="selectKingdeeSkuUsageVo"/>
+        where sku_code = #{skuCode}
+    </select>
+
+    <insert id="insertKingdeeSkuUsage" parameterType="KingdeeSkuUsage">
+        insert into kingdee_sku_usage
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="skuCode != null and skuCode != ''">sku_code,</if>
+            <if test="usageDate != null">usage_date,</if>
+            <if test="billno != null">billno,</if>
+            <if test="bomIdNumber != null">bom_id_number,</if>
+            <if test="usageAmount != null">usage_amount,</if>
+            <if test="status != null">status,</if>
+            <if test="createdAt != null">created_at,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="skuCode != null and skuCode != ''">#{skuCode},</if>
+            <if test="usageDate != null">#{usageDate},</if>
+            <if test="billno != null">#{billno},</if>
+            <if test="bomIdNumber != null">#{bomIdNumber},</if>
+            <if test="usageAmount != null">#{usageAmount},</if>
+            <if test="status != null">#{status},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+         </trim>
+    </insert>
+
+    <update id="updateKingdeeSkuUsage" parameterType="KingdeeSkuUsage">
+        update kingdee_sku_usage
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="usageDate != null">usage_date = #{usageDate},</if>
+            <if test="billno != null">billno = #{billno},</if>
+            <if test="bomIdNumber != null">bom_id_number = #{bomIdNumber},</if>
+            <if test="usageAmount != null">usage_amount = #{usageAmount},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="createdAt != null">created_at = #{createdAt},</if>
+        </trim>
+        where sku_code = #{skuCode}
+    </update>
+
+    <delete id="deleteKingdeeSkuUsageBySkuCode" parameterType="String">
+        delete from kingdee_sku_usage where sku_code = #{skuCode}
+    </delete>
+
+    <delete id="deleteKingdeeSkuUsageBySkuCodes" parameterType="String">
+        delete from kingdee_sku_usage where sku_code in 
+        <foreach item="skuCode" collection="array" open="(" separator="," close=")">
+            #{skuCode}
+        </foreach>
+    </delete>
+</mapper>
