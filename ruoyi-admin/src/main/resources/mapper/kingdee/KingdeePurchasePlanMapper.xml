@@ -31,6 +31,7 @@
         <result property="expectedStock" column="expected_stock"/>
         <result property="expectedDays30" column="expected_days30"/>
         <result property="suggestedPurchaseQty" column="suggested_purchase_qty"/>
+        <result property="maxDaysSinceOrder" column="max_days_since_order"/>
     </resultMap>
 
     <sql id="selectKingdeePurchasePlanVo">
@@ -59,7 +60,8 @@
                model,
                expected_stock,
                expected_days30,
-               suggested_purchase_qty
+               suggested_purchase_qty,
+               max_days_since_order
         from kingdee_purchase_plan
     </sql>
 
@@ -96,6 +98,7 @@
             <if test="parentName != null  and parentName != ''">and parent_name like concat('%', #{parentName}, '%')
             </if>
             <if test="model != null  and model != ''">and model like concat('%', #{model}, '%')</if>
+            <if test="maxDaysSinceOrder != null ">and max_days_since_order = #{maxDaysSinceOrder}</if>
         </where>
     </select>
 
