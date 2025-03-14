@@ -247,6 +247,28 @@ public class KingdeePurchaseOrderList extends BaseEntity
     @Excel(name = "工作流上一个处理人")
     private String wfPrevioushandler;
 
+    /** 供应商联系电话 */
+    private String contactPhone;
+
+    /** 供应商联系人 */
+    private String contactLinkman;
+
+    public String getContactPhone() {
+        return contactPhone;
+    }
+
+    public void setContactPhone(String contactPhone) {
+        this.contactPhone = contactPhone;
+    }
+
+    public String getContactLinkman() {
+        return contactLinkman;
+    }
+
+    public void setContactLinkman(String contactLinkman) {
+        this.contactLinkman = contactLinkman;
+    }
+
     /** 工作流进度 */
     @Excel(name = "工作流进度")
     private Long wfProgress;

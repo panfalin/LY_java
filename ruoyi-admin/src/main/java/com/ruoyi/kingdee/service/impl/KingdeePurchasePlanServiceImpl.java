@@ -48,6 +48,7 @@ public class KingdeePurchasePlanServiceImpl implements IKingdeePurchasePlanServi
     {
         List<KingdeePurchasePlan> kingdeePurchasePlans = kingdeePurchasePlanMapper.selectKingdeePurchasePlanList(kingdeePurchasePlan);
         for (KingdeePurchasePlan purchasePlan : kingdeePurchasePlans) {
+            // 这里的逻辑是添加用量情况的
             String skuCode = purchasePlan.getSkuCode();
             KingdeeSkuUsage kingdeeSkuUsage = new KingdeeSkuUsage();
             kingdeeSkuUsage.setSkuCode(skuCode);

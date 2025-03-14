@@ -65,6 +65,8 @@
         <result property="wfPrevioushandler" column="wf_previoushandler"/>
         <result property="wfProgress" column="wf_progress"/>
         <result property="createdAt" column="created_at"/>
+        <result property="contactPhone" column="contact_phone"/>
+        <result property="contactLinkman" column="contact_linkman"/>
     </resultMap>
 
     <sql id="selectKingdeePurchaseOrderListVo">
@@ -127,7 +129,9 @@
                wf_participantname,
                wf_previoushandler,
                wf_progress,
-               created_at
+               created_at,
+               contact_phone,
+               contact_linkman,
         from kingdee_purchase_order_list
     </sql>
 
