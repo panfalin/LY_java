@@ -2,6 +2,8 @@ package com.ruoyi.kingdee.domain;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -64,6 +66,16 @@ public class KingdeePurchasePlan extends BaseEntity
     /** 采购周期 */
     @Excel(name = "采购周期")
     private BigDecimal purchaseCycle;
+
+    private List<KingdeeSkuUsage> kingdeeSkuUsageList;
+
+    public List<KingdeeSkuUsage> getKingdeeSkuUsageList() {
+        return kingdeeSkuUsageList;
+    }
+
+    public void setKingdeeSkuUsageList(List<KingdeeSkuUsage> kingdeeSkuUsageList) {
+        this.kingdeeSkuUsageList = kingdeeSkuUsageList;
+    }
 
     /** 日均耗量(90天) */
     @Excel(name = "日均耗量(90天)")

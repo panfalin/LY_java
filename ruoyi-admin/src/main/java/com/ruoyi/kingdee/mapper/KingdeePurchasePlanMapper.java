@@ -2,6 +2,7 @@ package com.ruoyi.kingdee.mapper;
 
 import java.util.List;
 import com.ruoyi.kingdee.domain.KingdeePurchasePlan;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * 金蝶采购计划Mapper接口
@@ -9,6 +10,7 @@ import com.ruoyi.kingdee.domain.KingdeePurchasePlan;
  * @author panfalin
  * @date 2025-03-13
  */
+@Mapper
 public interface KingdeePurchasePlanMapper 
 {
     /**

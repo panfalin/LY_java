@@ -1,6 +1,9 @@
 package com.ruoyi.kingdee.service.impl;
 
 import java.util.List;
+
+import com.ruoyi.kingdee.domain.KingdeeSkuUsage;
+import com.ruoyi.kingdee.mapper.KingdeeSkuUsageMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.kingdee.mapper.KingdeePurchasePlanMapper;
@@ -18,6 +21,9 @@ public class KingdeePurchasePlanServiceImpl implements IKingdeePurchasePlanServi
 {
     @Autowired
     private KingdeePurchasePlanMapper kingdeePurchasePlanMapper;
+
+    @Autowired
+    private KingdeeSkuUsageMapper kingdeeSkuUsageMapper;
 
     /**
      * 查询金蝶采购计划
@@ -40,7 +46,15 @@ public class KingdeePurchasePlanServiceImpl implements IKingdeePurchasePlanServi
     @Override
     public List<KingdeePurchasePlan> selectKingdeePurchasePlanList(KingdeePurchasePlan kingdeePurchasePlan)
     {
-        return kingdeePurchasePlanMapper.selectKingdeePurchasePlanList(kingdeePurchasePlan);
+        List<KingdeePurchasePlan> kingdeePurchasePlans = kingdeePurchasePlanMapper.selectKingdeePurchasePlanList(kingdeePurchasePlan);
+        for (KingdeePurchasePlan purchasePlan : kingdeePurchasePlans) {
+            String skuCode = purchasePlan.getSkuCode();
+            KingdeeSkuUsage kingdeeSkuUsage = new KingdeeSkuUsage();
+            kingdeeSkuUsage.setSkuCode(skuCode);
+            List<KingdeeSkuUsage> kingdeeSkuUsages = kingdeeSkuUsageMapper.selectKingdeeSkuUsageList(kingdeeSkuUsage);
+            purchasePlan.setKingdeeSkuUsageList(kingdeeSkuUsages);
+        }
+        return kingdeePurchasePlans;
     }
 
     /**
