@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.kingdee.mapper.KingdeePurchaseOrderListMapper">
+
+    <resultMap type="KingdeePurchaseOrderList" id="KingdeePurchaseOrderListResult">
+        <result property="rk" column="rk"/>
+        <result property="fseq" column="fseq"/>
+        <result property="billdate" column="billdate"/>
+        <result property="billno" column="billno"/>
+        <result property="billstatus" column="billstatus"/>
+        <result property="supplieridName" column="supplierid_name"/>
+        <result property="empidName" column="empid_name"/>
+        <result property="totalsettleamount" column="totalsettleamount"/>
+        <result property="totalunsettleamount" column="totalunsettleamount"/>
+        <result property="taxamount" column="taxamount"/>
+        <result property="taxprice" column="taxprice"/>
+        <result property="price" column="price"/>
+        <result property="qty" column="qty"/>
+        <result property="entryivcallamount" column="entryivcallamount"/>
+        <result property="entryivcstatus" column="entryivcstatus"/>
+        <result property="entryrealiostatus" column="entryrealiostatus"/>
+        <result property="apPrepayBillid" column="ap_prepay_billid"/>
+        <result property="auxunittype" column="auxunittype"/>
+        <result property="billDealAmount" column="bill_deal_amount"/>
+        <result property="closestate" column="closestate"/>
+        <result property="coefficient" column="coefficient"/>
+        <result property="cprop" column="cprop"/>
+        <result property="customField24sbnx21t01sp" column="custom_field__2__4sbnx21t01sp"/>
+        <result property="deptidName" column="deptid_name"/>
+        <result property="entryPickStatus" column="entry_pick_status"/>
+        <result property="entryiostatus" column="entryiostatus"/>
+        <result property="entryivcallamountfor" column="entryivcallamountfor"/>
+        <result property="entryivcbaseqty" column="entryivcbaseqty"/>
+        <result property="entryivcqty" column="entryivcqty"/>
+        <result property="entryivcsettlestatus" column="entryivcsettlestatus"/>
+        <result property="entryunivcbaseqty" column="entryunivcbaseqty"/>
+        <result property="entryunivcqty" column="entryunivcqty"/>
+        <result property="materialEntityId" column="material_entity_id"/>
+        <result property="materialidName" column="materialid_name"/>
+        <result property="materialidNumber" column="materialid_number"/>
+        <result property="pickBaseqty" column="pick_baseqty"/>
+        <result property="pickInBaseqty" column="pick_in_baseqty"/>
+        <result property="pickInQty" column="pick_in_qty"/>
+        <result property="pickQty" column="pick_qty"/>
+        <result property="pickStatus" column="pick_status"/>
+        <result property="unPickBaseqty" column="un_pick_baseqty"/>
+        <result property="unPickQty" column="un_pick_qty"/>
+        <result property="uninqty" column="uninqty"/>
+        <result property="ioamount" column="ioamount"/>
+        <result property="ivcallamount" column="ivcallamount"/>
+        <result property="ivcallamountfor" column="ivcallamountfor"/>
+        <result property="ivcsettleamount" column="ivcsettleamount"/>
+        <result property="ivcsettleamountfor" column="ivcsettleamountfor"/>
+        <result property="ivcsettlestatus" column="ivcsettlestatus"/>
+        <result property="ivcstatus" column="ivcstatus"/>
+        <result property="ivctotalsettleamount" column="ivctotalsettleamount"/>
+        <result property="ivctotalsettleamountfor" column="ivctotalsettleamountfor"/>
+        <result property="ivctotalunsettleamount" column="ivctotalunsettleamount"/>
+        <result property="ivctotalunsettleamountfor" column="ivctotalunsettleamountfor"/>
+        <result property="ivctype" column="ivctype"/>
+        <result property="wfCurrentnode" column="wf_currentnode"/>
+        <result property="wfParticipantname" column="wf_participantname"/>
+        <result property="wfPrevioushandler" column="wf_previoushandler"/>
+        <result property="wfProgress" column="wf_progress"/>
+        <result property="createdAt" column="created_at"/>
+    </resultMap>
+
+    <sql id="selectKingdeePurchaseOrderListVo">
+        select rk,
+               fseq,
+               billdate,
+               billno,
+               billstatus,
+               supplierid_name,
+               empid_name,
+               totalsettleamount,
+               totalunsettleamount,
+               taxamount,
+               taxprice,
+               price,
+               qty,
+               entryivcallamount,
+               entryivcstatus,
+               entryrealiostatus,
+               ap_prepay_billid,
+               auxunittype,
+               bill_deal_amount,
+               closestate,
+               coefficient,
+               cprop,
+               custom_field__2__4sbnx21t01sp,
+               deptid_name,
+               entry_pick_status,
+               entryiostatus,
+               entryivcallamountfor,
+               entryivcbaseqty,
+               entryivcqty,
+               entryivcsettlestatus,
+               entryunivcbaseqty,
+               entryunivcqty,
+               material_entity_id,
+               materialid_name,
+               materialid_number,
+               pick_baseqty,
+               pick_in_baseqty,
+               pick_in_qty,
+               pick_qty,
+               pick_status,
+               un_pick_baseqty,
+               un_pick_qty,
+               uninqty,
+               ioamount,
+               ivcallamount,
+               ivcallamountfor,
+               ivcsettleamount,
+               ivcsettleamountfor,
+               ivcsettlestatus,
+               ivcstatus,
+               ivctotalsettleamount,
+               ivctotalsettleamountfor,
+               ivctotalunsettleamount,
+               ivctotalunsettleamountfor,
+               ivctype,
+               wf_currentnode,
+               wf_participantname,
+               wf_previoushandler,
+               wf_progress,
+               created_at
+        from kingdee_purchase_order_list
+    </sql>
+
+    <select id="selectKingdeePurchaseOrderListList" parameterType="KingdeePurchaseOrderList"
+            resultMap="KingdeePurchaseOrderListResult">
+        <include refid="selectKingdeePurchaseOrderListVo"/>
+        <where>
+            <if test="fseq != null ">and fseq = #{fseq}</if>
+            <if test="billdate != null  and billdate != ''">and billdate = #{billdate}</if>
+            <if test="billno != null  and billno != ''">and billno like concat('%', #{billno}, '%')</if>
+            <if test="billstatus != null  and billstatus != ''">and billstatus = #{billstatus}</if>
+            <if test="supplieridName != null  and supplieridName != ''">and supplierid_name like concat('%',
+                #{supplieridName}, '%')
+            </if>
+            <if test="empidName != null  and empidName != ''">and empid_name like concat('%', #{empidName}, '%')</if>
+            <if test="entryivcstatus != null ">and entryivcstatus = #{entryivcstatus}</if>
+            <if test="entryrealiostatus != null  and entryrealiostatus != ''">and entryrealiostatus =
+                #{entryrealiostatus}
+            </if>
+            <if test="apPrepayBillid != null ">and ap_prepay_billid = #{apPrepayBillid}</if>
+            <if test="auxunittype != null ">and auxunittype = #{auxunittype}</if>
+            <if test="billDealAmount != null ">and bill_deal_amount = #{billDealAmount}</if>
+            <if test="closestate != null ">and closestate = #{closestate}</if>
+            <if test="coefficient != null ">and coefficient = #{coefficient}</if>
+            <if test="deptidName != null  and deptidName != ''">and deptid_name like concat('%', #{deptidName}, '%')
+            </if>
+            <if test="entryPickStatus != null ">and entry_pick_status = #{entryPickStatus}</if>
+            <if test="entryiostatus != null  and entryiostatus != ''">and entryiostatus = #{entryiostatus}</if>
+            <if test="entryivcallamountfor != null ">and entryivcallamountfor = #{entryivcallamountfor}</if>
+            <if test="entryivcbaseqty != null ">and entryivcbaseqty = #{entryivcbaseqty}</if>
+            <if test="entryivcqty != null ">and entryivcqty = #{entryivcqty}</if>
+            <if test="entryivcsettlestatus != null  and entryivcsettlestatus != ''">and entryivcsettlestatus =
+                #{entryivcsettlestatus}
+            </if>
+            <if test="entryunivcbaseqty != null ">and entryunivcbaseqty = #{entryunivcbaseqty}</if>
+            <if test="entryunivcqty != null ">and entryunivcqty = #{entryunivcqty}</if>
+            <if test="materialEntityId != null  and materialEntityId != ''">and material_entity_id =
+                #{materialEntityId}
+            </if>
+            <if test="materialidName != null  and materialidName != ''">and materialid_name like concat('%',
+                #{materialidName}, '%')
+            </if>
+            <if test="materialidNumber != null  and materialidNumber != ''">and materialid_number like concat('%',
+                #{materialidNumber}, '%')
+            </if>
+            <if test="pickBaseqty != null ">and pick_baseqty = #{pickBaseqty}</if>
+            <if test="pickInBaseqty != null ">and pick_in_baseqty = #{pickInBaseqty}</if>
+            <if test="pickInQty != null ">and pick_in_qty = #{pickInQty}</if>
+            <if test="pickQty != null ">and pick_qty = #{pickQty}</if>
+            <if test="pickStatus != null ">and pick_status = #{pickStatus}</if>
+            <if test="unPickBaseqty != null ">and un_pick_baseqty = #{unPickBaseqty}</if>
+            <if test="unPickQty != null ">and un_pick_qty = #{unPickQty}</if>
+            <if test="uninqty != null ">and uninqty = #{uninqty}</if>
+            <if test="ioamount != null ">and ioamount = #{ioamount}</if>
+            <if test="ivcallamount != null ">and ivcallamount = #{ivcallamount}</if>
+            <if test="ivcallamountfor != null ">and ivcallamountfor = #{ivcallamountfor}</if>
+            <if test="ivcsettleamount != null ">and ivcsettleamount = #{ivcsettleamount}</if>
+            <if test="ivcsettleamountfor != null ">and ivcsettleamountfor = #{ivcsettleamountfor}</if>
+            <if test="ivcsettlestatus != null  and ivcsettlestatus != ''">and ivcsettlestatus = #{ivcsettlestatus}</if>
+            <if test="ivcstatus != null ">and ivcstatus = #{ivcstatus}</if>
+            <if test="ivctotalsettleamount != null ">and ivctotalsettleamount = #{ivctotalsettleamount}</if>
+            <if test="ivctotalsettleamountfor != null ">and ivctotalsettleamountfor = #{ivctotalsettleamountfor}</if>
+            <if test="ivctotalunsettleamount != null ">and ivctotalunsettleamount = #{ivctotalunsettleamount}</if>
+            <if test="ivctotalunsettleamountfor != null ">and ivctotalunsettleamountfor = #{ivctotalunsettleamountfor}
+            </if>
+            <if test="ivctype != null ">and ivctype = #{ivctype}</if>
+            <if test="wfCurrentnode != null ">and wf_currentnode = #{wfCurrentnode}</if>
+            <if test="wfParticipantname != null  and wfParticipantname != ''">and wf_participantname like concat('%',
+                #{wfParticipantname}, '%')
+            </if>
+            <if test="wfPrevioushandler != null  and wfPrevioushandler != ''">and wf_previoushandler =
+                #{wfPrevioushandler}
+            </if>
+            <if test="wfProgress != null ">and wf_progress = #{wfProgress}</if>
+        </where>
+    </select>
+
+    <select id="selectKingdeePurchaseOrderListByRk" parameterType="Long" resultMap="KingdeePurchaseOrderListResult">
+        <include refid="selectKingdeePurchaseOrderListVo"/>
+        where rk = #{rk}
+    </select>
+
+    <insert id="insertKingdeePurchaseOrderList" parameterType="KingdeePurchaseOrderList">
+        insert into kingdee_purchase_order_list
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="rk != null">rk,</if>
+            <if test="fseq != null">fseq,</if>
+            <if test="billdate != null">billdate,</if>
+            <if test="billno != null">billno,</if>
+            <if test="billstatus != null">billstatus,</if>
+            <if test="supplieridName != null">supplierid_name,</if>
+            <if test="empidName != null">empid_name,</if>
+            <if test="totalsettleamount != null">totalsettleamount,</if>
+            <if test="totalunsettleamount != null">totalunsettleamount,</if>
+            <if test="taxamount != null">taxamount,</if>
+            <if test="taxprice != null">taxprice,</if>
+            <if test="price != null">price,</if>
+            <if test="qty != null">qty,</if>
+            <if test="entryivcallamount != null">entryivcallamount,</if>
+            <if test="entryivcstatus != null">entryivcstatus,</if>
+            <if test="entryrealiostatus != null">entryrealiostatus,</if>
+            <if test="apPrepayBillid != null">ap_prepay_billid,</if>
+            <if test="auxunittype != null">auxunittype,</if>
+            <if test="billDealAmount != null">bill_deal_amount,</if>
+            <if test="closestate != null">closestate,</if>
+            <if test="coefficient != null">coefficient,</if>
+            <if test="cprop != null">cprop,</if>
+            <if test="customField24sbnx21t01sp != null">custom_field__2__4sbnx21t01sp,</if>
+            <if test="deptidName != null">deptid_name,</if>
+            <if test="entryPickStatus != null">entry_pick_status,</if>
+            <if test="entryiostatus != null">entryiostatus,</if>
+            <if test="entryivcallamountfor != null">entryivcallamountfor,</if>
+            <if test="entryivcbaseqty != null">entryivcbaseqty,</if>
+            <if test="entryivcqty != null">entryivcqty,</if>
+            <if test="entryivcsettlestatus != null">entryivcsettlestatus,</if>
+            <if test="entryunivcbaseqty != null">entryunivcbaseqty,</if>
+            <if test="entryunivcqty != null">entryunivcqty,</if>
+            <if test="materialEntityId != null">material_entity_id,</if>
+            <if test="materialidName != null">materialid_name,</if>
+            <if test="materialidNumber != null">materialid_number,</if>
+            <if test="pickBaseqty != null">pick_baseqty,</if>
+            <if test="pickInBaseqty != null">pick_in_baseqty,</if>
+            <if test="pickInQty != null">pick_in_qty,</if>
+            <if test="pickQty != null">pick_qty,</if>
+            <if test="pickStatus != null">pick_status,</if>
+            <if test="unPickBaseqty != null">un_pick_baseqty,</if>
+            <if test="unPickQty != null">un_pick_qty,</if>
+            <if test="uninqty != null">uninqty,</if>
+            <if test="ioamount != null">ioamount,</if>
+            <if test="ivcallamount != null">ivcallamount,</if>
+            <if test="ivcallamountfor != null">ivcallamountfor,</if>
+            <if test="ivcsettleamount != null">ivcsettleamount,</if>
+            <if test="ivcsettleamountfor != null">ivcsettleamountfor,</if>
+            <if test="ivcsettlestatus != null">ivcsettlestatus,</if>
+            <if test="ivcstatus != null">ivcstatus,</if>
+            <if test="ivctotalsettleamount != null">ivctotalsettleamount,</if>
+            <if test="ivctotalsettleamountfor != null">ivctotalsettleamountfor,</if>
+            <if test="ivctotalunsettleamount != null">ivctotalunsettleamount,</if>
+            <if test="ivctotalunsettleamountfor != null">ivctotalunsettleamountfor,</if>
+            <if test="ivctype != null">ivctype,</if>
+            <if test="wfCurrentnode != null">wf_currentnode,</if>
+            <if test="wfParticipantname != null">wf_participantname,</if>
+            <if test="wfPrevioushandler != null">wf_previoushandler,</if>
+            <if test="wfProgress != null">wf_progress,</if>
+            <if test="createdAt != null">created_at,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="rk != null">#{rk},</if>
+            <if test="fseq != null">#{fseq},</if>
+            <if test="billdate != null">#{billdate},</if>
+            <if test="billno != null">#{billno},</if>
+            <if test="billstatus != null">#{billstatus},</if>
+            <if test="supplieridName != null">#{supplieridName},</if>
+            <if test="empidName != null">#{empidName},</if>
+            <if test="totalsettleamount != null">#{totalsettleamount},</if>
+            <if test="totalunsettleamount != null">#{totalunsettleamount},</if>
+            <if test="taxamount != null">#{taxamount},</if>
+            <if test="taxprice != null">#{taxprice},</if>
+            <if test="price != null">#{price},</if>
+            <if test="qty != null">#{qty},</if>
+            <if test="entryivcallamount != null">#{entryivcallamount},</if>
+            <if test="entryivcstatus != null">#{entryivcstatus},</if>
+            <if test="entryrealiostatus != null">#{entryrealiostatus},</if>
+            <if test="apPrepayBillid != null">#{apPrepayBillid},</if>
+            <if test="auxunittype != null">#{auxunittype},</if>
+            <if test="billDealAmount != null">#{billDealAmount},</if>
+            <if test="closestate != null">#{closestate},</if>
+            <if test="coefficient != null">#{coefficient},</if>
+            <if test="cprop != null">#{cprop},</if>
+            <if test="customField24sbnx21t01sp != null">#{customField24sbnx21t01sp},</if>
+            <if test="deptidName != null">#{deptidName},</if>
+            <if test="entryPickStatus != null">#{entryPickStatus},</if>
+            <if test="entryiostatus != null">#{entryiostatus},</if>
+            <if test="entryivcallamountfor != null">#{entryivcallamountfor},</if>
+            <if test="entryivcbaseqty != null">#{entryivcbaseqty},</if>
+            <if test="entryivcqty != null">#{entryivcqty},</if>
+            <if test="entryivcsettlestatus != null">#{entryivcsettlestatus},</if>
+            <if test="entryunivcbaseqty != null">#{entryunivcbaseqty},</if>
+            <if test="entryunivcqty != null">#{entryunivcqty},</if>
+            <if test="materialEntityId != null">#{materialEntityId},</if>
+            <if test="materialidName != null">#{materialidName},</if>
+            <if test="materialidNumber != null">#{materialidNumber},</if>
+            <if test="pickBaseqty != null">#{pickBaseqty},</if>
+            <if test="pickInBaseqty != null">#{pickInBaseqty},</if>
+            <if test="pickInQty != null">#{pickInQty},</if>
+            <if test="pickQty != null">#{pickQty},</if>
+            <if test="pickStatus != null">#{pickStatus},</if>
+            <if test="unPickBaseqty != null">#{unPickBaseqty},</if>
+            <if test="unPickQty != null">#{unPickQty},</if>
+            <if test="uninqty != null">#{uninqty},</if>
+            <if test="ioamount != null">#{ioamount},</if>
+            <if test="ivcallamount != null">#{ivcallamount},</if>
+            <if test="ivcallamountfor != null">#{ivcallamountfor},</if>
+            <if test="ivcsettleamount != null">#{ivcsettleamount},</if>
+            <if test="ivcsettleamountfor != null">#{ivcsettleamountfor},</if>
+            <if test="ivcsettlestatus != null">#{ivcsettlestatus},</if>
+            <if test="ivcstatus != null">#{ivcstatus},</if>
+            <if test="ivctotalsettleamount != null">#{ivctotalsettleamount},</if>
+            <if test="ivctotalsettleamountfor != null">#{ivctotalsettleamountfor},</if>
+            <if test="ivctotalunsettleamount != null">#{ivctotalunsettleamount},</if>
+            <if test="ivctotalunsettleamountfor != null">#{ivctotalunsettleamountfor},</if>
+            <if test="ivctype != null">#{ivctype},</if>
+            <if test="wfCurrentnode != null">#{wfCurrentnode},</if>
+            <if test="wfParticipantname != null">#{wfParticipantname},</if>
+            <if test="wfPrevioushandler != null">#{wfPrevioushandler},</if>
+            <if test="wfProgress != null">#{wfProgress},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+        </trim>
+    </insert>
+
+    <update id="updateKingdeePurchaseOrderList" parameterType="KingdeePurchaseOrderList">
+        update kingdee_purchase_order_list
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="fseq != null">fseq = #{fseq},</if>
+            <if test="billdate != null">billdate = #{billdate},</if>
+            <if test="billno != null">billno = #{billno},</if>
+            <if test="billstatus != null">billstatus = #{billstatus},</if>
+            <if test="supplieridName != null">supplierid_name = #{supplieridName},</if>
+            <if test="empidName != null">empid_name = #{empidName},</if>
+            <if test="totalsettleamount != null">totalsettleamount = #{totalsettleamount},</if>
+            <if test="totalunsettleamount != null">totalunsettleamount = #{totalunsettleamount},</if>
+            <if test="taxamount != null">taxamount = #{taxamount},</if>
+            <if test="taxprice != null">taxprice = #{taxprice},</if>
+            <if test="price != null">price = #{price},</if>
+            <if test="qty != null">qty = #{qty},</if>
+            <if test="entryivcallamount != null">entryivcallamount = #{entryivcallamount},</if>
+            <if test="entryivcstatus != null">entryivcstatus = #{entryivcstatus},</if>
+            <if test="entryrealiostatus != null">entryrealiostatus = #{entryrealiostatus},</if>
+            <if test="apPrepayBillid != null">ap_prepay_billid = #{apPrepayBillid},</if>
+            <if test="auxunittype != null">auxunittype = #{auxunittype},</if>
+            <if test="billDealAmount != null">bill_deal_amount = #{billDealAmount},</if>
+            <if test="closestate != null">closestate = #{closestate},</if>
+            <if test="coefficient != null">coefficient = #{coefficient},</if>
+            <if test="cprop != null">cprop = #{cprop},</if>
+            <if test="customField24sbnx21t01sp != null">custom_field__2__4sbnx21t01sp = #{customField24sbnx21t01sp},
+            </if>
+            <if test="deptidName != null">deptid_name = #{deptidName},</if>
+            <if test="entryPickStatus != null">entry_pick_status = #{entryPickStatus},</if>
+            <if test="entryiostatus != null">entryiostatus = #{entryiostatus},</if>
+            <if test="entryivcallamountfor != null">entryivcallamountfor = #{entryivcallamountfor},</if>
+            <if test="entryivcbaseqty != null">entryivcbaseqty = #{entryivcbaseqty},</if>
+            <if test="entryivcqty != null">entryivcqty = #{entryivcqty},</if>
+            <if test="entryivcsettlestatus != null">entryivcsettlestatus = #{entryivcsettlestatus},</if>
+            <if test="entryunivcbaseqty != null">entryunivcbaseqty = #{entryunivcbaseqty},</if>
+            <if test="entryunivcqty != null">entryunivcqty = #{entryunivcqty},</if>
+            <if test="materialEntityId != null">material_entity_id = #{materialEntityId},</if>
+            <if test="materialidName != null">materialid_name = #{materialidName},</if>
+            <if test="materialidNumber != null">materialid_number = #{materialidNumber},</if>
+            <if test="pickBaseqty != null">pick_baseqty = #{pickBaseqty},</if>
+            <if test="pickInBaseqty != null">pick_in_baseqty = #{pickInBaseqty},</if>
+            <if test="pickInQty != null">pick_in_qty = #{pickInQty},</if>
+            <if test="pickQty != null">pick_qty = #{pickQty},</if>
+            <if test="pickStatus != null">pick_status = #{pickStatus},</if>
+            <if test="unPickBaseqty != null">un_pick_baseqty = #{unPickBaseqty},</if>
+            <if test="unPickQty != null">un_pick_qty = #{unPickQty},</if>
+            <if test="uninqty != null">uninqty = #{uninqty},</if>
+            <if test="ioamount != null">ioamount = #{ioamount},</if>
+            <if test="ivcallamount != null">ivcallamount = #{ivcallamount},</if>
+            <if test="ivcallamountfor != null">ivcallamountfor = #{ivcallamountfor},</if>
+            <if test="ivcsettleamount != null">ivcsettleamount = #{ivcsettleamount},</if>
+            <if test="ivcsettleamountfor != null">ivcsettleamountfor = #{ivcsettleamountfor},</if>
+            <if test="ivcsettlestatus != null">ivcsettlestatus = #{ivcsettlestatus},</if>
+            <if test="ivcstatus != null">ivcstatus = #{ivcstatus},</if>
+            <if test="ivctotalsettleamount != null">ivctotalsettleamount = #{ivctotalsettleamount},</if>
+            <if test="ivctotalsettleamountfor != null">ivctotalsettleamountfor = #{ivctotalsettleamountfor},</if>
+            <if test="ivctotalunsettleamount != null">ivctotalunsettleamount = #{ivctotalunsettleamount},</if>
+            <if test="ivctotalunsettleamountfor != null">ivctotalunsettleamountfor = #{ivctotalunsettleamountfor},</if>
+            <if test="ivctype != null">ivctype = #{ivctype},</if>
+            <if test="wfCurrentnode != null">wf_currentnode = #{wfCurrentnode},</if>
+            <if test="wfParticipantname != null">wf_participantname = #{wfParticipantname},</if>
+            <if test="wfPrevioushandler != null">wf_previoushandler = #{wfPrevioushandler},</if>
+            <if test="wfProgress != null">wf_progress = #{wfProgress},</if>
+            <if test="createdAt != null">created_at = #{createdAt},</if>
+        </trim>
+        where rk = #{rk}
+    </update>
+
+    <delete id="deleteKingdeePurchaseOrderListByRk" parameterType="Long">
+        delete
+        from kingdee_purchase_order_list
+        where rk = #{rk}
+    </delete>
+
+    <delete id="deleteKingdeePurchaseOrderListByRks" parameterType="String">
+        delete from kingdee_purchase_order_list where rk in
+        <foreach item="rk" collection="array" open="(" separator="," close=")">
+            #{rk}
+        </foreach>
+    </delete>
+</mapper>

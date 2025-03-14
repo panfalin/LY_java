@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.kingdee.mapper.KingdeePurchasePlanMapper">
+
+    <resultMap type="KingdeePurchasePlan" id="KingdeePurchasePlanResult">
+        <result property="skuCode" column="sku_code"/>
+        <result property="skuName" column="sku_name"/>
+        <result property="skuImage" column="sku_image"/>
+        <result property="skuStock" column="sku_stock"/>
+        <result property="inTransitStock" column="in_transit_stock"/>
+        <result property="skuAvailableStock" column="sku_available_stock"/>
+        <result property="availableDays90" column="available_days_90"/>
+        <result property="availableDays30" column="available_days30"/>
+        <result property="usagePlan" column="usage_plan"/>
+        <result property="minPurchaseQuantity" column="min_purchase_quantity"/>
+        <result property="purchaseCycle" column="purchase_cycle"/>
+        <result property="skuDailyUsage90" column="sku_daily_usage_90"/>
+        <result property="skuDailyUsage30" column="sku_daily_usage_30"/>
+        <result property="price" column="price"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="warehouse" column="warehouse"/>
+        <result property="spaceidName" column="spaceid_name"/>
+        <result property="historicalUsage" column="historical_usage"/>
+        <result property="dailyAvgUsage" column="daily_avg_usage"/>
+        <result property="futurePrediction" column="future_prediction"/>
+        <result property="inTransitOrders" column="in_transit_orders"/>
+        <result property="parentName" column="parent_name"/>
+        <result property="model" column="model"/>
+        <result property="expectedStock" column="expected_stock"/>
+        <result property="expectedDays30" column="expected_days30"/>
+    </resultMap>
+
+    <sql id="selectKingdeePurchasePlanVo">
+        select sku_code,
+               sku_name,
+               sku_image,
+               sku_stock,
+               in_transit_stock,
+               sku_available_stock,
+               available_days_90,
+               available_days30,
+               usage_plan,
+               min_purchase_quantity,
+               purchase_cycle,
+               sku_daily_usage_90,
+               sku_daily_usage_30,
+               price,
+               created_at,
+               warehouse,
+               spaceid_name,
+               historical_usage,
+               daily_avg_usage,
+               future_prediction,
+               in_transit_orders,
+               parent_name,
+               model,
+               expected_stock,
+               expected_days30
+        from kingdee_purchase_plan
+    </sql>
+
+    <select id="selectKingdeePurchasePlanList" parameterType="KingdeePurchasePlan"
+            resultMap="KingdeePurchasePlanResult">
+        <include refid="selectKingdeePurchasePlanVo"/>
+        <where>
+            <if test="skuCode != null  and skuCode != ''">and sku_code like concat('%', #{skuCode}, '%')</if>
+            <if test="skuName != null  and skuName != ''">and sku_name like concat('%', #{skuName}, '%')</if>
+            <if test="skuImage != null  and skuImage != ''">and sku_image = #{skuImage}</if>
+            <if test="skuStock != null ">and sku_stock = #{skuStock}</if>
+            <if test="inTransitStock != null ">and in_transit_stock = #{inTransitStock}</if>
+            <if test="skuAvailableStock != null ">and sku_available_stock &lt; #{skuAvailableStock}</if>
+            <if test="availableDays90 != null ">and available_days_90 &lt;= #{availableDays90}</if>
+            <if test="availableDays30 != null">
+                and available_days30 = #{availableDays30}
+            </if>
+            <if test="availableDays30Lt != null ">and available_days30 &lt;= #{availableDays30Lt}</if>
+            <if test="usagePlan != null ">and usage_plan = #{usagePlan}</if>
+            <if test="minPurchaseQuantity != null ">and min_purchase _quantity = #{minPurchaseQuantity}</if>
+            <if test="purchaseCycle != null ">and purchase_cycle = #{purchaseCycle}</if>
+            <if test="skuDailyUsage90 != null ">and sku_daily_usage_90 = #{skuDailyUsage90}</if>
+            <if test="skuDailyUsage30 != null ">and sku_daily_usage_30 = #{skuDailyUsage30}</if>
+            <if test="price != null ">and price = #{price}</if>
+            <if test="createdAt != null ">and created_at = #{createdAt}</if>
+            <if test="warehouse != null  and warehouse != ''">and warehouse like concat('%', #{warehouse}, '%')</if>
+            <if test="spaceidName != null  and spaceidName != ''">and spaceid_name like concat('%', #{spaceidName},
+                '%')
+            </if>
+            <if test="historicalUsage != null ">and historical_usage = #{historicalUsage}</if>
+            <if test="dailyAvgUsage != null ">and daily_avg_usage = #{dailyAvgUsage}</if>
+            <if test="futurePrediction != null ">and future_prediction = #{futurePrediction}</if>
+            <if test="inTransitOrders != null  and inTransitOrders != ''">and in_transit_orders like concat('%', #{inTransitOrders}, '%')</if>
+            <if test="parentName != null  and parentName != ''">and parent_name like concat('%', #{parentName}, '%')
+            </if>
+            <if test="model != null  and model != ''">and model like concat('%', #{model}, '%')</if>
+        </where>
+    </select>
+
+    <select id="selectKingdeePurchasePlanBySkuCode" parameterType="String" resultMap="KingdeePurchasePlanResult">
+        <include refid="selectKingdeePurchasePlanVo"/>
+        where sku_code = #{skuCode}
+    </select>
+
+    <insert id="insertKingdeePurchasePlan" parameterType="KingdeePurchasePlan">
+        insert into kingdee_purchase_plan
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="skuCode != null">sku_code,</if>
+            <if test="skuName != null">sku_name,</if>
+            <if test="skuImage != null">sku_image,</if>
+            <if test="skuStock != null">sku_stock,</if>
+            <if test="inTransitStock != null">in_transit_stock,</if>
+            <if test="skuAvailableStock != null">sku_available_stock,</if>
+            <if test="availableDays90 != null">available_days_90,</if>
+            <if test="availableDays30 != null">available_days30,</if>
+            <if test="usagePlan != null">usage_plan,</if>
+            <if test="minPurchaseQuantity != null">min_purchase_quantity,</if>
+            <if test="purchaseCycle != null">purchase_cycle,</if>
+            <if test="skuDailyUsage90 != null">sku_daily_usage_90,</if>
+            <if test="skuDailyUsage30 != null">sku_daily_usage_30,</if>
+            <if test="price != null">price,</if>
+            <if test="createdAt != null">created_at,</if>
+            <if test="warehouse != null">warehouse,</if>
+            <if test="spaceidName != null">spaceid_name,</if>
+            <if test="historicalUsage != null">historical_usage,</if>
+            <if test="dailyAvgUsage != null">daily_avg_usage,</if>
+            <if test="futurePrediction != null">future_prediction,</if>
+            <if test="inTransitOrders != null">in_transit_orders,</if>
+            <if test="parentName != null">parent_name,</if>
+            <if test="model != null">model,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="skuCode != null">#{skuCode},</if>
+            <if test="skuName != null">#{skuName},</if>
+            <if test="skuImage != null">#{skuImage},</if>
+            <if test="skuStock != null">#{skuStock},</if>
+            <if test="inTransitStock != null">#{inTransitStock},</if>
+            <if test="skuAvailableStock != null">#{skuAvailableStock},</if>
+            <if test="availableDays90 != null">#{availableDays90},</if>
+            <if test="availableDays30 != null">#{availableDays30},</if>
+            <if test="usagePlan != null">#{usagePlan},</if>
+            <if test="minPurchaseQuantity != null">#{minPurchaseQuantity},</if>
+            <if test="purchaseCycle != null">#{purchaseCycle},</if>
+            <if test="skuDailyUsage90 != null">#{skuDailyUsage90},</if>
+            <if test="skuDailyUsage30 != null">#{skuDailyUsage30},</if>
+            <if test="price != null">#{price},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+            <if test="warehouse != null">#{warehouse},</if>
+            <if test="spaceidName != null">#{spaceidName},</if>
+            <if test="historicalUsage != null">#{historicalUsage},</if>
+            <if test="dailyAvgUsage != null">#{dailyAvgUsage},</if>
+            <if test="futurePrediction != null">#{futurePrediction},</if>
+            <if test="inTransitOrders != null">#{inTransitOrders},</if>
+            <if test="parentName != null">#{parentName},</if>
+            <if test="model != null">#{model},</if>
+        </trim>
+    </insert>
+
+    <update id="updateKingdeePurchasePlan" parameterType="KingdeePurchasePlan">
+        update kingdee_purchase_plan
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="skuName != null">sku_name = #{skuName},</if>
+            <if test="skuImage != null">sku_image = #{skuImage},</if>
+            <if test="skuStock != null">sku_stock = #{skuStock},</if>
+            <if test="inTransitStock != null">in_transit_stock = #{inTransitStock},</if>
+            <if test="skuAvailableStock != null">sku_available_stock = #{skuAvailableStock},</if>
+            <if test="availableDays90 != null">available_days_90 = #{availableDays90},</if>
+            <if test="availableDays30 != null">available_days30 = #{availableDays30},</if>
+            <if test="usagePlan != null">usage_plan = #{usagePlan},</if>
+            <if test="minPurchaseQuantity != null">min_purchase_quantity = #{minPurchaseQuantity},</if>
+            <if test="purchaseCycle != null">purchase_cycle = #{purchaseCycle},</if>
+            <if test="skuDailyUsage90 != null">sku_daily_usage_90 = #{skuDailyUsage90},</if>
+            <if test="skuDailyUsage30 != null">sku_daily_usage_30 = #{skuDailyUsage30},</if>
+            <if test="price != null">price = #{price},</if>
+            <if test="createdAt != null">created_at = #{createdAt},</if>
+            <if test="warehouse != null">warehouse = #{warehouse},</if>
+            <if test="spaceidName != null">spaceid_name = #{spaceidName},</if>
+            <if test="historicalUsage != null">historical_usage = #{historicalUsage},</if>
+            <if test="dailyAvgUsage != null">daily_avg_usage = #{dailyAvgUsage},</if>
+            <if test="futurePrediction != null">future_prediction = #{futurePrediction},</if>
+            <if test="inTransitOrders != null">in_transit_orders = #{inTransitOrders},</if>
+            <if test="parentName != null">parent_name = #{parentName},</if>
+            <if test="model != null">model = #{model},</if>
+        </trim>
+        where sku_code = #{skuCode}
+    </update>
+
+    <delete id="deleteKingdeePurchasePlanBySkuCode" parameterType="String">
+        delete
+        from kingdee_purchase_plan
+        where sku_code = #{skuCode}
+    </delete>
+
+    <delete id="deleteKingdeePurchasePlanBySkuCodes" parameterType="String">
+        delete from kingdee_purchase_plan where sku_code in
+        <foreach item="skuCode" collection="array" open="(" separator="," close=")">
+            #{skuCode}
+        </foreach>
+    </delete>
+</mapper>
