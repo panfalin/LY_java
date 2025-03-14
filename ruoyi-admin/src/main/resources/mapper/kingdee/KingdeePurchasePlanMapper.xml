@@ -30,6 +30,7 @@
         <result property="model" column="model"/>
         <result property="expectedStock" column="expected_stock"/>
         <result property="expectedDays30" column="expected_days30"/>
+        <result property="suggestedPurchaseQty" column="suggested_purchase_qty"/>
     </resultMap>
 
     <sql id="selectKingdeePurchasePlanVo">
@@ -57,7 +58,8 @@
                parent_name,
                model,
                expected_stock,
-               expected_days30
+               expected_days30,
+               suggested_purchase_qty
         from kingdee_purchase_plan
     </sql>
 

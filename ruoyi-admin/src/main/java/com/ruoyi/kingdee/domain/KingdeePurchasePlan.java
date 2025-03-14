@@ -67,6 +67,19 @@ public class KingdeePurchasePlan extends BaseEntity
     @Excel(name = "采购周期")
     private BigDecimal purchaseCycle;
 
+    public BigDecimal getSuggestedPurchaseQty() {
+        return suggestedPurchaseQty;
+    }
+
+    public void setSuggestedPurchaseQty(BigDecimal suggestedPurchaseQty) {
+        this.suggestedPurchaseQty = suggestedPurchaseQty;
+    }
+
+    /**
+     * 建议采购数量
+     */
+    private BigDecimal suggestedPurchaseQty;
+
     private List<KingdeeSkuUsage> kingdeeSkuUsageList;
 
     public List<KingdeeSkuUsage> getKingdeeSkuUsageList() {
@@ -90,8 +103,8 @@ public class KingdeePurchasePlan extends BaseEntity
     private BigDecimal price;
 
     /** 创建时间 */
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    @Excel(name = "创建时间", width = 30, dateFormat = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @Excel(name = "创建时间", width = 30, dateFormat = "yyyy-MM-dd HH:mm:ss")
     private Date createdAt;
 
     /** 默认仓库 */
