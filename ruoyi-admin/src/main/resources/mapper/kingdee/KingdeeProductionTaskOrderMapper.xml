@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.kingdee.mapper.KingdeeProductionTaskOrderMapper">
+    
+    <resultMap type="KingdeeProductionTaskOrder" id="KingdeeProductionTaskOrderResult">
+        <result property="rk"    column="rk"    />
+        <result property="fseq"    column="fseq"    />
+        <result property="billdate"    column="billdate"    />
+        <result property="billno"    column="billno"    />
+        <result property="billstatus"    column="billstatus"    />
+        <result property="billclosestate"    column="billclosestate"    />
+        <result property="bomidNumber"    column="bomid_number"    />
+        <result property="closestate"    column="closestate"    />
+        <result property="cprop"    column="cprop"    />
+        <result property="deptidName"    column="deptid_name"    />
+        <result property="entryautoclosetime"    column="entryautoclosetime"    />
+        <result property="entryiostatus"    column="entryiostatus"    />
+        <result property="entryrealiostatus"    column="entryrealiostatus"    />
+        <result property="isentrustprocess"    column="isentrustprocess"    />
+        <result property="materialEntityId"    column="material_entity_id"    />
+        <result property="materialidName"    column="materialid_name"    />
+        <result property="materialidNumber"    column="materialid_number"    />
+        <result property="moTaskBillId"    column="mo_task_bill_id"    />
+        <result property="mulbilllabelName"    column="mulbilllabel_name"    />
+        <result property="multiorderno"    column="multiorderno"    />
+        <result property="outstockstatus"    column="outstockstatus"    />
+        <result property="pickedqty"    column="pickedqty"    />
+        <result property="plancommitdate"    column="plancommitdate"    />
+        <result property="planfinishdate"    column="planfinishdate"    />
+        <result property="qty"    column="qty"    />
+        <result property="realoutstockstatus"    column="realoutstockstatus"    />
+        <result property="remark"    column="remark"    />
+        <result property="s"    column="s"    />
+        <result property="unitName"    column="unit_name"    />
+        <result property="createdAt"    column="created_at"    />
+    </resultMap>
+
+    <sql id="selectKingdeeProductionTaskOrderVo">
+        select rk, fseq, billdate, billno, billstatus, billclosestate, bomid_number, closestate, cprop, deptid_name, entryautoclosetime, entryiostatus, entryrealiostatus, isentrustprocess, material_entity_id, materialid_name, materialid_number, mo_task_bill_id, mulbilllabel_name, multiorderno, outstockstatus, pickedqty, plancommitdate, planfinishdate, qty, realoutstockstatus, remark, s, unit_name, created_at from kingdee_production_task_order
+    </sql>
+
+    <select id="selectKingdeeProductionTaskOrderList" parameterType="KingdeeProductionTaskOrder" resultMap="KingdeeProductionTaskOrderResult">
+        <include refid="selectKingdeeProductionTaskOrderVo"/>
+        <where>  
+            <if test="fseq != null "> and fseq = #{fseq}</if>
+            <if test="billdate != null  and billdate != ''"> and billdate = #{billdate}</if>
+            <if test="billno != null  and billno != ''"> and billno = #{billno}</if>
+            <if test="billstatus != null  and billstatus != ''"> and billstatus = #{billstatus}</if>
+            <if test="billclosestate != null  and billclosestate != ''"> and billclosestate = #{billclosestate}</if>
+            <if test="bomidNumber != null  and bomidNumber != ''"> and bomid_number = #{bomidNumber}</if>
+            <if test="closestate != null  and closestate != ''"> and closestate = #{closestate}</if>
+            <if test="cprop != null  and cprop != ''"> and cprop = #{cprop}</if>
+            <if test="deptidName != null  and deptidName != ''"> and deptid_name like concat('%', #{deptidName}, '%')</if>
+            <if test="entryautoclosetime != null "> and entryautoclosetime = #{entryautoclosetime}</if>
+            <if test="entryiostatus != null  and entryiostatus != ''"> and entryiostatus = #{entryiostatus}</if>
+            <if test="entryrealiostatus != null  and entryrealiostatus != ''"> and entryrealiostatus = #{entryrealiostatus}</if>
+            <if test="isentrustprocess != null "> and isentrustprocess = #{isentrustprocess}</if>
+            <if test="materialEntityId != null  and materialEntityId != ''"> and material_entity_id = #{materialEntityId}</if>
+            <if test="materialidName != null  and materialidName != ''"> and materialid_name like concat('%', #{materialidName}, '%')</if>
+            <if test="materialidNumber != null  and materialidNumber != ''"> and materialid_number = #{materialidNumber}</if>
+            <if test="moTaskBillId != null  and moTaskBillId != ''"> and mo_task_bill_id = #{moTaskBillId}</if>
+            <if test="mulbilllabelName != null  and mulbilllabelName != ''"> and mulbilllabel_name like concat('%', #{mulbilllabelName}, '%')</if>
+            <if test="multiorderno != null  and multiorderno != ''"> and multiorderno = #{multiorderno}</if>
+            <if test="outstockstatus != null  and outstockstatus != ''"> and outstockstatus = #{outstockstatus}</if>
+            <if test="pickedqty != null "> and pickedqty = #{pickedqty}</if>
+            <if test="plancommitdate != null "> and plancommitdate = #{plancommitdate}</if>
+            <if test="planfinishdate != null "> and planfinishdate = #{planfinishdate}</if>
+            <if test="qty != null "> and qty = #{qty}</if>
+            <if test="realoutstockstatus != null  and realoutstockstatus != ''"> and realoutstockstatus = #{realoutstockstatus}</if>
+            <if test="s != null  and s != ''"> and s = #{s}</if>
+            <if test="unitName != null  and unitName != ''"> and unit_name like concat('%', #{unitName}, '%')</if>
+            <if test="createdAt != null "> and created_at = #{createdAt}</if>
+        </where>
+    </select>
+    
+    <select id="selectKingdeeProductionTaskOrderByRk" parameterType="Long" resultMap="KingdeeProductionTaskOrderResult">
+        <include refid="selectKingdeeProductionTaskOrderVo"/>
+        where rk = #{rk}
+    </select>
+
+    <insert id="insertKingdeeProductionTaskOrder" parameterType="KingdeeProductionTaskOrder">
+        insert into kingdee_production_task_order
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="rk != null">rk,</if>
+            <if test="fseq != null">fseq,</if>
+            <if test="billdate != null">billdate,</if>
+            <if test="billno != null">billno,</if>
+            <if test="billstatus != null">billstatus,</if>
+            <if test="billclosestate != null">billclosestate,</if>
+            <if test="bomidNumber != null">bomid_number,</if>
+            <if test="closestate != null">closestate,</if>
+            <if test="cprop != null">cprop,</if>
+            <if test="deptidName != null">deptid_name,</if>
+            <if test="entryautoclosetime != null">entryautoclosetime,</if>
+            <if test="entryiostatus != null">entryiostatus,</if>
+            <if test="entryrealiostatus != null">entryrealiostatus,</if>
+            <if test="isentrustprocess != null">isentrustprocess,</if>
+            <if test="materialEntityId != null">material_entity_id,</if>
+            <if test="materialidName != null">materialid_name,</if>
+            <if test="materialidNumber != null">materialid_number,</if>
+            <if test="moTaskBillId != null">mo_task_bill_id,</if>
+            <if test="mulbilllabelName != null">mulbilllabel_name,</if>
+            <if test="multiorderno != null">multiorderno,</if>
+            <if test="outstockstatus != null">outstockstatus,</if>
+            <if test="pickedqty != null">pickedqty,</if>
+            <if test="plancommitdate != null">plancommitdate,</if>
+            <if test="planfinishdate != null">planfinishdate,</if>
+            <if test="qty != null">qty,</if>
+            <if test="realoutstockstatus != null">realoutstockstatus,</if>
+            <if test="remark != null">remark,</if>
+            <if test="s != null">s,</if>
+            <if test="unitName != null">unit_name,</if>
+            <if test="createdAt != null">created_at,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="rk != null">#{rk},</if>
+            <if test="fseq != null">#{fseq},</if>
+            <if test="billdate != null">#{billdate},</if>
+            <if test="billno != null">#{billno},</if>
+            <if test="billstatus != null">#{billstatus},</if>
+            <if test="billclosestate != null">#{billclosestate},</if>
+            <if test="bomidNumber != null">#{bomidNumber},</if>
+            <if test="closestate != null">#{closestate},</if>
+            <if test="cprop != null">#{cprop},</if>
+            <if test="deptidName != null">#{deptidName},</if>
+            <if test="entryautoclosetime != null">#{entryautoclosetime},</if>
+            <if test="entryiostatus != null">#{entryiostatus},</if>
+            <if test="entryrealiostatus != null">#{entryrealiostatus},</if>
+            <if test="isentrustprocess != null">#{isentrustprocess},</if>
+            <if test="materialEntityId != null">#{materialEntityId},</if>
+            <if test="materialidName != null">#{materialidName},</if>
+            <if test="materialidNumber != null">#{materialidNumber},</if>
+            <if test="moTaskBillId != null">#{moTaskBillId},</if>
+            <if test="mulbilllabelName != null">#{mulbilllabelName},</if>
+            <if test="multiorderno != null">#{multiorderno},</if>
+            <if test="outstockstatus != null">#{outstockstatus},</if>
+            <if test="pickedqty != null">#{pickedqty},</if>
+            <if test="plancommitdate != null">#{plancommitdate},</if>
+            <if test="planfinishdate != null">#{planfinishdate},</if>
+            <if test="qty != null">#{qty},</if>
+            <if test="realoutstockstatus != null">#{realoutstockstatus},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="s != null">#{s},</if>
+            <if test="unitName != null">#{unitName},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+         </trim>
+    </insert>
+
+    <update id="updateKingdeeProductionTaskOrder" parameterType="KingdeeProductionTaskOrder">
+        update kingdee_production_task_order
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="fseq != null">fseq = #{fseq},</if>
+            <if test="billdate != null">billdate = #{billdate},</if>
+            <if test="billno != null">billno = #{billno},</if>
+            <if test="billstatus != null">billstatus = #{billstatus},</if>
+            <if test="billclosestate != null">billclosestate = #{billclosestate},</if>
+            <if test="bomidNumber != null">bomid_number = #{bomidNumber},</if>
+            <if test="closestate != null">closestate = #{closestate},</if>
+            <if test="cprop != null">cprop = #{cprop},</if>
+            <if test="deptidName != null">deptid_name = #{deptidName},</if>
+            <if test="entryautoclosetime != null">entryautoclosetime = #{entryautoclosetime},</if>
+            <if test="entryiostatus != null">entryiostatus = #{entryiostatus},</if>
+            <if test="entryrealiostatus != null">entryrealiostatus = #{entryrealiostatus},</if>
+            <if test="isentrustprocess != null">isentrustprocess = #{isentrustprocess},</if>
+            <if test="materialEntityId != null">material_entity_id = #{materialEntityId},</if>
+            <if test="materialidName != null">materialid_name = #{materialidName},</if>
+            <if test="materialidNumber != null">materialid_number = #{materialidNumber},</if>
+            <if test="moTaskBillId != null">mo_task_bill_id = #{moTaskBillId},</if>
+            <if test="mulbilllabelName != null">mulbilllabel_name = #{mulbilllabelName},</if>
+            <if test="multiorderno != null">multiorderno = #{multiorderno},</if>
+            <if test="outstockstatus != null">outstockstatus = #{outstockstatus},</if>
+            <if test="pickedqty != null">pickedqty = #{pickedqty},</if>
+            <if test="plancommitdate != null">plancommitdate = #{plancommitdate},</if>
+            <if test="planfinishdate != null">planfinishdate = #{planfinishdate},</if>
+            <if test="qty != null">qty = #{qty},</if>
+            <if test="realoutstockstatus != null">realoutstockstatus = #{realoutstockstatus},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="s != null">s = #{s},</if>
+            <if test="unitName != null">unit_name = #{unitName},</if>
+            <if test="createdAt != null">created_at = #{createdAt},</if>
+        </trim>
+        where rk = #{rk}
+    </update>
+
+    <delete id="deleteKingdeeProductionTaskOrderByRk" parameterType="Long">
+        delete from kingdee_production_task_order where rk = #{rk}
+    </delete>
+
+    <delete id="deleteKingdeeProductionTaskOrderByRks" parameterType="String">
+        delete from kingdee_production_task_order where rk in 
+        <foreach item="rk" collection="array" open="(" separator="," close=")">
+            #{rk}
+        </foreach>
+    </delete>
+</mapper>
