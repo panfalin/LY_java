@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.aliexpress.mapper.AliexpressPublishedDataAutoMapper">
+    
+    <resultMap type="AliexpressPublishedDataAuto" id="AliexpressPublishedDataAutoResult">
+        <result property="commodityId"    column="commodity_id"    />
+        <result property="personName"    column="person_name"    />
+        <result property="shopName"    column="shop_name"    />
+        <result property="statisticalTime"    column="statistical_time"    />
+        <result property="paymentConversion"    column="payment_conversion"    />
+        <result property="searchExposure"    column="search_exposure"    />
+        <result property="visitors"    column="visitors"    />
+        <result property="goodsAdditionalPrice"    column="goods_additional_price"    />
+        <result property="goodsAdditional"    column="goods_additional"    />
+        <result property="goodsCollection"    column="goods_collection"    />
+        <result property="sId"    column="s_id"    />
+        <result property="buyerPaid"    column="buyer_paid"    />
+        <result property="goodsPaid"    column="goods_paid"    />
+        <result property="views"    column="views"    />
+        <result property="mainOrdersPaid"    column="main_orders_paid"    />
+        <result property="rankingPercentage"    column="ranking_percentage"    />
+        <result property="ifWarehouseDelivery"    column="if_warehouse_delivery"    />
+        <result property="nearlyOrder"    column="nearly_order"    />
+        <result property="ifUpdate"    column="if_update"    />
+    </resultMap>
+
+    <resultMap type="AliexpressPublishedDataAutoStatistics" id="AliexpressPublishedDataAutoStatisticsResult">
+        <result property="totalSearchExposure" column="total_search_exposure"/>
+        <result property="avgSearchExposure" column="avg_search_exposure"/>
+        <result property="totalSuccessfulRefund" column="total_successful_refund"/>
+        <result property="avgSuccessfulRefund" column="avg_successful_refund"/>
+        <result property="totalVisitors" column="total_visitors"/>
+        <result property="avgVisitors" column="avg_visitors"/>
+        <result property="totalGoodsAdditionalPrice" column="total_goods_additional_price"/>
+        <result property="avgGoodsAdditionalPrice" column="avg_goods_additional_price"/>
+        <result property="totalGoodsAdditional" column="total_goods_additional"/>
+        <result property="avgGoodsAdditional" column="avg_goods_additional"/>
+        <result property="totalGoodsCollection" column="total_goods_collection"/>
+        <result property="avgGoodsCollection" column="avg_goods_collection"/>
+        <result property="totalBuyerPaid" column="total_buyer_paid"/>
+        <result property="avgBuyerPaid" column="avg_buyer_paid"/>
+        <result property="totalGoodsPaid" column="total_goods_paid"/>
+        <result property="avgGoodsPaid" column="avg_goods_paid"/>
+        <result property="totalNearlyOrder" column="total_nearly_order"/>
+        <result property="avgNearlyOrder" column="avg_nearly_order"/>
+        <result property="totalMainOrdersPaid" column="total_main_orders_paid"/>
+        <result property="avgMainOrdersPaid" column="avg_main_orders_paid"/>
+        <result property="totalViews" column="total_views"/>
+        <result property="avgViews" column="avg_views"/>
+    </resultMap>
+
+
+
+    <sql id="selectAliexpressPublishedDataAutoVo">
+        select commodity_id, person_name, shop_name, statistical_time, payment_conversion, search_exposure, visitors, goods_additional_price, goods_additional, goods_collection, s_id, buyer_paid, goods_paid, views, main_orders_paid, ranking_percentage, if_warehouse_delivery, nearly_order, if_update from aliexpress_published_data_auto
+    </sql>
+
+<!--    <sql id="selectAliexpressPublishedDataAutoVo">-->
+<!--        WITH avg_data AS (-->
+<!--        &#45;&#45; 计算给定时间范围（beginTime ~ endTime）内的平均值-->
+<!--        SELECT-->
+<!--        commodity_id,-->
+<!--        AVG(payment_conversion) AS avg_payment_conversion,-->
+<!--        AVG(search_exposure) AS avg_search_exposure,-->
+<!--        AVG(visitors) AS avg_visitors,-->
+<!--        AVG(goods_additional_price) AS avg_goods_additional_price,-->
+<!--        AVG(goods_additional) AS avg_goods_additional,-->
+<!--        AVG(goods_collection) AS avg_goods_collection,-->
+<!--        AVG(buyer_paid) AS avg_buyer_paid,-->
+<!--        AVG(goods_paid) AS avg_goods_paid,-->
+<!--        AVG(views) AS avg_views,-->
+<!--        AVG(main_orders_paid) AS avg_main_orders_paid,-->
+<!--        AVG(ranking_percentage) AS avg_ranking_percentage,-->
+<!--        AVG(nearly_order) AS avg_nearly_order,-->
+<!--        FROM aliexpress_published_data_auto -->
+<!--        <where>-->
+<!--            <if test="conBeginTime != null and conEndTime != null">-->
+<!--                AND statistical_time BETWEEN #{conBeginTime} AND #{conEndTime}-->
+<!--            </if>-->
+<!--        </where>-->
+<!--        GROUP BY commodity_id-->
+<!--        )-->
+<!--        SELECT-->
+<!--        d1.shop_name,-->
+<!--        d1.commodity_id,-->
+<!--        d1.statistical_time,-->
+<!--        d1.payment_conversion,-->
+<!--        d1.search_exposure,-->
+<!--        d1.successful_refund,-->
+<!--        d1.visitors,-->
+<!--        d1.goods_additional,-->
+<!--        d1.goods_collection,-->
+<!--        d1.search_clicks,-->
+<!--        d1.transaction_amount,-->
+<!--        d1.price_pay,-->
+<!--        d1.views,-->
+<!--        d1.main_orders_paid,-->
+<!--        d1.person_name,-->
+<!--        &#45;&#45; 计算当前数据与时间范围平均值的差值（如果时间范围无数据，则默认为0）-->
+<!--        (d1.payment_conversion - IFNULL(avg_data.avg_payment_conversion, 0)) AS payment_conversion_contrast,-->
+<!--        (d1.search_exposure - IFNULL(avg_data.avg_search_exposure, 0)) AS search_exposure_contrast,-->
+<!--        (d1.successful_refund - IFNULL(avg_data.avg_successful_refund, 0)) AS successful_refund_contrast,-->
+<!--        (d1.visitors - IFNULL(avg_data.avg_visitors, 0)) AS visitors_contrast,-->
+<!--        (d1.goods_additional - IFNULL(avg_data.avg_goods_additional, 0)) AS goods_additional_contrast,-->
+<!--        (d1.goods_collection - IFNULL(avg_data.avg_goods_collection, 0)) AS goods_collection_contrast,-->
+<!--        (d1.search_clicks - IFNULL(avg_data.avg_search_clicks, 0)) AS search_clicks_contrast,-->
+<!--        (d1.transaction_amount - IFNULL(avg_data.avg_transaction_amount, 0)) AS transaction_amount_contrast,-->
+<!--        (d1.price_pay - IFNULL(avg_data.avg_price_pay, 0)) AS price_pay_contrast,-->
+<!--        (d1.views - IFNULL(avg_data.avg_views, 0)) AS views_contrast,-->
+<!--        (d1.main_orders_paid - IFNULL(avg_data.avg_main_orders_paid, 0)) AS main_orders_paid_contrast-->
+<!--        FROM aliexpress_published_data d1-->
+<!--        LEFT JOIN avg_data-->
+<!--        ON d1.commodity_id = avg_data.commodity_id-->
+<!--    </sql>-->
+
+
+
+    <sql id="selectAliexpressPublishedDataAutoStatisticsVo">
+        SELECT SUM(search_exposure)    AS total_search_exposure,
+               AVG(search_exposure)    AS avg_search_exposure,
+               SUM(visitors)           AS total_visitors,
+               AVG(visitors)           AS avg_visitors,
+               SUM(goods_additional_price)           AS total_goods_additional_price,
+               AVG(goods_additional_price)           AS avg_goods_additional_price,
+               SUM(goods_additional)   AS total_goods_additional,
+               AVG(goods_additional)   AS avg_goods_additional,
+               SUM(goods_collection)   AS total_goods_collection,
+               AVG(goods_collection)   AS avg_goods_collection,
+               SUM(buyer_paid) AS total_buyer_paid,
+               AVG(buyer_paid) AS avg_buyer_paid,
+               SUM(goods_paid)   AS total_goods_paid,
+               AVG(goods_paid)   AS avg_goods_paid,
+               SUM(views)              AS total_views,
+               AVG(views)              AS avg_views,
+               SUM(main_orders_paid)              AS total_main_orders_paid,
+               AVG(main_orders_paid)              AS avg_main_orders_paid,
+               SUM(ranking_percentage)              AS total_ranking_percentage,
+               AVG(ranking_percentage)              AS avg_ranking_percentage,
+               SUM(nearly_order)              AS total_nearly_order,
+               AVG(nearly_order)              AS avg_nearly_order
+        FROM `aliexpress_published_data_auto`
+    </sql>
+
+
+
+
+
+    <select id="selectAliexpressPublishedDataAutoList" parameterType="AliexpressPublishedDataAuto" resultMap="AliexpressPublishedDataAutoResult">
+        <include refid="selectAliexpressPublishedDataAutoVo"/>
+        <where>
+            <if test="beginTime != null and endTime != null">
+                and statistical_time between #{beginTime} and #{endTime}
+            </if>
+            <if test="commodityId != null  and commodityId != ''"> and commodity_id = #{commodityId}</if>
+            <if test="personName != null  and personName != ''"> and person_name like concat('%', #{personName}, '%')</if>
+            <if test="shopName != null  and shopName != ''"> and shop_name like concat('%', #{shopName}, '%')</if>
+            <if test="statisticalTime != null "> and statistical_time = #{statisticalTime}</if>
+        </where>
+    </select>
+
+    <select id="selectAliexpressPublishedDataAutoStatisticsList" parameterType="AliexpressPublishedData"
+            resultMap="AliexpressPublishedDataAutoStatisticsResult">
+        <include refid="selectAliexpressPublishedDataAutoStatisticsVo"/>
+        <where>
+            <if test="beginTime != null and endTime != null">
+                and statistical_time between #{beginTime} and #{endTime}
+            </if>
+            <if test="commodityId != null  and commodityId != ''">and commodity_id = #{commodityId}</if>
+            <if test="personName != null  and personName != ''">and person_name = #{personName}</if>
+            <if test="shopName != null  and shopName != ''">and shop_name = #{shopName}</if>
+        </where>
+    </select>
+
+
+
+    
+    <select id="selectAliexpressPublishedDataAutoBySId" parameterType="Long" resultMap="AliexpressPublishedDataAutoResult">
+        <include refid="selectAliexpressPublishedDataAutoVo"/>
+        where s_id = #{sId}
+    </select>
+
+    <insert id="insertAliexpressPublishedDataAuto" parameterType="AliexpressPublishedDataAuto" useGeneratedKeys="true" keyProperty="sId">
+        insert into aliexpress_published_data_auto
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="commodityId != null">commodity_id,</if>
+            <if test="personName != null">person_name,</if>
+            <if test="shopName != null">shop_name,</if>
+            <if test="statisticalTime != null">statistical_time,</if>
+            <if test="paymentConversion != null">payment_conversion,</if>
+            <if test="searchExposure != null">search_exposure,</if>
+            <if test="visitors != null">visitors,</if>
+            <if test="goodsAdditionalPrice != null">goods_additional_price,</if>
+            <if test="goodsAdditional != null">goods_additional,</if>
+            <if test="goodsCollection != null">goods_collection,</if>
+            <if test="buyerPaid != null">buyer_paid,</if>
+            <if test="goodsPaid != null">goods_paid,</if>
+            <if test="views != null">views,</if>
+            <if test="mainOrdersPaid != null">main_orders_paid,</if>
+            <if test="rankingPercentage != null">ranking_percentage,</if>
+            <if test="ifWarehouseDelivery != null">if_warehouse_delivery,</if>
+            <if test="nearlyOrder != null">nearly_order,</if>
+            <if test="ifUpdate != null">if_update,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="commodityId != null">#{commodityId},</if>
+            <if test="personName != null">#{personName},</if>
+            <if test="shopName != null">#{shopName},</if>
+            <if test="statisticalTime != null">#{statisticalTime},</if>
+            <if test="paymentConversion != null">#{paymentConversion},</if>
+            <if test="searchExposure != null">#{searchExposure},</if>
+            <if test="visitors != null">#{visitors},</if>
+            <if test="goodsAdditionalPrice != null">#{goodsAdditionalPrice},</if>
+            <if test="goodsAdditional != null">#{goodsAdditional},</if>
+            <if test="goodsCollection != null">#{goodsCollection},</if>
+            <if test="buyerPaid != null">#{buyerPaid},</if>
+            <if test="goodsPaid != null">#{goodsPaid},</if>
+            <if test="views != null">#{views},</if>
+            <if test="mainOrdersPaid != null">#{mainOrdersPaid},</if>
+            <if test="rankingPercentage != null">#{rankingPercentage},</if>
+            <if test="ifWarehouseDelivery != null">#{ifWarehouseDelivery},</if>
+            <if test="nearlyOrder != null">#{nearlyOrder},</if>
+            <if test="ifUpdate != null">#{ifUpdate},</if>
+         </trim>
+    </insert>
+
+    <update id="updateAliexpressPublishedDataAuto" parameterType="AliexpressPublishedDataAuto">
+        update aliexpress_published_data_auto
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="commodityId != null">commodity_id = #{commodityId},</if>
+            <if test="personName != null">person_name = #{personName},</if>
+            <if test="shopName != null">shop_name = #{shopName},</if>
+            <if test="statisticalTime != null">statistical_time = #{statisticalTime},</if>
+            <if test="paymentConversion != null">payment_conversion = #{paymentConversion},</if>
+            <if test="searchExposure != null">search_exposure = #{searchExposure},</if>
+            <if test="visitors != null">visitors = #{visitors},</if>
+            <if test="goodsAdditionalPrice != null">goods_additional_price = #{goodsAdditionalPrice},</if>
+            <if test="goodsAdditional != null">goods_additional = #{goodsAdditional},</if>
+            <if test="goodsCollection != null">goods_collection = #{goodsCollection},</if>
+            <if test="buyerPaid != null">buyer_paid = #{buyerPaid},</if>
+            <if test="goodsPaid != null">goods_paid = #{goodsPaid},</if>
+            <if test="views != null">views = #{views},</if>
+            <if test="mainOrdersPaid != null">main_orders_paid = #{mainOrdersPaid},</if>
+            <if test="rankingPercentage != null">ranking_percentage = #{rankingPercentage},</if>
+            <if test="ifWarehouseDelivery != null">if_warehouse_delivery = #{ifWarehouseDelivery},</if>
+            <if test="nearlyOrder != null">nearly_order = #{nearlyOrder},</if>
+            <if test="ifUpdate != null">if_update = #{ifUpdate},</if>
+        </trim>
+        where s_id = #{sId}
+    </update>
+
+    <delete id="deleteAliexpressPublishedDataAutoBySId" parameterType="Long">
+        delete from aliexpress_published_data_auto where s_id = #{sId}
+    </delete>
+
+    <delete id="deleteAliexpressPublishedDataAutoBySIds" parameterType="String">
+        delete from aliexpress_published_data_auto where s_id in 
+        <foreach item="sId" collection="array" open="(" separator="," close=")">
+            #{sId}
+        </foreach>
+    </delete>
+</mapper>
