@@ -87,12 +87,6 @@
 <!--    </sql>-->
 
 
-
-
-
-
-
-
     <sql id="selectAliexpressPublishedDataStatisticsVo">
         SELECT SUM(search_exposure)    AS total_search_exposure,
                AVG(search_exposure)    AS avg_search_exposure,
@@ -110,7 +104,8 @@
                AVG(main_orders_paid)   AS avg_main_orders_paid,
                SUM(views)              AS total_views,
                AVG(views)              AS avg_views
-        FROM `aliexpress_published_data`
+        FROM `aliexpress_published_data` as d1
+        LEFT JOIN stores_notescrow as sn ON sn.store_name=d1.shop_name
     </sql>
 
     <sql id="selectAliexpressPublishedDataVo">
@@ -129,10 +124,12 @@
                 AVG(price_pay) AS avg_price_pay,
                 AVG(views) AS avg_views,
                 AVG(main_orders_paid) AS avg_main_orders_paid
-            FROM aliexpress_published_data
+            FROM aliexpress_published_data as d1
+            LEFT JOIN  stores_notescrow as sn ON sn.store_name=d1.shop_name
             <where>
+            sn.type != "全托管"
             <if test="conBeginTime != null and conEndTime != null">
-            AND statistical_time BETWEEN #{conBeginTime} AND #{conEndTime}
+            AND d1.statistical_time BETWEEN #{conBeginTime} AND #{conEndTime}
             </if>
             </where>
             GROUP BY commodity_id
@@ -166,14 +163,16 @@
             (d1.views - IFNULL(avg_data.avg_views, 0)) AS views_contrast,
             (d1.main_orders_paid - IFNULL(avg_data.avg_main_orders_paid, 0)) AS main_orders_paid_contrast
         FROM aliexpress_published_data d1
-                 LEFT JOIN avg_data
-                           ON d1.commodity_id = avg_data.commodity_id
+        LEFT JOIN avg_data
+        ON d1.commodity_id = avg_data.commodity_id
+        LEFT JOIN stores_notescrow as sn ON sn.store_name=d1.shop_name
     </sql>
 
     <select id="selectAliexpressPublishedDataList" parameterType="AliexpressPublishedData"
             resultMap="AliexpressPublishedDataResult">
         <include refid="selectAliexpressPublishedDataVo"/>
         <where>
+            sn.type != "全托管"
             <if test="beginTime != null and endTime != null">
                 and d1.statistical_time between #{beginTime} and #{endTime}
             </if>
@@ -188,8 +187,9 @@
             resultMap="AliexpressPublishedDataStatisticsResult">
         <include refid="selectAliexpressPublishedDataStatisticsVo"/>
         <where>
+            sn.type != "全托管"
             <if test="beginTime != null and endTime != null">
-                and statistical_time between #{beginTime} and #{endTime}
+                and d1.statistical_time between #{beginTime} and #{endTime}
             </if>
             <if test="commodityId != null  and commodityId != ''">and commodity_id = #{commodityId}</if>
             <if test="personName != null  and personName != ''">and person_name = #{personName}</if>
