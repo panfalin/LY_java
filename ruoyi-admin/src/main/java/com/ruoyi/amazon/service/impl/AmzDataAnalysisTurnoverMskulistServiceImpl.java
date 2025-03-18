@@ -155,6 +155,7 @@ public class AmzDataAnalysisTurnoverMskulistServiceImpl implements IAmzDataAnaly
         // 从 map 中获取 store_name
         String storeName = (String) map.get("storeName");
         String salesPerson = (String) map.get("salesPerson");
+        String reshaper = (String) map.get("reshaper");
         String categoryLevelOne = (String) map.get("categoryLevelOne");
         String categoryLevelTwo = (String) map.get("categoryLevelTwo");
         String developer = (String) map.get("developer");
@@ -242,6 +243,10 @@ public class AmzDataAnalysisTurnoverMskulistServiceImpl implements IAmzDataAnaly
         if (developer != null && !developer.trim().isEmpty()) {
             amzDataAnalysisTurnoverMskulist.setDeveloper(developer);
         }
+        // 增加重塑人的搜索
+        if (reshaper != null && !reshaper.trim().isEmpty()) {
+            amzDataAnalysisTurnoverMskulist.setReshaper(reshaper);
+        }
         if (turnoverDaysMin != null) {
             amzDataAnalysisTurnoverMskulist.setTurnoverDaysMin(turnoverDaysMin);
         }
@@ -282,6 +287,14 @@ public class AmzDataAnalysisTurnoverMskulistServiceImpl implements IAmzDataAnaly
 
     public List<String> selectDistinctDevelopers() {
         return amzDataAnalysisTurnoverMskulistMapper.selectDistinctDevelopers();
+    }
+
+    /**
+     * @return
+     */
+    @Override
+    public List<String> selectDistinctResetPersons() {
+        return amzDataAnalysisTurnoverMskulistMapper.selectDistinctResetPersons();
     }
 
     /**

@@ -933,6 +933,14 @@
         ORDER BY developer
     </select>
 
+    <select id="selectDistinctResetPersons" resultType="String">
+        SELECT DISTINCT reshaper
+        FROM amz_data_analysis_turnover_mskulist
+        WHERE reshaper IS NOT NULL
+          AND is_delete = 0
+        ORDER BY reshaper
+    </select>
+
     <select id="selectAmzDataAnalysisTurnoverMskulistById" parameterType="Long"
             resultMap="AmzDataAnalysisTurnoverMskulistResult">
         <include refid="selectAmzDataAnalysisTurnoverMskulistVo"/>

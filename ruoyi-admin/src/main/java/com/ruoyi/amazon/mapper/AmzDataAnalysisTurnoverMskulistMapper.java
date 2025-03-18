@@ -78,6 +78,7 @@ public interface AmzDataAnalysisTurnoverMskulistMapper
     public List<String> selectDistinctStoreNames();
     public List<String> selectDistinctSalesPersons();
     public List<String> selectDistinctDevelopers();
+    public List<String> selectDistinctResetPersons();
     /**
      * 查询店铺排名数据
      * @param queryDTO 查询条件

@@ -81,6 +81,12 @@ public class AmzDataAnalysisTurnoverMskulistController extends BaseController
         return success(salesPersonList);
     }
 
+    @GetMapping("/getResetPersonList")
+    public AjaxResult getResetPersonList() {
+        List<String> resetPersons = amzDataAnalysisTurnoverMskulistService.selectDistinctResetPersons();
+        return success(resetPersons);
+    }
+
     @GetMapping("/getDeveloperList")
     public AjaxResult getDeveloperList() {
         List<String> developerList = amzDataAnalysisTurnoverMskulistService.selectDistinctDevelopers();

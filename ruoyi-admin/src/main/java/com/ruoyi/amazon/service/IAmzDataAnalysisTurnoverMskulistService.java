@@ -75,6 +75,7 @@ public interface IAmzDataAnalysisTurnoverMskulistService
     public List<String> selectDistinctStoreNames();
     public List<String> selectDistinctSalesPersons();
     public List<String> selectDistinctDevelopers();
+    public List<String> selectDistinctResetPersons();
 
     /**
      * 获取店铺排名数据
