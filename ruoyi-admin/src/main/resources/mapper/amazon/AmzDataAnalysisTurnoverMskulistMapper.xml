@@ -1087,6 +1087,7 @@
         ), 0)) * 100 as profitMargin
         FROM amz_data_analysis_turnover_mskulist
         <where>
+            DATE(created_at) = CURDATE()
             <if test="storeName != null and storeName != ''">
                 store_name = #{storeName}
             </if>
