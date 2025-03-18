@@ -2,13 +2,14 @@ package com.ruoyi.amazon.service.impl;
 
 import java.math.BigDecimal;
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 import com.ruoyi.amazon.dto.AmzDataAnalysisTurnoverDTO;
+import com.ruoyi.amazon.dto.AmzStoreRankingDTO;
 import com.ruoyi.amazon.dto.TurnoverStatsDTO;
+import com.ruoyi.common.exception.ServiceException;
 import com.ruoyi.common.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,10 @@ import javax.annotation.Resource;
 public class AmzDataAnalysisTurnoverMskulistServiceImpl implements IAmzDataAnalysisTurnoverMskulistService {
     @Resource
     private AmzDataAnalysisTurnoverMskulistMapper amzDataAnalysisTurnoverMskulistMapper;
+
+    // 将 SimpleDateFormat 定义为 ThreadLocal，避免多线程问题
+    private static final ThreadLocal<SimpleDateFormat> dateFormat =
+        ThreadLocal.withInitial(() -> new SimpleDateFormat("yyyy-MM-dd"));
 
     /**
      * 查询亚马逊数据分析，周转率，mskulist，这个是基础信息
@@ -157,7 +162,42 @@ public class AmzDataAnalysisTurnoverMskulistServiceImpl implements IAmzDataAnaly
         BigDecimal turnoverDaysMax = (BigDecimal) map.get("turnoverDaysMax");
         // TODO 这里还缺快捷搜索
         String quickFilter = (String) map.get("quickFilter");
+        try {
+            // 处理时间参数
+            Calendar calendar = Calendar.getInstance();
+            // 转换为 sql.Date，只保留日期部分
+            Date currentDate = new Date(calendar.getTimeInMillis());
+            Date compareEndDate = null;
 
+            // 获取对比时间范围
+            Object compareTimeRangeObj = map.get("compareTimeRange");
+            if (compareTimeRangeObj instanceof List) {
+                @SuppressWarnings("unchecked")
+                List<String> compareTimeRange = (List<String>) compareTimeRangeObj;
+                if (compareTimeRange.size() > 1) {
+                    try {
+                        // 解析日期字符串
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                        compareEndDate = new Date(sdf.parse(compareTimeRange.get(1)).getTime());
+                    } catch (ParseException e) {
+                        // 如果解析失败，使用当天
+                        compareEndDate = currentDate;
+                    }
+                }
+            }
+
+            // 如果没有选择对比时间范围，默认使用当天
+            if (compareEndDate == null) {
+                compareEndDate = currentDate;
+            }
+
+            amzDataAnalysisTurnoverMskulist.setCurrentDate(String.valueOf(currentDate));
+            amzDataAnalysisTurnoverMskulist.setCompareStartDate("2025-02-26");
+            amzDataAnalysisTurnoverMskulist.setCompareEndDate(String.valueOf(new Date(compareEndDate.getTime())));
+        } catch (Exception e) {
+            // 记录异常并抛出
+            throw new ServiceException("获取汇总数据失败");
+        }
 
         if (quickFilter != null) {
             switch (quickFilter) {
@@ -208,9 +248,14 @@ public class AmzDataAnalysisTurnoverMskulistServiceImpl implements IAmzDataAnaly
         if (turnoverDaysMax != null) {
             amzDataAnalysisTurnoverMskulist.setTurnoverDaysMax(turnoverDaysMax);
         }
+
         // 获取基础汇总数据
+        // 获取当前的数据
         AmzDataAnalysisTurnoverDTO summary = amzDataAnalysisTurnoverMskulistMapper
                 .selectAmzDataAnalysisTurnoverMskulistSummary(amzDataAnalysisTurnoverMskulist);
+
+        AmzDataAnalysisTurnoverDTO startDateSummary = amzDataAnalysisTurnoverMskulistMapper
+                .selectEndAmzDataAnalysisTurnoverMskulistSummary(amzDataAnalysisTurnoverMskulist);
 
         // 获取周转天数统计数据
         List<TurnoverStatsDTO> turnoverStats = amzDataAnalysisTurnoverMskulistMapper
@@ -220,6 +265,7 @@ public class AmzDataAnalysisTurnoverMskulistServiceImpl implements IAmzDataAnaly
         List<TurnoverStatsDTO> fbaTurnoverStats = amzDataAnalysisTurnoverMskulistMapper
                 .selectFbaTurnoverStats(amzDataAnalysisTurnoverMskulist);
 
+        summary.setAmzDataAnalysisTurnoverDTO(startDateSummary);
         summary.setTurnoverStats(turnoverStats);
         summary.setFbaTurnoverStats(fbaTurnoverStats);
 
@@ -236,5 +282,16 @@ public class AmzDataAnalysisTurnoverMskulistServiceImpl implements IAmzDataAnaly
 
     public List<String> selectDistinctDevelopers() {
         return amzDataAnalysisTurnoverMskulistMapper.selectDistinctDevelopers();
+    }
+
+    /**
+     * 获取店铺排名数据
+     *
+     * @param queryDTO 查询条件
+     * @return 店铺排名列表
+     */
+    @Override
+    public List<AmzStoreRankingDTO> getStoreRanking(AmzDataAnalysisTurnoverMskulist queryDTO) {
+        return amzDataAnalysisTurnoverMskulistMapper.selectStoreRanking(queryDTO);
     }
 }

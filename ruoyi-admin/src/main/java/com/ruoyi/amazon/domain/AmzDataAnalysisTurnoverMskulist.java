@@ -272,4 +272,19 @@ public class AmzDataAnalysisTurnoverMskulist extends BaseEntity
 
     /** 开发员数组 */
     private String[] developerArray;
+
+    /** 增加对比时间，开始时间 */
+    private String startDate;
+
+    /** 增加对比时间，开始时间 */
+    private String endDate;
+
+    /** 当前数据的时间 */
+    private String currentDate;
+
+    /** 对比开始时间 */
+    private String compareStartDate;
+
+    /** 对比结束时间 */
+    private String compareEndDate;
 }

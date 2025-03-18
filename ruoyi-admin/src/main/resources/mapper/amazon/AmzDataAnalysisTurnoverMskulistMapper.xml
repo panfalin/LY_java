@@ -747,15 +747,8 @@
             <if test="createBy != null">and create_by = #{createBy}</if>
             <if test="updateBy != null">and update_by = #{updateBy}</if>
             <if test="version != null">and version = #{version}</if>
-            <!-- <if test="turnoverDaysMin != null"> -->
-            <!--     AND turnover_days >= #{turnoverDaysMin} -->
-            <!-- </if> -->
-            <!-- <if test="turnoverDaysMax != null"> -->
-            <!--     AND turnover_days <= #{turnoverDaysMax} -->
-            <!-- </if> -->
-            <!-- 新增的条件 -->
+            <if test="compareEndDate != null">and DATE(created_at) = #{compareEndDate}</if>
             and is_delete = 0
-            and DATE(created_at) = CURDATE()
         </where>
     </select>
     <sql id="selectAmzDataAnalysisTurnoverMskulistVo">
@@ -944,6 +937,170 @@
             resultMap="AmzDataAnalysisTurnoverMskulistResult">
         <include refid="selectAmzDataAnalysisTurnoverMskulistVo"/>
         where id = #{id}
+    </select>
+
+    <select id="selectEndAmzDataAnalysisTurnoverMskulistSummary" parameterType="AmzDataAnalysisTurnoverMskulist"
+            resultMap="AmzDataAnalysisTurnoverMskulistDTO">
+        <include refid="selectAmzDataAnalysisTurnoverMskulistDTO"/>
+        <where>
+            <if test="storeNameArray != null and storeNameArray.length > 0">
+                and store_name IN
+                <foreach collection="storeNameArray" item="name" open="(" close=")" separator=",">
+                    #{name}
+                </foreach>
+            </if>
+            <if test="salesPersonArray != null and salesPersonArray.length > 0">
+                and sales_person IN
+                <foreach collection="salesPersonArray" item="person" open="(" close=")" separator=",">
+                    #{person}
+                </foreach>
+            </if>
+            <if test="developerArray != null and developerArray.length > 0">
+                and developer IN
+                <foreach collection="developerArray" item="dev" open="(" close=")" separator=",">
+                    #{dev}
+                </foreach>
+            </if>
+            <if test="storeName != null  and storeName != ''">and store_name like concat('%', #{storeName}, '%')</if>
+            <if test="msku != null">and msku = #{msku}</if>
+            <if test="categoryLevelOne != null">and category_level_1 = #{categoryLevelOne}</if>
+            <if test="categoryLevelTwo != null">and category_level_2 = #{categoryLevelTwo}</if>
+            <if test="fnsku != null">and fnsku = #{fnsku}</if>
+            <if test="localSku != null">and local_sku = #{localSku}</if>
+            <if test="mainSku != null">and main_sku = #{mainSku}</if>
+            <if test="productName != null">and product_name = #{productName}</if>
+            <if test="asin != null">and asin = #{asin}</if>
+            <if test="stockStatus != null">and stock_status = #{stockStatus}</if>
+            <if test="sales7Days != null">and sales_7_days = #{sales7Days}</if>
+            <if test="sales14Days != null">and sales_14_days = #{sales14Days}</if>
+            <if test="sales30Days != null">and sales_30_days = #{sales30Days}</if>
+            <if test="sales90Days != null">and sales_90_days = #{sales90Days}</if>
+            <if test="avgDailySales != null">and avg_daily_sales = #{avgDailySales}</if>
+            <if test="procurementInTransit != null">and procurement_in_transit = #{procurementInTransit}</if>
+            <if test="localInventory != null">and local_inventory = #{localInventory}</if>
+            <if test="available != null">and available = #{available}</if>
+            <if test="awaitingStock != null">and awaiting_stock = #{awaitingStock}</if>
+            <if test="sku != null and sku != ''">and sku = #{sku}</if>
+            <if test="warehouseName != null">and warehouse_name = #{warehouseName}</if>
+            <if test="stockWarningDays != null">and stock_warning_days = #{stockWarningDays}</if>
+            <if test="amSeasonalProductOffseason != null">and am_seasonal_product_offseason =
+                #{amSeasonalProductOffseason}
+            </if>
+            <if test="amSeasonalProductPeakIncreaseRatio != null">and am_seasonal_product_peak_increase_ratio =
+                #{amSeasonalProductPeakIncreaseRatio}
+            </if>
+            <if test="amSeasonalProductPeak != null">and am_seasonal_product_peak = #{amSeasonalProductPeak}</if>
+            <if test="amCompetitorSales != null">and am_competitor_sales = #{amCompetitorSales}</if>
+            <if test="amMarketCapacity != null">and am_market_capacity = #{amMarketCapacity}</if>
+            <if test="amProductLifecycleStatus != null">and am_product_lifecycle_status = #{amProductLifecycleStatus}
+            </if>
+            <if test="amSeasonalProductOffseasonDecline != null">and am_seasonal_product_offseason_decline =
+                #{amSeasonalProductOffseasonDecline}
+            </if>
+            <if test="supplierName != null">and supplier_name = #{supplierName}</if>
+            <if test="latestPurchasePrice != null">and latest_purchase_price = #{latestPurchasePrice}</if>
+            <if test="weight != null">and weight = #{weight}</if>
+            <if test="volumeCm3 != null">and volume_cm3 = #{volumeCm3}</if>
+            <if test="minPurchaseQuantity != null">and min_purchase_quantity = #{minPurchaseQuantity}</if>
+            <if test="amzInventoryShelfTime != null">and amz_inventory_shelf_time = #{amzInventoryShelfTime}</if>
+            <if test="beginTime != null and endTime != null">
+                and amz_inventory_shelf_time between #{beginTime} and #{endTime}
+            </if>
+            <if test="reshaper != null">and reshaper = #{reshaper}</if>
+            <if test="reshaping != null">and reshaping = #{reshaping}</if>
+            <if test="inTransit != null">and in_transit = #{inTransit}</if>
+            <if test="availableDays != null">and available_days = #{availableDays}</if>
+            <if test="procurementDays != null">and procurement_days = #{procurementDays}</if>
+            <if test="remarks != null">and remarks = #{remarks}</if>
+            <if test="reserved != null">and reserved = #{reserved}</if>
+            <if test="plannedStockIn != null">and planned_stock_in = #{plannedStockIn}</if>
+            <if test="salesPerson != null  and salesPerson != ''">and sales_person = #{salesPerson}</if>
+            <if test="developer != null  and developer != ''">and developer = #{developer}</if>
+            <if test="listingDate != null">and listing_date = #{listingDate}</if>
+            <if test="isDelete != null">and is_delete = #{isDelete}</if>
+            <if test="createdAt != null">and created_at = #{createdAt}</if>
+            <if test="updateTime != null">and update_time = #{updateTime}</if>
+            <if test="createBy != null">and create_by = #{createBy}</if>
+            <if test="updateBy != null">and update_by = #{updateBy}</if>
+            <if test="version != null">and version = #{version}</if>
+            <if test="compareStartDate != null">and DATE(created_at) = #{compareStartDate}</if>
+            and is_delete = 0
+        </where>
+    </select>
+
+    <select id="selectStoreRanking" resultType="com.ruoyi.amazon.dto.AmzStoreRankingDTO">
+        SELECT
+        (@row_number:=@row_number + 1) as ranking,
+        temp.*
+        FROM (
+        SELECT
+        store_name as storeName,
+        COUNT(distinct asin) as skuCount,
+        SUM(
+        CAST(
+        CASE
+        WHEN LEFT(sales_amount, 2) = '$-'
+        THEN -1 * CAST(REPLACE(REPLACE(SUBSTRING(sales_amount, 3), ',', ''), ' ', '') AS DECIMAL(10, 2))
+        WHEN LEFT(sales_amount, 1) = '$'
+        THEN CAST(REPLACE(REPLACE(SUBSTRING(sales_amount, 2), ',', ''), ' ', '') AS DECIMAL(10, 2))
+        ELSE 0
+        END * 6.8 AS DECIMAL(10, 2)
+        )
+        ) as salesAmount,
+        CASE
+        WHEN SUM(IFNULL(sales_7_days, 0)) > 0
+        THEN SUM(total_inventory_value) /
+        (SUM(IFNULL(sales_7_days, 0) * IFNULL(latest_purchase_price, 0)) / 7)
+        ELSE 0
+        END as turnoverDays,
+        SUM(
+        CAST(
+        CASE
+        WHEN LEFT(gross_profit, 2) = '$-'
+        THEN -1 * CAST(REPLACE(REPLACE(SUBSTRING(gross_profit, 3), ',', ''), ' ', '') AS DECIMAL(10, 2))
+        WHEN LEFT(gross_profit, 1) = '$'
+        THEN CAST(REPLACE(REPLACE(SUBSTRING(gross_profit, 2), ',', ''), ' ', '') AS DECIMAL(10, 2))
+        ELSE 0
+        END * 6.8 AS DECIMAL(10, 2)
+        )
+        ) as profit,
+        (SUM(
+        CAST(
+        CASE
+        WHEN LEFT(gross_profit, 2) = '$-'
+        THEN -1 * CAST(REPLACE(REPLACE(SUBSTRING(gross_profit, 3), ',', ''), ' ', '') AS DECIMAL(10, 2))
+        WHEN LEFT(gross_profit, 1) = '$'
+        THEN CAST(REPLACE(REPLACE(SUBSTRING(gross_profit, 2), ',', ''), ' ', '') AS DECIMAL(10, 2))
+        ELSE 0
+        END * 6.8 AS DECIMAL(10, 2)
+        )
+        ) / NULLIF(SUM(
+        CAST(
+        CASE
+        WHEN LEFT(sales_amount, 2) = '$-'
+        THEN -1 * CAST(REPLACE(REPLACE(SUBSTRING(sales_amount, 3), ',', ''), ' ', '') AS DECIMAL(10, 2))
+        WHEN LEFT(sales_amount, 1) = '$'
+        THEN CAST(REPLACE(REPLACE(SUBSTRING(sales_amount, 2), ',', ''), ' ', '') AS DECIMAL(10, 2))
+        ELSE 0
+        END * 6.8 AS DECIMAL(10, 2)
+        )
+        ), 0)) * 100 as profitMargin
+        FROM amz_data_analysis_turnover_mskulist
+        <where>
+            <if test="storeName != null and storeName != ''">
+                store_name = #{storeName}
+            </if>
+            <if test="salesPerson != null and salesPerson != ''">
+                AND sales_person = #{salesPerson}
+            </if>
+            <if test="developer != null and developer != ''">
+                AND developer = #{developer}
+            </if>
+        </where>
+        GROUP BY store_name
+        ORDER BY salesAmount DESC
+        ) temp,
+        (SELECT @row_number:=0) r
     </select>
 
     <insert id="insertAmzDataAnalysisTurnoverMskulist" parameterType="AmzDataAnalysisTurnoverMskulist"

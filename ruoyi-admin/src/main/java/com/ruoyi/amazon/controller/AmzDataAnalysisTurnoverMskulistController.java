@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.ruoyi.amazon.domain.AmzDataAnalysisTurnoverOperationalAnalysis;
 import com.ruoyi.amazon.domain.AmzDataAnalysisTurnoverSkuInfoTemplate;
 import com.ruoyi.amazon.dto.AmzDataAnalysisTurnoverDTO;
+import com.ruoyi.amazon.dto.AmzStoreRankingDTO;
 import com.ruoyi.amazon.service.IAmzDataAnalysisTurnoverOperationalAnalysisService;
 import com.ruoyi.amazon.service.IAmzDataAnalysisTurnoverSkuInfoTemplateService;
 import org.springframework.beans.BeanUtils;
@@ -172,5 +173,14 @@ public class AmzDataAnalysisTurnoverMskulistController extends BaseController
     public AjaxResult remove(@PathVariable Long[] ids)
     {
         return toAjax(amzDataAnalysisTurnoverMskulistService.deleteAmzDataAnalysisTurnoverMskulistByIds(ids));
+    }
+
+    /**
+     * 获取店铺排名数据
+     */
+    @GetMapping("/storeRanking")
+    public AjaxResult getStoreRanking(AmzDataAnalysisTurnoverMskulist queryDTO) {
+        List<AmzStoreRankingDTO> storeRanking = amzDataAnalysisTurnoverMskulistService.getStoreRanking(queryDTO);
+        return AjaxResult.success(storeRanking);
     }
 }

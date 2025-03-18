@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -72,4 +73,17 @@ public class AmzDataAnalysisTurnoverDTO extends BaseEntity {
 
     private List<TurnoverStatsDTO> fbaTurnoverStats;  // 不同周转天数区间的统计数据
 
+    /** 当前数据的时间 */
+    private Date currentDate;
+
+    /** 对比开始时间 */
+    private Date compareStartDate;
+
+    /** 对比结束时间 */
+    private Date compareEndDate;
+
+    /** 对比类型：month_on_month(环比)、year_on_year(同比) */
+    private String compareType;
+
+    private AmzDataAnalysisTurnoverDTO amzDataAnalysisTurnoverDTO;
 }

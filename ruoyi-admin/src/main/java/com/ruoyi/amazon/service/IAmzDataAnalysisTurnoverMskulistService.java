@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.ruoyi.amazon.domain.AmzDataAnalysisTurnoverMskulist;
 import com.ruoyi.amazon.dto.AmzDataAnalysisTurnoverDTO;
+import com.ruoyi.amazon.dto.AmzStoreRankingDTO;
 
 /**
  * 亚马逊数据分析，周转率，mskulist，这个是基础信息Service接口
@@ -74,4 +75,11 @@ public interface IAmzDataAnalysisTurnoverMskulistService
     public List<String> selectDistinctStoreNames();
     public List<String> selectDistinctSalesPersons();
     public List<String> selectDistinctDevelopers();
+
+    /**
+     * 获取店铺排名数据
+     * @param queryDTO 查询条件
+     * @return 店铺排名列表
+     */
+    List<AmzStoreRankingDTO> getStoreRanking(AmzDataAnalysisTurnoverMskulist queryDTO);
 }

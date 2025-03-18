@@ -3,6 +3,7 @@ package com.ruoyi.amazon.mapper;
 import java.util.List;
 import com.ruoyi.amazon.domain.AmzDataAnalysisTurnoverMskulist;
 import com.ruoyi.amazon.dto.AmzDataAnalysisTurnoverDTO;
+import com.ruoyi.amazon.dto.AmzStoreRankingDTO;
 import com.ruoyi.amazon.dto.TurnoverStatsDTO;
 
 /**
@@ -69,6 +70,7 @@ public interface AmzDataAnalysisTurnoverMskulistMapper
      */
     public AmzDataAnalysisTurnoverDTO selectAmzDataAnalysisTurnoverMskulistSummary(AmzDataAnalysisTurnoverMskulist amzDataAnalysisTurnoverMskulist);
 
+    public AmzDataAnalysisTurnoverDTO selectEndAmzDataAnalysisTurnoverMskulistSummary(AmzDataAnalysisTurnoverMskulist amzDataAnalysisTurnoverMskulist);
 
     public List<TurnoverStatsDTO> selectTurnoverStats(AmzDataAnalysisTurnoverMskulist amzDataAnalysisTurnoverMskulist);
 
@@ -76,4 +78,10 @@ public interface AmzDataAnalysisTurnoverMskulistMapper
     public List<String> selectDistinctStoreNames();
     public List<String> selectDistinctSalesPersons();
     public List<String> selectDistinctDevelopers();
+    /**
+     * 查询店铺排名数据
+     * @param queryDTO 查询条件
+     * @return 店铺排名列表
+     */
+    List<AmzStoreRankingDTO> selectStoreRanking(AmzDataAnalysisTurnoverMskulist queryDTO);
 }
