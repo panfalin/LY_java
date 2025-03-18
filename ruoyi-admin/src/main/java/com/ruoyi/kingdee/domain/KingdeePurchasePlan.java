@@ -147,6 +147,17 @@ public class KingdeePurchasePlan extends BaseEntity
     @Excel(name = "商品型号")
     private String model;
 
+    @Excel(name = "备注")
+    private String comment;
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
     public BigDecimal getMaxDaysSinceOrder() {
         return maxDaysSinceOrder;
     }

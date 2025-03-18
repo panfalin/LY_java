@@ -32,6 +32,7 @@
         <result property="expectedDays30" column="expected_days30"/>
         <result property="suggestedPurchaseQty" column="suggested_purchase_qty"/>
         <result property="maxDaysSinceOrder" column="max_days_since_order"/>
+        <result property="comment" column="comment"/>
     </resultMap>
 
     <sql id="selectKingdeePurchasePlanVo">
@@ -61,7 +62,8 @@
                expected_stock,
                expected_days30,
                suggested_purchase_qty,
-               max_days_since_order
+               max_days_since_order,
+               comment
         from kingdee_purchase_plan
     </sql>
 
@@ -186,6 +188,7 @@
             <if test="inTransitOrders != null">in_transit_orders = #{inTransitOrders},</if>
             <if test="parentName != null">parent_name = #{parentName},</if>
             <if test="model != null">model = #{model},</if>
+            <if test="comment != null">comment = #{comment},</if>
         </trim>
         where sku_code = #{skuCode}
     </update>
