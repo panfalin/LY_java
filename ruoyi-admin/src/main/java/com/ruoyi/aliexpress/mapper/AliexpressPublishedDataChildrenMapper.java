@@ -2,6 +2,7 @@ package com.ruoyi.aliexpress.mapper;
 
 import java.util.List;
 import com.ruoyi.aliexpress.domain.AliexpressPublishedDataChildren;
+import com.ruoyi.aliexpress.domain.SubSkuDTO;
 
 /**
  * 速卖通刊登子数据Mapper接口
@@ -26,6 +27,16 @@ public interface AliexpressPublishedDataChildrenMapper
      * @return 速卖通刊登子数据集合
      */
     public List<AliexpressPublishedDataChildren> selectAliexpressPublishedDataChildrenList(AliexpressPublishedDataChildren aliexpressPublishedDataChildren);
+
+
+    /**
+     * 查询速卖通刊登子数据列表
+     *
+     * @param aliexpressPublishedDataChildren 速卖通刊登子数据
+     * @return 速卖通刊登子数据集合
+     */
+    public List<SubSkuDTO> selectAliexpressPublishedDataChildrenListChilds(AliexpressPublishedDataChildren aliexpressPublishedDataChildren);
+
 
     /**
      * 新增速卖通刊登子数据

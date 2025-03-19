@@ -3,6 +3,7 @@ package com.ruoyi.aliexpress.domain;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -31,6 +32,17 @@ public class AliexpressPublishedDataChildren extends BaseEntity {
      */
     @Excel(name = "sku")
     private String sku;
+
+    /**
+     * sku
+     */
+    @Excel(name = "子sku")
+    private String skuChildren;
+
+    // 子 SKU 列表
+    private List<SubSkuDTO> children;
+
+
 
     /**
      * 统计时间
@@ -81,6 +93,22 @@ public class AliexpressPublishedDataChildren extends BaseEntity {
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate endTime;
+
+    public String getSkuChildren() {
+        return skuChildren;
+    }
+
+    public void setSkuChildren(String skuChildren) {
+        this.skuChildren = skuChildren;
+    }
+
+    public List<SubSkuDTO> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<SubSkuDTO> children) {
+        this.children = children;
+    }
 
     public LocalDate getBeginTime() {
         return beginTime;
