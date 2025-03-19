@@ -33,6 +33,7 @@
         <result property="suggestedPurchaseQty" column="suggested_purchase_qty"/>
         <result property="maxDaysSinceOrder" column="max_days_since_order"/>
         <result property="comment" column="comment"/>
+        <result property="updatedAt" column="updated_at"/>
     </resultMap>
 
     <sql id="selectKingdeePurchasePlanVo">
@@ -63,7 +64,8 @@
                expected_days30,
                suggested_purchase_qty,
                max_days_since_order,
-               comment
+               comment,
+               updated_at
         from kingdee_purchase_plan
     </sql>
 
