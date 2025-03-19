@@ -51,10 +51,22 @@ public class AliexpressToolIndicatorsAuto extends BaseEntity
     @Excel(name = "已断码")
     private String brokenSize;
 
+    /** jit订单异常 */
+    @Excel(name = "在线刊登")
+    private String onlinePublication;
+
     private String ifUpdate;
 
     /** $column.columnComment */
     private Long sId;
+
+    public String getOnlinePublication() {
+        return onlinePublication;
+    }
+
+    public void setOnlinePublication(String onlinePublication) {
+        this.onlinePublication = onlinePublication;
+    }
 
     public String getPLLogistics() {
         return PLLogistics;

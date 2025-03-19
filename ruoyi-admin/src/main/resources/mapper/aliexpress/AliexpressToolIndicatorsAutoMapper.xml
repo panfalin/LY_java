@@ -14,13 +14,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="pendingAppeal"    column="pending_appeal"    />
         <result property="outStock"    column="out_stock"    />
         <result property="brokenSize"    column="broken_size"    />
+        <result property="onlinePublication"    column="online_publication"    />
         <result property="ifUpdate"    column="if_update"    />
         <result property="sId"    column="s_id"    />
         <result property="createTime"    column="create_time"    />
     </resultMap>
 
     <sql id="selectAliexpressToolIndicatorsAutoVo">
-        select shop_name, shop_person, quality_disputes, PL_logistics, JIT_warehousing_timeout, warehouse_over_penalty, pending_appeal, out_stock, broken_size, s_id, create_time from aliexpress_tool_indicators_auto
+        select shop_name, shop_person, quality_disputes, PL_logistics, JIT_warehousing_timeout, warehouse_over_penalty, pending_appeal, out_stock, broken_size, s_id, online_publication, create_time from aliexpress_tool_indicators_auto
     </sql>
 
     <select id="selectAliexpressToolIndicatorsAutoList" parameterType="AliexpressToolIndicatorsAuto" resultMap="AliexpressToolIndicatorsAutoResult">
