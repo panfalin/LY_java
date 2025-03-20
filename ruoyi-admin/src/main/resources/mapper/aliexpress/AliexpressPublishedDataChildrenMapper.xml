@@ -1,92 +1,166 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ruoyi.aliexpress.mapper.AliexpressPublishedDataChildrenMapper">
 
     <resultMap type="AliexpressPublishedDataChildren" id="AliexpressPublishedDataChildrenResult">
-        <result property="commodityId"    column="commodity_id"    />
-        <result property="sku"    column="sku"    />
-        <result property="statisticalTime"    column="statistical_time"    />
-        <result property="attribute"    column="attribute"    />
-        <result property="paymentAmount"    column="payment_amount"    />
-        <result property="paymentVisitors"    column="payment_visitors"    />
-        <result property="paymentNumber"    column="payment_number"    />
-        <result property="skuAdditionalPeople"    column="sku_additional_people"    />
-        <result property="skuAdditionalPiece"    column="sku_additional_piece"    />
-        <result property="paymentConversion"    column="payment_conversion"    />
-        <result property="searchExposure"    column="search_exposure"    />
-        <result property="visitors"    column="visitors"    />
-        <result property="searchClicks"    column="search_clicks"    />
-        <result property="views"    column="views"    />
+        <result property="commodityId" column="commodity_id"/>
+        <result property="sku" column="sku"/>
+        <result property="statisticalTime" column="statistical_time"/>
+        <result property="attribute" column="attribute"/>
+        <result property="paymentAmount" column="payment_amount"/>
+        <result property="paymentVisitors" column="payment_visitors"/>
+        <result property="paymentNumber" column="payment_number"/>
+        <result property="skuAdditionalPeople" column="sku_additional_people"/>
+        <result property="skuAdditionalPiece" column="sku_additional_piece"/>
+        <result property="paymentConversion" column="payment_conversion"/>
+        <result property="searchExposure" column="search_exposure"/>
+        <result property="visitors" column="visitors"/>
+        <result property="searchClicks" column="search_clicks"/>
+        <result property="views" column="views"/>
+    </resultMap>
+
+    <resultMap type="AliexpressPublishedDataChildrenStatistics" id="AliexpressPublishedDataChildrenStaticsResult">
+        <result property="commodityNumber" column="commodity_number"/>
+        <result property="paymentAmount" column="payment_amount"/>
+        <result property="paymentVisitors" column="payment_visitors"/>
+        <result property="paymentNumber" column="payment_number"/>
+        <result property="skuAdditionalPeople" column="sku_additional_people"/>
+        <result property="skuAdditionalPiece" column="sku_additional_piece"/>
+        <result property="searchExposure" column="search_exposure"/>
+        <result property="visitors" column="visitors"/>
+        <result property="views" column="views"/>
     </resultMap>
 
     <resultMap type="SubSkuDTO" id="SubSkuDTOResult">
-        <result property="skuId"    column="sku_id"    />
-        <result property="skuChildren"    column="sku_children"    />
-        <result property="sku"    column="sku"    />
-        <result property="commodityId"    column="commodity_id"    />
+        <result property="skuId" column="sku_id"/>
+        <result property="skuChildren" column="sku_children"/>
+        <result property="sku" column="sku"/>
+        <result property="commodityId" column="commodity_id"/>
     </resultMap>
 
-
     <sql id="selectAliexpressPublishedDataChildrenVo">
-        SELECT
-            apdc.commodity_id,
-            apdc.sku,
-            apdc.attribute,
-            MAX(apd.payment_conversion) AS payment_conversion,
-            MAX(apd.search_exposure) AS search_exposure,
-            MAX(apd.visitors) AS visitors,
-            MAX(apd.search_clicks) AS search_clicks,
-            MAX(apd.views) AS views,
-            SUM(apdc.payment_amount) AS payment_amount,
-            SUM(apdc.payment_visitors) AS payment_visitors,
-            SUM(apdc.payment_number) AS payment_number,
-            SUM(apdc.sku_additional_people) AS sku_additional_people,
-            SUM(apdc.sku_additional_piece) AS sku_additional_piece
-        FROM
-            aliexpress_published_data_children AS apdc
-        LEFT JOIN aliexpress_published_data AS apd
-        ON apdc.commodity_id = apd.commodity_id
-        AND apdc.statistical_time = apd.statistical_time
+        SELECT apdc.commodity_id,
+               apdc.sku,
+               apdc.attribute,
+               MAX(apd.payment_conversion)     AS payment_conversion,
+               MAX(apd.search_exposure)        AS search_exposure,
+               MAX(apd.visitors)               AS visitors,
+               MAX(apd.search_clicks)          AS search_clicks,
+               MAX(apd.views)                  AS views,
+               SUM(apdc.payment_amount)        AS payment_amount,
+               SUM(apdc.payment_visitors)      AS payment_visitors,
+               SUM(apdc.payment_number)        AS payment_number,
+               SUM(apdc.sku_additional_people) AS sku_additional_people,
+               SUM(apdc.sku_additional_piece)  AS sku_additional_piece
+        FROM aliexpress_published_data_children AS apdc
+                 LEFT JOIN aliexpress_published_data AS apd
+                           ON apdc.commodity_id = apd.commodity_id
+                               AND apdc.statistical_time = apd.statistical_time
     </sql>
 
     <sql id="selectAliexpressPublishedDataChildrenSkuVo">
-        SELECT
-            commodity_id,
-            sku_id,
-            sku_children,
-            sku
-        FROM
-            aliexpress_published_sku_correspond
+        SELECT commodity_id,
+               sku_id,
+               sku_children,
+               sku
+        FROM aliexpress_published_sku_correspond
     </sql>
 
+    <sql id="selectAliexpressPublishedDataStatisticsVo">
+        SELECT count(commodity_id)  AS commodity_number,
+               SUM(search_exposure) AS search_exposure,
+               SUM(visitors)        AS visitors,
+               SUM(views)           AS views
+        FROM aliexpress_published_data
+    </sql>
 
-    <select id="selectAliexpressPublishedDataChildrenList" parameterType="AliexpressPublishedDataChildren" resultMap="AliexpressPublishedDataChildrenResult">
+    <sql id="selectAliexpressPublishedDataChildrenStatisticsVo">
+        SELECT SUM(payment_amount)        AS payment_amount,
+               SUM(payment_visitors)      AS payment_visitors,
+               SUM(payment_number)        AS payment_number,
+               SUM(sku_additional_people) AS sku_additional_people,
+               SUM(sku_additional_piece)  AS sku_additional_piece
+        FROM aliexpress_published_data_children
+    </sql>
+
+    <select id="selectAliexpressPublishedDataChildrenList" parameterType="AliexpressPublishedDataChildren"
+            resultMap="AliexpressPublishedDataChildrenResult">
         <include refid="selectAliexpressPublishedDataChildrenVo"/>
         <where>
             <if test="beginTime != null and endTime != null">
                 and apdc.statistical_time between #{beginTime} and #{endTime}
             </if>
-            <if test="commodityId != null  and commodityId != ''"> and apdc.commodity_id = #{commodityId}</if>
-            <if test="sku != null  and sku != ''"> and apdc.sku like concat('%', #{sku}, '%')</if>
-            <if test="statisticalTime != null "> and apdc.statistical_time = #{statisticalTime}</if>
+            <if test="commodityId != null  and commodityId != ''">and apdc.commodity_id = #{commodityId}</if>
+            <if test="sku != null  and sku != ''">and sku =#{sku}</if>
+            <if test="statisticalTime != null ">and apdc.statistical_time = #{statisticalTime}</if>
         </where>
         GROUP BY
         apdc.commodity_id,apdc.sku,apdc.attribute
     </select>
 
-    <select id="selectAliexpressPublishedDataChildrenListChilds" parameterType="AliexpressPublishedDataChildren" resultMap="SubSkuDTOResult">
+    <select id="selectAliexpressPublishedDataChildrenListChilds" parameterType="AliexpressPublishedDataChildren"
+            resultMap="SubSkuDTOResult">
         <include refid="selectAliexpressPublishedDataChildrenSkuVo"/>
         <where>
-            <if test="commodityId != null  and commodityId != ''"> and commodity_id = #{commodityId}</if>
-            <if test="skuChildren != null  and skuChildren != ''"> and sku_children like concat('%', #{skuChildren}, '%')</if>
-            <if test="sku != null  and sku != ''"> and sku like concat('%', #{sku}, '%')</if>
+            <if test="commodityId != null  and commodityId != ''">and commodity_id = #{commodityId}</if>
+            <if test="skuChildren != null  and skuChildren != ''">and sku_children like concat('%', #{skuChildren},
+                '%')
+            </if>
+            <if test="sku != null  and sku != ''">and sku =#{sku}</if>
         </where>
     </select>
 
-    
-    <select id="selectAliexpressPublishedDataChildrenByCommodityId" parameterType="String" resultMap="AliexpressPublishedDataChildrenResult">
+    <select id="selectAliexpressPublishedDataListStatistics" parameterType="AliexpressPublishedDataChildren"
+            resultMap="AliexpressPublishedDataChildrenStaticsResult">
+        <include refid="selectAliexpressPublishedDataStatisticsVo"/>
+        <where>
+            <if test="beginTime != null and endTime != null">
+                and statistical_time between #{beginTime} and #{endTime}
+            </if>
+            <if test="commodityId != null  and commodityId != ''">and commodity_id = #{commodityId}</if>
+            <if test="commodityIds != null and commodityIds.size() > 0">
+                AND commodity_id IN
+                <foreach collection="commodityIds" item="id" open="(" separator="," close=")">
+                    #{id}
+                </foreach>
+            </if>
+        </where>
+    </select>
+
+
+    <select id="selectAliexpressPublishedDataListChildrenStatistics" parameterType="AliexpressPublishedDataChildren"
+            resultMap="AliexpressPublishedDataChildrenStaticsResult">
+        <include refid="selectAliexpressPublishedDataChildrenStatisticsVo"/>
+        <where>
+            <if test="beginTime != null and endTime != null">
+                and statistical_time between #{beginTime} and #{endTime}
+            </if>
+            <if test="commodityId != null  and commodityId != ''">and commodity_id = #{commodityId}</if>
+            <if test="commodityIds != null and commodityIds.size() > 0">
+                AND commodity_id IN
+                <foreach collection="commodityIds" item="id" open="(" separator="," close=")">
+                    #{id}
+                </foreach>
+            </if>
+            <if test="sku != null  and sku != ''">and sku = #{sku}</if>
+        </where>
+    </select>
+
+    <select id="selectCommodityIdBySku" parameterType="aliexpressPublishedDataChildren" resultType="map">
+        SELECT commodity_id
+        FROM aliexpress_published_sku_correspond
+        <where>
+            <if test="skuChildren != null  and skuChildren != ''">and sku_children = #{skuChildren}</if>
+            <if test="sku != null  and sku != ''">and sku = #{sku}</if>
+        </where>
+        GROUP BY
+        commodity_id
+    </select>
+
+    <select id="selectAliexpressPublishedDataChildrenByCommodityId" parameterType="String"
+            resultMap="AliexpressPublishedDataChildrenResult">
         <include refid="selectAliexpressPublishedDataChildrenVo"/>
         where commodity_id = #{commodityId}
     </select>
@@ -103,7 +177,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="paymentNumber != null">payment_number,</if>
             <if test="skuAdditionalPeople != null">sku_additional_people,</if>
             <if test="skuAdditionalPiece != null">sku_additional_piece,</if>
-         </trim>
+        </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="commodityId != null and commodityId != ''">#{commodityId},</if>
             <if test="sku != null">#{sku},</if>
@@ -114,7 +188,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="paymentNumber != null">#{paymentNumber},</if>
             <if test="skuAdditionalPeople != null">#{skuAdditionalPeople},</if>
             <if test="skuAdditionalPiece != null">#{skuAdditionalPiece},</if>
-         </trim>
+        </trim>
     </insert>
 
     <update id="updateAliexpressPublishedDataChildren" parameterType="AliexpressPublishedDataChildren">
@@ -133,11 +207,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </update>
 
     <delete id="deleteAliexpressPublishedDataChildrenByCommodityId" parameterType="String">
-        delete from aliexpress_published_data_children where commodity_id = #{commodityId}
+        delete
+        from aliexpress_published_data_children
+        where commodity_id = #{commodityId}
     </delete>
 
     <delete id="deleteAliexpressPublishedDataChildrenByCommodityIds" parameterType="String">
-        delete from aliexpress_published_data_children where commodity_id in 
+        delete from aliexpress_published_data_children where commodity_id in
         <foreach item="commodityId" collection="array" open="(" separator="," close=")">
             #{commodityId}
         </foreach>

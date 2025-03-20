@@ -2,6 +2,7 @@ package com.ruoyi.aliexpress.service;
 
 import java.util.List;
 import com.ruoyi.aliexpress.domain.AliexpressPublishedDataChildren;
+import com.ruoyi.aliexpress.domain.AliexpressPublishedDataChildrenStatistics;
 
 /**
  * 速卖通刊登子数据Service接口
@@ -26,6 +27,14 @@ public interface IAliexpressPublishedDataChildrenService
      * @return 速卖通刊登子数据集合
      */
     public List<AliexpressPublishedDataChildren> selectAliexpressPublishedDataChildrenList(AliexpressPublishedDataChildren aliexpressPublishedDataChildren);
+
+    /**
+     * 查询速卖通刊登子数据列表
+     *
+     * @param aliexpressPublishedDataChildren 速卖通刊登子数据
+     * @return 速卖通刊登子数据集合
+     */
+    public List<AliexpressPublishedDataChildrenStatistics> selectAliexpressPublishedDataChildrenTotalList(AliexpressPublishedDataChildren aliexpressPublishedDataChildren);
 
     /**
      * 新增速卖通刊登子数据

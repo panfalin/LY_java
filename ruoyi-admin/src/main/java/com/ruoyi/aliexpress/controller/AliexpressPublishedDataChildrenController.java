@@ -2,6 +2,8 @@ package com.ruoyi.aliexpress.controller;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
+import com.ruoyi.aliexpress.domain.AliexpressPublishedDataChildrenStatistics;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,10 +43,22 @@ public class AliexpressPublishedDataChildrenController extends BaseController
     @GetMapping("/list")
     public TableDataInfo list(AliexpressPublishedDataChildren aliexpressPublishedDataChildren)
     {
-        startPage();
+
         List<AliexpressPublishedDataChildren> list = aliexpressPublishedDataChildrenService.selectAliexpressPublishedDataChildrenList(aliexpressPublishedDataChildren);
         return getDataTable(list);
     }
+
+    /**
+     * 查询速卖通刊登子数据列表
+     */
+    @PreAuthorize("@ss.hasPermi('aliexpress:PublishedDataChildren:list')")
+    @GetMapping("/listTotal")
+    public TableDataInfo listTotal(AliexpressPublishedDataChildren aliexpressPublishedDataChildren)
+    {
+        List<AliexpressPublishedDataChildrenStatistics> list = aliexpressPublishedDataChildrenService.selectAliexpressPublishedDataChildrenTotalList(aliexpressPublishedDataChildren);
+        return getDataTable(list);
+    }
+
 
     /**
      * 导出速卖通刊登子数据列表

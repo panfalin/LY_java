@@ -28,6 +28,14 @@ public class AliexpressPublishedDataChildren extends BaseEntity {
     private String commodityId;
 
     /**
+     * 商品ID
+     */
+    @Excel(name = "商品ID列表")
+    private List<String> commodityIds;
+
+
+
+    /**
      * sku
      */
     @Excel(name = "sku")
@@ -66,25 +74,25 @@ public class AliexpressPublishedDataChildren extends BaseEntity {
      * SKU支付买家数
      */
     @Excel(name = "SKU支付买家数")
-    private Long paymentVisitors;
+    private BigDecimal paymentVisitors;
 
     /**
      * 支付件数
      */
     @Excel(name = "支付件数")
-    private Long paymentNumber;
+    private BigDecimal paymentNumber;
 
     /**
      * sku加购人数
      */
     @Excel(name = "sku加购人数")
-    private Long skuAdditionalPeople;
+    private BigDecimal skuAdditionalPeople;
 
     /**
      * sku加购件数
      */
     @Excel(name = "sku加购件数")
-    private String skuAdditionalPiece;
+    private BigDecimal skuAdditionalPiece;
 
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -121,44 +129,28 @@ public class AliexpressPublishedDataChildren extends BaseEntity {
     @Excel(name = "浏览量")
     private BigDecimal views;
 
-    public BigDecimal getPaymentConversion() {
-        return paymentConversion;
+    public String getCommodityId() {
+        return commodityId;
     }
 
-    public void setPaymentConversion(BigDecimal paymentConversion) {
-        this.paymentConversion = paymentConversion;
+    public void setCommodityId(String commodityId) {
+        this.commodityId = commodityId;
     }
 
-    public BigDecimal getSearchExposure() {
-        return searchExposure;
+    public List<String> getCommodityIds() {
+        return commodityIds;
     }
 
-    public void setSearchExposure(BigDecimal searchExposure) {
-        this.searchExposure = searchExposure;
+    public void setCommodityIds(List<String> commodityIds) {
+        this.commodityIds = commodityIds;
     }
 
-    public BigDecimal getSearchClicks() {
-        return searchClicks;
+    public String getSku() {
+        return sku;
     }
 
-    public void setSearchClicks(BigDecimal searchClicks) {
-        this.searchClicks = searchClicks;
-    }
-
-    public BigDecimal getVisitors() {
-        return visitors;
-    }
-
-    public void setVisitors(BigDecimal visitors) {
-        this.visitors = visitors;
-    }
-
-    public BigDecimal getViews() {
-        return views;
-    }
-
-    public void setViews(BigDecimal views) {
-        this.views = views;
+    public void setSku(String sku) {
+        this.sku = sku;
     }
 
     public String getSkuChildren() {
@@ -177,6 +169,62 @@ public class AliexpressPublishedDataChildren extends BaseEntity {
         this.children = children;
     }
 
+    public Date getStatisticalTime() {
+        return statisticalTime;
+    }
+
+    public void setStatisticalTime(Date statisticalTime) {
+        this.statisticalTime = statisticalTime;
+    }
+
+    public String getAttribute() {
+        return attribute;
+    }
+
+    public void setAttribute(String attribute) {
+        this.attribute = attribute;
+    }
+
+    public BigDecimal getPaymentAmount() {
+        return paymentAmount;
+    }
+
+    public void setPaymentAmount(BigDecimal paymentAmount) {
+        this.paymentAmount = paymentAmount;
+    }
+
+    public BigDecimal getPaymentVisitors() {
+        return paymentVisitors;
+    }
+
+    public void setPaymentVisitors(BigDecimal paymentVisitors) {
+        this.paymentVisitors = paymentVisitors;
+    }
+
+    public BigDecimal getPaymentNumber() {
+        return paymentNumber;
+    }
+
+    public void setPaymentNumber(BigDecimal paymentNumber) {
+        this.paymentNumber = paymentNumber;
+    }
+
+    public BigDecimal getSkuAdditionalPeople() {
+        return skuAdditionalPeople;
+    }
+
+    public void setSkuAdditionalPeople(BigDecimal skuAdditionalPeople) {
+        this.skuAdditionalPeople = skuAdditionalPeople;
+    }
+
+    public BigDecimal getSkuAdditionalPiece() {
+        return skuAdditionalPiece;
+    }
+
+    public void setSkuAdditionalPiece(BigDecimal skuAdditionalPiece) {
+        this.skuAdditionalPiece = skuAdditionalPiece;
+    }
+
     public LocalDate getBeginTime() {
         return beginTime;
     }
@@ -193,76 +241,44 @@ public class AliexpressPublishedDataChildren extends BaseEntity {
         this.endTime = endTime;
     }
 
-    public void setCommodityId(String commodityId) {
-        this.commodityId = commodityId;
+    public BigDecimal getPaymentConversion() {
+        return paymentConversion;
     }
 
-    public String getCommodityId() {
-        return commodityId;
+    public void setPaymentConversion(BigDecimal paymentConversion) {
+        this.paymentConversion = paymentConversion;
     }
 
-    public void setSku(String sku) {
-        this.sku = sku;
+    public BigDecimal getSearchExposure() {
+        return searchExposure;
     }
 
-    public String getSku() {
-        return sku;
+    public void setSearchExposure(BigDecimal searchExposure) {
+        this.searchExposure = searchExposure;
     }
 
-    public void setStatisticalTime(Date statisticalTime) {
-        this.statisticalTime = statisticalTime;
+    public BigDecimal getVisitors() {
+        return visitors;
     }
 
-    public Date getStatisticalTime() {
-        return statisticalTime;
+    public void setVisitors(BigDecimal visitors) {
+        this.visitors = visitors;
     }
 
-    public void setAttribute(String attribute) {
-        this.attribute = attribute;
+    public BigDecimal getSearchClicks() {
+        return searchClicks;
     }
 
-    public String getAttribute() {
-        return attribute;
+    public void setSearchClicks(BigDecimal searchClicks) {
+        this.searchClicks = searchClicks;
     }
 
-    public void setPaymentAmount(BigDecimal paymentAmount) {
-        this.paymentAmount = paymentAmount;
+    public BigDecimal getViews() {
+        return views;
     }
 
-    public BigDecimal getPaymentAmount() {
-        return paymentAmount;
-    }
-
-    public void setPaymentVisitors(Long paymentVisitors) {
-        this.paymentVisitors = paymentVisitors;
-    }
-
-    public Long getPaymentVisitors() {
-        return paymentVisitors;
-    }
-
-    public void setPaymentNumber(Long paymentNumber) {
-        this.paymentNumber = paymentNumber;
-    }
-
-    public Long getPaymentNumber() {
-        return paymentNumber;
-    }
-
-    public void setSkuAdditionalPeople(Long skuAdditionalPeople) {
-        this.skuAdditionalPeople = skuAdditionalPeople;
-    }
-
-    public Long getSkuAdditionalPeople() {
-        return skuAdditionalPeople;
-    }
-
-    public void setSkuAdditionalPiece(String skuAdditionalPiece) {
-        this.skuAdditionalPiece = skuAdditionalPiece;
-    }
-
-    public String getSkuAdditionalPiece() {
-        return skuAdditionalPiece;
+    public void setViews(BigDecimal views) {
+        this.views = views;
     }
 
     @Override
