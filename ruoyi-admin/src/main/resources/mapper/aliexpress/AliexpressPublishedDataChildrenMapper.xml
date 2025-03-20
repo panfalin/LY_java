@@ -3,7 +3,7 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ruoyi.aliexpress.mapper.AliexpressPublishedDataChildrenMapper">
-    
+
     <resultMap type="AliexpressPublishedDataChildren" id="AliexpressPublishedDataChildrenResult">
         <result property="commodityId"    column="commodity_id"    />
         <result property="sku"    column="sku"    />
@@ -14,6 +14,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="paymentNumber"    column="payment_number"    />
         <result property="skuAdditionalPeople"    column="sku_additional_people"    />
         <result property="skuAdditionalPiece"    column="sku_additional_piece"    />
+        <result property="paymentConversion"    column="payment_conversion"    />
+        <result property="searchExposure"    column="search_exposure"    />
+        <result property="visitors"    column="visitors"    />
+        <result property="searchClicks"    column="search_clicks"    />
+        <result property="views"    column="views"    />
     </resultMap>
 
     <resultMap type="SubSkuDTO" id="SubSkuDTOResult">
@@ -26,16 +31,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <sql id="selectAliexpressPublishedDataChildrenVo">
         SELECT
-            commodity_id,
-            sku,
-            attribute,
-            SUM(payment_amount) AS payment_amount,
-            SUM(payment_visitors) AS payment_visitors,
-            SUM(payment_number) AS payment_number,
-            SUM(sku_additional_people) AS sku_additional_people,
-            SUM(sku_additional_piece) AS sku_additional_piece
+            apdc.commodity_id,
+            apdc.sku,
+            apdc.attribute,
+            MAX(apd.payment_conversion) AS payment_conversion,
+            MAX(apd.search_exposure) AS search_exposure,
+            MAX(apd.visitors) AS visitors,
+            MAX(apd.search_clicks) AS search_clicks,
+            MAX(apd.views) AS views,
+            SUM(apdc.payment_amount) AS payment_amount,
+            SUM(apdc.payment_visitors) AS payment_visitors,
+            SUM(apdc.payment_number) AS payment_number,
+            SUM(apdc.sku_additional_people) AS sku_additional_people,
+            SUM(apdc.sku_additional_piece) AS sku_additional_piece
         FROM
-            aliexpress_published_data_children
+            aliexpress_published_data_children AS apdc
+        LEFT JOIN aliexpress_published_data AS apd
+        ON apdc.commodity_id = apd.commodity_id
+        AND apdc.statistical_time = apd.statistical_time
     </sql>
 
     <sql id="selectAliexpressPublishedDataChildrenSkuVo">
@@ -53,14 +66,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <include refid="selectAliexpressPublishedDataChildrenVo"/>
         <where>
             <if test="beginTime != null and endTime != null">
-                and statistical_time between #{beginTime} and #{endTime}
+                and apdc.statistical_time between #{beginTime} and #{endTime}
             </if>
-            <if test="commodityId != null  and commodityId != ''"> and commodity_id = #{commodityId}</if>
-            <if test="sku != null  and sku != ''"> and sku like concat('%', #{sku}, '%')</if>
-            <if test="statisticalTime != null "> and statistical_time = #{statisticalTime}</if>
+            <if test="commodityId != null  and commodityId != ''"> and apdc.commodity_id = #{commodityId}</if>
+            <if test="sku != null  and sku != ''"> and apdc.sku like concat('%', #{sku}, '%')</if>
+            <if test="statisticalTime != null "> and apdc.statistical_time = #{statisticalTime}</if>
         </where>
         GROUP BY
-        commodity_id,sku,attribute
+        apdc.commodity_id,apdc.sku,apdc.attribute
     </select>
 
     <select id="selectAliexpressPublishedDataChildrenListChilds" parameterType="AliexpressPublishedDataChildren" resultMap="SubSkuDTOResult">

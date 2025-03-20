@@ -43,7 +43,6 @@ public class AliexpressPublishedDataChildren extends BaseEntity {
     private List<SubSkuDTO> children;
 
 
-
     /**
      * 统计时间
      */
@@ -93,6 +92,74 @@ public class AliexpressPublishedDataChildren extends BaseEntity {
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate endTime;
+
+    /**
+     * 支付转化率
+     */
+    @Excel(name = "支付转化率")
+    private BigDecimal paymentConversion;
+
+    /**
+     * 搜索曝光
+     */
+    @Excel(name = "搜索曝光")
+    private BigDecimal searchExposure;
+
+    /**
+     * 访客数
+     */
+    @Excel(name = "访客数")
+    private BigDecimal visitors;
+    /**
+     * 搜索点击率
+     */
+    @Excel(name = "搜索点击率")
+    private BigDecimal searchClicks;
+    /**
+     * 支付件单价
+     */
+    @Excel(name = "浏览量")
+    private BigDecimal views;
+
+    public BigDecimal getPaymentConversion() {
+        return paymentConversion;
+    }
+
+    public void setPaymentConversion(BigDecimal paymentConversion) {
+        this.paymentConversion = paymentConversion;
+    }
+
+    public BigDecimal getSearchExposure() {
+        return searchExposure;
+    }
+
+    public void setSearchExposure(BigDecimal searchExposure) {
+        this.searchExposure = searchExposure;
+    }
+
+    public BigDecimal getSearchClicks() {
+        return searchClicks;
+    }
+
+    public void setSearchClicks(BigDecimal searchClicks) {
+        this.searchClicks = searchClicks;
+    }
+
+    public BigDecimal getVisitors() {
+        return visitors;
+    }
+
+    public void setVisitors(BigDecimal visitors) {
+        this.visitors = visitors;
+    }
+
+    public BigDecimal getViews() {
+        return views;
+    }
+
+    public void setViews(BigDecimal views) {
+        this.views = views;
+    }
 
     public String getSkuChildren() {
         return skuChildren;

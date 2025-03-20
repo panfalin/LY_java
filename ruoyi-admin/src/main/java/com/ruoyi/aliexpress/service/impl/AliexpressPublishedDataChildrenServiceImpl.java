@@ -80,7 +80,6 @@ public class AliexpressPublishedDataChildrenServiceImpl implements IAliexpressPu
                 List<SubSkuDTO> subSkuList = aliexpressPublishedDataChildrenMapper.selectAliexpressPublishedDataChildrenListChilds(item);
                 item.setChildren(subSkuList);
             }
-            System.out.println(aliexpressPublishedDataChildrenComplete.toString());
             return aliexpressPublishedDataChildrenComplete;
         }
         //获取所有包含统计信息
