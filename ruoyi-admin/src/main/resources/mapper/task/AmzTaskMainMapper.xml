@@ -75,6 +75,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="marketplaceId != null and marketplaceId != ''">
                 AND t.marketplace_id = #{marketplaceId}
             </if>
+            <if test="metricType != null and metricType != ''">
+                AND t.metric_type = #{metricType}
+            </if>
         </where>
         GROUP BY 
             t.store_name, 
