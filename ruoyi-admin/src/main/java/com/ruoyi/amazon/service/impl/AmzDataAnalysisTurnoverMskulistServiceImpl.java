@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import com.ruoyi.amazon.mapper.AmzDataAnalysisTurnoverMskulistMapper;
 import com.ruoyi.amazon.domain.AmzDataAnalysisTurnoverMskulist;
 import com.ruoyi.amazon.service.IAmzDataAnalysisTurnoverMskulistService;
+import com.ruoyi.amazon.domain.vo.CategoryVO;
 
 import javax.annotation.Resource;
 
@@ -306,5 +307,54 @@ public class AmzDataAnalysisTurnoverMskulistServiceImpl implements IAmzDataAnaly
     @Override
     public List<AmzStoreRankingDTO> getStoreRanking(AmzDataAnalysisTurnoverMskulist queryDTO) {
         return amzDataAnalysisTurnoverMskulistMapper.selectStoreRanking(queryDTO);
+    }
+
+    @Override
+    public List<CategoryVO> getCategoryTree() {
+        // 1. 查询所有分类
+        List<Map<String, Object>> categories = amzDataAnalysisTurnoverMskulistMapper.selectAllCategories();
+        
+        // 2. 构建树形结构
+        Map<String, CategoryVO> levelOneMap = new HashMap<>();
+        
+        for (Map<String, Object> category : categories) {
+            String levelOne = (String) category.get("categoryLevelOne");
+            String levelTwo = (String) category.get("categoryLevelTwo");
+            Long countLong = (Long) category.get("count");
+            Integer count = countLong.intValue();
+            
+            // 处理一级目录
+            CategoryVO levelOneVO = levelOneMap.computeIfAbsent(levelOne, k -> {
+                CategoryVO vo = new CategoryVO();
+                vo.setLabel(levelOne);
+                vo.setValue(levelOne);
+                vo.setCount(0);  // 初始化计数
+                vo.setChildren(new ArrayList<>());
+                return vo;
+            });
+            
+            // 累加一级目录的数量
+            levelOneVO.setCount(levelOneVO.getCount() + count);
+            
+            // 处理二级目录
+            if (levelTwo != null) {
+                CategoryVO levelTwoVO = new CategoryVO();
+                levelTwoVO.setLabel(levelTwo);
+                levelTwoVO.setValue(levelTwo);
+                levelTwoVO.setCount(count);
+                levelOneVO.getChildren().add(levelTwoVO);
+            }
+        }
+        
+        // 3. 修改显示标签，添加数量信息
+        for (CategoryVO levelOne : levelOneMap.values()) {
+            levelOne.setLabel(levelOne.getLabel() + " (" + levelOne.getCount() + ")");
+            for (CategoryVO levelTwo : levelOne.getChildren()) {
+                levelTwo.setLabel(levelTwo.getLabel() + " (" + levelTwo.getCount() + ")");
+            }
+        }
+        
+        // 4. 转换为列表
+        return new ArrayList<>(levelOneMap.values());
     }
 }

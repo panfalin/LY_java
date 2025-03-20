@@ -1,6 +1,7 @@
 package com.ruoyi.amazon.mapper;
 
 import java.util.List;
+import java.util.Map;
 import com.ruoyi.amazon.domain.AmzDataAnalysisTurnoverMskulist;
 import com.ruoyi.amazon.dto.AmzDataAnalysisTurnoverDTO;
 import com.ruoyi.amazon.dto.AmzStoreRankingDTO;
@@ -85,4 +86,6 @@ public interface AmzDataAnalysisTurnoverMskulistMapper
      * @return 店铺排名列表
      */
     List<AmzStoreRankingDTO> selectStoreRanking(AmzDataAnalysisTurnoverMskulist queryDTO);
+
+    List<Map<String, Object>> selectAllCategories();
 }

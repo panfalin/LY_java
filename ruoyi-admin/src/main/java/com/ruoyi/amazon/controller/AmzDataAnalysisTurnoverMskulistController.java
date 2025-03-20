@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.ruoyi.amazon.domain.AmzDataAnalysisTurnoverOperationalAnalysis;
 import com.ruoyi.amazon.domain.AmzDataAnalysisTurnoverSkuInfoTemplate;
+import com.ruoyi.amazon.domain.vo.CategoryVO;
 import com.ruoyi.amazon.dto.AmzDataAnalysisTurnoverDTO;
 import com.ruoyi.amazon.dto.AmzStoreRankingDTO;
 import com.ruoyi.amazon.service.IAmzDataAnalysisTurnoverOperationalAnalysisService;
@@ -188,5 +189,14 @@ public class AmzDataAnalysisTurnoverMskulistController extends BaseController
     public AjaxResult getStoreRanking(AmzDataAnalysisTurnoverMskulist queryDTO) {
         List<AmzStoreRankingDTO> storeRanking = amzDataAnalysisTurnoverMskulistService.getStoreRanking(queryDTO);
         return AjaxResult.success(storeRanking);
+    }
+
+    /**
+     * 获取商品目录树
+     */
+    @GetMapping("/categoryTree")
+    public AjaxResult getCategoryTree() {
+        List<CategoryVO> tree = amzDataAnalysisTurnoverMskulistService.getCategoryTree();
+        return AjaxResult.success(tree);
     }
 }

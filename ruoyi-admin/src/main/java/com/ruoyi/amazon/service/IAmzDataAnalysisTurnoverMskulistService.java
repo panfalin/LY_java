@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.ruoyi.amazon.domain.AmzDataAnalysisTurnoverMskulist;
+import com.ruoyi.amazon.domain.vo.CategoryVO;
 import com.ruoyi.amazon.dto.AmzDataAnalysisTurnoverDTO;
 import com.ruoyi.amazon.dto.AmzStoreRankingDTO;
 
@@ -83,4 +84,6 @@ public interface IAmzDataAnalysisTurnoverMskulistService
      * @return 店铺排名列表
      */
     List<AmzStoreRankingDTO> getStoreRanking(AmzDataAnalysisTurnoverMskulist queryDTO);
+
+    public List<CategoryVO> getCategoryTree();
 }
