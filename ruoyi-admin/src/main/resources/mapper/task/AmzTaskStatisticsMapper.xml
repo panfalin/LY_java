@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.task.mapper.AmzTaskStatisticsMapper">
+    
+    <resultMap type="AmzTaskStatistics" id="AmzTaskStatisticsResult">
+        <result property="statsId"    column="stats_id"    />
+        <result property="storeName"    column="store_name"    />
+        <result property="statsDate"    column="stats_date"    />
+        <result property="metricType"    column="metric_type"    />
+        <result property="totalTasks"    column="total_tasks"    />
+        <result property="completedTasks"    column="completed_tasks"    />
+        <result property="overtimeTasks"    column="overtime_tasks"    />
+        <result property="completionRate"    column="completion_rate"    />
+        <result property="avgProgress"    column="avg_progress"    />
+        <result property="statsData"    column="stats_data"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectAmzTaskStatisticsVo">
+        select stats_id, store_name, stats_date, metric_type, total_tasks, completed_tasks, overtime_tasks, completion_rate, avg_progress, stats_data, create_time, update_time from amz_task_statistics
+    </sql>
+
+    <select id="selectAmzTaskStatisticsList" parameterType="AmzTaskStatistics" resultMap="AmzTaskStatisticsResult">
+        <include refid="selectAmzTaskStatisticsVo"/>
+        <where>  
+            <if test="storeName != null  and storeName != ''"> and store_name = #{storeName}</if>
+            <if test="statsDate != null "> and stats_date = #{statsDate}</if>
+            <if test="metricType != null  and metricType != ''"> and metric_type = #{metricType}</if>
+            <if test="totalTasks != null "> and total_tasks = #{totalTasks}</if>
+            <if test="completedTasks != null "> and completed_tasks = #{completedTasks}</if>
+            <if test="overtimeTasks != null "> and overtime_tasks = #{overtimeTasks}</if>
+            <if test="completionRate != null "> and completion_rate = #{completionRate}</if>
+            <if test="avgProgress != null "> and avg_progress = #{avgProgress}</if>
+            <if test="statsData != null  and statsData != ''"> and stats_data = #{statsData}</if>
+        </where>
+    </select>
+    
+    <select id="selectAmzTaskStatisticsByStatsId" parameterType="Long" resultMap="AmzTaskStatisticsResult">
+        <include refid="selectAmzTaskStatisticsVo"/>
+        where stats_id = #{statsId}
+    </select>
+
+    <insert id="insertAmzTaskStatistics" parameterType="AmzTaskStatistics" useGeneratedKeys="true" keyProperty="statsId">
+        insert into amz_task_statistics
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="storeName != null and storeName != ''">store_name,</if>
+            <if test="statsDate != null">stats_date,</if>
+            <if test="metricType != null and metricType != ''">metric_type,</if>
+            <if test="totalTasks != null">total_tasks,</if>
+            <if test="completedTasks != null">completed_tasks,</if>
+            <if test="overtimeTasks != null">overtime_tasks,</if>
+            <if test="completionRate != null">completion_rate,</if>
+            <if test="avgProgress != null">avg_progress,</if>
+            <if test="statsData != null">stats_data,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="storeName != null and storeName != ''">#{storeName},</if>
+            <if test="statsDate != null">#{statsDate},</if>
+            <if test="metricType != null and metricType != ''">#{metricType},</if>
+            <if test="totalTasks != null">#{totalTasks},</if>
+            <if test="completedTasks != null">#{completedTasks},</if>
+            <if test="overtimeTasks != null">#{overtimeTasks},</if>
+            <if test="completionRate != null">#{completionRate},</if>
+            <if test="avgProgress != null">#{avgProgress},</if>
+            <if test="statsData != null">#{statsData},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateAmzTaskStatistics" parameterType="AmzTaskStatistics">
+        update amz_task_statistics
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="storeName != null and storeName != ''">store_name = #{storeName},</if>
+            <if test="statsDate != null">stats_date = #{statsDate},</if>
+            <if test="metricType != null and metricType != ''">metric_type = #{metricType},</if>
+            <if test="totalTasks != null">total_tasks = #{totalTasks},</if>
+            <if test="completedTasks != null">completed_tasks = #{completedTasks},</if>
+            <if test="overtimeTasks != null">overtime_tasks = #{overtimeTasks},</if>
+            <if test="completionRate != null">completion_rate = #{completionRate},</if>
+            <if test="avgProgress != null">avg_progress = #{avgProgress},</if>
+            <if test="statsData != null">stats_data = #{statsData},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where stats_id = #{statsId}
+    </update>
+
+    <delete id="deleteAmzTaskStatisticsByStatsId" parameterType="Long">
+        delete from amz_task_statistics where stats_id = #{statsId}
+    </delete>
+
+    <delete id="deleteAmzTaskStatisticsByStatsIds" parameterType="String">
+        delete from amz_task_statistics where stats_id in 
+        <foreach item="statsId" collection="array" open="(" separator="," close=")">
+            #{statsId}
+        </foreach>
+    </delete>
+</mapper>

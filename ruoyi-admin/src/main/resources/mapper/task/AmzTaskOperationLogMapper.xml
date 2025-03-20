@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.task.mapper.AmzTaskOperationLogMapper">
+    
+    <resultMap type="AmzTaskOperationLog" id="AmzTaskOperationLogResult">
+        <result property="logId"    column="log_id"    />
+        <result property="taskId"    column="task_id"    />
+        <result property="storeName"    column="store_name"    />
+        <result property="sku"    column="sku"    />
+        <result property="operatorId"    column="operator_id"    />
+        <result property="operationType"    column="operation_type"    />
+        <result property="operationDetail"    column="operation_detail"    />
+        <result property="oldValue"    column="old_value"    />
+        <result property="newValue"    column="new_value"    />
+        <result property="ipAddress"    column="ip_address"    />
+        <result property="createTime"    column="create_time"    />
+    </resultMap>
+
+    <sql id="selectAmzTaskOperationLogVo">
+        select log_id, task_id, store_name, sku, operator_id, operation_type, operation_detail, old_value, new_value, ip_address, create_time from amz_task_operation_log
+    </sql>
+
+    <select id="selectAmzTaskOperationLogList" parameterType="AmzTaskOperationLog" resultMap="AmzTaskOperationLogResult">
+        <include refid="selectAmzTaskOperationLogVo"/>
+        <where>  
+            <if test="taskId != null "> and task_id = #{taskId}</if>
+            <if test="storeName != null  and storeName != ''"> and store_name = #{storeName}</if>
+            <if test="sku != null  and sku != ''"> and sku = #{sku}</if>
+            <if test="operatorId != null "> and operator_id = #{operatorId}</if>
+            <if test="operationType != null  and operationType != ''"> and operation_type = #{operationType}</if>
+            <if test="operationDetail != null  and operationDetail != ''"> and operation_detail = #{operationDetail}</if>
+            <if test="oldValue != null  and oldValue != ''"> and old_value = #{oldValue}</if>
+            <if test="newValue != null  and newValue != ''"> and new_value = #{newValue}</if>
+            <if test="ipAddress != null  and ipAddress != ''"> and ip_address = #{ipAddress}</if>
+        </where>
+    </select>
+    
+    <select id="selectAmzTaskOperationLogByLogId" parameterType="Long" resultMap="AmzTaskOperationLogResult">
+        <include refid="selectAmzTaskOperationLogVo"/>
+        where log_id = #{logId}
+    </select>
+
+    <insert id="insertAmzTaskOperationLog" parameterType="AmzTaskOperationLog" useGeneratedKeys="true" keyProperty="logId">
+        insert into amz_task_operation_log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="taskId != null">task_id,</if>
+            <if test="storeName != null and storeName != ''">store_name,</if>
+            <if test="sku != null and sku != ''">sku,</if>
+            <if test="operatorId != null">operator_id,</if>
+            <if test="operationType != null and operationType != ''">operation_type,</if>
+            <if test="operationDetail != null">operation_detail,</if>
+            <if test="oldValue != null">old_value,</if>
+            <if test="newValue != null">new_value,</if>
+            <if test="ipAddress != null">ip_address,</if>
+            <if test="createTime != null">create_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="taskId != null">#{taskId},</if>
+            <if test="storeName != null and storeName != ''">#{storeName},</if>
+            <if test="sku != null and sku != ''">#{sku},</if>
+            <if test="operatorId != null">#{operatorId},</if>
+            <if test="operationType != null and operationType != ''">#{operationType},</if>
+            <if test="operationDetail != null">#{operationDetail},</if>
+            <if test="oldValue != null">#{oldValue},</if>
+            <if test="newValue != null">#{newValue},</if>
+            <if test="ipAddress != null">#{ipAddress},</if>
+            <if test="createTime != null">#{createTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateAmzTaskOperationLog" parameterType="AmzTaskOperationLog">
+        update amz_task_operation_log
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="taskId != null">task_id = #{taskId},</if>
+            <if test="storeName != null and storeName != ''">store_name = #{storeName},</if>
+            <if test="sku != null and sku != ''">sku = #{sku},</if>
+            <if test="operatorId != null">operator_id = #{operatorId},</if>
+            <if test="operationType != null and operationType != ''">operation_type = #{operationType},</if>
+            <if test="operationDetail != null">operation_detail = #{operationDetail},</if>
+            <if test="oldValue != null">old_value = #{oldValue},</if>
+            <if test="newValue != null">new_value = #{newValue},</if>
+            <if test="ipAddress != null">ip_address = #{ipAddress},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+        </trim>
+        where log_id = #{logId}
+    </update>
+
+    <delete id="deleteAmzTaskOperationLogByLogId" parameterType="Long">
+        delete from amz_task_operation_log where log_id = #{logId}
+    </delete>
+
+    <delete id="deleteAmzTaskOperationLogByLogIds" parameterType="String">
+        delete from amz_task_operation_log where log_id in 
+        <foreach item="logId" collection="array" open="(" separator="," close=")">
+            #{logId}
+        </foreach>
+    </delete>
+</mapper>

@@ -195,4 +195,21 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils
         ZonedDateTime zdt = localDateTime.atZone(ZoneId.systemDefault());
         return Date.from(zdt.toInstant());
     }
+
+    /**
+     * 计算到指定日期的剩余天数
+     */
+
+    public static int calculateRemainingDays(Date endDate) {
+
+        if (endDate == null) {
+
+            return 0;
+
+        }
+
+        return (int) ((endDate.getTime() - System.currentTimeMillis()) / (1000 * 60 * 60 * 24));
+
+    }
+
 }

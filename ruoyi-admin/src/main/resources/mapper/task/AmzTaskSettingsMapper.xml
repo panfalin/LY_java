@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.task.mapper.AmzTaskSettingsMapper">
+    
+    <resultMap type="AmzTaskSettings" id="AmzTaskSettingsResult">
+        <result property="settingId"    column="setting_id"    />
+        <result property="taskId"    column="task_id"    />
+        <result property="storeName"    column="store_name"    />
+        <result property="notifyThreshold"    column="notify_threshold"    />
+        <result property="notifyInterval"    column="notify_interval"    />
+        <result property="autoPause"    column="auto_pause"    />
+        <result property="pauseCondition"    column="pause_condition"    />
+        <result property="alertRules"    column="alert_rules"    />
+        <result property="metricRules"    column="metric_rules"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectAmzTaskSettingsVo">
+        select setting_id, task_id, store_name, notify_threshold, notify_interval, auto_pause, pause_condition, alert_rules, metric_rules, create_time, update_time from amz_task_settings
+    </sql>
+
+    <select id="selectAmzTaskSettingsList" parameterType="AmzTaskSettings" resultMap="AmzTaskSettingsResult">
+        <include refid="selectAmzTaskSettingsVo"/>
+        <where>  
+            <if test="taskId != null "> and task_id = #{taskId}</if>
+            <if test="storeName != null  and storeName != ''"> and store_name = #{storeName}</if>
+            <if test="notifyThreshold != null "> and notify_threshold = #{notifyThreshold}</if>
+            <if test="notifyInterval != null "> and notify_interval = #{notifyInterval}</if>
+            <if test="autoPause != null "> and auto_pause = #{autoPause}</if>
+            <if test="pauseCondition != null  and pauseCondition != ''"> and pause_condition = #{pauseCondition}</if>
+            <if test="alertRules != null  and alertRules != ''"> and alert_rules = #{alertRules}</if>
+            <if test="metricRules != null  and metricRules != ''"> and metric_rules = #{metricRules}</if>
+        </where>
+    </select>
+    
+    <select id="selectAmzTaskSettingsBySettingId" parameterType="Long" resultMap="AmzTaskSettingsResult">
+        <include refid="selectAmzTaskSettingsVo"/>
+        where setting_id = #{settingId}
+    </select>
+
+    <insert id="insertAmzTaskSettings" parameterType="AmzTaskSettings" useGeneratedKeys="true" keyProperty="settingId">
+        insert into amz_task_settings
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="taskId != null">task_id,</if>
+            <if test="storeName != null and storeName != ''">store_name,</if>
+            <if test="notifyThreshold != null">notify_threshold,</if>
+            <if test="notifyInterval != null">notify_interval,</if>
+            <if test="autoPause != null">auto_pause,</if>
+            <if test="pauseCondition != null">pause_condition,</if>
+            <if test="alertRules != null">alert_rules,</if>
+            <if test="metricRules != null">metric_rules,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="taskId != null">#{taskId},</if>
+            <if test="storeName != null and storeName != ''">#{storeName},</if>
+            <if test="notifyThreshold != null">#{notifyThreshold},</if>
+            <if test="notifyInterval != null">#{notifyInterval},</if>
+            <if test="autoPause != null">#{autoPause},</if>
+            <if test="pauseCondition != null">#{pauseCondition},</if>
+            <if test="alertRules != null">#{alertRules},</if>
+            <if test="metricRules != null">#{metricRules},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateAmzTaskSettings" parameterType="AmzTaskSettings">
+        update amz_task_settings
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="taskId != null">task_id = #{taskId},</if>
+            <if test="storeName != null and storeName != ''">store_name = #{storeName},</if>
+            <if test="notifyThreshold != null">notify_threshold = #{notifyThreshold},</if>
+            <if test="notifyInterval != null">notify_interval = #{notifyInterval},</if>
+            <if test="autoPause != null">auto_pause = #{autoPause},</if>
+            <if test="pauseCondition != null">pause_condition = #{pauseCondition},</if>
+            <if test="alertRules != null">alert_rules = #{alertRules},</if>
+            <if test="metricRules != null">metric_rules = #{metricRules},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where setting_id = #{settingId}
+    </update>
+
+    <delete id="deleteAmzTaskSettingsBySettingId" parameterType="Long">
+        delete from amz_task_settings where setting_id = #{settingId}
+    </delete>
+
+    <delete id="deleteAmzTaskSettingsBySettingIds" parameterType="String">
+        delete from amz_task_settings where setting_id in 
+        <foreach item="settingId" collection="array" open="(" separator="," close=")">
+            #{settingId}
+        </foreach>
+    </delete>
+</mapper>

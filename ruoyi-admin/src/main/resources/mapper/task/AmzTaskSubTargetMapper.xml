@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.task.mapper.AmzTaskSubTargetMapper">
+    
+    <resultMap type="AmzTaskSubTarget" id="AmzTaskSubTargetResult">
+        <result property="targetId"    column="target_id"    />
+        <result property="taskId"    column="task_id"    />
+        <result property="storeName"    column="store_name"    />
+        <result property="msku"    column="msku"    />
+        <result property="targetName"    column="target_name"    />
+        <result property="targetLevel"    column="target_level"    />
+        <result property="targetValue"    column="target_value"    />
+        <result property="currentValue"    column="current_value"    />
+        <result property="assigneeId"    column="assignee_id"    />
+        <result property="startTime"    column="start_time"    />
+        <result property="endTime"    column="end_time"    />
+        <result property="status"    column="status"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectAmzTaskSubTargetVo">
+        select target_id, task_id, store_name, msku, target_name, target_level, target_value, current_value, assignee_id, start_time, end_time, status, create_time, update_time from amz_task_sub_target
+    </sql>
+
+    <select id="selectAmzTaskSubTargetList" parameterType="AmzTaskSubTarget" resultMap="AmzTaskSubTargetResult">
+        <include refid="selectAmzTaskSubTargetVo"/>
+        <where>  
+            <if test="taskId != null "> and task_id = #{taskId}</if>
+            <if test="storeName != null  and storeName != ''"> and store_name = #{storeName}</if>
+            <if test="msku != null  and msku != ''"> and msku = #{msku}</if>
+            <if test="targetName != null  and targetName != ''"> and target_name = #{targetName}</if>
+            <if test="targetLevel != null  and targetLevel != ''"> and target_level = #{targetLevel}</if>
+            <if test="targetValue != null "> and target_value = #{targetValue}</if>
+            <if test="currentValue != null "> and current_value = #{currentValue}</if>
+            <if test="assigneeId != null "> and assignee_id = #{assigneeId}</if>
+            <if test="startTime != null "> and start_time = #{startTime}</if>
+            <if test="endTime != null "> and end_time = #{endTime}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+        </where>
+    </select>
+    
+    <select id="selectAmzTaskSubTargetByTargetId" parameterType="Long" resultMap="AmzTaskSubTargetResult">
+        <include refid="selectAmzTaskSubTargetVo"/>
+        where target_id = #{targetId}
+    </select>
+
+    <insert id="insertAmzTaskSubTarget" parameterType="AmzTaskSubTarget" useGeneratedKeys="true" keyProperty="targetId">
+        insert into amz_task_sub_target
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="taskId != null">task_id,</if>
+            <if test="storeName != null and storeName != ''">store_name,</if>
+            <if test="msku != null and msku != ''">msku,</if>
+            <if test="targetName != null and targetName != ''">target_name,</if>
+            <if test="targetLevel != null and targetLevel != ''">target_level,</if>
+            <if test="targetValue != null">target_value,</if>
+            <if test="currentValue != null">current_value,</if>
+            <if test="assigneeId != null">assignee_id,</if>
+            <if test="startTime != null">start_time,</if>
+            <if test="endTime != null">end_time,</if>
+            <if test="status != null">status,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="taskId != null">#{taskId},</if>
+            <if test="storeName != null and storeName != ''">#{storeName},</if>
+            <if test="msku != null and msku != ''">#{msku},</if>
+            <if test="targetName != null and targetName != ''">#{targetName},</if>
+            <if test="targetLevel != null and targetLevel != ''">#{targetLevel},</if>
+            <if test="targetValue != null">#{targetValue},</if>
+            <if test="currentValue != null">#{currentValue},</if>
+            <if test="assigneeId != null">#{assigneeId},</if>
+            <if test="startTime != null">#{startTime},</if>
+            <if test="endTime != null">#{endTime},</if>
+            <if test="status != null">#{status},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateAmzTaskSubTarget" parameterType="AmzTaskSubTarget">
+        update amz_task_sub_target
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="taskId != null">task_id = #{taskId},</if>
+            <if test="storeName != null and storeName != ''">store_name = #{storeName},</if>
+            <if test="msku != null and msku != ''">msku = #{msku},</if>
+            <if test="targetName != null and targetName != ''">target_name = #{targetName},</if>
+            <if test="targetLevel != null and targetLevel != ''">target_level = #{targetLevel},</if>
+            <if test="targetValue != null">target_value = #{targetValue},</if>
+            <if test="currentValue != null">current_value = #{currentValue},</if>
+            <if test="assigneeId != null">assignee_id = #{assigneeId},</if>
+            <if test="startTime != null">start_time = #{startTime},</if>
+            <if test="endTime != null">end_time = #{endTime},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where target_id = #{targetId}
+    </update>
+
+    <delete id="deleteAmzTaskSubTargetByTargetId" parameterType="Long">
+        delete from amz_task_sub_target where target_id = #{targetId}
+    </delete>
+
+    <delete id="deleteAmzTaskSubTargetByTargetIds" parameterType="String">
+        delete from amz_task_sub_target where target_id in 
+        <foreach item="targetId" collection="array" open="(" separator="," close=")">
+            #{targetId}
+        </foreach>
+    </delete>
+
+    <select id="selectAmzTaskSubTargetByTaskIds" parameterType="java.util.List" resultMap="AmzTaskSubTargetResult">
+        <include refid="selectAmzTaskSubTargetVo"/>
+        where task_id in
+        <foreach item="taskId" collection="list" open="(" separator="," close=")">
+            #{taskId}
+        </foreach>
+    </select>
+</mapper>

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.task.mapper.AmzTaskAssigneeMapper">
+    
+    <resultMap type="AmzTaskAssignee" id="AmzTaskAssigneeResult">
+        <result property="assigneeId"    column="assignee_id"    />
+        <result property="taskId"    column="task_id"    />
+        <result property="storeName"    column="store_name"    />
+        <result property="sku"    column="sku"    />
+        <result property="userId"    column="user_id"    />
+        <result property="deptId"    column="dept_id"    />
+        <result property="roleType"    column="role_type"    />
+        <result property="isLeader"    column="is_leader"    />
+        <result property="assignType"    column="assign_type"    />
+        <result property="permissionType"    column="permission_type"    />
+        <result property="startTime"    column="start_time"    />
+        <result property="endTime"    column="end_time"    />
+        <result property="status"    column="status"    />
+        <result property="remark"    column="remark"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectAmzTaskAssigneeVo">
+        select assignee_id, task_id, store_name, sku, user_id, dept_id, role_type, is_leader, assign_type, permission_type, start_time, end_time, status, remark, create_by, create_time, update_by, update_time from amz_task_assignee
+    </sql>
+
+    <select id="selectAmzTaskAssigneeList" parameterType="AmzTaskAssignee" resultMap="AmzTaskAssigneeResult">
+        <include refid="selectAmzTaskAssigneeVo"/>
+        <where>  
+            <if test="taskId != null "> and task_id = #{taskId}</if>
+            <if test="storeName != null  and storeName != ''"> and store_name = #{storeName}</if>
+            <if test="sku != null  and sku != ''"> and sku = #{sku}</if>
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="deptId != null "> and dept_id = #{deptId}</if>
+            <if test="roleType != null  and roleType != ''"> and role_type = #{roleType}</if>
+            <if test="isLeader != null "> and is_leader = #{isLeader}</if>
+            <if test="assignType != null  and assignType != ''"> and assign_type = #{assignType}</if>
+            <if test="permissionType != null  and permissionType != ''"> and permission_type = #{permissionType}</if>
+            <if test="startTime != null "> and start_time = #{startTime}</if>
+            <if test="endTime != null "> and end_time = #{endTime}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+        </where>
+    </select>
+    
+    <select id="selectAmzTaskAssigneeByAssigneeId" parameterType="Long" resultMap="AmzTaskAssigneeResult">
+        <include refid="selectAmzTaskAssigneeVo"/>
+        where assignee_id = #{assigneeId}
+    </select>
+
+    <select id="selectAmzTaskAssigneeByAssigneeListId" resultType="com.ruoyi.task.domain.AmzTaskAssignee">
+        <include refid="selectAmzTaskAssigneeVo"/>
+        where assignee_id = #{assigneeId}
+    </select>
+
+    <insert id="insertAmzTaskAssignee" parameterType="AmzTaskAssignee" useGeneratedKeys="true" keyProperty="assigneeId">
+        insert into amz_task_assignee
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="taskId != null">task_id,</if>
+            <if test="storeName != null and storeName != ''">store_name,</if>
+            <if test="sku != null and sku != ''">sku,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="deptId != null">dept_id,</if>
+            <if test="roleType != null and roleType != ''">role_type,</if>
+            <if test="isLeader != null">is_leader,</if>
+            <if test="assignType != null and assignType != ''">assign_type,</if>
+            <if test="permissionType != null">permission_type,</if>
+            <if test="startTime != null">start_time,</if>
+            <if test="endTime != null">end_time,</if>
+            <if test="status != null">status,</if>
+            <if test="remark != null">remark,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="taskId != null">#{taskId},</if>
+            <if test="storeName != null and storeName != ''">#{storeName},</if>
+            <if test="sku != null and sku != ''">#{sku},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="deptId != null">#{deptId},</if>
+            <if test="roleType != null and roleType != ''">#{roleType},</if>
+            <if test="isLeader != null">#{isLeader},</if>
+            <if test="assignType != null and assignType != ''">#{assignType},</if>
+            <if test="permissionType != null">#{permissionType},</if>
+            <if test="startTime != null">#{startTime},</if>
+            <if test="endTime != null">#{endTime},</if>
+            <if test="status != null">#{status},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateAmzTaskAssignee" parameterType="AmzTaskAssignee">
+        update amz_task_assignee
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="taskId != null">task_id = #{taskId},</if>
+            <if test="storeName != null and storeName != ''">store_name = #{storeName},</if>
+            <if test="sku != null and sku != ''">sku = #{sku},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="deptId != null">dept_id = #{deptId},</if>
+            <if test="roleType != null and roleType != ''">role_type = #{roleType},</if>
+            <if test="isLeader != null">is_leader = #{isLeader},</if>
+            <if test="assignType != null and assignType != ''">assign_type = #{assignType},</if>
+            <if test="permissionType != null">permission_type = #{permissionType},</if>
+            <if test="startTime != null">start_time = #{startTime},</if>
+            <if test="endTime != null">end_time = #{endTime},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where assignee_id = #{assigneeId}
+    </update>
+
+    <delete id="deleteAmzTaskAssigneeByAssigneeId" parameterType="Long">
+        delete from amz_task_assignee where assignee_id = #{assigneeId}
+    </delete>
+
+    <delete id="deleteAmzTaskAssigneeByAssigneeIds" parameterType="String">
+        delete from amz_task_assignee where assignee_id in 
+        <foreach item="assigneeId" collection="array" open="(" separator="," close=")">
+            #{assigneeId}
+        </foreach>
+    </delete>
+
+    <select id="selectAmzTaskAssigneeByTaskIds" parameterType="java.util.List" resultMap="AmzTaskAssigneeResult">
+        <include refid="selectAmzTaskAssigneeVo"/>
+        where task_id in
+        <foreach item="taskId" collection="list" open="(" separator="," close=")">
+            #{taskId}
+        </foreach>
+    </select>
+</mapper>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.task.mapper.AmzTaskNotificationMapper">
+    
+    <resultMap type="AmzTaskNotification" id="AmzTaskNotificationResult">
+        <result property="notifyId"    column="notify_id"    />
+        <result property="taskId"    column="task_id"    />
+        <result property="storeName"    column="store_name"    />
+        <result property="sku"    column="sku"    />
+        <result property="notifyType"    column="notify_type"    />
+        <result property="notifyLevel"    column="notify_level"    />
+        <result property="notifyContent"    column="notify_content"    />
+        <result property="metricValue"    column="metric_value"    />
+        <result property="isRead"    column="is_read"    />
+        <result property="createTime"    column="create_time"    />
+    </resultMap>
+
+    <sql id="selectAmzTaskNotificationVo">
+        select notify_id, task_id, store_name, sku, notify_type, notify_level, notify_content, metric_value, is_read, create_time from amz_task_notification
+    </sql>
+
+    <select id="selectAmzTaskNotificationList" parameterType="AmzTaskNotification" resultMap="AmzTaskNotificationResult">
+        <include refid="selectAmzTaskNotificationVo"/>
+        <where>  
+            <if test="taskId != null "> and task_id = #{taskId}</if>
+            <if test="storeName != null  and storeName != ''"> and store_name = #{storeName}</if>
+            <if test="sku != null  and sku != ''"> and sku = #{sku}</if>
+            <if test="notifyType != null  and notifyType != ''"> and notify_type = #{notifyType}</if>
+            <if test="notifyLevel != null  and notifyLevel != ''"> and notify_level = #{notifyLevel}</if>
+            <if test="notifyContent != null  and notifyContent != ''"> and notify_content = #{notifyContent}</if>
+            <if test="metricValue != null "> and metric_value = #{metricValue}</if>
+            <if test="isRead != null "> and is_read = #{isRead}</if>
+        </where>
+    </select>
+    
+    <select id="selectAmzTaskNotificationByNotifyId" parameterType="Long" resultMap="AmzTaskNotificationResult">
+        <include refid="selectAmzTaskNotificationVo"/>
+        where notify_id = #{notifyId}
+    </select>
+
+    <insert id="insertAmzTaskNotification" parameterType="AmzTaskNotification" useGeneratedKeys="true" keyProperty="notifyId">
+        insert into amz_task_notification
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="taskId != null">task_id,</if>
+            <if test="storeName != null and storeName != ''">store_name,</if>
+            <if test="sku != null and sku != ''">sku,</if>
+            <if test="notifyType != null and notifyType != ''">notify_type,</if>
+            <if test="notifyLevel != null and notifyLevel != ''">notify_level,</if>
+            <if test="notifyContent != null and notifyContent != ''">notify_content,</if>
+            <if test="metricValue != null">metric_value,</if>
+            <if test="isRead != null">is_read,</if>
+            <if test="createTime != null">create_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="taskId != null">#{taskId},</if>
+            <if test="storeName != null and storeName != ''">#{storeName},</if>
+            <if test="sku != null and sku != ''">#{sku},</if>
+            <if test="notifyType != null and notifyType != ''">#{notifyType},</if>
+            <if test="notifyLevel != null and notifyLevel != ''">#{notifyLevel},</if>
+            <if test="notifyContent != null and notifyContent != ''">#{notifyContent},</if>
+            <if test="metricValue != null">#{metricValue},</if>
+            <if test="isRead != null">#{isRead},</if>
+            <if test="createTime != null">#{createTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateAmzTaskNotification" parameterType="AmzTaskNotification">
+        update amz_task_notification
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="taskId != null">task_id = #{taskId},</if>
+            <if test="storeName != null and storeName != ''">store_name = #{storeName},</if>
+            <if test="sku != null and sku != ''">sku = #{sku},</if>
+            <if test="notifyType != null and notifyType != ''">notify_type = #{notifyType},</if>
+            <if test="notifyLevel != null and notifyLevel != ''">notify_level = #{notifyLevel},</if>
+            <if test="notifyContent != null and notifyContent != ''">notify_content = #{notifyContent},</if>
+            <if test="metricValue != null">metric_value = #{metricValue},</if>
+            <if test="isRead != null">is_read = #{isRead},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+        </trim>
+        where notify_id = #{notifyId}
+    </update>
+
+    <delete id="deleteAmzTaskNotificationByNotifyId" parameterType="Long">
+        delete from amz_task_notification where notify_id = #{notifyId}
+    </delete>
+
+    <delete id="deleteAmzTaskNotificationByNotifyIds" parameterType="String">
+        delete from amz_task_notification where notify_id in 
+        <foreach item="notifyId" collection="array" open="(" separator="," close=")">
+            #{notifyId}
+        </foreach>
+    </delete>
+
+    <select id="selectAmzTaskNotificationByTaskIds" parameterType="java.util.List" resultMap="AmzTaskNotificationResult">
+        <include refid="selectAmzTaskNotificationVo"/>
+        where task_id in
+        <foreach item="taskId" collection="list" open="(" separator="," close=")">
+            #{taskId}
+        </foreach>
+    </select>
+</mapper>
