@@ -1302,4 +1302,22 @@
             #{id}
         </foreach>
     </delete>
+
+    <select id="selectAllCategories" resultType="java.util.Map">
+        SELECT 
+            category_level_1 as categoryLevelOne,
+            category_level_2 as categoryLevelTwo,
+            COUNT(DISTINCT asin) as count
+        FROM 
+            amz_data_analysis_turnover_mskulist
+        WHERE 
+            category_level_1 is not null 
+            AND category_level_2 is not null
+        GROUP BY 
+            category_level_1, 
+            category_level_2
+        ORDER BY 
+            category_level_1, 
+            category_level_2
+    </select>
 </mapper>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.task.mapper.AmzTaskCommentMapper">
+    
+    <resultMap type="AmzTaskComment" id="AmzTaskCommentResult">
+        <result property="commentId"    column="comment_id"    />
+        <result property="taskId"    column="task_id"    />
+        <result property="storeName"    column="store_name"    />
+        <result property="sku"    column="sku"    />
+        <result property="userId"    column="user_id"    />
+        <result property="commentContent"    column="comment_content"    />
+        <result property="parentId"    column="parent_id"    />
+        <result property="mentionUsers"    column="mention_users"    />
+        <result property="isImportant"    column="is_important"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectAmzTaskCommentVo">
+        select comment_id, task_id, store_name, sku, user_id, comment_content, parent_id, mention_users, is_important, create_time, update_time from amz_task_comment
+    </sql>
+
+    <select id="selectAmzTaskCommentList" parameterType="AmzTaskComment" resultMap="AmzTaskCommentResult">
+        <include refid="selectAmzTaskCommentVo"/>
+        <where>  
+            <if test="taskId != null "> and task_id = #{taskId}</if>
+            <if test="storeName != null  and storeName != ''"> and store_name = #{storeName}</if>
+            <if test="sku != null  and sku != ''"> and sku like concat('%', #{sku}, '%')</if>
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="commentContent != null  and commentContent != ''"> and comment_content = #{commentContent}</if>
+            <if test="parentId != null "> and parent_id = #{parentId}</if>
+            <if test="mentionUsers != null  and mentionUsers != ''"> and mention_users = #{mentionUsers}</if>
+            <if test="isImportant != null "> and is_important = #{isImportant}</if>
+        </where>
+    </select>
+    
+    <select id="selectAmzTaskCommentByCommentId" parameterType="Long" resultMap="AmzTaskCommentResult">
+        <include refid="selectAmzTaskCommentVo"/>
+        where comment_id = #{commentId}
+    </select>
+
+    <insert id="insertAmzTaskComment" parameterType="AmzTaskComment" useGeneratedKeys="true" keyProperty="commentId">
+        insert into amz_task_comment
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="taskId != null">task_id,</if>
+            <if test="storeName != null and storeName != ''">store_name,</if>
+            <if test="sku != null and sku != ''">sku,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="commentContent != null and commentContent != ''">comment_content,</if>
+            <if test="parentId != null">parent_id,</if>
+            <if test="mentionUsers != null">mention_users,</if>
+            <if test="isImportant != null">is_important,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="taskId != null">#{taskId},</if>
+            <if test="storeName != null and storeName != ''">#{storeName},</if>
+            <if test="sku != null and sku != ''">#{sku},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="commentContent != null and commentContent != ''">#{commentContent},</if>
+            <if test="parentId != null">#{parentId},</if>
+            <if test="mentionUsers != null">#{mentionUsers},</if>
+            <if test="isImportant != null">#{isImportant},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateAmzTaskComment" parameterType="AmzTaskComment">
+        update amz_task_comment
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="taskId != null">task_id = #{taskId},</if>
+            <if test="storeName != null and storeName != ''">store_name = #{storeName},</if>
+            <if test="sku != null and sku != ''">sku = #{sku},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="commentContent != null and commentContent != ''">comment_content = #{commentContent},</if>
+            <if test="parentId != null">parent_id = #{parentId},</if>
+            <if test="mentionUsers != null">mention_users = #{mentionUsers},</if>
+            <if test="isImportant != null">is_important = #{isImportant},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where comment_id = #{commentId}
+    </update>
+
+    <delete id="deleteAmzTaskCommentByCommentId" parameterType="Long">
+        delete from amz_task_comment where comment_id = #{commentId}
+    </delete>
+
+    <delete id="deleteAmzTaskCommentByCommentIds" parameterType="String">
+        delete from amz_task_comment where comment_id in 
+        <foreach item="commentId" collection="array" open="(" separator="," close=")">
+            #{commentId}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.task.mapper.AmzTaskSnapshotMapper">
+    
+    <resultMap type="AmzTaskSnapshot" id="AmzTaskSnapshotResult">
+        <result property="snapshotId"    column="snapshot_id"    />
+        <result property="taskId"    column="task_id"    />
+        <result property="storeName"    column="store_name"    />
+        <result property="sku"    column="sku"    />
+        <result property="snapshotTime"    column="snapshot_time"    />
+        <result property="metricData"    column="metric_data"    />
+        <result property="inventoryData"    column="inventory_data"    />
+        <result property="salesData"    column="sales_data"    />
+        <result property="createTime"    column="create_time"    />
+    </resultMap>
+
+    <sql id="selectAmzTaskSnapshotVo">
+        select snapshot_id, task_id, store_name, sku, snapshot_time, metric_data, inventory_data, sales_data, create_time from amz_task_snapshot
+    </sql>
+
+    <select id="selectAmzTaskSnapshotList" parameterType="AmzTaskSnapshot" resultMap="AmzTaskSnapshotResult">
+        <include refid="selectAmzTaskSnapshotVo"/>
+        <where>  
+            <if test="taskId != null "> and task_id = #{taskId}</if>
+            <if test="storeName != null  and storeName != ''"> and store_name = #{storeName}</if>
+            <if test="sku != null  and sku != ''"> and sku = #{sku}</if>
+            <if test="snapshotTime != null "> and snapshot_time = #{snapshotTime}</if>
+            <if test="metricData != null  and metricData != ''"> and metric_data = #{metricData}</if>
+            <if test="inventoryData != null  and inventoryData != ''"> and inventory_data = #{inventoryData}</if>
+            <if test="salesData != null  and salesData != ''"> and sales_data = #{salesData}</if>
+        </where>
+    </select>
+    
+    <select id="selectAmzTaskSnapshotBySnapshotId" parameterType="Long" resultMap="AmzTaskSnapshotResult">
+        <include refid="selectAmzTaskSnapshotVo"/>
+        where snapshot_id = #{snapshotId}
+    </select>
+
+    <insert id="insertAmzTaskSnapshot" parameterType="AmzTaskSnapshot" useGeneratedKeys="true" keyProperty="snapshotId">
+        insert into amz_task_snapshot
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="taskId != null">task_id,</if>
+            <if test="storeName != null and storeName != ''">store_name,</if>
+            <if test="sku != null and sku != ''">sku,</if>
+            <if test="snapshotTime != null">snapshot_time,</if>
+            <if test="metricData != null and metricData != ''">metric_data,</if>
+            <if test="inventoryData != null">inventory_data,</if>
+            <if test="salesData != null">sales_data,</if>
+            <if test="createTime != null">create_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="taskId != null">#{taskId},</if>
+            <if test="storeName != null and storeName != ''">#{storeName},</if>
+            <if test="sku != null and sku != ''">#{sku},</if>
+            <if test="snapshotTime != null">#{snapshotTime},</if>
+            <if test="metricData != null and metricData != ''">#{metricData},</if>
+            <if test="inventoryData != null">#{inventoryData},</if>
+            <if test="salesData != null">#{salesData},</if>
+            <if test="createTime != null">#{createTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateAmzTaskSnapshot" parameterType="AmzTaskSnapshot">
+        update amz_task_snapshot
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="taskId != null">task_id = #{taskId},</if>
+            <if test="storeName != null and storeName != ''">store_name = #{storeName},</if>
+            <if test="sku != null and sku != ''">sku = #{sku},</if>
+            <if test="snapshotTime != null">snapshot_time = #{snapshotTime},</if>
+            <if test="metricData != null and metricData != ''">metric_data = #{metricData},</if>
+            <if test="inventoryData != null">inventory_data = #{inventoryData},</if>
+            <if test="salesData != null">sales_data = #{salesData},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+        </trim>
+        where snapshot_id = #{snapshotId}
+    </update>
+
+    <delete id="deleteAmzTaskSnapshotBySnapshotId" parameterType="Long">
+        delete from amz_task_snapshot where snapshot_id = #{snapshotId}
+    </delete>
+
+    <delete id="deleteAmzTaskSnapshotBySnapshotIds" parameterType="String">
+        delete from amz_task_snapshot where snapshot_id in 
+        <foreach item="snapshotId" collection="array" open="(" separator="," close=")">
+            #{snapshotId}
+        </foreach>
+    </delete>
+</mapper>

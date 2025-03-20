@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.task.mapper.AmzTaskReportConfigMapper">
+    
+    <resultMap type="AmzTaskReportConfig" id="AmzTaskReportConfigResult">
+        <result property="configId"    column="config_id"    />
+        <result property="storeName"    column="store_name"    />
+        <result property="reportName"    column="report_name"    />
+        <result property="reportType"    column="report_type"    />
+        <result property="reportFrequency"    column="report_frequency"    />
+        <result property="recipientIds"    column="recipient_ids"    />
+        <result property="reportTemplate"    column="report_template"    />
+        <result property="filterCondition"    column="filter_condition"    />
+        <result property="sortRules"    column="sort_rules"    />
+        <result property="isEnabled"    column="is_enabled"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectAmzTaskReportConfigVo">
+        select config_id, store_name, report_name, report_type, report_frequency, recipient_ids, report_template, filter_condition, sort_rules, is_enabled, create_by, create_time, update_time from amz_task_report_config
+    </sql>
+
+    <select id="selectAmzTaskReportConfigList" parameterType="AmzTaskReportConfig" resultMap="AmzTaskReportConfigResult">
+        <include refid="selectAmzTaskReportConfigVo"/>
+        <where>  
+            <if test="storeName != null  and storeName != ''"> and store_name = #{storeName}</if>
+            <if test="reportName != null  and reportName != ''"> and report_name = #{reportName}</if>
+            <if test="reportType != null  and reportType != ''"> and report_type = #{reportType}</if>
+            <if test="reportFrequency != null  and reportFrequency != ''"> and report_frequency = #{reportFrequency}</if>
+            <if test="recipientIds != null  and recipientIds != ''"> and recipient_ids = #{recipientIds}</if>
+            <if test="reportTemplate != null  and reportTemplate != ''"> and report_template = #{reportTemplate}</if>
+            <if test="filterCondition != null  and filterCondition != ''"> and filter_condition = #{filterCondition}</if>
+            <if test="sortRules != null  and sortRules != ''"> and sort_rules = #{sortRules}</if>
+            <if test="isEnabled != null "> and is_enabled = #{isEnabled}</if>
+        </where>
+    </select>
+    
+    <select id="selectAmzTaskReportConfigByConfigId" parameterType="Long" resultMap="AmzTaskReportConfigResult">
+        <include refid="selectAmzTaskReportConfigVo"/>
+        where config_id = #{configId}
+    </select>
+
+    <insert id="insertAmzTaskReportConfig" parameterType="AmzTaskReportConfig" useGeneratedKeys="true" keyProperty="configId">
+        insert into amz_task_report_config
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="storeName != null and storeName != ''">store_name,</if>
+            <if test="reportName != null and reportName != ''">report_name,</if>
+            <if test="reportType != null and reportType != ''">report_type,</if>
+            <if test="reportFrequency != null">report_frequency,</if>
+            <if test="recipientIds != null">recipient_ids,</if>
+            <if test="reportTemplate != null">report_template,</if>
+            <if test="filterCondition != null">filter_condition,</if>
+            <if test="sortRules != null">sort_rules,</if>
+            <if test="isEnabled != null">is_enabled,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="storeName != null and storeName != ''">#{storeName},</if>
+            <if test="reportName != null and reportName != ''">#{reportName},</if>
+            <if test="reportType != null and reportType != ''">#{reportType},</if>
+            <if test="reportFrequency != null">#{reportFrequency},</if>
+            <if test="recipientIds != null">#{recipientIds},</if>
+            <if test="reportTemplate != null">#{reportTemplate},</if>
+            <if test="filterCondition != null">#{filterCondition},</if>
+            <if test="sortRules != null">#{sortRules},</if>
+            <if test="isEnabled != null">#{isEnabled},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateAmzTaskReportConfig" parameterType="AmzTaskReportConfig">
+        update amz_task_report_config
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="storeName != null and storeName != ''">store_name = #{storeName},</if>
+            <if test="reportName != null and reportName != ''">report_name = #{reportName},</if>
+            <if test="reportType != null and reportType != ''">report_type = #{reportType},</if>
+            <if test="reportFrequency != null">report_frequency = #{reportFrequency},</if>
+            <if test="recipientIds != null">recipient_ids = #{recipientIds},</if>
+            <if test="reportTemplate != null">report_template = #{reportTemplate},</if>
+            <if test="filterCondition != null">filter_condition = #{filterCondition},</if>
+            <if test="sortRules != null">sort_rules = #{sortRules},</if>
+            <if test="isEnabled != null">is_enabled = #{isEnabled},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where config_id = #{configId}
+    </update>
+
+    <delete id="deleteAmzTaskReportConfigByConfigId" parameterType="Long">
+        delete from amz_task_report_config where config_id = #{configId}
+    </delete>
+
+    <delete id="deleteAmzTaskReportConfigByConfigIds" parameterType="String">
+        delete from amz_task_report_config where config_id in 
+        <foreach item="configId" collection="array" open="(" separator="," close=")">
+            #{configId}
+        </foreach>
+    </delete>
+</mapper>
