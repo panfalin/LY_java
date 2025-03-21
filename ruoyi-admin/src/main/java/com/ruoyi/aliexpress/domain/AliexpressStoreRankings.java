@@ -44,23 +44,81 @@ public class AliexpressStoreRankings extends BaseEntity
     /** 排名 */
     @Excel(name = "排名")
     private String ranking;
+    private BigDecimal rankingContrast;
 
     /** 补贴金额 */
     @Excel(name = "近30天支付金额")
     private BigDecimal amountPaid;
+    private BigDecimal amountPaidContrast;
 
     @Excel(name = "访客")
     private int visitors;
+    private BigDecimal visitorsContrast;
 
 
     @Excel(name = "店铺刊登数量")
     private int storesPublished;
+    private BigDecimal storesPublishedContrast;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate beginTime;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate endTime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate conBeginTime;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate conEndTime;
+
+
+    public LocalDate getConBeginTime() {
+        return conBeginTime;
+    }
+
+    public void setConBeginTime(LocalDate conBeginTime) {
+        this.conBeginTime = conBeginTime;
+    }
+
+    public LocalDate getConEndTime() {
+        return conEndTime;
+    }
+
+    public void setConEndTime(LocalDate conEndTime) {
+        this.conEndTime = conEndTime;
+    }
+
+    public BigDecimal getRankingContrast() {
+        return rankingContrast;
+    }
+
+    public void setRankingContrast(BigDecimal rankingContrast) {
+        this.rankingContrast = rankingContrast;
+    }
+
+    public BigDecimal getAmountPaidContrast() {
+        return amountPaidContrast;
+    }
+
+    public void setAmountPaidContrast(BigDecimal amountPaidContrast) {
+        this.amountPaidContrast = amountPaidContrast;
+    }
+
+    public BigDecimal getVisitorsContrast() {
+        return visitorsContrast;
+    }
+
+    public void setVisitorsContrast(BigDecimal visitorsContrast) {
+        this.visitorsContrast = visitorsContrast;
+    }
+
+    public BigDecimal getStoresPublishedContrast() {
+        return storesPublishedContrast;
+    }
+
+    public void setStoresPublishedContrast(BigDecimal storesPublishedContrast) {
+        this.storesPublishedContrast = storesPublishedContrast;
+    }
 
     public int getStoresPublished() {
         return storesPublished;

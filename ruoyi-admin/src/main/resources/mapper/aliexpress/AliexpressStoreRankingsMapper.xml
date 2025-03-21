@@ -8,16 +8,58 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="shops"    column="shops"    />
         <result property="personName"    column="person_name"    />
         <result property="shopDate"    column="shop_date"    />
+        <result property="amountPaid"    column="amount_paid"    />
+        <result property="storesPublished"    column="stores_published"    />
         <result property="mainCategory"    column="main_category"    />
         <result property="level"    column="level"    />
         <result property="ranking"    column="ranking"    />
-        <result property="amountPaid"    column="amount_paid"    />
-        <result property="visitors"    column="visitors"    />
-        <result property="storesPublished"    column="stores_published"    />
+        <result property="rankingContrast"    column="ranking_contrast"    />
+        <result property="amountPaidContrast"    column="amount_paid_contrast"    />
+        <result property="visitorsContrast"    column="visitors_contrast"    />
+        <result property="storesPublishedContrast"    column="stores_published_contrast"    />
     </resultMap>
 
+<!--    <sql id="selectAliexpressStoreRankingsVo">-->
+<!--        select shops, person_name, shop_date, main_category, level,amount_paid,visitors,ranking,stores_published from aliexpress_store_rankings-->
+<!--    </sql>-->
     <sql id="selectAliexpressStoreRankingsVo">
-        select shops, person_name, shop_date, main_category, level,amount_paid,visitors,ranking,stores_published from aliexpress_store_rankings
+        WITH avg_data AS (
+        -- 计算给定时间范围（beginTime ~ endTime）内的平均值
+        SELECT
+        shops,
+        AVG(amount_paid) AS avg_amount_paid,
+        AVG(visitors) AS avg_visitors,
+        AVG(ranking) AS avg_ranking,
+        AVG(stores_published) AS avg_stores_published
+        FROM aliexpress_store_rankings as d1
+        LEFT JOIN  stores_notescrow as sn ON sn.store_name=d1.shops
+        <where>
+            sn.type != "全托管"
+            <if test="conBeginTime != null and conEndTime != null">
+                AND d1.shop_date BETWEEN #{conBeginTime} AND #{conEndTime}
+            </if>
+        </where>
+        GROUP BY shops
+        )
+        SELECT
+        d1.shops,
+        d1.person_name,
+        d1.shop_date,
+        d1.main_category,
+        d1.level,
+        d1.amount_paid,
+        d1.visitors,
+        d1.ranking,
+        d1.stores_published,
+        -- 计算当前数据与时间范围平均值的差值（如果时间范围无数据，则默认为0）
+        (d1.ranking - IFNULL(avg_data.avg_ranking, 0)) AS ranking_contrast,
+        (d1.amount_paid - IFNULL(avg_data.avg_amount_paid, 0)) AS amount_paid_contrast,
+        (d1.visitors - IFNULL(avg_data.avg_visitors, 0)) AS visitors_contrast,
+        (d1.stores_published - IFNULL(avg_data.avg_stores_published, 0)) AS stores_published_contrast
+        FROM aliexpress_store_rankings d1
+        LEFT JOIN avg_data
+        ON d1.shops = avg_data.shops
+        LEFT JOIN stores_notescrow as sn ON sn.store_name=d1.shops
     </sql>
 
     <select id="selectAliexpressStoreRankingsList" parameterType="AliexpressStoreRankings" resultMap="AliexpressStoreRankingsResult">
@@ -27,11 +69,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="beginTime != null and endTime != null">
                 and shop_date between #{beginTime} and #{endTime}
             </if>
-            <if test="shops != null  and shops != ''"> and shops = #{shops}</if>
-            <if test="personName != null  and personName != ''"> and person_name like concat('%', #{personName}, '%')</if>
-            <if test="mainCategory != null  and mainCategory != ''"> and main_category = #{mainCategory}</if>
-            <if test="level != null  and level != ''"> and level = #{level}</if>
-            <if test="ranking != null  and ranking != ''"> and ranking = #{ranking}</if>
+            <if test="shops != null  and shops != ''"> and d1.shops = #{shops}</if>
+            <if test="personName != null  and personName != ''"> and d1.person_name like concat('%', #{personName}, '%')</if>
         </where>
     </select>
     
