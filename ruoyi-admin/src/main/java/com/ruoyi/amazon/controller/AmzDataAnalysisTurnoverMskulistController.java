@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.ruoyi.amazon.domain.AmzDataAnalysisTurnoverOperationalAnalysis;
 import com.ruoyi.amazon.domain.AmzDataAnalysisTurnoverSkuInfoTemplate;
 import com.ruoyi.amazon.domain.vo.CategoryVO;
+import com.ruoyi.amazon.domain.vo.TaskMetricsVO;
 import com.ruoyi.amazon.dto.AmzDataAnalysisTurnoverDTO;
 import com.ruoyi.amazon.dto.AmzStoreRankingDTO;
 import com.ruoyi.amazon.service.IAmzDataAnalysisTurnoverOperationalAnalysisService;
@@ -15,14 +16,7 @@ import com.ruoyi.amazon.service.IAmzDataAnalysisTurnoverSkuInfoTemplateService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.ruoyi.common.annotation.Log;
 import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.core.domain.AjaxResult;
@@ -31,6 +25,7 @@ import com.ruoyi.amazon.domain.AmzDataAnalysisTurnoverMskulist;
 import com.ruoyi.amazon.service.IAmzDataAnalysisTurnoverMskulistService;
 import com.ruoyi.common.utils.poi.ExcelUtil;
 import com.ruoyi.common.core.page.TableDataInfo;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * 亚马逊数据分析，周转率，mskulist，这个是基础信息Controller
@@ -198,5 +193,17 @@ public class AmzDataAnalysisTurnoverMskulistController extends BaseController
     public AjaxResult getCategoryTree() {
         List<CategoryVO> tree = amzDataAnalysisTurnoverMskulistService.getCategoryTree();
         return AjaxResult.success(tree);
+    }
+
+    /**
+     * 获取SKU指标数据
+     */
+    @GetMapping("/metrics")
+    public AjaxResult getTaskMetrics(@RequestParam("skuList") List<String> skuList,
+                                    @RequestParam("storeName") List<String> storeNameList) {
+        List<TaskMetricsVO> metrics = amzDataAnalysisTurnoverMskulistService.getTaskMetrics(skuList, storeNameList);
+        Map<String, Object> result = new HashMap<>();
+        result.put("items", metrics);
+        return AjaxResult.success(result);
     }
 }

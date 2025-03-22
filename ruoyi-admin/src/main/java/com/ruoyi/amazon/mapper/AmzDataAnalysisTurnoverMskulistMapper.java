@@ -6,6 +6,7 @@ import com.ruoyi.amazon.domain.AmzDataAnalysisTurnoverMskulist;
 import com.ruoyi.amazon.dto.AmzDataAnalysisTurnoverDTO;
 import com.ruoyi.amazon.dto.AmzStoreRankingDTO;
 import com.ruoyi.amazon.dto.TurnoverStatsDTO;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * 亚马逊数据分析，周转率，mskulist，这个是基础信息Mapper接口
@@ -88,4 +89,7 @@ public interface AmzDataAnalysisTurnoverMskulistMapper
     List<AmzStoreRankingDTO> selectStoreRanking(AmzDataAnalysisTurnoverMskulist queryDTO);
 
     List<Map<String, Object>> selectAllCategories();
+
+    List<Map<String, Object>> selectTaskMetrics(@Param("skuList") List<String> skuList, 
+                                              @Param("storeNameList") List<String> storeNameList);
 }

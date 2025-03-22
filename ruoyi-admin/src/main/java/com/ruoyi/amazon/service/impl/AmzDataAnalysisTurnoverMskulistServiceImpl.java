@@ -5,18 +5,20 @@ import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import com.ruoyi.amazon.dto.AmzDataAnalysisTurnoverDTO;
 import com.ruoyi.amazon.dto.AmzStoreRankingDTO;
 import com.ruoyi.amazon.dto.TurnoverStatsDTO;
 import com.ruoyi.common.exception.ServiceException;
 import com.ruoyi.common.utils.DateUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.amazon.mapper.AmzDataAnalysisTurnoverMskulistMapper;
 import com.ruoyi.amazon.domain.AmzDataAnalysisTurnoverMskulist;
 import com.ruoyi.amazon.service.IAmzDataAnalysisTurnoverMskulistService;
 import com.ruoyi.amazon.domain.vo.CategoryVO;
+import com.ruoyi.amazon.domain.vo.TaskMetricsVO;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 
@@ -356,5 +358,30 @@ public class AmzDataAnalysisTurnoverMskulistServiceImpl implements IAmzDataAnaly
         
         // 4. 转换为列表
         return new ArrayList<>(levelOneMap.values());
+    }
+
+    @Override
+    public List<TaskMetricsVO> getTaskMetrics(List<String> skuList, List<String> storeNameList) {
+        if (skuList == null || storeNameList == null || skuList.size() != storeNameList.size()) {
+            throw new ServiceException("参数错误：SKU列表和店铺名称列表长度不匹配");
+        }
+        
+        List<Map<String, Object>> metricsList = amzDataAnalysisTurnoverMskulistMapper.selectTaskMetrics(skuList, storeNameList);
+        
+        return metricsList.stream().map(metrics -> {
+            TaskMetricsVO vo = new TaskMetricsVO();
+            vo.setMsku((String) metrics.get("msku"));
+            vo.setStoreName((String) metrics.get("storeName"));
+            
+            TaskMetricsVO.MetricsData metricsData = new TaskMetricsVO.MetricsData();
+            metricsData.setProfit(new BigDecimal(metrics.get("profit").toString()));
+            metricsData.setTurnoverDays(new BigDecimal(metrics.get("turnoverDays").toString()));
+            metricsData.setSalesAmount(new BigDecimal(metrics.get("salesAmount").toString()));
+            metricsData.setCost(new BigDecimal(metrics.get("cost").toString()));
+            metricsData.setInventoryAmount(new BigDecimal(metrics.get("inventoryAmount").toString()));
+            
+            vo.setCurrentMetrics(metricsData);
+            return vo;
+        }).collect(Collectors.toList());
     }
 }

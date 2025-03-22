@@ -7,6 +7,7 @@ import com.ruoyi.amazon.domain.AmzDataAnalysisTurnoverMskulist;
 import com.ruoyi.amazon.domain.vo.CategoryVO;
 import com.ruoyi.amazon.dto.AmzDataAnalysisTurnoverDTO;
 import com.ruoyi.amazon.dto.AmzStoreRankingDTO;
+import com.ruoyi.amazon.domain.vo.TaskMetricsVO;
 
 /**
  * 亚马逊数据分析，周转率，mskulist，这个是基础信息Service接口
@@ -86,4 +87,6 @@ public interface IAmzDataAnalysisTurnoverMskulistService
     List<AmzStoreRankingDTO> getStoreRanking(AmzDataAnalysisTurnoverMskulist queryDTO);
 
     public List<CategoryVO> getCategoryTree();
+
+    List<TaskMetricsVO> getTaskMetrics(List<String> skuList, List<String> storeNameList);
 }
