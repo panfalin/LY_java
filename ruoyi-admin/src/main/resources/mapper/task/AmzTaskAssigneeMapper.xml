@@ -10,6 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="storeName"    column="store_name"    />
         <result property="sku"    column="sku"    />
         <result property="userId"    column="user_id"    />
+        <result property="userName"    column="user_name"    />
         <result property="deptId"    column="dept_id"    />
         <result property="roleType"    column="role_type"    />
         <result property="isLeader"    column="is_leader"    />
@@ -26,7 +27,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectAmzTaskAssigneeVo">
-        select assignee_id, task_id, store_name, sku, user_id, dept_id, role_type, is_leader, assign_type, permission_type, start_time, end_time, status, remark, create_by, create_time, update_by, update_time from amz_task_assignee
+        select assignee_id, task_id, store_name, sku, user_id, user_name, dept_id, role_type, is_leader, assign_type, permission_type, start_time, end_time, status, remark, create_by, create_time, update_by, update_time from amz_task_assignee
     </sql>
 
     <select id="selectAmzTaskAssigneeList" parameterType="AmzTaskAssignee" resultMap="AmzTaskAssigneeResult">
@@ -36,6 +37,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="storeName != null  and storeName != ''"> and store_name = #{storeName}</if>
             <if test="sku != null  and sku != ''"> and sku = #{sku}</if>
             <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="userName != null "> and user_name = #{userName}</if>
             <if test="deptId != null "> and dept_id = #{deptId}</if>
             <if test="roleType != null  and roleType != ''"> and role_type = #{roleType}</if>
             <if test="isLeader != null "> and is_leader = #{isLeader}</if>

@@ -6,6 +6,7 @@ import com.ruoyi.amazon.domain.AmzDataAnalysisTurnoverMskulist;
 import com.ruoyi.amazon.dto.AmzDataAnalysisTurnoverDTO;
 import com.ruoyi.amazon.dto.AmzStoreRankingDTO;
 import com.ruoyi.amazon.dto.TurnoverStatsDTO;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 /**
@@ -14,6 +15,7 @@ import org.apache.ibatis.annotations.Param;
  * @author panfalin
  * @date 2025-02-19
  */
+@Mapper
 public interface AmzDataAnalysisTurnoverMskulistMapper 
 {
     /**

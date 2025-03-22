@@ -3,6 +3,8 @@ package com.ruoyi.task.domain;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.ruoyi.common.annotation.Excel;
 import com.ruoyi.common.core.domain.BaseEntity;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -14,6 +16,8 @@ import java.util.Date;
  * @author panfalin
  * @date 2025-03-19
  */
+@Setter
+@Getter
 public class AmzTaskAssignee extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
@@ -45,6 +49,11 @@ public class AmzTaskAssignee extends BaseEntity {
      */
     @Excel(name = "用户ID")
     private Long userId;
+
+    /**
+     * 用户名
+     */
+    private String userName;
 
     /**
      * 部门ID
@@ -95,110 +104,6 @@ public class AmzTaskAssignee extends BaseEntity {
      */
     @Excel(name = "状态(active/inactive)")
     private String status;
-
-    public void setAssigneeId(Long assigneeId) {
-        this.assigneeId = assigneeId;
-    }
-
-    public Long getAssigneeId() {
-        return assigneeId;
-    }
-
-    public void setTaskId(Long taskId) {
-        this.taskId = taskId;
-    }
-
-    public Long getTaskId() {
-        return taskId;
-    }
-
-    public void setStoreName(String storeName) {
-        this.storeName = storeName;
-    }
-
-    public String getStoreName() {
-        return storeName;
-    }
-
-    public void setSku(String sku) {
-        this.sku = sku;
-    }
-
-    public String getSku() {
-        return sku;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setDeptId(Long deptId) {
-        this.deptId = deptId;
-    }
-
-    public Long getDeptId() {
-        return deptId;
-    }
-
-    public void setRoleType(String roleType) {
-        this.roleType = roleType;
-    }
-
-    public String getRoleType() {
-        return roleType;
-    }
-
-    public void setIsLeader(Integer isLeader) {
-        this.isLeader = isLeader;
-    }
-
-    public Integer getIsLeader() {
-        return isLeader;
-    }
-
-    public void setAssignType(String assignType) {
-        this.assignType = assignType;
-    }
-
-    public String getAssignType() {
-        return assignType;
-    }
-
-    public void setPermissionType(String permissionType) {
-        this.permissionType = permissionType;
-    }
-
-    public String getPermissionType() {
-        return permissionType;
-    }
-
-    public void setStartTime(Date startTime) {
-        this.startTime = startTime;
-    }
-
-    public Date getStartTime() {
-        return startTime;
-    }
-
-    public void setEndTime(Date endTime) {
-        this.endTime = endTime;
-    }
-
-    public Date getEndTime() {
-        return endTime;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getStatus() {
-        return status;
-    }
 
     @Override
     public String toString() {

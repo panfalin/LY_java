@@ -1,5 +1,9 @@
 package com.ruoyi.task.service.impl;
 
+import com.ruoyi.amazon.domain.AmzDataAnalysisTurnoverMskulist;
+import com.ruoyi.amazon.mapper.AmzDataAnalysisTurnoverMskulistMapper;
+import com.ruoyi.common.core.domain.entity.SysUser;
+import com.ruoyi.common.exception.ServiceException;
 import com.ruoyi.common.utils.DateUtils;
 import com.ruoyi.common.utils.bean.BeanUtils;
 import com.ruoyi.task.domain.AmzTaskAssignee;
@@ -12,11 +16,17 @@ import com.ruoyi.task.mapper.AmzTaskMainMapper;
 import com.ruoyi.task.mapper.AmzTaskNotificationMapper;
 import com.ruoyi.task.mapper.AmzTaskSubTargetMapper;
 import com.ruoyi.task.service.IAmzTaskMainService;
+import com.ruoyi.system.service.ISysUserService;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,6 +49,11 @@ public class AmzTaskMainServiceImpl implements IAmzTaskMainService {
     private AmzTaskSubTargetMapper subTargetMapper;
     @Autowired
     private AmzTaskAssigneeMapper assigneeMapper;
+    @Autowired
+    private AmzDataAnalysisTurnoverMskulistMapper amzDataAnalysisTurnoverMskulistMapper;
+
+    @Autowired
+    private ISysUserService userService;  // 注入用户服务
 
     /**
      * 查询亚马逊任务主表
@@ -65,13 +80,89 @@ public class AmzTaskMainServiceImpl implements IAmzTaskMainService {
     /**
      * 新增亚马逊任务主表
      *
-     * @param amzTaskMain 亚马逊任务主表
+     * @param taskMain 亚马逊任务主表
      * @return 结果
      */
+    @Transactional(rollbackFor = Exception.class)
     @Override
-    public int insertAmzTaskMain(AmzTaskMain amzTaskMain) {
-        amzTaskMain.setCreateTime(DateUtils.getNowDate());
-        return amzTaskMainMapper.insertAmzTaskMain(amzTaskMain);
+    public int insertAmzTaskMain(AmzTaskMain taskMain) {
+        try {
+            // 1. 生成任务编号
+            String taskCode = generateTaskCode();
+            int rows = 0;
+
+            // 2. 批量创建任务
+            if (taskMain.getTasks() != null && !taskMain.getTasks().isEmpty()) {
+                for (AmzTaskSubTarget task : taskMain.getTasks()) {
+                    AmzTaskMain newTask = new AmzTaskMain();
+                    // 复制基本信息
+                    BeanUtils.copyProperties(taskMain, newTask);
+                    
+                    // 设置任务编号 (添加序号后缀确保唯一)
+                    newTask.setTaskCode(taskCode + "_" + (rows + 1));
+                    
+                    // 设置SKU相关信息
+                    newTask.setStoreName(task.getStoreName());
+                    newTask.setSku(task.getMsku());
+                    newTask.setCurrentValue(task.getCurrentValue());
+                    
+                    // 计算目标值
+                    BigDecimal targetValue = calculateTargetValue(
+                        task.getCurrentValue(),
+                        taskMain.getChangePercentage(),
+                        taskMain.getTargetType()
+                    );
+                    newTask.setTargetValue(targetValue);
+                    
+                    // 设置状态和时间
+                    newTask.setStatus("running");
+                    newTask.setCreateTime(DateUtils.getNowDate());
+                    
+                    // 插入任务主表
+                    amzTaskMainMapper.insertAmzTaskMain(newTask);
+                    rows++;
+                    
+                    // 3. 创建任务指派记录
+                    if (task.getTargetId() != null) {
+                        // 根据targetId查询SKU负责人信息
+                        AmzDataAnalysisTurnoverMskulist mskulist = amzDataAnalysisTurnoverMskulistMapper.selectAmzDataAnalysisTurnoverMskulistById(task.getTargetId());
+                        
+                        // 创建各角色的指派记录
+                        createTaskAssignee(newTask, mskulist.getSalesPerson(), "operator", taskMain);
+                        createTaskAssignee(newTask, mskulist.getDeveloper(), "manager", taskMain);
+                        createTaskAssignee(newTask, mskulist.getReshaper(), "leader", taskMain);
+                    }
+                }
+            }
+            
+            return rows;
+        } catch (Exception e) {
+            throw new ServiceException("创建任务失败：" + e.getMessage());
+        }
+    }
+    
+    /**
+     * 生成任务编号
+     */
+    private synchronized String generateTaskCode() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+        return "TASK" + sdf.format(new Date());
+    }
+    
+    /**
+     * 计算目标值
+     */
+    private BigDecimal calculateTargetValue(BigDecimal currentValue, BigDecimal changePercentage, String targetType) {
+        if (currentValue == null || changePercentage == null) {
+            return currentValue;
+        }
+        
+        BigDecimal changeRate = changePercentage.divide(new BigDecimal("100"), 4, RoundingMode.HALF_UP);
+        if ("increase".equals(targetType)) {
+            return currentValue.multiply(BigDecimal.ONE.add(changeRate));
+        } else {
+            return currentValue.multiply(BigDecimal.ONE.subtract(changeRate));
+        }
     }
 
     /**
@@ -242,5 +333,44 @@ public class AmzTaskMainServiceImpl implements IAmzTaskMainService {
             BeanUtils.copyProperties(subTarget, vo);
             return vo;
         }).collect(Collectors.toList());
+    }
+
+    /**
+     * 根据用户名获取用户ID
+     */
+    private Long getUserIdByUsername(String username) {
+        if (username == null) {
+            return null;
+        }
+        SysUser user = userService.selectUserByUserName(username);
+        return user != null ? user.getUserId() : null;
+    }
+
+    /**
+     * 创建任务指派记录
+     */
+    private void createTaskAssignee(AmzTaskMain task, String username, String roleType, AmzTaskMain taskMain) {
+        if (username != null) {
+            Long userId = getUserIdByUsername(username);
+            if (userId != null) {
+                // 写入指派人信息
+                AmzTaskAssignee assignee = new AmzTaskAssignee();
+                assignee.setTaskId(task.getTaskId());
+                assignee.setStoreName(task.getStoreName());
+                assignee.setSku(task.getSku());
+                assignee.setUserId(userId);
+                assignee.setUserName(username);
+                assignee.setRoleType(roleType);
+                assignee.setIsLeader(0);
+                assignee.setAssignType("inherit");
+                assignee.setPermissionType("edit");
+                assignee.setStartTime(task.getStartTime());
+                assignee.setEndTime(task.getEndTime());
+                assignee.setStatus("active");
+                assignee.setCreateTime(DateUtils.getNowDate());
+                assignee.setCreateBy(taskMain.getCreateBy());
+                assigneeMapper.insertAmzTaskAssignee(assignee);
+            }
+        }
     }
 }

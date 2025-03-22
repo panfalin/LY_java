@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 亚马逊任务主表对象 amz_task_main
@@ -110,4 +111,14 @@ public class AmzTaskMain extends BaseEntity {
      */
     @Excel(name = "产品名称")
     private String productName;
+
+    /** 目标类型(increase/decrease) */
+    private String targetType;
+    
+    /** 变化百分比 */
+    private BigDecimal changePercentage;
+    
+    /** SKU任务列表 */
+    private List<AmzTaskSubTarget> tasks;
+    
 }
