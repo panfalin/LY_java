@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.kpi.mapper.AmzKpiHistoryMapper">
+
+    <resultMap type="AmzKpiHistory" id="AmzKpiHistoryResult">
+        <result property="historyId" column="history_id"/>
+        <result property="kpiId" column="kpi_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="userName" column="user_name"/>
+        <result property="assessMonth" column="assess_month"/>
+        <result property="totalScore" column="total_score"/>
+        <result property="status" column="status"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+    <sql id="selectAmzKpiHistoryVo">
+        select history_id,
+               kpi_id,
+               user_id,
+               user_name,
+               assess_month,
+               total_score,
+               status,
+               create_time
+        from amz_kpi_history
+    </sql>
+
+    <select id="selectAmzKpiHistoryList" parameterType="AmzKpiHistory" resultMap="AmzKpiHistoryResult">
+        <include refid="selectAmzKpiHistoryVo"/>
+        <where>
+            <if test="kpiId != null ">and kpi_id = #{kpiId}</if>
+            <if test="userId != null  and userId != ''">and user_id = #{userId}</if>
+            <if test="userName != null  and userName != ''">and user_name = #{userName}</if>
+            <if test="assessMonth != null  and assessMonth != ''">and assess_month = #{assessMonth}</if>
+            <if test="totalScore != null ">and total_score = #{totalScore}</if>
+            <if test="status != null  and status != ''">and status = #{status}</if>
+        </where>
+    </select>
+
+    <select id="selectAmzKpiHistoryByHistoryId" parameterType="Long" resultMap="AmzKpiHistoryResult">
+        <include refid="selectAmzKpiHistoryVo"/>
+        where history_id = #{historyId}
+    </select>
+
+    <insert id="insertAmzKpiHistory" parameterType="AmzKpiHistory" useGeneratedKeys="true" keyProperty="historyId">
+        insert into amz_kpi_history
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="kpiId != null">kpi_id,</if>
+            <if test="userId != null and userId != ''">user_id,</if>
+            <if test="userName != null and userName != ''">user_name,</if>
+            <if test="assessMonth != null and assessMonth != ''">assess_month,</if>
+            <if test="totalScore != null">total_score,</if>
+            <if test="status != null">status,</if>
+            <if test="createTime != null">create_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="kpiId != null">#{kpiId},</if>
+            <if test="userId != null and userId != ''">#{userId},</if>
+            <if test="userName != null and userName != ''">#{userName},</if>
+            <if test="assessMonth != null and assessMonth != ''">#{assessMonth},</if>
+            <if test="totalScore != null">#{totalScore},</if>
+            <if test="status != null">#{status},</if>
+            <if test="createTime != null">#{createTime},</if>
+        </trim>
+    </insert>
+
+    <update id="updateAmzKpiHistory" parameterType="AmzKpiHistory">
+        update amz_kpi_history
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="kpiId != null">kpi_id = #{kpiId},</if>
+            <if test="userId != null and userId != ''">user_id = #{userId},</if>
+            <if test="userName != null and userName != ''">user_name = #{userName},</if>
+            <if test="assessMonth != null and assessMonth != ''">assess_month = #{assessMonth},</if>
+            <if test="totalScore != null">total_score = #{totalScore},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+        </trim>
+        where history_id = #{historyId}
+    </update>
+
+    <delete id="deleteAmzKpiHistoryByHistoryId" parameterType="Long">
+        delete
+        from amz_kpi_history
+        where history_id = #{historyId}
+    </delete>
+
+    <delete id="deleteAmzKpiHistoryByHistoryIds" parameterType="String">
+        delete from amz_kpi_history where history_id in
+        <foreach item="historyId" collection="array" open="(" separator="," close=")">
+            #{historyId}
+        </foreach>
+    </delete>
+
+    <!-- 查询最近历史记录 -->
+    <select id="selectRecentHistory" parameterType="AmzKpiHistory" resultMap="AmzKpiHistoryResult">
+        select *
+        from amz_kpi_history
+        where kpi_id = #{kpiId}
+          and user_id = #{userId}
+        order by assess_month desc
+        limit 3
+    </select>
+</mapper>

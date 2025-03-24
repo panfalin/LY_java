@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.kpi.mapper.AmzKpiTargetMapper">
+
+    <resultMap type="AmzKpiTarget" id="AmzKpiTargetResult">
+        <result property="targetId" column="target_id"/>
+        <result property="kpiId" column="kpi_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="userName" column="user_name"/>
+        <result property="department" column="department"/>
+        <result property="category" column="category"/>
+        <result property="categoryIndex" column="category_index"/>
+        <result property="metricName" column="metric_name"/>
+        <result property="currValue" column="curr_value"/>
+        <result property="targetValue" column="target_value"/>
+        <result property="weight" column="weight"/>
+        <result property="score" column="score"/>
+        <result property="calcType" column="calc_type"/>
+        <result property="evaluationCriteria" column="evaluation_criteria"/>
+        <result property="remark" column="remark"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <sql id="selectAmzKpiTargetVo">
+        select target_id,
+               kpi_id,
+               user_id,
+               user_name,
+               department,
+               category,
+               category_index,
+               metric_name,
+               curr_value,
+               target_value,
+               weight,
+               score,
+               calc_type,
+               evaluation_criteria,
+               remark,
+               create_time,
+               update_time
+        from amz_kpi_target
+    </sql>
+
+    <select id="selectAmzKpiTargetList" parameterType="AmzKpiTarget" resultMap="AmzKpiTargetResult">
+        <include refid="selectAmzKpiTargetVo"/>
+        <where>
+            <if test="kpiId != null ">and kpi_id = #{kpiId}</if>
+            <if test="userId != null  and userId != ''">and user_id = #{userId}</if>
+            <if test="userName != null  and userName != ''">and user_name = #{userName}</if>
+            <if test="department != null  and department != ''">and department = #{department}</if>
+            <if test="category != null  and category != ''">and category = #{category}</if>
+            <if test="categoryIndex != null ">and category_index = #{categoryIndex}</if>
+            <if test="metricName != null  and metricName != ''">and metric_name = #{metricName}</if>
+            <if test="currValue != null ">and curr_value = #{currValue}</if>
+            <if test="targetValue != null ">and target_value = #{targetValue}</if>
+            <if test="weight != null ">and weight = #{weight}</if>
+            <if test="score != null ">and score = #{score}</if>
+            <if test="calcType != null  and calcType != ''">and calc_type = #{calcType}</if>
+            <if test="evaluationCriteria != null  and evaluationCriteria != ''">and evaluation_criteria =
+                #{evaluationCriteria}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectAmzKpiTargetByTargetId" parameterType="Long" resultMap="AmzKpiTargetResult">
+        <include refid="selectAmzKpiTargetVo"/>
+        where target_id = #{targetId}
+    </select>
+
+    <insert id="insertAmzKpiTarget" parameterType="AmzKpiTarget" useGeneratedKeys="true" keyProperty="targetId">
+        insert into amz_kpi_target
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="kpiId != null">kpi_id,</if>
+            <if test="userId != null and userId != ''">user_id,</if>
+            <if test="userName != null and userName != ''">user_name,</if>
+            <if test="department != null and department != ''">department,</if>
+            <if test="category != null and category != ''">category,</if>
+            <if test="categoryIndex != null">category_index,</if>
+            <if test="metricName != null and metricName != ''">metric_name,</if>
+            <if test="currValue != null">curr_value,</if>
+            <if test="targetValue != null">target_value,</if>
+            <if test="weight != null">weight,</if>
+            <if test="score != null">score,</if>
+            <if test="calcType != null">calc_type,</if>
+            <if test="evaluationCriteria != null">evaluation_criteria,</if>
+            <if test="remark != null">remark,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="kpiId != null">#{kpiId},</if>
+            <if test="userId != null and userId != ''">#{userId},</if>
+            <if test="userName != null and userName != ''">#{userName},</if>
+            <if test="department != null and department != ''">#{department},</if>
+            <if test="category != null and category != ''">#{category},</if>
+            <if test="categoryIndex != null">#{categoryIndex},</if>
+            <if test="metricName != null and metricName != ''">#{metricName},</if>
+            <if test="currValue != null">#{currValue},</if>
+            <if test="targetValue != null">#{targetValue},</if>
+            <if test="weight != null">#{weight},</if>
+            <if test="score != null">#{score},</if>
+            <if test="calcType != null">#{calcType},</if>
+            <if test="evaluationCriteria != null">#{evaluationCriteria},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+        </trim>
+    </insert>
+
+    <update id="updateAmzKpiTarget" parameterType="AmzKpiTarget">
+        update amz_kpi_target
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="kpiId != null">kpi_id = #{kpiId},</if>
+            <if test="userId != null and userId != ''">user_id = #{userId},</if>
+            <if test="userName != null and userName != ''">user_name = #{userName},</if>
+            <if test="department != null and department != ''">department = #{department},</if>
+            <if test="category != null and category != ''">category = #{category},</if>
+            <if test="categoryIndex != null">category_index = #{categoryIndex},</if>
+            <if test="metricName != null and metricName != ''">metric_name = #{metricName},</if>
+            <if test="currValue != null">curr_value = #{currValue},</if>
+            <if test="targetValue != null">target_value = #{targetValue},</if>
+            <if test="weight != null">weight = #{weight},</if>
+            <if test="score != null">score = #{score},</if>
+            <if test="calcType != null">calc_type = #{calcType},</if>
+            <if test="evaluationCriteria != null">evaluation_criteria = #{evaluationCriteria},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where target_id = #{targetId}
+    </update>
+
+    <delete id="deleteAmzKpiTargetByTargetId" parameterType="Long">
+        delete
+        from amz_kpi_target
+        where target_id = #{targetId}
+    </delete>
+
+    <delete id="deleteAmzKpiTargetByTargetIds" parameterType="String">
+        delete from amz_kpi_target where target_id in
+        <foreach item="targetId" collection="array" open="(" separator="," close=")">
+            #{targetId}
+        </foreach>
+    </delete>
+</mapper>
