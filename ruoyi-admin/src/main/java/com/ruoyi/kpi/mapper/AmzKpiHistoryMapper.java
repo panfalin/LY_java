@@ -68,4 +68,12 @@ public interface AmzKpiHistoryMapper {
      * @return 历史记录列表
      */
     public List<AmzKpiHistory> selectRecentHistory(AmzKpiHistory amzKpiHistory);
+
+    /**
+     * 查询当月历史记录
+     *
+     * @param amzKpiHistory 查询条件
+     * @return 历史记录
+     */
+    public AmzKpiHistory selectCurrentMonthHistory(AmzKpiHistory amzKpiHistory);
 }

@@ -25,4 +25,9 @@ public class KpiSettingDTO {
      * 考核项列表
      */
     private List<KpiTargetDTO> targets;
+    
+    /**
+     * 是否覆盖已有考核项
+     */
+    private Boolean overwrite;
 }

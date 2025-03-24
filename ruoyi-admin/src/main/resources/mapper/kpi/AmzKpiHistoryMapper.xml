@@ -37,6 +37,7 @@
             <if test="totalScore != null ">and total_score = #{totalScore}</if>
             <if test="status != null  and status != ''">and status = #{status}</if>
         </where>
+        order by assess_month desc, create_time desc
     </select>
 
     <select id="selectAmzKpiHistoryByHistoryId" parameterType="Long" resultMap="AmzKpiHistoryResult">
@@ -101,5 +102,13 @@
           and user_id = #{userId}
         order by assess_month desc
         limit 3
+    </select>
+
+    <!-- 查询当月历史记录 -->
+    <select id="selectCurrentMonthHistory" parameterType="AmzKpiHistory" resultMap="AmzKpiHistoryResult">
+        <include refid="selectAmzKpiHistoryVo"/>
+        where user_name = #{userName} 
+        and assess_month = #{assessMonth}
+        limit 1
     </select>
 </mapper>

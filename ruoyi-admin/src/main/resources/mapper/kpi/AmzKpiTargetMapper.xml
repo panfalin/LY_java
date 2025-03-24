@@ -140,6 +140,12 @@
         where target_id = #{targetId}
     </delete>
 
+    <delete id="deleteAmzKpiTargetByTargetKpiId" parameterType="Long">
+        delete
+        from amz_kpi_target
+        where kpi_id = #{kpiId}
+    </delete>
+
     <delete id="deleteAmzKpiTargetByTargetIds" parameterType="String">
         delete from amz_kpi_target where target_id in
         <foreach item="targetId" collection="array" open="(" separator="," close=")">

@@ -1,5 +1,6 @@
 package com.ruoyi.kpi.service.impl;
 
+import com.ruoyi.common.exception.ServiceException;
 import com.ruoyi.common.utils.DateUtils;
 import com.ruoyi.kpi.domain.AmzKpiHistory;
 import com.ruoyi.kpi.domain.AmzKpiMain;
@@ -134,25 +135,34 @@ public class AmzKpiMainServiceImpl implements IAmzKpiMainService {
     @Override
     @Transactional
     public int setKpiTargets(KpiSettingDTO kpiSetting) {
-        // 1. 新增或更新KPI主表
-        AmzKpiMain kpiMain = new AmzKpiMain();
-        kpiMain.setUserId(kpiSetting.getUserId());
-        kpiMain.setUserName(kpiSetting.getUserName());
-        kpiMain.setDepartment(kpiSetting.getDepartment());
-        kpiMain.setStatus("0"); // 初始状态
-
-        // 检查是否已存在
-        AmzKpiMain existKpi = amzKpiMainMapper.selectAmzKpiMainByKpiId(Long.valueOf(kpiSetting.getUserId()));
-        if (existKpi != null) {
-            kpiMain.setKpiId(existKpi.getKpiId());
-            amzKpiMainMapper.updateAmzKpiMain(kpiMain);
-        } else {
-            amzKpiMainMapper.insertAmzKpiMain(kpiMain);
+        // 1. 检查当月是否已设置考核项
+        String currentMonth = DateUtils.parseDateToStr("yyyy-MM", DateUtils.getNowDate());
+        AmzKpiHistory queryHistory = new AmzKpiHistory();
+        queryHistory.setUserId(kpiSetting.getUserId());
+        queryHistory.setAssessMonth(currentMonth);
+        List<AmzKpiHistory> existHistory = amzKpiHistoryMapper.selectAmzKpiHistoryList(queryHistory);
+        
+        // 如果当月已有考核记录，直接返回错误提示
+        if (!existHistory.isEmpty()) {
+            throw new ServiceException(String.format("%s当月考核项已设置，不能重复设置", kpiSetting.getUserName()));
         }
 
-        // 2. 删除原有考核项
+        // 2. 查找或创建KPI主表记录
+        AmzKpiMain kpiMain;
+        AmzKpiMain existKpi = amzKpiMainMapper.selectAmzKpiMainByUserId(kpiSetting.getUserId());
         if (existKpi != null) {
-            amzKpiTargetMapper.deleteAmzKpiTargetByTargetId(existKpi.getKpiId());
+            kpiMain = existKpi;
+            // 更新基本信息
+            kpiMain.setDepartment(kpiSetting.getDepartment());
+            amzKpiMainMapper.updateAmzKpiMain(kpiMain);
+        } else {
+            kpiMain = new AmzKpiMain();
+            kpiMain.setUserId(kpiSetting.getUserId());
+            kpiMain.setUserName(kpiSetting.getUserName());
+            kpiMain.setDepartment(kpiSetting.getDepartment());
+            kpiMain.setStatus("0"); // 初始状态
+            kpiMain.setCreateTime(DateUtils.getNowDate());
+            amzKpiMainMapper.insertAmzKpiMain(kpiMain);
         }
 
         // 3. 新增考核项
@@ -167,9 +177,20 @@ public class AmzKpiMainServiceImpl implements IAmzKpiMainService {
             target.setWeight(targetDTO.getWeight());
             target.setCalcType(targetDTO.getCalcType());
             target.setEvaluationCriteria(targetDTO.getEvaluationCriteria());
+            target.setCreateTime(DateUtils.getNowDate());
 
             amzKpiTargetMapper.insertAmzKpiTarget(target);
         }
+
+        // 4. 创建当月历史记录
+        AmzKpiHistory history = new AmzKpiHistory();
+        history.setKpiId(kpiMain.getKpiId());
+        history.setUserId(kpiSetting.getUserId());
+        history.setUserName(kpiSetting.getUserName());
+        history.setAssessMonth(currentMonth);
+        history.setStatus("0"); // 初始状态
+        history.setCreateTime(DateUtils.getNowDate());
+        amzKpiHistoryMapper.insertAmzKpiHistory(history);
 
         return 1;
     }

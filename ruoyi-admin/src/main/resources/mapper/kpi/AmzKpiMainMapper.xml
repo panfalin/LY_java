@@ -52,6 +52,15 @@
         <include refid="selectAmzKpiMainVo"/>
         where kpi_id = #{kpiId}
     </select>
+    <select id="selectAmzKpiMainByKpiUserName" resultType="com.ruoyi.kpi.domain.AmzKpiMain">
+        <include refid="selectAmzKpiMainVo"/>
+        where user_name = #{userName}
+    </select>
+
+    <select id="selectAmzKpiMainByUserId" parameterType="String" resultMap="AmzKpiMainResult">
+        <include refid="selectAmzKpiMainVo"/>
+        where user_id = #{userId}
+    </select>
 
     <insert id="insertAmzKpiMain" parameterType="AmzKpiMain" useGeneratedKeys="true" keyProperty="kpiId">
         insert into amz_kpi_main

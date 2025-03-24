@@ -22,6 +22,14 @@ public interface AmzKpiMainMapper {
     public AmzKpiMain selectAmzKpiMainByKpiId(Long kpiId);
 
     /**
+     * 查询KPI主表
+     *
+     * @param nickName KPI主表主键
+     * @return KPI主表
+     */
+    public AmzKpiMain selectAmzKpiMainByKpiUserName(String nickName);
+
+    /**
      * 查询KPI主表列表
      *
      * @param amzKpiMain KPI主表
@@ -60,4 +68,12 @@ public interface AmzKpiMainMapper {
      * @return 结果
      */
     public int deleteAmzKpiMainByKpiIds(Long[] kpiIds);
+
+    /**
+     * 根据用户ID查询KPI主表
+     * 
+     * @param userId 用户ID
+     * @return KPI主表
+     */
+    public AmzKpiMain selectAmzKpiMainByUserId(String userId);
 }
