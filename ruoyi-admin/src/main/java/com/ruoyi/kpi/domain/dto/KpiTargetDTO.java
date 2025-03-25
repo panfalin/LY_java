@@ -32,6 +32,11 @@ public class KpiTargetDTO {
     private String calcType;
 
     /**
+     * 指标解释
+     */
+    private String indicator;
+
+    /**
      * 评分原则
      */
     private String evaluationCriteria;

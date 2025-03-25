@@ -2,6 +2,8 @@ package com.ruoyi.kpi.domain;
 
 import com.ruoyi.common.annotation.Excel;
 import com.ruoyi.common.core.domain.BaseEntity;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -13,6 +15,8 @@ import java.math.BigDecimal;
  * @author panfalin
  * @date 2025-03-24
  */
+@Setter
+@Getter
 public class AmzKpiTarget extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
@@ -94,122 +98,16 @@ public class AmzKpiTarget extends BaseEntity {
     private String calcType;
 
     /**
+     * 指标解释
+     */
+    @Excel(name = "指标解释")
+    private String indicator;
+
+    /**
      * 评分标准
      */
     @Excel(name = "评分标准")
     private String evaluationCriteria;
-
-    public void setTargetId(Long targetId) {
-        this.targetId = targetId;
-    }
-
-    public Long getTargetId() {
-        return targetId;
-    }
-
-    public void setKpiId(Long kpiId) {
-        this.kpiId = kpiId;
-    }
-
-    public Long getKpiId() {
-        return kpiId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setDepartment(String department) {
-        this.department = department;
-    }
-
-    public String getDepartment() {
-        return department;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategoryIndex(Long categoryIndex) {
-        this.categoryIndex = categoryIndex;
-    }
-
-    public Long getCategoryIndex() {
-        return categoryIndex;
-    }
-
-    public void setMetricName(String metricName) {
-        this.metricName = metricName;
-    }
-
-    public String getMetricName() {
-        return metricName;
-    }
-
-    public void setCurrValue(BigDecimal currValue) {
-        this.currValue = currValue;
-    }
-
-    public BigDecimal getCurrValue() {
-        return currValue;
-    }
-
-    public void setTargetValue(BigDecimal targetValue) {
-        this.targetValue = targetValue;
-    }
-
-    public BigDecimal getTargetValue() {
-        return targetValue;
-    }
-
-    public void setWeight(BigDecimal weight) {
-        this.weight = weight;
-    }
-
-    public BigDecimal getWeight() {
-        return weight;
-    }
-
-    public void setScore(BigDecimal score) {
-        this.score = score;
-    }
-
-    public BigDecimal getScore() {
-        return score;
-    }
-
-    public void setCalcType(String calcType) {
-        this.calcType = calcType;
-    }
-
-    public String getCalcType() {
-        return calcType;
-    }
-
-    public void setEvaluationCriteria(String evaluationCriteria) {
-        this.evaluationCriteria = evaluationCriteria;
-    }
-
-    public String getEvaluationCriteria() {
-        return evaluationCriteria;
-    }
 
     @Override
     public String toString() {

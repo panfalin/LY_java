@@ -18,6 +18,7 @@
         <result property="weight" column="weight"/>
         <result property="score" column="score"/>
         <result property="calcType" column="calc_type"/>
+        <result property="indicator" column="indicator"/>
         <result property="evaluationCriteria" column="evaluation_criteria"/>
         <result property="remark" column="remark"/>
         <result property="createTime" column="create_time"/>
@@ -38,6 +39,7 @@
                weight,
                score,
                calc_type,
+               indicator,
                evaluation_criteria,
                remark,
                create_time,
@@ -86,6 +88,7 @@
             <if test="weight != null">weight,</if>
             <if test="score != null">score,</if>
             <if test="calcType != null">calc_type,</if>
+            <if test="indicator != null">indicator,</if>
             <if test="evaluationCriteria != null">evaluation_criteria,</if>
             <if test="remark != null">remark,</if>
             <if test="createTime != null">create_time,</if>
@@ -104,6 +107,7 @@
             <if test="weight != null">#{weight},</if>
             <if test="score != null">#{score},</if>
             <if test="calcType != null">#{calcType},</if>
+            <if test="indicator != null">#{indicator},</if>
             <if test="evaluationCriteria != null">#{evaluationCriteria},</if>
             <if test="remark != null">#{remark},</if>
             <if test="createTime != null">#{createTime},</if>
@@ -126,6 +130,7 @@
             <if test="weight != null">weight = #{weight},</if>
             <if test="score != null">score = #{score},</if>
             <if test="calcType != null">calc_type = #{calcType},</if>
+            <if test="indicator != null">indicator = #{indicator},</if>
             <if test="evaluationCriteria != null">evaluation_criteria = #{evaluationCriteria},</if>
             <if test="remark != null">remark = #{remark},</if>
             <if test="createTime != null">create_time = #{createTime},</if>

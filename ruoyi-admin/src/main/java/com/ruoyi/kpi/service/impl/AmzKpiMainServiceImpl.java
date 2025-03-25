@@ -182,6 +182,7 @@ public class AmzKpiMainServiceImpl implements IAmzKpiMainService {
             target.setWeight(targetDTO.getWeight());
             target.setCalcType(targetDTO.getCalcType());
             target.setEvaluationCriteria(targetDTO.getEvaluationCriteria());
+            target.setIndicator(targetDTO.getIndicator());
             target.setCreateTime(DateUtils.getNowDate());
 
             amzKpiTargetMapper.insertAmzKpiTarget(target);
