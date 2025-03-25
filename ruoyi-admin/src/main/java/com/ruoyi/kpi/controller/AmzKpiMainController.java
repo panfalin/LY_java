@@ -93,7 +93,6 @@ public class AmzKpiMainController extends BaseController {
     /**
      * 获取KPI列表（包含考核项和历史记录）
      */
-    @PreAuthorize("@ss.hasPermi('kpi:main:list')")
     @GetMapping("/listWithDetails")
     public AjaxResult listWithDetails(AmzKpiMain amzKpiMain) {
         return success(amzKpiMainService.selectKpiListWithDetails(amzKpiMain));
@@ -102,10 +101,15 @@ public class AmzKpiMainController extends BaseController {
     /**
      * 设置KPI考核项
      */
-    @PreAuthorize("@ss.hasPermi('kpi:main:add')")
     @Log(title = "KPI考核设置", businessType = BusinessType.INSERT)
     @PostMapping("/setTargets")
     public AjaxResult setKpiTargets(@RequestBody KpiSettingDTO kpiSetting) {
         return toAjax(amzKpiMainService.setKpiTargets(kpiSetting));
+    }
+
+    @Log(title = "KPI考核设置", businessType = BusinessType.INSERT)
+    @PostMapping("/editTargets")
+    public AjaxResult editKpiTargets(@RequestBody KpiSettingDTO kpiSetting) {
+        return toAjax(amzKpiMainService.editKpiTargets(kpiSetting));
     }
 }

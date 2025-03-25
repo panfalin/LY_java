@@ -75,4 +75,12 @@ public interface IAmzKpiMainService {
      * @return 结果
      */
     int setKpiTargets(KpiSettingDTO kpiSetting);
+
+    /**
+     * 修改员工 KPI考核项
+     *
+     * @param kpiSetting KPI设置信息
+     * @return 结果
+     */
+    int editKpiTargets(KpiSettingDTO kpiSetting);
 }

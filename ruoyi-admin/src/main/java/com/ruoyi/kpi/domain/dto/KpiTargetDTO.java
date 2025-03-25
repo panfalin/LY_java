@@ -12,6 +12,11 @@ public class KpiTargetDTO {
     private String name;
 
     /**
+     * 当前值
+     */
+    private BigDecimal currValue;
+
+    /**
      * 目标值
      */
     private BigDecimal targetValue;

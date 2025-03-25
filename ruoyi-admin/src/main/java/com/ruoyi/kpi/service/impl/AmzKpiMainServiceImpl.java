@@ -173,6 +173,7 @@ public class AmzKpiMainServiceImpl implements IAmzKpiMainService {
             target.setUserName(kpiSetting.getUserName());
             target.setDepartment(kpiSetting.getDepartment());
             target.setMetricName(targetDTO.getName());
+            target.setCurrValue(targetDTO.getCurrValue());
             target.setTargetValue(targetDTO.getTargetValue());
             target.setWeight(targetDTO.getWeight());
             target.setCalcType(targetDTO.getCalcType());
@@ -191,6 +192,44 @@ public class AmzKpiMainServiceImpl implements IAmzKpiMainService {
         history.setStatus("0"); // 初始状态
         history.setCreateTime(DateUtils.getNowDate());
         amzKpiHistoryMapper.insertAmzKpiHistory(history);
+
+        return 1;
+    }
+
+    @Override
+    @Transactional
+    public int editKpiTargets(KpiSettingDTO kpiSetting) {
+        // 1. 查找KPI主表记录
+        AmzKpiMain existKpi = amzKpiMainMapper.selectAmzKpiMainByUserId(kpiSetting.getUserId());
+        if (existKpi == null) {
+            throw new ServiceException("未找到该用户的KPI记录");
+        }
+
+        // 2. 删除原有考核项
+        amzKpiTargetMapper.deleteAmzKpiTargetByTargetKpiId(existKpi.getKpiId());
+
+        // 3. 新增考核项
+        for (KpiTargetDTO targetDTO : kpiSetting.getTargets()) {
+            AmzKpiTarget target = new AmzKpiTarget();
+            target.setKpiId(existKpi.getKpiId());
+            target.setUserId(kpiSetting.getUserId());
+            target.setUserName(kpiSetting.getUserName());
+            target.setDepartment(kpiSetting.getDepartment());
+            target.setMetricName(targetDTO.getName());
+            target.setCurrValue(targetDTO.getCurrValue());
+            target.setTargetValue(targetDTO.getTargetValue());
+            target.setWeight(targetDTO.getWeight());
+            target.setCalcType(targetDTO.getCalcType());
+            target.setEvaluationCriteria(targetDTO.getEvaluationCriteria());
+            target.setCreateTime(DateUtils.getNowDate());
+
+            amzKpiTargetMapper.insertAmzKpiTarget(target);
+        }
+
+        // 4. 更新KPI主表信息
+        existKpi.setDepartment(kpiSetting.getDepartment());
+        existKpi.setUpdateTime(DateUtils.getNowDate());
+        amzKpiMainMapper.updateAmzKpiMain(existKpi);
 
         return 1;
     }
