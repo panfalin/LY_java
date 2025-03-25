@@ -134,7 +134,27 @@ public class AmzKpiMainController extends BaseController {
         
         // 设置标题和表头
         String sheetName = "KPI考核表";
-        String title = "亚马逊美国站（标准件）运营部KPI考核表";
+
+        // 根据部门设置不同的标题
+        String department = kpi.getDepartment();
+        String title;
+        
+        // 根据部门设置不同的标题
+        if (department == null) {
+            title = "KPI绩效考核表";
+        } else if (department.contains("standard")) {
+            title = "开发部标准组-KPI绩效考核表";
+        } else if (department.contains("standardparts")) {
+            title = "亚马逊美国站（标准件）运营部KPI考核表";
+        } else if (department.contains("nonstandarddev")) {
+            title = "开发部非标组-KPI绩效考核表";
+        } else if (department.contains("nonstandard")) {
+            title = "业务部非标组-KPI绩效考核表";
+        } else if (department.contains("design")) {
+            title = "美工部（标准件）-KPI考核表";
+        } else {
+            title = department + "KPI绩效考核表";
+        }
         
         // 构建信息行数据
         Map<String, String> infoMap = new HashMap<>();
