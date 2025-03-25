@@ -120,7 +120,7 @@ public class AmzKpiMainController extends BaseController {
     }
 
     @PostMapping("/exportTargets")
-    public void exportTargets(HttpServletResponse response, AmzKpiMain amzKpiMain) {
+    public void exportTargets(HttpServletResponse response, @RequestBody AmzKpiMain amzKpiMain) {
         List<KpiExportDTO> list = amzKpiMainService.selectKpiExportList(amzKpiMain);
         
         // 获取用户信息
@@ -142,15 +142,15 @@ public class AmzKpiMainController extends BaseController {
         // 根据部门设置不同的标题
         if (department == null) {
             title = "KPI绩效考核表";
-        } else if (department.contains("standard")) {
+        } else if (("standard").equals(department)) {
             title = "开发部标准组-KPI绩效考核表";
-        } else if (department.contains("standardparts")) {
+        } else if (("standardparts").equals(department)) {
             title = "亚马逊美国站（标准件）运营部KPI考核表";
-        } else if (department.contains("nonstandarddev")) {
+        } else if (("nonstandarddev").equals(department)) {
             title = "开发部非标组-KPI绩效考核表";
-        } else if (department.contains("nonstandard")) {
+        } else if (("nonstandard").equals(department)) {
             title = "业务部非标组-KPI绩效考核表";
-        } else if (department.contains("design")) {
+        } else if (("design").equals(department)) {
             title = "美工部（标准件）-KPI考核表";
         } else {
             title = department + "KPI绩效考核表";
