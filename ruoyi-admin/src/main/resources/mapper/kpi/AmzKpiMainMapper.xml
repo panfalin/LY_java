@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.kpi.mapper.AmzKpiMainMapper">
+
+    <resultMap type="AmzKpiMain" id="AmzKpiMainResult">
+        <result property="kpiId" column="kpi_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="userName" column="user_name"/>
+        <result property="department" column="department"/>
+        <result property="totalScore" column="total_score"/>
+        <result property="status" column="status"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createByName" column="create_by_name"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateByName" column="update_by_name"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <sql id="selectAmzKpiMainVo">
+        select kpi_id,
+               user_id,
+               user_name,
+               department,
+               total_score,
+               status,
+               create_by,
+               create_by_name,
+               create_time,
+               update_by,
+               update_by_name,
+               update_time
+        from amz_kpi_main
+    </sql>
+
+    <select id="selectAmzKpiMainList" parameterType="AmzKpiMain" resultMap="AmzKpiMainResult">
+        <include refid="selectAmzKpiMainVo"/>
+        <where>
+            <if test="userId != null  and userId != ''">and user_id = #{userId}</if>
+            <if test="userName != null  and userName != ''">and user_name = #{userName}</if>
+            <if test="department != null  and department != ''">and department = #{department}</if>
+            <if test="totalScore != null ">and total_score = #{totalScore}</if>
+            <if test="status != null  and status != ''">and status = #{status}</if>
+            <if test="createByName != null  and createByName != ''">and create_by_name = #{createByName}</if>
+            <if test="updateByName != null  and updateByName != ''">and update_by_name = #{updateByName}</if>
+        </where>
+    </select>
+
+    <select id="selectAmzKpiMainByKpiId" parameterType="Long" resultMap="AmzKpiMainResult">
+        <include refid="selectAmzKpiMainVo"/>
+        where kpi_id = #{kpiId}
+    </select>
+    <select id="selectAmzKpiMainByKpiUserName" resultType="com.ruoyi.kpi.domain.AmzKpiMain">
+        <include refid="selectAmzKpiMainVo"/>
+        where user_name = #{userName}
+    </select>
+
+    <select id="selectAmzKpiMainByUserId" parameterType="String" resultMap="AmzKpiMainResult">
+        <include refid="selectAmzKpiMainVo"/>
+        where user_id = #{userId}
+    </select>
+
+    <insert id="insertAmzKpiMain" parameterType="AmzKpiMain" useGeneratedKeys="true" keyProperty="kpiId">
+        insert into amz_kpi_main
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null and userId != ''">user_id,</if>
+            <if test="userName != null and userName != ''">user_name,</if>
+            <if test="department != null and department != ''">department,</if>
+            <if test="totalScore != null">total_score,</if>
+            <if test="status != null">status,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createByName != null">create_by_name,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateByName != null">update_by_name,</if>
+            <if test="updateTime != null">update_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null and userId != ''">#{userId},</if>
+            <if test="userName != null and userName != ''">#{userName},</if>
+            <if test="department != null and department != ''">#{department},</if>
+            <if test="totalScore != null">#{totalScore},</if>
+            <if test="status != null">#{status},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createByName != null">#{createByName},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateByName != null">#{updateByName},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+        </trim>
+    </insert>
+
+    <update id="updateAmzKpiMain" parameterType="AmzKpiMain">
+        update amz_kpi_main
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null and userId != ''">user_id = #{userId},</if>
+            <if test="userName != null and userName != ''">user_name = #{userName},</if>
+            <if test="department != null and department != ''">department = #{department},</if>
+            <if test="totalScore != null">total_score = #{totalScore},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createByName != null">create_by_name = #{createByName},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateByName != null">update_by_name = #{updateByName},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where kpi_id = #{kpiId}
+    </update>
+
+    <delete id="deleteAmzKpiMainByKpiId" parameterType="Long">
+        delete
+        from amz_kpi_main
+        where kpi_id = #{kpiId}
+    </delete>
+
+    <delete id="deleteAmzKpiMainByKpiIds" parameterType="String">
+        delete from amz_kpi_main where kpi_id in
+        <foreach item="kpiId" collection="array" open="(" separator="," close=")">
+            #{kpiId}
+        </foreach>
+    </delete>
+</mapper>

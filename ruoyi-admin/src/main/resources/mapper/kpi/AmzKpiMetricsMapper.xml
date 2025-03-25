@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.kpi.mapper.AmzKpiMetricsMapper">
+    
+    <resultMap type="AmzKpiMetrics" id="AmzKpiMetricsResult">
+        <result property="metricId"    column="metric_id"    />
+        <result property="metricName"    column="metric_name"    />
+        <result property="metricCode"    column="metric_code"    />
+        <result property="indicator"    column="indicator"    />
+        <result property="evaluationCriteria"    column="evaluation_criteria"    />
+        <result property="department"    column="department"    />
+        <result property="defaultWeight"    column="default_weight"    />
+        <result property="calcType"    column="calc_type"    />
+        <result property="status"    column="status"    />
+        <result property="createTime"    column="create_time"    />
+    </resultMap>
+
+    <sql id="selectAmzKpiMetricsVo">
+        select metric_id, metric_name, metric_code, indicator, evaluation_criteria, department, default_weight, calc_type, status, create_time from amz_kpi_metrics
+    </sql>
+
+    <select id="selectAmzKpiMetricsList" parameterType="AmzKpiMetrics" resultMap="AmzKpiMetricsResult">
+        <include refid="selectAmzKpiMetricsVo"/>
+        <where>  
+            <if test="metricName != null  and metricName != ''"> and metric_name = #{metricName}</if>
+            <if test="metricCode != null  and metricCode != ''"> and metric_code = #{metricCode}</if>
+            <if test="indicator != null  and indicator != ''"> and indicator = #{indicator}</if>
+            <if test="evaluationCriteria != null  and evaluationCriteria != ''"> and evaluation_criteria = #{evaluationCriteria}</if>
+            <if test="department != null  and department != ''"> and department = #{department}</if>
+            <if test="defaultWeight != null "> and default_weight = #{defaultWeight}</if>
+            <if test="calcType != null  and calcType != ''"> and calc_type = #{calcType}</if>
+            <if test="status != null "> and status = #{status}</if>
+        </where>
+    </select>
+    
+    <select id="selectAmzKpiMetricsByMetricId" parameterType="Long" resultMap="AmzKpiMetricsResult">
+        <include refid="selectAmzKpiMetricsVo"/>
+        where metric_id = #{metricId}
+    </select>
+
+    <insert id="insertAmzKpiMetrics" parameterType="AmzKpiMetrics" useGeneratedKeys="true" keyProperty="metricId">
+        insert into amz_kpi_metrics
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="metricName != null and metricName != ''">metric_name,</if>
+            <if test="metricCode != null and metricCode != ''">metric_code,</if>
+            <if test="indicator != null">indicator,</if>
+            <if test="evaluationCriteria != null">evaluation_criteria,</if>
+            <if test="department != null and department != ''">department,</if>
+            <if test="defaultWeight != null">default_weight,</if>
+            <if test="calcType != null">calc_type,</if>
+            <if test="status != null">status,</if>
+            <if test="createTime != null">create_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="metricName != null and metricName != ''">#{metricName},</if>
+            <if test="metricCode != null and metricCode != ''">#{metricCode},</if>
+            <if test="indicator != null">#{indicator},</if>
+            <if test="evaluationCriteria != null">#{evaluationCriteria},</if>
+            <if test="department != null and department != ''">#{department},</if>
+            <if test="defaultWeight != null">#{defaultWeight},</if>
+            <if test="calcType != null">#{calcType},</if>
+            <if test="status != null">#{status},</if>
+            <if test="createTime != null">#{createTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateAmzKpiMetrics" parameterType="AmzKpiMetrics">
+        update amz_kpi_metrics
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="metricName != null and metricName != ''">metric_name = #{metricName},</if>
+            <if test="metricCode != null and metricCode != ''">metric_code = #{metricCode},</if>
+            <if test="indicator != null">indicator = #{indicator},</if>
+            <if test="evaluationCriteria != null">evaluation_criteria = #{evaluationCriteria},</if>
+            <if test="department != null and department != ''">department = #{department},</if>
+            <if test="defaultWeight != null">default_weight = #{defaultWeight},</if>
+            <if test="calcType != null">calc_type = #{calcType},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+        </trim>
+        where metric_id = #{metricId}
+    </update>
+
+    <delete id="deleteAmzKpiMetricsByMetricId" parameterType="Long">
+        delete from amz_kpi_metrics where metric_id = #{metricId}
+    </delete>
+
+    <delete id="deleteAmzKpiMetricsByMetricIds" parameterType="String">
+        delete from amz_kpi_metrics where metric_id in 
+        <foreach item="metricId" collection="array" open="(" separator="," close=")">
+            #{metricId}
+        </foreach>
+    </delete>
+</mapper>
