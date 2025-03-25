@@ -106,6 +106,16 @@ public class AliexpressPublishedData extends BaseEntity
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate conEndTime;
 
+    private String interval;
+
+    public String getInterval() {
+        return interval;
+    }
+
+    public void setInterval(String interval) {
+        this.interval = interval;
+    }
+
     public LocalDate getConBeginTime() {
         return conBeginTime;
     }

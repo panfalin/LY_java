@@ -52,39 +52,40 @@
     </resultMap>
 
 
-<!--    <sql id="selectAliexpressPublishedDataVo">-->
-<!--        SELECT d1.shop_name,-->
-<!--               d1.commodity_id,-->
-<!--               d1.statistical_time,-->
-<!--               d1.payment_conversion,-->
-<!--               d1.search_exposure,-->
-<!--               d1.successful_refund,-->
-<!--               d1.visitors,-->
-<!--               d1.goods_additional,-->
-<!--               d1.goods_collection,-->
-<!--               d1.search_clicks,-->
-<!--               d1.transaction_amount,-->
-<!--               d1.price_pay,-->
-<!--               d1.views,-->
-<!--               d1.main_orders_paid,-->
-<!--               d1.person_name,-->
-<!--               &#45;&#45; 计算当前天与前一天的差值（若前一天数据不存在，则默认为0）-->
-<!--               (d1.payment_conversion - IFNULL(d2.payment_conversion, 0)) AS payment_conversion_contrast,-->
-<!--               (d1.search_exposure - IFNULL(d2.search_exposure, 0))       AS search_exposure_contrast,-->
-<!--               (d1.successful_refund - IFNULL(d2.successful_refund, 0))   AS successful_refund_contrast,-->
-<!--               (d1.visitors - IFNULL(d2.visitors, 0))                     AS visitors_contrast,-->
-<!--               (d1.goods_additional - IFNULL(d2.goods_additional, 0))     AS goods_additional_contrast,-->
-<!--               (d1.goods_collection - IFNULL(d2.goods_collection, 0))     AS goods_collection_contrast,-->
-<!--               (d1.search_clicks - IFNULL(d2.search_clicks, 0))           AS search_clicks_contrast,-->
-<!--               (d1.transaction_amount - IFNULL(d2.transaction_amount, 0)) AS transaction_amount_contrast,-->
-<!--               (d1.price_pay - IFNULL(d2.price_pay, 0))                   AS price_pay_contrast,-->
-<!--               (d1.views - IFNULL(d2.views, 0))                           AS views_contrast,-->
-<!--               (d1.main_orders_paid - IFNULL(d2.main_orders_paid, 0))     AS main_orders_paid_contrast-->
-<!--        FROM aliexpress_published_data d1-->
-<!--        LEFT JOIN aliexpress_published_data d2-->
-<!--        ON d1.statistical_time = DATE_ADD(d2.statistical_time, INTERVAL 1 DAY) and-->
-<!--        d1.commodity_id = d2.commodity_id-->
-<!--    </sql>-->
+    <sql id="selectAliexpressPublishedDataVo">
+        SELECT d1.shop_name,
+               d1.commodity_id,
+               d1.statistical_time,
+               d1.payment_conversion,
+               d1.search_exposure,
+               d1.successful_refund,
+               d1.visitors,
+               d1.goods_additional,
+               d1.goods_collection,
+               d1.search_clicks,
+               d1.transaction_amount,
+               d1.price_pay,
+               d1.views,
+               d1.main_orders_paid,
+               d1.person_name,
+               -- 计算当前天与前一天的差值（若前一天数据不存在，则默认为0）
+               (d1.payment_conversion - IFNULL(d2.payment_conversion, 0)) AS payment_conversion_contrast,
+               (d1.search_exposure - IFNULL(d2.search_exposure, 0))       AS search_exposure_contrast,
+               (d1.successful_refund - IFNULL(d2.successful_refund, 0))   AS successful_refund_contrast,
+               (d1.visitors - IFNULL(d2.visitors, 0))                     AS visitors_contrast,
+               (d1.goods_additional - IFNULL(d2.goods_additional, 0))     AS goods_additional_contrast,
+               (d1.goods_collection - IFNULL(d2.goods_collection, 0))     AS goods_collection_contrast,
+               (d1.search_clicks - IFNULL(d2.search_clicks, 0))           AS search_clicks_contrast,
+               (d1.transaction_amount - IFNULL(d2.transaction_amount, 0)) AS transaction_amount_contrast,
+               (d1.price_pay - IFNULL(d2.price_pay, 0))                   AS price_pay_contrast,
+               (d1.views - IFNULL(d2.views, 0))                           AS views_contrast,
+               (d1.main_orders_paid - IFNULL(d2.main_orders_paid, 0))     AS main_orders_paid_contrast
+        FROM aliexpress_published_data d1
+        LEFT JOIN aliexpress_published_data d2
+        ON d1.statistical_time = DATE_ADD(d2.statistical_time, INTERVAL #{interval} DAY) and
+        d1.commodity_id = d2.commodity_id
+        LEFT JOIN stores_notescrow as sn ON sn.store_name=d1.shop_name
+    </sql>
 
 
     <sql id="selectAliexpressPublishedDataStatisticsVo">
@@ -108,65 +109,65 @@
         LEFT JOIN stores_notescrow as sn ON sn.store_name=d1.shop_name
     </sql>
 
-    <sql id="selectAliexpressPublishedDataVo">
-        WITH avg_data AS (
-            -- 计算给定时间范围（beginTime ~ endTime）内的平均值
-            SELECT
-                commodity_id,
-                AVG(payment_conversion) AS avg_payment_conversion,
-                AVG(search_exposure) AS avg_search_exposure,
-                AVG(successful_refund) AS avg_successful_refund,
-                AVG(visitors) AS avg_visitors,
-                AVG(goods_additional) AS avg_goods_additional,
-                AVG(goods_collection) AS avg_goods_collection,
-                AVG(search_clicks) AS avg_search_clicks,
-                AVG(transaction_amount) AS avg_transaction_amount,
-                AVG(price_pay) AS avg_price_pay,
-                AVG(views) AS avg_views,
-                AVG(main_orders_paid) AS avg_main_orders_paid
-            FROM aliexpress_published_data as d1
-            LEFT JOIN  stores_notescrow as sn ON sn.store_name=d1.shop_name
-            <where>
-            sn.type != "全托管"
-            <if test="conBeginTime != null and conEndTime != null">
-            AND d1.statistical_time BETWEEN #{conBeginTime} AND #{conEndTime}
-            </if>
-            </where>
-            GROUP BY commodity_id
-        )
-        SELECT
-            d1.shop_name,
-            d1.commodity_id,
-            d1.statistical_time,
-            d1.payment_conversion,
-            d1.search_exposure,
-            d1.successful_refund,
-            d1.visitors,
-            d1.goods_additional,
-            d1.goods_collection,
-            d1.search_clicks,
-            d1.transaction_amount,
-            d1.price_pay,
-            d1.views,
-            d1.main_orders_paid,
-            d1.person_name,
-            -- 计算当前数据与时间范围平均值的差值（如果时间范围无数据，则默认为0）
-            (d1.payment_conversion - IFNULL(avg_data.avg_payment_conversion, 0)) AS payment_conversion_contrast,
-            (d1.search_exposure - IFNULL(avg_data.avg_search_exposure, 0)) AS search_exposure_contrast,
-            (d1.successful_refund - IFNULL(avg_data.avg_successful_refund, 0)) AS successful_refund_contrast,
-            (d1.visitors - IFNULL(avg_data.avg_visitors, 0)) AS visitors_contrast,
-            (d1.goods_additional - IFNULL(avg_data.avg_goods_additional, 0)) AS goods_additional_contrast,
-            (d1.goods_collection - IFNULL(avg_data.avg_goods_collection, 0)) AS goods_collection_contrast,
-            (d1.search_clicks - IFNULL(avg_data.avg_search_clicks, 0)) AS search_clicks_contrast,
-            (d1.transaction_amount - IFNULL(avg_data.avg_transaction_amount, 0)) AS transaction_amount_contrast,
-            (d1.price_pay - IFNULL(avg_data.avg_price_pay, 0)) AS price_pay_contrast,
-            (d1.views - IFNULL(avg_data.avg_views, 0)) AS views_contrast,
-            (d1.main_orders_paid - IFNULL(avg_data.avg_main_orders_paid, 0)) AS main_orders_paid_contrast
-        FROM aliexpress_published_data d1
-        LEFT JOIN avg_data
-        ON d1.commodity_id = avg_data.commodity_id
-        LEFT JOIN stores_notescrow as sn ON sn.store_name=d1.shop_name
-    </sql>
+<!--    <sql id="selectAliexpressPublishedDataVo">-->
+<!--        WITH avg_data AS (-->
+<!--            &#45;&#45; 计算给定时间范围（beginTime ~ endTime）内的平均值-->
+<!--            SELECT-->
+<!--                commodity_id,-->
+<!--                AVG(payment_conversion) AS avg_payment_conversion,-->
+<!--                AVG(search_exposure) AS avg_search_exposure,-->
+<!--                AVG(successful_refund) AS avg_successful_refund,-->
+<!--                AVG(visitors) AS avg_visitors,-->
+<!--                AVG(goods_additional) AS avg_goods_additional,-->
+<!--                AVG(goods_collection) AS avg_goods_collection,-->
+<!--                AVG(search_clicks) AS avg_search_clicks,-->
+<!--                AVG(transaction_amount) AS avg_transaction_amount,-->
+<!--                AVG(price_pay) AS avg_price_pay,-->
+<!--                AVG(views) AS avg_views,-->
+<!--                AVG(main_orders_paid) AS avg_main_orders_paid-->
+<!--            FROM aliexpress_published_data as d1-->
+<!--            LEFT JOIN  stores_notescrow as sn ON sn.store_name=d1.shop_name-->
+<!--            <where>-->
+<!--            sn.type != "全托管"-->
+<!--            <if test="conBeginTime != null and conEndTime != null">-->
+<!--            AND d1.statistical_time BETWEEN #{conBeginTime} AND #{conEndTime}-->
+<!--            </if>-->
+<!--            </where>-->
+<!--            GROUP BY commodity_id-->
+<!--        )-->
+<!--        SELECT-->
+<!--            d1.shop_name,-->
+<!--            d1.commodity_id,-->
+<!--            d1.statistical_time,-->
+<!--            d1.payment_conversion,-->
+<!--            d1.search_exposure,-->
+<!--            d1.successful_refund,-->
+<!--            d1.visitors,-->
+<!--            d1.goods_additional,-->
+<!--            d1.goods_collection,-->
+<!--            d1.search_clicks,-->
+<!--            d1.transaction_amount,-->
+<!--            d1.price_pay,-->
+<!--            d1.views,-->
+<!--            d1.main_orders_paid,-->
+<!--            d1.person_name,-->
+<!--            &#45;&#45; 计算当前数据与时间范围平均值的差值（如果时间范围无数据，则默认为0）-->
+<!--            (d1.payment_conversion - IFNULL(avg_data.avg_payment_conversion, 0)) AS payment_conversion_contrast,-->
+<!--            (d1.search_exposure - IFNULL(avg_data.avg_search_exposure, 0)) AS search_exposure_contrast,-->
+<!--            (d1.successful_refund - IFNULL(avg_data.avg_successful_refund, 0)) AS successful_refund_contrast,-->
+<!--            (d1.visitors - IFNULL(avg_data.avg_visitors, 0)) AS visitors_contrast,-->
+<!--            (d1.goods_additional - IFNULL(avg_data.avg_goods_additional, 0)) AS goods_additional_contrast,-->
+<!--            (d1.goods_collection - IFNULL(avg_data.avg_goods_collection, 0)) AS goods_collection_contrast,-->
+<!--            (d1.search_clicks - IFNULL(avg_data.avg_search_clicks, 0)) AS search_clicks_contrast,-->
+<!--            (d1.transaction_amount - IFNULL(avg_data.avg_transaction_amount, 0)) AS transaction_amount_contrast,-->
+<!--            (d1.price_pay - IFNULL(avg_data.avg_price_pay, 0)) AS price_pay_contrast,-->
+<!--            (d1.views - IFNULL(avg_data.avg_views, 0)) AS views_contrast,-->
+<!--            (d1.main_orders_paid - IFNULL(avg_data.avg_main_orders_paid, 0)) AS main_orders_paid_contrast-->
+<!--        FROM aliexpress_published_data d1-->
+<!--        LEFT JOIN avg_data-->
+<!--        ON d1.commodity_id = avg_data.commodity_id-->
+<!--        LEFT JOIN stores_notescrow as sn ON sn.store_name=d1.shop_name-->
+<!--    </sql>-->
 
     <select id="selectAliexpressPublishedDataList" parameterType="AliexpressPublishedData"
             resultMap="AliexpressPublishedDataResult">
