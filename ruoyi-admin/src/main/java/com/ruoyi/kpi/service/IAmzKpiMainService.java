@@ -2,6 +2,7 @@ package com.ruoyi.kpi.service;
 
 import com.ruoyi.kpi.domain.AmzKpiMain;
 import com.ruoyi.kpi.domain.dto.KpiSettingDTO;
+import com.ruoyi.kpi.domain.dto.KpiExportDTO;
 
 import java.util.List;
 
@@ -83,4 +84,12 @@ public interface IAmzKpiMainService {
      * @return 结果
      */
     int editKpiTargets(KpiSettingDTO kpiSetting);
+
+    /**
+     * 查询KPI导出数据列表
+     *
+     * @param amzKpiMain 查询条件
+     * @return KPI导出数据列表
+     */
+    List<KpiExportDTO> selectKpiExportList(AmzKpiMain amzKpiMain);
 }

@@ -7,6 +7,7 @@ import com.ruoyi.kpi.domain.AmzKpiMain;
 import com.ruoyi.kpi.domain.AmzKpiTarget;
 import com.ruoyi.kpi.domain.dto.KpiSettingDTO;
 import com.ruoyi.kpi.domain.dto.KpiTargetDTO;
+import com.ruoyi.kpi.domain.dto.KpiExportDTO;
 import com.ruoyi.kpi.mapper.AmzKpiHistoryMapper;
 import com.ruoyi.kpi.mapper.AmzKpiMainMapper;
 import com.ruoyi.kpi.mapper.AmzKpiTargetMapper;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.ArrayList;
 
 /**
  * KPI主表Service业务层处理
@@ -232,5 +234,38 @@ public class AmzKpiMainServiceImpl implements IAmzKpiMainService {
         amzKpiMainMapper.updateAmzKpiMain(existKpi);
 
         return 1;
+    }
+
+    @Override
+    public List<KpiExportDTO> selectKpiExportList(AmzKpiMain amzKpiMain) {
+        List<KpiExportDTO> exportList = new ArrayList<>();
+        
+        // 1. 获取KPI主表数据
+        AmzKpiMain kpi = amzKpiMainMapper.selectAmzKpiMainByKpiId(amzKpiMain.getKpiId());
+        if (kpi == null) {
+            throw new ServiceException("未找到该用户的KPI记录");
+        }
+
+        // 2. 查询该用户的考核项
+        AmzKpiTarget queryTarget = new AmzKpiTarget();
+        queryTarget.setKpiId(kpi.getKpiId());
+        List<AmzKpiTarget> targets = amzKpiTargetMapper.selectAmzKpiTargetList(queryTarget);
+        
+        // 3. 构建导出数据
+        int index = 1;
+        for (AmzKpiTarget target : targets) {
+            KpiExportDTO exportDTO = new KpiExportDTO();
+            exportDTO.setIndex(index++);
+            exportDTO.setMetricName(target.getMetricName());
+            exportDTO.setEvaluationCriteria(target.getEvaluationCriteria());
+            exportDTO.setWeight(target.getWeight());
+            exportDTO.setDescription(target.getRemark());  // 指标说明使用remark字段
+            exportDTO.setCalcType(target.getCalcType());
+            exportDTO.setScore(target.getScore());
+            
+            exportList.add(exportDTO);
+        }
+
+        return exportList;
     }
 }

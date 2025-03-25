@@ -5,16 +5,22 @@ import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.common.core.page.TableDataInfo;
 import com.ruoyi.common.enums.BusinessType;
+import com.ruoyi.common.exception.ServiceException;
+import com.ruoyi.common.utils.DateUtils;
 import com.ruoyi.common.utils.poi.ExcelUtil;
 import com.ruoyi.kpi.domain.AmzKpiMain;
+import com.ruoyi.kpi.domain.dto.KpiExportDTO;
 import com.ruoyi.kpi.domain.dto.KpiSettingDTO;
 import com.ruoyi.kpi.service.IAmzKpiMainService;
+import com.ruoyi.kpi.util.KpiExcelUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 /**
  * KPI主表Controller
@@ -107,9 +113,37 @@ public class AmzKpiMainController extends BaseController {
         return toAjax(amzKpiMainService.setKpiTargets(kpiSetting));
     }
 
-    @Log(title = "KPI考核设置", businessType = BusinessType.INSERT)
+    @Log(title = "KPI考核设置", businessType = BusinessType.UPDATE)
     @PostMapping("/editTargets")
     public AjaxResult editKpiTargets(@RequestBody KpiSettingDTO kpiSetting) {
         return toAjax(amzKpiMainService.editKpiTargets(kpiSetting));
+    }
+
+    @PostMapping("/exportTargets")
+    public void exportTargets(HttpServletResponse response, AmzKpiMain amzKpiMain) {
+        List<KpiExportDTO> list = amzKpiMainService.selectKpiExportList(amzKpiMain);
+        
+        // 获取用户信息
+        AmzKpiMain kpi = amzKpiMainService.selectAmzKpiMainByKpiId(amzKpiMain.getKpiId());
+        if (kpi == null) {
+            throw new ServiceException("未找到该用户的KPI记录");
+        }
+        
+        // 当前月份
+        String currentMonth = DateUtils.parseDateToStr("yyyy年MM月", DateUtils.getNowDate());
+        
+        // 设置标题和表头
+        String sheetName = "KPI考核表";
+        String title = "亚马逊美国站（标准件）运营部KPI考核表";
+        
+        // 构建信息行数据
+        Map<String, String> infoMap = new HashMap<>();
+        infoMap.put("department", kpi.getDepartment() != null ? kpi.getDepartment() : "开发部");
+        infoMap.put("position", kpi.getUserName() != null ? kpi.getUserName() : "非标开发");
+        infoMap.put("assessMonth", currentMonth);
+        
+        // 使用自定义导出
+        KpiExcelUtil<KpiExportDTO> util = new KpiExcelUtil<KpiExportDTO>(KpiExportDTO.class);
+        util.exportExcel(response, list, sheetName, title, infoMap);
     }
 }
