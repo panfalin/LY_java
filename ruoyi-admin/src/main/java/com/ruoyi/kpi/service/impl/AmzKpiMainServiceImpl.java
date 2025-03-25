@@ -18,6 +18,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * KPI主表Service业务层处理
@@ -207,28 +209,62 @@ public class AmzKpiMainServiceImpl implements IAmzKpiMainService {
             throw new ServiceException("未找到该用户的KPI记录");
         }
 
-        // 2. 删除原有考核项
-        amzKpiTargetMapper.deleteAmzKpiTargetByTargetKpiId(existKpi.getKpiId());
+        // 2. 获取当前所有考核项
+        AmzKpiTarget queryTarget = new AmzKpiTarget();
+        queryTarget.setKpiId(existKpi.getKpiId());
+        List<AmzKpiTarget> currentTargets = amzKpiTargetMapper.selectAmzKpiTargetList(queryTarget);
 
-        // 3. 新增考核项
-        for (KpiTargetDTO targetDTO : kpiSetting.getTargets()) {
-            AmzKpiTarget target = new AmzKpiTarget();
-            target.setKpiId(existKpi.getKpiId());
-            target.setUserId(kpiSetting.getUserId());
-            target.setUserName(kpiSetting.getUserName());
-            target.setDepartment(kpiSetting.getDepartment());
-            target.setMetricName(targetDTO.getName());
-            target.setCurrValue(targetDTO.getCurrValue());
-            target.setTargetValue(targetDTO.getTargetValue());
-            target.setWeight(targetDTO.getWeight());
-            target.setCalcType(targetDTO.getCalcType());
-            target.setEvaluationCriteria(targetDTO.getEvaluationCriteria());
-            target.setCreateTime(DateUtils.getNowDate());
+        // 3. 创建一个Set存储新提交的考核项名称
+        Set<String> newTargetNames = kpiSetting.getTargets().stream()
+                .map(KpiTargetDTO::getName)
+                .collect(Collectors.toSet());
 
-            amzKpiTargetMapper.insertAmzKpiTarget(target);
+        // 4. 删除不在新列表中的考核项
+        for (AmzKpiTarget target : currentTargets) {
+            if (!newTargetNames.contains(target.getMetricName())) {
+                amzKpiTargetMapper.deleteAmzKpiTargetByTargetId(target.getTargetId());
+            }
         }
 
-        // 4. 更新KPI主表信息
+        // 5. 更新或新增考核项
+        for (KpiTargetDTO targetDTO : kpiSetting.getTargets()) {
+            // 查找是否存在该考核项
+            queryTarget = new AmzKpiTarget();
+            queryTarget.setKpiId(existKpi.getKpiId());
+            queryTarget.setMetricName(targetDTO.getName());
+            List<AmzKpiTarget> existingTargets = amzKpiTargetMapper.selectAmzKpiTargetList(queryTarget);
+            
+            if (!existingTargets.isEmpty()) {
+                // 如果存在，则更新
+                AmzKpiTarget target = existingTargets.get(0);
+                target.setCurrValue(targetDTO.getCurrValue());
+                target.setTargetValue(targetDTO.getTargetValue());
+                target.setWeight(targetDTO.getWeight());
+                target.setCalcType(targetDTO.getCalcType());
+                target.setEvaluationCriteria(targetDTO.getEvaluationCriteria());
+                target.setUpdateTime(DateUtils.getNowDate());
+                
+                amzKpiTargetMapper.updateAmzKpiTarget(target);
+            } else {
+                // 如果不存在，则新增
+                AmzKpiTarget target = new AmzKpiTarget();
+                target.setKpiId(existKpi.getKpiId());
+                target.setUserId(kpiSetting.getUserId());
+                target.setUserName(kpiSetting.getUserName());
+                target.setDepartment(kpiSetting.getDepartment());
+                target.setMetricName(targetDTO.getName());
+                target.setCurrValue(targetDTO.getCurrValue());
+                target.setTargetValue(targetDTO.getTargetValue());
+                target.setWeight(targetDTO.getWeight());
+                target.setCalcType(targetDTO.getCalcType());
+                target.setEvaluationCriteria(targetDTO.getEvaluationCriteria());
+                target.setCreateTime(DateUtils.getNowDate());
+                
+                amzKpiTargetMapper.insertAmzKpiTarget(target);
+            }
+        }
+
+        // 6. 更新KPI主表信息
         existKpi.setDepartment(kpiSetting.getDepartment());
         existKpi.setUpdateTime(DateUtils.getNowDate());
         amzKpiMainMapper.updateAmzKpiMain(existKpi);
