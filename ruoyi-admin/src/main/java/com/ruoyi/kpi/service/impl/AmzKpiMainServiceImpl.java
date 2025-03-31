@@ -146,8 +146,8 @@ public class AmzKpiMainServiceImpl implements IAmzKpiMainService {
         queryHistory.setAssessMonth(currentMonth);
         List<AmzKpiHistory> existHistory = amzKpiHistoryMapper.selectAmzKpiHistoryList(queryHistory);
         
-        // 如果当月已有考核记录，直接返回错误提示
-        if (!existHistory.isEmpty()) {
+        // 如果当月已有考核记录，直接返回错误提示，如果不是新增，则弹出错误
+        if (!existHistory.isEmpty() && !kpiSetting.getOverwrite()) {
             throw new ServiceException(String.format("%s当月考核项已设置，不能重复设置", kpiSetting.getUserName()));
         }
 
