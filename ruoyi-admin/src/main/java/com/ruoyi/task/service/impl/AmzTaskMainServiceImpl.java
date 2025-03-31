@@ -106,13 +106,7 @@ public class AmzTaskMainServiceImpl implements IAmzTaskMainService {
                     newTask.setSku(task.getMsku());
                     newTask.setCurrentValue(task.getCurrentValue());
                     
-                    // 计算目标值
-                    BigDecimal targetValue = calculateTargetValue(
-                        task.getCurrentValue(),
-                        taskMain.getChangePercentage(),
-                        taskMain.getTargetType()
-                    );
-                    newTask.setTargetValue(targetValue);
+                    newTask.setTargetValue(task.getTargetValue());
                     
                     // 设置状态和时间
                     newTask.setStatus("running");
