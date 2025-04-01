@@ -192,7 +192,7 @@
                     #{dev}
                 </foreach>
             </if>
-            <if test="storeName != null  and storeName != ''">and store_name like concat('%', #{storeName}, '%')</if>
+            <!-- <if test="storeName != null  and storeName != ''">and store_name like concat('%', #{storeName}, '%')</if> -->
             <if test="msku != null">and msku = #{msku}</if>
             <if test="categoryLevelOne != null">and category_level_1 = #{categoryLevelOne}</if>
             <if test="categoryLevelTwo != null">and category_level_2 = #{categoryLevelTwo}</if>
@@ -245,8 +245,8 @@
             <if test="remarks != null">and remarks = #{remarks}</if>
             <if test="reserved != null">and reserved = #{reserved}</if>
             <if test="plannedStockIn != null">and planned_stock_in = #{plannedStockIn}</if>
-            <if test="salesPerson != null  and salesPerson != ''">and sales_person = #{salesPerson}</if>
-            <if test="developer != null  and developer != ''">and developer = #{developer}</if>
+            <!-- <if test="salesPerson != null  and salesPerson != ''">and sales_person = #{salesPerson}</if> -->
+            <!-- <if test="developer != null  and developer != ''">and developer = #{developer}</if> -->
             <if test="listingDate != null">and listing_date = #{listingDate}</if>
             <if test="isDelete != null">and is_delete = #{isDelete}</if>
             <if test="createdAt != null">and created_at = #{createdAt}</if>
@@ -307,7 +307,7 @@
                     #{dev}
                 </foreach>
             </if>
-            <if test="storeName != null  and storeName != ''">and store_name like concat('%', #{storeName}, '%')</if>
+            <!-- <if test="storeName != null  and storeName != ''">and store_name like concat('%', #{storeName}, '%')</if> -->
             <if test="msku != null">and msku = #{msku}</if>
             <if test="categoryLevelOne != null">and category_level_1 = #{categoryLevelOne}</if>
             <if test="categoryLevelTwo != null">and category_level_2 = #{categoryLevelTwo}</if>
@@ -360,8 +360,8 @@
             <if test="remarks != null">and remarks = #{remarks}</if>
             <if test="reserved != null">and reserved = #{reserved}</if>
             <if test="plannedStockIn != null">and planned_stock_in = #{plannedStockIn}</if>
-            <if test="salesPerson != null  and salesPerson != ''">and sales_person = #{salesPerson}</if>
-            <if test="developer != null  and developer != ''">and developer = #{developer}</if>
+            <!-- <if test="salesPerson != null  and salesPerson != ''">and sales_person = #{salesPerson}</if> -->
+            <!-- <if test="developer != null  and developer != ''">and developer = #{developer}</if> -->
             <if test="listingDate != null">and listing_date = #{listingDate}</if>
             <if test="isDelete != null">and is_delete = #{isDelete}</if>
             <if test="createdAt != null">and created_at = #{createdAt}</if>
@@ -455,7 +455,7 @@
                     #{dev}
                 </foreach>
             </if>
-            <if test="storeName != null  and storeName != ''">and store_name like concat('%', #{storeName}, '%')</if>
+            <!-- <if test="storeName != null  and storeName != ''">and store_name like concat('%', #{storeName}, '%')</if> -->
             <if test="msku != null">and msku = #{msku}</if>
             <if test="categoryLevelOne != null">and category_level_1 = #{categoryLevelOne}</if>
             <if test="categoryLevelTwo != null">and category_level_2 = #{categoryLevelTwo}</if>
@@ -508,8 +508,8 @@
             <if test="remarks != null">and remarks = #{remarks}</if>
             <if test="reserved != null">and reserved = #{reserved}</if>
             <if test="plannedStockIn != null">and planned_stock_in = #{plannedStockIn}</if>
-            <if test="salesPerson != null  and salesPerson != ''">and sales_person = #{salesPerson}</if>
-            <if test="developer != null  and developer != ''">and developer = #{developer}</if>
+            <!-- <if test="salesPerson != null  and salesPerson != ''">and sales_person = #{salesPerson}</if> -->
+            <!-- <if test="developer != null  and developer != ''">and developer = #{developer}</if> -->
             <if test="listingDate != null">and listing_date = #{listingDate}</if>
             <if test="isDelete != null">and is_delete = #{isDelete}</if>
             <if test="createdAt != null">and created_at = #{createdAt}</if>
@@ -570,7 +570,7 @@
                     #{dev}
                 </foreach>
             </if>
-            <if test="storeName != null  and storeName != ''">and store_name like concat('%', #{storeName}, '%')</if>
+            <!-- <if test="storeName != null  and storeName != ''">and store_name like concat('%', #{storeName}, '%')</if> -->
             <if test="msku != null">and msku = #{msku}</if>
             <if test="categoryLevelOne != null">and category_level_1 = #{categoryLevelOne}</if>
             <if test="categoryLevelTwo != null">and category_level_2 = #{categoryLevelTwo}</if>
@@ -623,8 +623,8 @@
             <if test="remarks != null">and remarks = #{remarks}</if>
             <if test="reserved != null">and reserved = #{reserved}</if>
             <if test="plannedStockIn != null">and planned_stock_in = #{plannedStockIn}</if>
-            <if test="salesPerson != null  and salesPerson != ''">and sales_person = #{salesPerson}</if>
-            <if test="developer != null  and developer != ''">and developer = #{developer}</if>
+            <!-- <if test="salesPerson != null  and salesPerson != ''">and sales_person = #{salesPerson}</if> -->
+            <!-- <if test="developer != null  and developer != ''">and developer = #{developer}</if> -->
             <if test="listingDate != null">and listing_date = #{listingDate}</if>
             <if test="isDelete != null">and is_delete = #{isDelete}</if>
             <if test="createdAt != null">and created_at = #{createdAt}</if>
@@ -684,7 +684,7 @@
                     #{dev}
                 </foreach>
             </if>
-            <if test="storeName != null  and storeName != ''">and store_name like concat('%', #{storeName}, '%')</if>
+            <!-- <if test="storeName != null  and storeName != ''">and store_name like concat('%', #{storeName}, '%')</if> -->
             <if test="msku != null">and msku = #{msku}</if>
             <if test="categoryLevelOne != null">and category_level_1 = #{categoryLevelOne}</if>
             <if test="categoryLevelTwo != null">and category_level_2 = #{categoryLevelTwo}</if>
@@ -737,8 +737,8 @@
             <if test="remarks != null">and remarks = #{remarks}</if>
             <if test="reserved != null">and reserved = #{reserved}</if>
             <if test="plannedStockIn != null">and planned_stock_in = #{plannedStockIn}</if>
-            <if test="salesPerson != null  and salesPerson != ''">and sales_person = #{salesPerson}</if>
-            <if test="developer != null  and developer != ''">and developer = #{developer}</if>
+            <!-- <if test="salesPerson != null  and salesPerson != ''">and sales_person = #{salesPerson}</if> -->
+            <!-- <if test="developer != null  and developer != ''">and developer = #{developer}</if> -->
             <if test="listingDate != null">and listing_date = #{listingDate}</if>
             <if test="isDelete != null">and is_delete = #{isDelete}</if>
             <if test="createdAt != null">and created_at = #{createdAt}</if>
@@ -972,7 +972,7 @@
                     #{dev}
                 </foreach>
             </if>
-            <if test="storeName != null  and storeName != ''">and store_name like concat('%', #{storeName}, '%')</if>
+            <!-- <if test="storeName != null  and storeName != ''">and store_name like concat('%', #{storeName}, '%')</if> -->
             <if test="msku != null">and msku = #{msku}</if>
             <if test="categoryLevelOne != null">and category_level_1 = #{categoryLevelOne}</if>
             <if test="categoryLevelTwo != null">and category_level_2 = #{categoryLevelTwo}</if>
@@ -1025,8 +1025,8 @@
             <if test="remarks != null">and remarks = #{remarks}</if>
             <if test="reserved != null">and reserved = #{reserved}</if>
             <if test="plannedStockIn != null">and planned_stock_in = #{plannedStockIn}</if>
-            <if test="salesPerson != null  and salesPerson != ''">and sales_person = #{salesPerson}</if>
-            <if test="developer != null  and developer != ''">and developer = #{developer}</if>
+            <!-- <if test="salesPerson != null  and salesPerson != ''">and sales_person = #{salesPerson}</if> -->
+            <!-- <if test="developer != null  and developer != ''">and developer = #{developer}</if> -->
             <if test="listingDate != null">and listing_date = #{listingDate}</if>
             <if test="isDelete != null">and is_delete = #{isDelete}</if>
             <if test="createdAt != null">and created_at = #{createdAt}</if>

@@ -282,6 +282,31 @@ public class AmzDataAnalysisTurnoverMskulistServiceImpl implements IAmzDataAnaly
             amzDataAnalysisTurnoverMskulist.setTurnoverDaysMax(turnoverDaysMax);
         }
 
+        String storeNames = amzDataAnalysisTurnoverMskulist.getStoreName();
+        String salesPersons = amzDataAnalysisTurnoverMskulist.getSalesPerson();
+        String developers = amzDataAnalysisTurnoverMskulist.getDeveloper();
+
+        if (storeNames != null && !storeNames.isEmpty()) {
+            // 将逗号分隔的字符串拆分为数组
+            String[] storeNameArray = storeNames.split(",");
+            // 将拆分后的数组传递给查询方法
+            amzDataAnalysisTurnoverMskulist.setStoreNameArray(storeNameArray);
+        }
+
+        if (salesPersons != null && !salesPersons.isEmpty()) {
+            // 将逗号分隔的字符串拆分为数组
+            String[] salesArray = salesPersons.split(",");
+            // 将拆分后的数组传递给查询方法
+            amzDataAnalysisTurnoverMskulist.setSalesPersonArray(salesArray);
+        }
+
+        if (developers != null && !developers.isEmpty()) {
+            // 将逗号分隔的字符串拆分为数组
+            String[] developerArray = developers.split(",");
+            // 将拆分后的数组传递给查询方法
+            amzDataAnalysisTurnoverMskulist.setDeveloperArray(developerArray);
+        }
+
         // 获取基础汇总数据
         // 获取当前的数据
         AmzDataAnalysisTurnoverDTO summary = amzDataAnalysisTurnoverMskulistMapper
