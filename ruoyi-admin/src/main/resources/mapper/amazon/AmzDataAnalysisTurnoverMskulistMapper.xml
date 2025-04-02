@@ -1099,15 +1099,18 @@
         FROM amz_data_analysis_turnover_mskulist
         <where>
             DATE(created_at) = CURDATE()
-            <if test="storeName != null and storeName != ''">
-                store_name = #{storeName}
+            <if test="storeNameArray != null and storeNameArray.length > 0">
+                and store_name IN
+                <foreach collection="storeNameArray" item="name" open="(" close=")" separator=",">
+                    #{name}
+                </foreach>
             </if>
-            <if test="salesPerson != null and salesPerson != ''">
-                AND sales_person = #{salesPerson}
-            </if>
-            <if test="developer != null and developer != ''">
-                AND developer = #{developer}
-            </if>
+            <!-- <if test="salesPerson != null and salesPerson != ''"> -->
+            <!--     AND sales_person = #{salesPerson} -->
+            <!-- </if> -->
+            <!-- <if test="developer != null and developer != ''"> -->
+            <!--     AND developer = #{developer} -->
+            <!-- </if> -->
         </where>
         GROUP BY store_name
         ORDER BY salesAmount DESC

@@ -358,6 +358,13 @@ public class AmzDataAnalysisTurnoverMskulistServiceImpl implements IAmzDataAnaly
      */
     @Override
     public List<AmzStoreRankingDTO> getStoreRanking(AmzDataAnalysisTurnoverMskulist queryDTO) {
+        String storeNames = queryDTO.getStoreName();
+        if (storeNames != null && !storeNames.isEmpty()) {
+            // 将逗号分隔的字符串拆分为数组
+            String[] storeNameArray = storeNames.split(",");
+            // 将拆分后的数组传递给查询方法
+            queryDTO.setStoreNameArray(storeNameArray);
+        }
         return amzDataAnalysisTurnoverMskulistMapper.selectStoreRanking(queryDTO);
     }
 
